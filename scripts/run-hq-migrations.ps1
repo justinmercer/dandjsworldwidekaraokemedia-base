@@ -38,10 +38,10 @@ if ($LASTEXITCODE -ne 0) {
 
 if ($Seed) {
   $seedFiles = Get-ChildItem -LiteralPath $seedRoot -Filter '*.sql' -File | Sort-Object Name
-  foreach ($seed in $seedFiles) {
-    psql $DatabaseUrl -v ON_ERROR_STOP=1 -f $seed.FullName
+  foreach ($seedFile in $seedFiles) {
+    psql $DatabaseUrl -v ON_ERROR_STOP=1 -f $seedFile.FullName
     if ($LASTEXITCODE -ne 0) {
-      throw "HQ catalog seed failed: $($seed.Name)"
+      throw "HQ catalog seed failed: $($seedFile.Name)"
     }
   }
 }
