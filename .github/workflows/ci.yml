@@ -23,6 +23,12 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Install PostgreSQL client
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
       - name: Docker Compose syntax validation
         shell: pwsh
         run: ./scripts/validate-docker-compose.ps1
@@ -42,6 +48,10 @@ jobs:
       - name: Build and test
         shell: pwsh
         run: ./scripts/build-test.ps1
+
+      - name: Live PostgreSQL integration
+        shell: pwsh
+        run: ./scripts/check-hq-postgres-integration.ps1
 
       - name: Dependency vulnerability scan
         shell: pwsh

@@ -41,7 +41,7 @@ GET /healthz
 
 The response shape is `service-health.v1.schema.json`.
 
-Wave 1A implements `GET /healthz` and `GET /api/catalog/healthz` for the HQ catalog foundation.
+Wave 1A implements `GET /healthz` and `GET /api/catalog/healthz` for the HQ catalog foundation in both PostgreSQL and explicit demo modes.
 
 ## Readiness endpoint contract
 

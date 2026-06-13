@@ -1,8 +1,9 @@
 const { createCatalogServer } = require('./httpServer');
-const { loadDemoCatalog } = require('./catalogData');
+const { createCatalogRepositoryFromEnvironment } = require('./repositoryFactory');
 
 const port = Number.parseInt(process.env.PORT || '5100', 10);
-const server = createCatalogServer({ catalog: loadDemoCatalog() });
+const repository = createCatalogRepositoryFromEnvironment(process.env);
+const server = createCatalogServer({ repository });
 
 server.listen(port, () => {
   console.log(`D & J's HQ catalog API listening on http://localhost:${port}`);

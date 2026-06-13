@@ -15,6 +15,7 @@ foreach ($path in @($migrationPath, $seedSqlPath, $seedJsonPath)) {
 $migration = Get-Content -LiteralPath $migrationPath -Raw
 $requiredMigrationTokens = @(
   'CREATE SCHEMA IF NOT EXISTS hq_catalog',
+  'CREATE TABLE IF NOT EXISTS hq_catalog.schema_migrations',
   'CREATE TABLE IF NOT EXISTS hq_catalog.songs',
   'CREATE TABLE IF NOT EXISTS hq_catalog.authorized_media_files',
   'CREATE TABLE IF NOT EXISTS hq_catalog.alternate_version_relationships',
@@ -22,6 +23,8 @@ $requiredMigrationTokens = @(
   'idx_songs_normalized_artist_title',
   'idx_authorized_media_files_sha256_checksum',
   'idx_authorized_media_files_sync_manifest',
+  'pg_constraint',
+  'songs_preferred_authorized_media_id_fk',
   'storage_relative_key !~'
 )
 

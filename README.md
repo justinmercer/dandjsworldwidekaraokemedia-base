@@ -29,11 +29,22 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
 
 PowerShell 7 (`pwsh`) can run the same script if it is installed.
 
-Run the read-only HQ catalog API with safe demo metadata:
+Run the read-only HQ catalog API against PostgreSQL:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.ps1
+$env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
+Set-Location .\server\hq
+npm install
+npm start
+```
+
+Run the API with safe JSON demo metadata only when explicitly requested:
 
 ```powershell
 Set-Location .\server\hq
-npm test
+$env:DEMO_MODE = "true"
 npm start
 ```
 
@@ -58,6 +69,8 @@ Apply catalog migrations to a local Postgres database with:
 $env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 ```
+
+The migration and seed commands are repeat-safe. The CI integration check runs them twice against PostgreSQL.
 
 ## Safety boundaries
 

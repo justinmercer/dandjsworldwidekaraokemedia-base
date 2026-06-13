@@ -11,6 +11,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\lint-web.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-test.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-hq-catalog.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-docker-compose.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-hq-postgres-integration.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\dependency-audit.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-secrets.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-media-files.ps1
@@ -19,7 +20,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-env-secrets.
 
 ## CI
 
-`.github/workflows/ci.yml` runs the same foundation checks on pull requests and pushes. It also validates Docker Compose syntax when Docker is available.
+`.github/workflows/ci.yml` runs the same foundation checks on pull requests and pushes. It also validates Docker Compose syntax and runs a live PostgreSQL-backed HQ catalog integration check.
 
 ## Decisions still needed
 
@@ -29,4 +30,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-env-secrets.
 
 ## Wave 1A limitation
 
-The checks validate repository safety, shared contracts, the HQ catalog migration shape, and the read-only demo API. They do not validate playback, syncing, request screens, OBS, Replay, admin write routes, or external-source acquisition workflows.
+The checks validate repository safety, shared contracts, the HQ catalog migration shape, the read-only demo API, and the database-backed catalog API. They do not validate playback, syncing, request screens, OBS, Replay, admin write routes, or external-source acquisition workflows.

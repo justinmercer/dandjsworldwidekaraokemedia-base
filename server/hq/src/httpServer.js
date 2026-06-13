@@ -6,12 +6,12 @@ const { loadDemoCatalog } = require('./catalogData');
 function createCatalogServer(options = {}) {
   const repository = options.repository || new CatalogRepository(options.catalog || loadDemoCatalog());
 
-  return http.createServer((request, response) => {
+  return http.createServer(async (request, response) => {
     const correlationId = request.headers['x-correlation-id'] || randomUUID();
     response.setHeader('x-correlation-id', correlationId);
 
     try {
-      routeRequest(request, response, repository);
+      await routeRequest(request, response, repository);
     } catch (error) {
       writeJson(response, 500, {
         error: {
@@ -23,7 +23,7 @@ function createCatalogServer(options = {}) {
   });
 }
 
-function routeRequest(request, response, repository) {
+async function routeRequest(request, response, repository) {
   const requestUrl = new URL(request.url, 'http://localhost');
   const pathname = requestUrl.pathname.replace(/\/+$/, '') || '/';
 
@@ -38,17 +38,17 @@ function routeRequest(request, response, repository) {
   }
 
   if (request.method === 'GET' && (pathname === '/healthz' || pathname === '/api/catalog/healthz')) {
-    writeJson(response, 200, repository.getHealth());
+    writeJson(response, 200, await repository.getHealth());
     return;
   }
 
   if (request.method === 'GET' && pathname === '/api/catalog/search') {
-    writeJson(response, 200, repository.searchSongs(Object.fromEntries(requestUrl.searchParams.entries())));
+    writeJson(response, 200, await repository.searchSongs(Object.fromEntries(requestUrl.searchParams.entries())));
     return;
   }
 
   if (request.method === 'GET' && pathname === '/api/catalog/exact-match') {
-    const match = repository.findExactMatch(
+    const match = await repository.findExactMatch(
       requestUrl.searchParams.get('artistName') || requestUrl.searchParams.get('artist'),
       requestUrl.searchParams.get('title')
     );
@@ -59,7 +59,7 @@ function routeRequest(request, response, repository) {
 
   const songDetailMatch = pathname.match(/^\/api\/catalog\/songs\/([^/]+)$/);
   if (request.method === 'GET' && songDetailMatch) {
-    const song = repository.getSongDetail(decodeURIComponent(songDetailMatch[1]));
+    const song = await repository.getSongDetail(decodeURIComponent(songDetailMatch[1]));
     if (!song) {
       writeJson(response, 404, {
         error: {

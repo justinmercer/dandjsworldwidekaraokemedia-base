@@ -8,11 +8,14 @@ Wave 1A adds the first runnable catalog foundation in `server/hq`.
 
 The supported HQ catalog runtime for this batch is Node.js using the built-in `node:http` server. The project intentionally has no runtime package dependencies yet.
 
-## Run the catalog API
+## Run the catalog API with PostgreSQL
 
 ```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.ps1
+$env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 Set-Location .\server\hq
-npm test
+npm install
 npm start
 ```
 
@@ -26,6 +29,18 @@ Public read-only routes in this batch:
 - `GET /api/catalog/exact-match`
 - `GET /api/catalog/songs/{songId}`
 
+## Explicit demo mode
+
+The JSON catalog is only for development/demo mode:
+
+```powershell
+Set-Location .\server\hq
+$env:DEMO_MODE = "true"
+npm start
+```
+
+If `DATABASE_URL` is set, the API uses PostgreSQL. If neither `DATABASE_URL` nor explicit demo mode is set, startup fails instead of silently falling back to JSON fixtures.
+
 ## Database
 
 PostgreSQL migrations and demo seed SQL live under `server/hq/database`.
@@ -35,7 +50,7 @@ $env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhos
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 ```
 
-The runnable API uses `server/hq/data/demo-catalog.json` so it can be exercised without committing credentials or requiring a local database in every validation environment.
+The migration pipeline records applied versions in `hq_catalog.schema_migrations`, uses repeat-safe DDL guards, and keeps demo seed loading repeat-safe with `ON CONFLICT` handling.
 
 ## Batch boundary
 

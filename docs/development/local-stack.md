@@ -57,6 +57,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.
 
 The SQL seed data is synthetic and references opaque storage keys only. It does not include real karaoke files, credentials, private URLs, venue network details, or personal singer data.
 
+The migration command is safe to run more than once. CI verifies this by running migrations and seed loading twice before exercising the database-backed API.
+
 ## Summarize demo fixtures
 
 ```powershell
@@ -64,6 +66,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\load-demo-seed.ps1
 ```
 
 This writes a local artifact summary for demo fixtures and catalog seed metadata. It does not require a database.
+
+## Live integration check
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-hq-postgres-integration.ps1
+```
+
+This starts local PostgreSQL, waits for readiness, runs migrations with seed data twice, verifies catalog counts through the API health response, exercises search, exact-match, and song-detail endpoints, and stops the Compose service afterward.
 
 ## Limitation
 

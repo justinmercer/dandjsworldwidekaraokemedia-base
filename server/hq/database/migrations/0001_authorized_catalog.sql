@@ -2,6 +2,12 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE SCHEMA IF NOT EXISTS hq_catalog;
 
+CREATE TABLE IF NOT EXISTS hq_catalog.schema_migrations (
+  version text PRIMARY KEY,
+  description text NOT NULL,
+  applied_at timestamptz NOT NULL DEFAULT now()
+);
+
 DO $$
 BEGIN
   CREATE TYPE hq_catalog.provider_source_type AS ENUM (
@@ -134,11 +140,21 @@ CREATE TABLE IF NOT EXISTS hq_catalog.authorized_media_files (
   )
 );
 
-ALTER TABLE hq_catalog.songs
-  ADD CONSTRAINT songs_preferred_authorized_media_id_fk
-  FOREIGN KEY (preferred_authorized_media_id)
-  REFERENCES hq_catalog.authorized_media_files(authorized_media_id)
-  DEFERRABLE INITIALLY DEFERRED;
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_constraint
+    WHERE conname = 'songs_preferred_authorized_media_id_fk'
+      AND conrelid = 'hq_catalog.songs'::regclass
+  ) THEN
+    ALTER TABLE hq_catalog.songs
+      ADD CONSTRAINT songs_preferred_authorized_media_id_fk
+      FOREIGN KEY (preferred_authorized_media_id)
+      REFERENCES hq_catalog.authorized_media_files(authorized_media_id)
+      DEFERRABLE INITIALLY DEFERRED;
+  END IF;
+END $$;
 
 CREATE TABLE IF NOT EXISTS hq_catalog.alternate_version_relationships (
   relationship_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -181,3 +197,8 @@ CREATE INDEX IF NOT EXISTS idx_songs_sync_manifest
 CREATE INDEX IF NOT EXISTS idx_alternate_versions_sync_manifest
   ON hq_catalog.alternate_version_relationships(updated_at, song_id, alternate_song_id)
   WHERE retired_at IS NULL;
+
+INSERT INTO hq_catalog.schema_migrations (version, description)
+VALUES ('0001', 'authorized catalog foundation')
+ON CONFLICT (version) DO UPDATE
+SET description = EXCLUDED.description;

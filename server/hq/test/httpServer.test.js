@@ -1,9 +1,11 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
 const { createCatalogServer } = require('../src/httpServer');
+const { CatalogRepository } = require('../src/catalogRepository');
+const { loadDemoCatalog } = require('../src/catalogData');
 
 async function withServer(run) {
-  const server = createCatalogServer();
+  const server = createCatalogServer({ repository: new CatalogRepository(loadDemoCatalog()) });
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   const { port } = server.address();
 

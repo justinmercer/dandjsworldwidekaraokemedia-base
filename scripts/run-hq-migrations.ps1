@@ -31,6 +31,11 @@ foreach ($migration in $migrationFiles) {
   }
 }
 
+psql $DatabaseUrl -v ON_ERROR_STOP=1 -c "SELECT version FROM hq_catalog.schema_migrations WHERE version = '0001';" | Out-Host
+if ($LASTEXITCODE -ne 0) {
+  throw 'HQ catalog migration tracking verification failed.'
+}
+
 if ($Seed) {
   $seedFiles = Get-ChildItem -LiteralPath $seedRoot -Filter '*.sql' -File | Sort-Object Name
   foreach ($seed in $seedFiles) {

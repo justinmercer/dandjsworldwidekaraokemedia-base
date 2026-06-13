@@ -8,7 +8,7 @@ The supported framework for this batch is Node.js with the built-in `node:http` 
 
 ## Start local dependencies
 
-The catalog API can run against safe demo JSON without a database. To prepare a local Postgres database for migration checks, start the local stack:
+Start the local Postgres database:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.ps1
@@ -27,11 +27,25 @@ This applies `server/hq/database/migrations/0001_authorized_catalog.sql` and, wi
 
 ```powershell
 Set-Location .\server\hq
-npm test
+npm install
 npm start
 ```
 
 The default local port is `5100`.
+
+When `DATABASE_URL` is configured, the API uses PostgreSQL. The server does not silently fall back to JSON in PostgreSQL mode.
+
+## Explicit demo mode
+
+Use JSON demo metadata only when explicitly requested:
+
+```powershell
+Set-Location .\server\hq
+$env:DEMO_MODE = "true"
+npm start
+```
+
+If neither `DATABASE_URL` nor explicit demo mode is set, startup fails with a configuration error.
 
 ## Read-only routes
 
@@ -41,7 +55,7 @@ The default local port is `5100`.
 - `GET /api/catalog/exact-match?artist=Demo%20Artist&title=Demo%20Opening%20Song`
 - `GET /api/catalog/songs/song_demo_opening`
 
-Public responses intentionally omit `storageRelativeKey`, checksums, and filesystem paths. The API returns operator-authorized catalog metadata and opaque public identifiers only.
+Public responses intentionally omit `storageRelativeKey`, checksums, and filesystem paths in both PostgreSQL and demo modes. The API returns operator-authorized catalog metadata and opaque public identifiers only.
 
 ## Wave 1A limitation
 

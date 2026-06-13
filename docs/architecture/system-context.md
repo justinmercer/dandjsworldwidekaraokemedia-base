@@ -32,7 +32,7 @@ flowchart LR
 ## Boundary rules
 
 - The Windows host app remains the live-show authority and must continue operating if HQ, request web, OBS, Replay, or internet access is unavailable.
-- HQ server work now includes read-only catalog health, search, exact-match, and song-detail endpoints for safe demo metadata.
+- HQ server work now includes read-only catalog health, search, exact-match, and song-detail endpoints backed by PostgreSQL when `DATABASE_URL` is configured.
 - Request web is a future guest-facing surface. Wave 1A adds no mobile request screens or request submission behavior.
 - OBS and Replay remain optional event boundaries. Wave 1A adds no implementation for either integration.
 - Local development Postgres includes the initial authorized-catalog schema and synthetic seed SQL.

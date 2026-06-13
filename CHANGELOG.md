@@ -10,7 +10,7 @@ This project follows a review-first changelog style. Add entries under `Unreleas
 
 - Repository foundation documentation and placeholder structure for Wave 0A.
 - Wave 0B architecture documents, shared JSON Schema contracts, local development scaffolding, CI workflow, and safety guardrail scripts.
-- Wave 1A HQ catalog foundation with PostgreSQL migrations, safe demo catalog seed metadata, and read-only catalog endpoints.
+- Wave 1A HQ catalog foundation with PostgreSQL-backed read-only endpoints, repeat-safe migrations and seed data, safe demo catalog metadata, and live PostgreSQL CI coverage.
 
 ### Changed
 

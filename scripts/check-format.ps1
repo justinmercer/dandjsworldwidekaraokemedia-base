@@ -55,7 +55,15 @@ foreach ($file in $files) {
     try {
       Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json | Out-Null
     } catch {
-      $formatIssues.Add("{0} is not valid JSON: {1}" -f $relative, $_.Exception.Message)
+      $node = Get-Command node -ErrorAction SilentlyContinue
+      if ($node) {
+        node -e "const fs = require('node:fs'); JSON.parse(fs.readFileSync(process.argv[1], 'utf8'));" $file.FullName
+        if ($LASTEXITCODE -ne 0) {
+          $formatIssues.Add(('{0} is not valid JSON: {1}' -f $relative, $_.Exception.Message))
+        }
+      } else {
+        $formatIssues.Add(('{0} is not valid JSON: {1}' -f $relative, $_.Exception.Message))
+      }
     }
   }
 }
