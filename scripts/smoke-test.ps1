@@ -74,11 +74,30 @@ $requiredFiles = @(
   'scripts/check-media-files.ps1',
   'scripts/check-env-secrets.ps1',
   'scripts/validate-contracts.ps1',
+  'scripts/validate-hq-catalog.ps1',
+  'scripts/validate-docker-compose.ps1',
+  'scripts/check-hq-postgres-integration.ps1',
+  'scripts/run-hq-migrations.ps1',
   'scripts/start-local-stack.ps1',
   'scripts/stop-local-stack.ps1',
   'scripts/reset-local-stack.ps1',
   'scripts/inspect-local-stack.ps1',
-  'scripts/load-demo-seed.ps1'
+  'scripts/load-demo-seed.ps1',
+  'server/hq/package.json',
+  'server/hq/src/catalogData.js',
+  'server/hq/src/catalogRepository.js',
+  'server/hq/src/postgresCatalogRepository.js',
+  'server/hq/src/repositoryFactory.js',
+  'server/hq/src/httpServer.js',
+  'server/hq/src/index.js',
+  'server/hq/test/catalogRepository.test.js',
+  'server/hq/test/httpServer.test.js',
+  'server/hq/test/postgresIntegration.test.js',
+  'server/hq/test/repositoryFactory.test.js',
+  'server/hq/data/demo-catalog.json',
+  'server/hq/package-lock.json',
+  'server/hq/database/migrations/0001_authorized_catalog.sql',
+  'server/hq/database/seeds/0001_demo_catalog.sql'
 )
 
 foreach ($path in $requiredFiles) {
@@ -90,23 +109,25 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..60) {
+foreach ($taskNumber in 1..85) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 61..577) {
+foreach ($taskNumber in 86..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 0B."
+    throw "Backlog task $taskId should remain unchecked after Wave 1A."
   }
 }
 
 & (Join-Path $PSScriptRoot 'validate-contracts.ps1')
+& (Join-Path $PSScriptRoot 'validate-hq-catalog.ps1')
+& (Join-Path $PSScriptRoot 'validate-docker-compose.ps1')
 & (Join-Path $PSScriptRoot 'check-media-files.ps1')
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 0B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..060 checked, KARA-061..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 1A smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..085 checked, KARA-086..577 unchecked, and safety guardrails passed."

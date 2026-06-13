@@ -1,13 +1,13 @@
 # System Context
 
-Wave 0B defines the boundaries between future components without implementing the components themselves.
+Wave 1A keeps the component boundaries and adds the first read-only HQ catalog foundation.
 
 ```mermaid
 flowchart LR
   Host["Windows host app\nlocal show control"]:::core
   LocalStore["Local host storage\nfuture catalog and show cache"]:::local
-  HQ["HQ server\nfuture admin, catalog, sync, reports"]:::server
-  DB["Local development DB\nPostgres container only"]:::infra
+  HQ["HQ server\nread-only catalog foundation\nfuture admin, sync, reports"]:::server
+  DB["Local development DB\nPostgres catalog schema"]:::infra
   Cache["Local development cache\nRedis container only"]:::infra
   RequestWeb["Request web app\nfuture guest request UI"]:::edge
   OBS["OBS companion\nfuture optional output events"]:::optional
@@ -15,7 +15,7 @@ flowchart LR
 
   Host --> LocalStore
   Host -. "future authorized sync only" .-> HQ
-  HQ -. "future metadata persistence" .-> DB
+  HQ -. "catalog migrations" .-> DB
   HQ -. "future development cache" .-> Cache
   RequestWeb -. "future request APIs" .-> HQ
   Host -. "future display/status events" .-> OBS
@@ -32,11 +32,11 @@ flowchart LR
 ## Boundary rules
 
 - The Windows host app remains the live-show authority and must continue operating if HQ, request web, OBS, Replay, or internet access is unavailable.
-- HQ server work is future optional support for catalog metadata, synchronization, requests, reports, and administration. Wave 0B adds no HQ API implementation.
-- Request web is a future guest-facing surface. Wave 0B adds no mobile request screens or request submission behavior.
-- OBS and Replay remain optional event boundaries. Wave 0B defines contract shapes only.
-- Local development Postgres and Redis containers are placeholders for future server work and do not include production schemas or migrations.
+- HQ server work now includes read-only catalog health, search, exact-match, and song-detail endpoints backed by PostgreSQL when `DATABASE_URL` is configured.
+- Request web is a future guest-facing surface. Wave 1A adds no mobile request screens or request submission behavior.
+- OBS and Replay remain optional event boundaries. Wave 1A adds no implementation for either integration.
+- Local development Postgres includes the initial authorized-catalog schema and synthetic seed SQL.
 
-## Wave 0B limitation
+## Wave 1A limitation
 
-This document is architecture only. It does not start HQ catalog database work, production APIs, Windows host features, playback, synchronization, request screens, OBS integration, or Replay integration.
+This batch does not add admin write APIs, alternate-version listing endpoints, Windows host features, playback, synchronization jobs, request screens, OBS integration, Replay integration, external-source acquisition workflows, real karaoke media, credentials, private URLs, venue network details, or personal singer data.

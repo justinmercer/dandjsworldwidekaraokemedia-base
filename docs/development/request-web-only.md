@@ -1,6 +1,6 @@
 # Run Only the Request Web App
 
-There is no request web app implementation in Wave 0B. This page documents the intended developer workflow once the app exists.
+There is no request web app implementation in Wave 1A. This page documents the intended developer workflow once the app exists.
 
 ## Today
 
@@ -26,6 +26,6 @@ When the app is added, this page should include:
 - Demo mode setup.
 - How to run without a live HQ API by using safe mock data.
 
-## Wave 0B limitation
+## Wave 1A limitation
 
 No mobile request screens, QR flow, PWA shell, kiosk mode, request submission behavior, or production proxy is added here.

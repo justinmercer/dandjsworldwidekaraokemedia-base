@@ -1,0 +1,49 @@
+param(
+  [string]$DatabaseUrl = $env:DATABASE_URL,
+  [switch]$Seed
+)
+
+$ErrorActionPreference = 'Stop'
+
+$root = Split-Path -Parent $PSScriptRoot
+$hqRoot = Join-Path (Join-Path $root 'server') 'hq'
+$migrationRoot = Join-Path (Join-Path $hqRoot 'database') 'migrations'
+$seedRoot = Join-Path (Join-Path $hqRoot 'database') 'seeds'
+
+if (-not $DatabaseUrl) {
+  throw 'Set DATABASE_URL or pass -DatabaseUrl to run HQ catalog migrations.'
+}
+
+$psql = Get-Command psql -ErrorAction SilentlyContinue
+if (-not $psql) {
+  throw 'psql is required to run HQ catalog migrations.'
+}
+
+$migrationFiles = Get-ChildItem -LiteralPath $migrationRoot -Filter '*.sql' -File | Sort-Object Name
+if ($migrationFiles.Count -eq 0) {
+  throw 'No HQ catalog migration files were found.'
+}
+
+foreach ($migration in $migrationFiles) {
+  psql $DatabaseUrl -v ON_ERROR_STOP=1 -f $migration.FullName
+  if ($LASTEXITCODE -ne 0) {
+    throw "HQ catalog migration failed: $($migration.Name)"
+  }
+}
+
+psql $DatabaseUrl -v ON_ERROR_STOP=1 -c "SELECT version FROM hq_catalog.schema_migrations WHERE version = '0001';" | Out-Host
+if ($LASTEXITCODE -ne 0) {
+  throw 'HQ catalog migration tracking verification failed.'
+}
+
+if ($Seed) {
+  $seedFiles = Get-ChildItem -LiteralPath $seedRoot -Filter '*.sql' -File | Sort-Object Name
+  foreach ($seedFile in $seedFiles) {
+    psql $DatabaseUrl -v ON_ERROR_STOP=1 -f $seedFile.FullName
+    if ($LASTEXITCODE -ne 0) {
+      throw "HQ catalog seed failed: $($seedFile.Name)"
+    }
+  }
+}
+
+Write-Host 'HQ catalog migrations completed.'

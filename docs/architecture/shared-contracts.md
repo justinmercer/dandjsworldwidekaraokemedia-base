@@ -1,6 +1,6 @@
 # Shared Contracts
 
-Shared contracts describe the DTO shapes future components will exchange. Wave 0B stores them as JSON Schema files in `packages/contracts/schemas`.
+Shared contracts describe the DTO shapes components will exchange. They are stored as JSON Schema files in `packages/contracts/schemas`.
 
 ## Contract inventory
 
@@ -26,7 +26,7 @@ Supporting contracts define request context, health, and readiness response shap
 - Every schema uses JSON Schema draft 2020-12.
 - Identifiers are opaque strings. They must not expose filesystem paths, private URLs, access tokens, or personal data.
 - Media references are opaque authorized-media identifiers only. The repository must never include karaoke media files.
-- Contracts can include future-facing fields, but they must not imply an implemented runtime feature in Wave 0B.
+- Contracts can include future-facing fields, but they must not imply runtime features beyond the current Wave 1A catalog foundation.
 
 ## Validation
 
