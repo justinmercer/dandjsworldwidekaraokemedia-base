@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/host-device.schema.json",
+  "title": "Host Device",
+  "description": "Future host laptop identity and capability summary.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "hostDeviceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "appVersion": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "enum": ["windows"]
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["offline-show", "external-display", "local-playback", "request-moderation", "optional-obs-events", "optional-replay-events"]
+      },
+      "uniqueItems": true
+    },
+    "lastSeenAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["contractVersion", "hostDeviceId", "displayName", "platform", "capabilities", "lastSeenAt"]
+}

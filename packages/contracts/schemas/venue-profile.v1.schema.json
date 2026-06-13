@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/venue-profile.schema.json",
+  "title": "Venue Profile",
+  "description": "Venue metadata for future request and show configuration. Private network details are excluded.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "venueId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timeZone": {
+      "type": "string",
+      "default": "America/Toronto"
+    },
+    "requestPolicy": {
+      "type": "string",
+      "enum": ["requests-closed", "requests-open", "staff-only"]
+    },
+    "networkMode": {
+      "type": "string",
+      "enum": ["offline", "local-network", "online"]
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["contractVersion", "venueId", "displayName", "timeZone", "requestPolicy", "networkMode", "updatedAt"]
+}

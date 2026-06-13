@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/song-metadata.schema.json",
+  "title": "Song Metadata",
+  "description": "Canonical metadata for an authorized karaoke song record. Media files and raw storage paths are intentionally excluded.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "songId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artistName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "providerName": {
+      "type": "string"
+    },
+    "providerTrackId": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string",
+      "default": "en"
+    },
+    "durationSeconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "vocalGuide": {
+      "type": "string",
+      "enum": ["unknown", "none", "lead", "background", "full"]
+    },
+    "authorizationStatus": {
+      "type": "string",
+      "enum": ["authorized", "pending-review", "retired"]
+    },
+    "authorizedMediaId": {
+      "type": "string",
+      "description": "Opaque reference to authorized local media. Never a raw path or URL."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["contractVersion", "songId", "title", "artistName", "authorizationStatus", "updatedAt"]
+}

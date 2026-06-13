@@ -4,24 +4,24 @@ D & J's Karaoke Software is planned as a local-first karaoke operations system f
 
 ## Current status
 
-This repository is in Wave 0A foundation mode. The current contents are documentation, repository scaffolding, safe environment examples, and placeholders only. There are no server APIs, Windows host features, playback features, synchronization jobs, mobile request flows, OBS companion code, or Replay integration code in this batch.
+This repository is in Wave 0B foundation mode. The current contents are documentation, repository scaffolding, shared contract schemas, local-development guardrails, safe environment examples, and placeholders only. There are no production server APIs, Windows host features, playback features, synchronization jobs, mobile request screens, OBS companion implementation, or Replay integration code in this batch.
 
 ## Repository layout
 
 | Path | Purpose |
 | --- | --- |
-| `host/` | Future Windows host application. README-only placeholder in Wave 0A. |
-| `server/` | Future HQ server services. README-only placeholder in Wave 0A. |
-| `apps/request-web/` | Future request web app. README-only placeholder in Wave 0A. |
-| `packages/contracts/` | Future shared contracts and DTOs. README-only placeholder in Wave 0A. |
+| `host/` | Future Windows host application. README-only placeholder plus command-line build guidance in Wave 0B. |
+| `server/` | Future HQ server services. README-only placeholder plus local-development notes in Wave 0B. |
+| `apps/request-web/` | Future request web app. README-only placeholder plus development proxy configuration in Wave 0B. |
+| `packages/contracts/` | Shared JSON Schema contracts for future cross-component DTOs. |
 | `docs/` | Product, architecture, process, operator, and release documentation. |
-| `infra/` | Future infrastructure and local development setup notes. |
-| `tests/` | Future cross-service and smoke-test fixtures. |
+| `infra/` | Local development Compose, proxy, and observability placeholder configuration. |
+| `tests/` | Cross-service smoke-test fixtures and safe demo seed data. |
 | `scripts/` | Repo-wide helper scripts. |
 
 ## Development startup
 
-There is no runnable product stack yet. For now, validate the foundation files with:
+There is no runnable product application stack yet. For now, validate the foundation files with:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
@@ -29,7 +29,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
 
 PowerShell 7 (`pwsh`) can run the same script if it is installed.
 
-Future startup commands will be added as host, server, request-web, and shared-contract projects land in later backlog tasks.
+The optional local development stack contains only database and cache containers for later HQ API work:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\inspect-local-stack.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\stop-local-stack.ps1
+```
+
+Future startup commands will be added as host, server, request-web, and implementation projects land in later backlog tasks.
 
 ## Safety boundaries
 

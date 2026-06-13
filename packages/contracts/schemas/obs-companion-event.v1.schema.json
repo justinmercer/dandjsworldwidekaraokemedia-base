@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/obs-companion-event.schema.json",
+  "title": "OBS Companion Event",
+  "description": "Future optional OBS companion event contract. OBS failures must not interrupt the host.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "eventId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "showSessionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "eventType": {
+      "type": "string",
+      "enum": ["status", "scene-update", "lower-third", "clear"]
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["contractVersion", "eventId", "showSessionId", "eventType", "occurredAt", "payload"]
+}

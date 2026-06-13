@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/synchronization-manifest.schema.json",
+  "title": "Synchronization Manifest",
+  "description": "Future manifest summary for host verification of authorized metadata changes.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "manifestId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceService": {
+      "type": "string",
+      "enum": ["hq-server"]
+    },
+    "targetHostDeviceId": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "entityType": {
+            "type": "string",
+            "enum": ["song", "singer", "venue", "request", "host-device"]
+          },
+          "entityId": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{64}$"
+          },
+          "operation": {
+            "type": "string",
+            "enum": ["upsert", "retire", "delete"]
+          }
+        },
+        "required": ["entityType", "entityId", "revision", "sha256", "operation"]
+      }
+    }
+  },
+  "required": ["contractVersion", "manifestId", "generatedAt", "sourceService", "items"]
+}

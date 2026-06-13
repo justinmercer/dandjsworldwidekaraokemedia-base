@@ -49,41 +49,41 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 02. Architecture, contracts, and development environment
 
-- [ ] `KARA-026` — Create an architecture diagram for host app, HQ server, request app, OBS companion, and Replay boundary.
-- [ ] `KARA-027` — Define service boundaries and which component owns each type of data.
-- [ ] `KARA-028` — Define the canonical song metadata contract.
-- [ ] `KARA-029` — Define the singer-profile contract.
-- [ ] `KARA-030` — Define the venue-profile contract.
-- [ ] `KARA-031` — Define the show-session contract.
-- [ ] `KARA-032` — Define the request contract.
-- [ ] `KARA-033` — Define the host-device contract.
-- [ ] `KARA-034` — Define the synchronization-manifest contract.
-- [ ] `KARA-035` — Define the playback-state contract.
-- [ ] `KARA-036` — Define the external-display state contract.
-- [ ] `KARA-037` — Define the OBS companion event contract.
-- [ ] `KARA-038` — Define the future Replay event contract.
-- [ ] `KARA-039` — Create JSON schema or strongly typed DTO definitions for shared contracts.
-- [ ] `KARA-040` — Version all shared API contracts.
-- [ ] `KARA-041` — Create a compatibility policy for older host-app versions.
-- [ ] `KARA-042` — Add local Docker Compose services for the HQ API database and cache.
-- [ ] `KARA-043` — Add a development-only seed-data loader.
-- [ ] `KARA-044` — Add a local development proxy configuration for the request web app.
-- [ ] `KARA-045` — Add consistent structured logging configuration across services.
-- [ ] `KARA-046` — Add correlation IDs for server API requests.
-- [ ] `KARA-047` — Add health endpoints for each server-side service.
-- [ ] `KARA-048` — Add readiness endpoints for each server-side service.
-- [ ] `KARA-049` — Add developer scripts to start, stop, reset, and inspect the local stack.
-- [ ] `KARA-050` — Document how to run the stack on a clean workstation.
-- [ ] `KARA-051` — Document how to run only the HQ API for backend development.
-- [ ] `KARA-052` — Document how to run only the request web app for UI development.
-- [ ] `KARA-053` — Document how to build the Windows host from the command line.
-- [ ] `KARA-054` — Add automated formatting checks for .NET and web code.
-- [ ] `KARA-055` — Add automated lint checks for web code.
-- [ ] `KARA-056` — Add basic CI that runs builds and tests on every pull request.
-- [ ] `KARA-057` — Add dependency vulnerability scanning in CI.
-- [ ] `KARA-058` — Add a secret-scanning check in CI.
-- [ ] `KARA-059` — Add a check that prevents committing common media-file extensions.
-- [ ] `KARA-060` — Add a check that prevents committing `.env` files with secrets.
+- [x] `KARA-026` — Create an architecture diagram for host app, HQ server, request app, OBS companion, and Replay boundary.
+- [x] `KARA-027` — Define service boundaries and which component owns each type of data.
+- [x] `KARA-028` — Define the canonical song metadata contract.
+- [x] `KARA-029` — Define the singer-profile contract.
+- [x] `KARA-030` — Define the venue-profile contract.
+- [x] `KARA-031` — Define the show-session contract.
+- [x] `KARA-032` — Define the request contract.
+- [x] `KARA-033` — Define the host-device contract.
+- [x] `KARA-034` — Define the synchronization-manifest contract.
+- [x] `KARA-035` — Define the playback-state contract.
+- [x] `KARA-036` — Define the external-display state contract.
+- [x] `KARA-037` — Define the OBS companion event contract.
+- [x] `KARA-038` — Define the future Replay event contract.
+- [x] `KARA-039` — Create JSON schema or strongly typed DTO definitions for shared contracts.
+- [x] `KARA-040` — Version all shared API contracts.
+- [x] `KARA-041` — Create a compatibility policy for older host-app versions.
+- [x] `KARA-042` — Add local Docker Compose services for the HQ API database and cache.
+- [x] `KARA-043` — Add a development-only seed-data loader.
+- [x] `KARA-044` — Add a local development proxy configuration for the request web app.
+- [x] `KARA-045` — Add consistent structured logging configuration across services.
+- [x] `KARA-046` — Add correlation IDs for server API requests.
+- [x] `KARA-047` — Add health endpoints for each server-side service.
+- [x] `KARA-048` — Add readiness endpoints for each server-side service.
+- [x] `KARA-049` — Add developer scripts to start, stop, reset, and inspect the local stack.
+- [x] `KARA-050` — Document how to run the stack on a clean workstation.
+- [x] `KARA-051` — Document how to run only the HQ API for backend development.
+- [x] `KARA-052` — Document how to run only the request web app for UI development.
+- [x] `KARA-053` — Document how to build the Windows host from the command line.
+- [x] `KARA-054` — Add automated formatting checks for .NET and web code.
+- [x] `KARA-055` — Add automated lint checks for web code.
+- [x] `KARA-056` — Add basic CI that runs builds and tests on every pull request.
+- [x] `KARA-057` — Add dependency vulnerability scanning in CI.
+- [x] `KARA-058` — Add a secret-scanning check in CI.
+- [x] `KARA-059` — Add a check that prevents committing common media-file extensions.
+- [x] `KARA-060` — Add a check that prevents committing `.env` files with secrets.
 
 ## 03. HQ server database and authorized catalog service
 

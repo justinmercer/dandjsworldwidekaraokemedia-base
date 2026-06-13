@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/singer-profile.schema.json",
+  "title": "Singer Profile",
+  "description": "Minimal singer profile shape for future request and rotation workflows.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "singerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profileState": {
+      "type": "string",
+      "enum": ["active", "paused", "retired"]
+    },
+    "privacyNotes": {
+      "type": "string",
+      "description": "Operator-facing notes about consent or retention. Do not include sensitive personal details in source control fixtures."
+    },
+    "preferredKeyOffset": {
+      "type": "integer",
+      "minimum": -12,
+      "maximum": 12
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["contractVersion", "singerId", "displayName", "profileState", "updatedAt"]
+}

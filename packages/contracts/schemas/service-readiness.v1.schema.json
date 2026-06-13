@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/service-readiness.schema.json",
+  "title": "Service Readiness",
+  "description": "Future readiness response contract for server-side services.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "serviceName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "checkedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ready", "not-ready", "unknown"]
+          }
+        },
+        "required": ["name", "status"]
+      }
+    },
+    "correlationId": {
+      "type": "string"
+    }
+  },
+  "required": ["contractVersion", "serviceName", "ready", "checkedAt", "dependencies"]
+}

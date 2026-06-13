@@ -1,0 +1,32 @@
+[
+  {
+    "contractVersion": "v1",
+    "songId": "song_demo_opening",
+    "title": "Demo Opening Song",
+    "artistName": "Demo Artist",
+    "providerName": "Demo Provider",
+    "providerTrackId": "DEMO-001",
+    "language": "en",
+    "durationSeconds": 180,
+    "vocalGuide": "unknown",
+    "authorizationStatus": "authorized",
+    "authorizedMediaId": "authorized_media_demo_001",
+    "tags": ["demo", "safe-placeholder"],
+    "updatedAt": "2026-06-13T00:00:00Z"
+  },
+  {
+    "contractVersion": "v1",
+    "songId": "song_demo_finale",
+    "title": "Demo Finale Song",
+    "artistName": "Sample Performer",
+    "providerName": "Demo Provider",
+    "providerTrackId": "DEMO-002",
+    "language": "en",
+    "durationSeconds": 210,
+    "vocalGuide": "unknown",
+    "authorizationStatus": "pending-review",
+    "authorizedMediaId": "authorized_media_demo_002",
+    "tags": ["demo", "review-placeholder"],
+    "updatedAt": "2026-06-13T00:00:00Z"
+  }
+]

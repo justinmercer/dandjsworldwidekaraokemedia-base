@@ -9,10 +9,11 @@ This project follows a review-first changelog style. Add entries under `Unreleas
 ### Added
 
 - Repository foundation documentation and placeholder structure for Wave 0A.
+- Wave 0B architecture documents, shared JSON Schema contracts, local development scaffolding, CI workflow, and safety guardrail scripts.
 
 ### Changed
 
-- Nothing yet.
+- Repository status and developer documentation now describe Wave 0B foundation checks.
 
 ### Fixed
 
