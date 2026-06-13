@@ -21,31 +21,31 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 01. Product definition and repository foundation
 
-- [ ] `KARA-001` — Write a product brief for D & J’s Karaoke Software covering host app, request web app, HQ server, Replay integration, and future licensing.
-- [ ] `KARA-002` — Define the Phase 1 pilot-show scope and explicitly list deferred features.
-- [ ] `KARA-003` — Define supported Windows versions for the first host-app release.
-- [ ] `KARA-004` — Define the minimum supported laptop hardware profile for a live show.
-- [ ] `KARA-005` — Define the minimum recommended server hardware and storage profile.
-- [ ] `KARA-006` — Document the local-first rule: internet or cloud failure must never stop an active show.
-- [ ] `KARA-007` — Document the safety rule: only operator-owned or authorized media may be stored and synchronized.
-- [ ] `KARA-008` — Document the YouTube rule: official search and embedded previews only; no arbitrary ripping workflow.
-- [ ] `KARA-009` — Create the monorepo folder layout for host, server, request web app, shared contracts, docs, infrastructure, and tests.
-- [ ] `KARA-010` — Create the root README with development startup instructions.
-- [ ] `KARA-011` — Create a root `.gitignore` covering .NET, Node, IDE, secrets, logs, media, database dumps, and build output.
-- [ ] `KARA-012` — Create `.env.example` files for each service with safe placeholder values.
-- [ ] `KARA-013` — Add root editor formatting rules and line-ending settings.
-- [ ] `KARA-014` — Add a root license placeholder and document the decision still required.
-- [ ] `KARA-015` — Create architecture decision record templates.
-- [ ] `KARA-016` — Create a changelog template.
-- [ ] `KARA-017` — Create a contribution guide for future collaborators.
-- [ ] `KARA-018` — Create a security-reporting document.
-- [ ] `KARA-019` — Create a release checklist template.
-- [ ] `KARA-020` — Create a repo-wide smoke-test script placeholder.
-- [ ] `KARA-021` — Define issue-label conventions for Codex work, bugs, QA, deferred work, and release blockers.
-- [ ] `KARA-022` — Add a CODEOWNERS placeholder for future collaborators.
-- [ ] `KARA-023` — Create a docs index linking every architecture and operator document.
-- [ ] `KARA-024` — Document naming conventions for services, endpoints, database tables, and UI routes.
-- [ ] `KARA-025` — Document feature-flag conventions for unfinished or optional modules.
+- [x] `KARA-001` — Write a product brief for D & J’s Karaoke Software covering host app, request web app, HQ server, Replay integration, and future licensing.
+- [x] `KARA-002` — Define the Phase 1 pilot-show scope and explicitly list deferred features.
+- [x] `KARA-003` — Define supported Windows versions for the first host-app release.
+- [x] `KARA-004` — Define the minimum supported laptop hardware profile for a live show.
+- [x] `KARA-005` — Define the minimum recommended server hardware and storage profile.
+- [x] `KARA-006` — Document the local-first rule: internet or cloud failure must never stop an active show.
+- [x] `KARA-007` — Document the safety rule: only operator-owned or authorized media may be stored and synchronized.
+- [x] `KARA-008` — Document the YouTube rule: official search and embedded previews only; no arbitrary ripping workflow.
+- [x] `KARA-009` — Create the monorepo folder layout for host, server, request web app, shared contracts, docs, infrastructure, and tests.
+- [x] `KARA-010` — Create the root README with development startup instructions.
+- [x] `KARA-011` — Create a root `.gitignore` covering .NET, Node, IDE, secrets, logs, media, database dumps, and build output.
+- [x] `KARA-012` — Create `.env.example` files for each service with safe placeholder values.
+- [x] `KARA-013` — Add root editor formatting rules and line-ending settings.
+- [x] `KARA-014` — Add a root license placeholder and document the decision still required.
+- [x] `KARA-015` — Create architecture decision record templates.
+- [x] `KARA-016` — Create a changelog template.
+- [x] `KARA-017` — Create a contribution guide for future collaborators.
+- [x] `KARA-018` — Create a security-reporting document.
+- [x] `KARA-019` — Create a release checklist template.
+- [x] `KARA-020` — Create a repo-wide smoke-test script placeholder.
+- [x] `KARA-021` — Define issue-label conventions for Codex work, bugs, QA, deferred work, and release blockers.
+- [x] `KARA-022` — Add a CODEOWNERS placeholder for future collaborators.
+- [x] `KARA-023` — Create a docs index linking every architecture and operator document.
+- [x] `KARA-024` — Document naming conventions for services, endpoints, database tables, and UI routes.
+- [x] `KARA-025` — Document feature-flag conventions for unfinished or optional modules.
 
 ## 02. Architecture, contracts, and development environment
 
