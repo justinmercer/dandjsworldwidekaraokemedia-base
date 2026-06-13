@@ -50,8 +50,8 @@ try {
   }
 
   $env:DATABASE_URL = $databaseUrl
-  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
-  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
+  & (Join-Path $PSScriptRoot 'run-hq-migrations.ps1') -Seed
+  & (Join-Path $PSScriptRoot 'run-hq-migrations.ps1') -Seed
 
   Push-Location $hqRoot
   try {
