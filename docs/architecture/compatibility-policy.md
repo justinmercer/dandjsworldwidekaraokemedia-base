@@ -17,6 +17,6 @@ Older host-app versions must be protected because they may be used during live s
 3. Provide operator-facing upgrade guidance before removing support.
 4. Do not force upgrades during an active show.
 
-## Wave 0B limitation
+## Wave 1A limitation
 
 This policy is planning only. There is no host binary, update mechanism, production API, synchronization job, OBS adapter, or Replay adapter in this wave.

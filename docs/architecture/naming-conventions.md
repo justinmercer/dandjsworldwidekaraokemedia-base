@@ -5,7 +5,7 @@ Use consistent names so later services, contracts, routes, and tables are easy t
 ## Services and packages
 
 - `host-app`: Windows host application.
-- `hq-server`: server-side administration, catalog, sync, and request APIs when they are implemented.
+- `hq-server`: server-side catalog APIs now, with administration, sync, and request APIs reserved for later tasks.
 - `request-web`: guest request web app.
 - `shared-contracts`: cross-component DTOs, schemas, and versioned API contracts.
 - `infra`: local development and deployment support files.
@@ -14,7 +14,7 @@ Use kebab case for service and package folder names.
 
 ## Endpoints
 
-When server APIs begin in a later wave:
+Server APIs should use:
 
 - Use `/api/v1` as the first versioned API prefix.
 - Use lowercase kebab-case route segments.
@@ -38,6 +38,6 @@ When UI work begins in later waves:
 - Keep staff/admin routes separate from guest request routes.
 - Do not put secrets, access tokens, private URLs, or personal singer details in route paths.
 
-## Placeholder policy
+## Batch policy
 
-Wave 0A names are documentation commitments only. They do not create server APIs, host features, playback, syncing, mobile requests, OBS integration, or Replay integration.
+Wave 1A creates read-only HQ catalog endpoints only. It does not create host features, playback, syncing, mobile requests, OBS integration, Replay integration, admin write APIs, or external-source acquisition workflows.

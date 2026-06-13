@@ -1,10 +1,10 @@
 # Observability and Service Health
 
-Wave 0B defines observability expectations for future services without implementing service runtimes.
+Wave 1A keeps the observability expectations and implements lightweight correlation IDs for the read-only HQ catalog API.
 
 ## Structured logging
 
-Future services should emit JSON-line logs with at least:
+Services should emit JSON-line logs with at least:
 
 - `timestamp`
 - `level`
@@ -20,7 +20,7 @@ The local placeholder configuration is `infra/local/observability/logging.config
 
 ## Correlation IDs
 
-Future server API requests should use the `x-correlation-id` header.
+Server API requests should use the `x-correlation-id` header.
 
 - If a caller sends a valid correlation ID, pass it through.
 - If absent, generate one at the server boundary.
@@ -31,7 +31,7 @@ The shared request context shape is `api-request-context.v1.schema.json`.
 
 ## Health endpoint contract
 
-Future server-side services should expose a lightweight health response for liveness.
+Server-side services should expose a lightweight health response for liveness.
 
 Recommended route shape:
 
@@ -40,6 +40,8 @@ GET /healthz
 ```
 
 The response shape is `service-health.v1.schema.json`.
+
+Wave 1A implements `GET /healthz` and `GET /api/catalog/healthz` for the HQ catalog foundation.
 
 ## Readiness endpoint contract
 
@@ -55,6 +57,6 @@ Readiness may check dependencies such as database and cache connectivity. A serv
 
 The response shape is `service-readiness.v1.schema.json`.
 
-## Wave 0B limitation
+## Wave 1A limitation
 
-This document and the schemas define contracts only. No server process, route handler, middleware, database check, or production monitoring integration is added in this wave.
+The HQ catalog API returns correlation IDs and a lightweight health response. It does not add production monitoring, readiness dependency checks, request screens, playback, syncing, OBS, or Replay behavior.

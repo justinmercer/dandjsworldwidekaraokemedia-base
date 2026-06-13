@@ -1,6 +1,6 @@
 # Local Development Stack
 
-Wave 0B includes a local-only Docker Compose stack for future HQ API development.
+Wave 1A uses the local-only Docker Compose stack for HQ catalog database migration checks.
 
 ## Prerequisites
 
@@ -40,13 +40,30 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\reset-local-stack.
 
 Reset removes the local Compose volumes. Do not use it for real data.
 
-## Seed demo data
+## Validate Compose syntax
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-docker-compose.ps1
+```
+
+The validation script runs `docker compose config --quiet` when Docker is available and skips with a clear message when Docker is not installed.
+
+## Apply catalog migrations and seed data
+
+```powershell
+$env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
+```
+
+The SQL seed data is synthetic and references opaque storage keys only. It does not include real karaoke files, credentials, private URLs, venue network details, or personal singer data.
+
+## Summarize demo fixtures
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\load-demo-seed.ps1
 ```
 
-The seed loader validates safe demo fixtures and writes a local artifact summary. It does not insert database rows because Wave 1 database schemas are intentionally not part of Wave 0B.
+This writes a local artifact summary for demo fixtures and catalog seed metadata. It does not require a database.
 
 ## Limitation
 

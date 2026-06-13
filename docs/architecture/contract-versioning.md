@@ -27,6 +27,6 @@ A breaking shared contract change requires:
 - A migration or compatibility plan for older host versions.
 - CI updates that validate both supported versions during the overlap window.
 
-## Wave 0B limitation
+## Wave 1A limitation
 
-Versioning is defined for schemas only. No generated clients, production APIs, or database migrations are added in this wave.
+Versioning is defined for schemas only. No generated clients or production compatibility negotiation are added in this wave.

@@ -1,6 +1,6 @@
 # Windows Host Command-Line Build
 
-There is no Windows host project in Wave 0B. This page records the expected command-line build shape for the later host wave.
+There is no Windows host project in Wave 1A. This page records the expected command-line build shape for the later host wave.
 
 ## Today
 
@@ -24,6 +24,6 @@ When the host app is added, this page should include:
 - Demo mode launch command.
 - Offline validation steps before show use.
 
-## Wave 0B limitation
+## Wave 1A limitation
 
 No host UI, playback engine, local database, external display window, synchronization client, OBS companion, or Replay export is added here.

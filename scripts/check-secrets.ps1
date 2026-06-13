@@ -11,7 +11,7 @@ function Test-IsTextFile {
   param([System.IO.FileInfo]$File)
 
   $textExtensions = @(
-    '.md', '.txt', '.json', '.yml', '.yaml', '.ps1', '.psm1', '.psd1',
+    '.md', '.txt', '.json', '.yml', '.yaml', '.sql', '.ps1', '.psm1', '.psd1',
     '.cs', '.csproj', '.sln', '.props', '.targets', '.js', '.jsx',
     '.ts', '.tsx', '.mjs', '.cjs', '.css', '.html', '.editorconfig',
     '.gitattributes', '.gitignore', '.example'

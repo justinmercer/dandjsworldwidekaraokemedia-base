@@ -1,0 +1,179 @@
+{
+  "mode": "development-only",
+  "catalogVersion": "wave-1a-demo",
+  "generatedFrom": "operator-authorized synthetic metadata only",
+  "providers": [
+    {
+      "providerId": "provider_demo_operator",
+      "providerCode": "operator_demo",
+      "displayName": "Demo Operator Library",
+      "sourceType": "operator_authorized",
+      "authorizationNotes": "Synthetic provider record for local development only.",
+      "createdAt": "2026-06-13T00:00:00Z",
+      "updatedAt": "2026-06-13T00:00:00Z",
+      "retiredAt": null
+    },
+    {
+      "providerId": "provider_demo_partner",
+      "providerCode": "partner_demo",
+      "displayName": "Demo Partner Catalog",
+      "sourceType": "licensed_partner",
+      "authorizationNotes": "Synthetic partner-style source for metadata tests only.",
+      "createdAt": "2026-06-13T00:00:00Z",
+      "updatedAt": "2026-06-13T00:00:00Z",
+      "retiredAt": null
+    }
+  ],
+  "songs": [
+    {
+      "songId": "song_demo_opening",
+      "title": "Demo Opening Song",
+      "artistName": "Demo Artist",
+      "normalizedTitle": "demo opening song",
+      "normalizedArtist": "demo artist",
+      "language": "en",
+      "preferredAuthorizedMediaId": "media_demo_opening_cdg",
+      "reviewState": "approved",
+      "qualityRating": 4,
+      "authorizationNotes": "Synthetic authorized catalog song. No real karaoke media is referenced.",
+      "lastVerifiedAt": "2026-06-13T00:00:00Z",
+      "createdAt": "2026-06-13T00:00:00Z",
+      "updatedAt": "2026-06-13T00:00:00Z",
+      "retiredAt": null,
+      "retirementReason": null,
+      "media": [
+        {
+          "authorizedMediaId": "media_demo_opening_cdg",
+          "providerId": "provider_demo_operator",
+          "providerTrackId": "DEMO-OPEN-001",
+          "sha256Checksum": "1111111111111111111111111111111111111111111111111111111111111111",
+          "fileSizeBytes": 12582912,
+          "durationSeconds": 184,
+          "fileFormat": "cdg_mp3_bundle",
+          "vocalGuideType": "none",
+          "storageRelativeKey": "demo-catalog/opening/primary",
+          "isPreferredVersion": true,
+          "reviewState": "approved",
+          "qualityRating": 4,
+          "authorizationNotes": "Synthetic opaque storage reference only.",
+          "lastVerifiedAt": "2026-06-13T00:00:00Z",
+          "createdAt": "2026-06-13T00:00:00Z",
+          "updatedAt": "2026-06-13T00:00:00Z",
+          "retiredAt": null,
+          "retirementReason": null
+        },
+        {
+          "authorizedMediaId": "media_demo_opening_guide",
+          "providerId": "provider_demo_operator",
+          "providerTrackId": "DEMO-OPEN-001-GUIDE",
+          "sha256Checksum": "2222222222222222222222222222222222222222222222222222222222222222",
+          "fileSizeBytes": 13631488,
+          "durationSeconds": 184,
+          "fileFormat": "mp4_karaoke",
+          "vocalGuideType": "guide_vocal",
+          "storageRelativeKey": "demo-catalog/opening/guide",
+          "isPreferredVersion": false,
+          "reviewState": "approved",
+          "qualityRating": 3,
+          "authorizationNotes": "Synthetic alternate guide-vocal reference only.",
+          "lastVerifiedAt": "2026-06-13T00:00:00Z",
+          "createdAt": "2026-06-13T00:00:00Z",
+          "updatedAt": "2026-06-13T00:00:00Z",
+          "retiredAt": null,
+          "retirementReason": null
+        }
+      ]
+    },
+    {
+      "songId": "song_demo_finale",
+      "title": "Demo Finale Song",
+      "artistName": "Sample Performer",
+      "normalizedTitle": "demo finale song",
+      "normalizedArtist": "sample performer",
+      "language": "en",
+      "preferredAuthorizedMediaId": "media_demo_finale_cdg",
+      "reviewState": "approved",
+      "qualityRating": 5,
+      "authorizationNotes": "Synthetic authorized catalog song. No real karaoke media is referenced.",
+      "lastVerifiedAt": "2026-06-13T00:00:00Z",
+      "createdAt": "2026-06-13T00:00:00Z",
+      "updatedAt": "2026-06-13T00:00:00Z",
+      "retiredAt": null,
+      "retirementReason": null,
+      "media": [
+        {
+          "authorizedMediaId": "media_demo_finale_cdg",
+          "providerId": "provider_demo_partner",
+          "providerTrackId": "DEMO-FINALE-001",
+          "sha256Checksum": "3333333333333333333333333333333333333333333333333333333333333333",
+          "fileSizeBytes": 15728640,
+          "durationSeconds": 213,
+          "fileFormat": "cdg_mp3_bundle",
+          "vocalGuideType": "none",
+          "storageRelativeKey": "demo-catalog/finale/primary",
+          "isPreferredVersion": true,
+          "reviewState": "approved",
+          "qualityRating": 5,
+          "authorizationNotes": "Synthetic opaque storage reference only.",
+          "lastVerifiedAt": "2026-06-13T00:00:00Z",
+          "createdAt": "2026-06-13T00:00:00Z",
+          "updatedAt": "2026-06-13T00:00:00Z",
+          "retiredAt": null,
+          "retirementReason": null
+        }
+      ]
+    },
+    {
+      "songId": "song_demo_duet",
+      "title": "Demo Duet Version",
+      "artistName": "Demo Artist",
+      "normalizedTitle": "demo duet version",
+      "normalizedArtist": "demo artist",
+      "language": "en",
+      "preferredAuthorizedMediaId": "media_demo_duet_cdg",
+      "reviewState": "approved",
+      "qualityRating": 3,
+      "authorizationNotes": "Synthetic authorized alternate-version song for relationship modeling.",
+      "lastVerifiedAt": "2026-06-13T00:00:00Z",
+      "createdAt": "2026-06-13T00:00:00Z",
+      "updatedAt": "2026-06-13T00:00:00Z",
+      "retiredAt": null,
+      "retirementReason": null,
+      "media": [
+        {
+          "authorizedMediaId": "media_demo_duet_cdg",
+          "providerId": "provider_demo_operator",
+          "providerTrackId": "DEMO-DUET-001",
+          "sha256Checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+          "fileSizeBytes": 14680064,
+          "durationSeconds": 201,
+          "fileFormat": "cdg_mp3_bundle",
+          "vocalGuideType": "duet",
+          "storageRelativeKey": "demo-catalog/duet/primary",
+          "isPreferredVersion": true,
+          "reviewState": "approved",
+          "qualityRating": 3,
+          "authorizationNotes": "Synthetic opaque storage reference only.",
+          "lastVerifiedAt": "2026-06-13T00:00:00Z",
+          "createdAt": "2026-06-13T00:00:00Z",
+          "updatedAt": "2026-06-13T00:00:00Z",
+          "retiredAt": null,
+          "retirementReason": null
+        }
+      ]
+    }
+  ],
+  "alternateVersions": [
+    {
+      "relationshipId": "alternate_demo_opening_duet",
+      "songId": "song_demo_opening",
+      "alternateSongId": "song_demo_duet",
+      "relationshipType": "alternate_arrangement",
+      "notes": "Synthetic relationship record for migration and seed validation only.",
+      "createdAt": "2026-06-13T00:00:00Z",
+      "updatedAt": "2026-06-13T00:00:00Z",
+      "retiredAt": null,
+      "retirementReason": null
+    }
+  ]
+}

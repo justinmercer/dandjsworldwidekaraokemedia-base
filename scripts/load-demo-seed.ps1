@@ -7,6 +7,7 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $fixtureRoot = Join-Path (Join-Path $root 'tests') 'fixtures'
 $seedRoot = Join-Path $fixtureRoot 'demo-seed'
+$catalogSeedPath = Join-Path (Join-Path (Join-Path $root 'server') 'hq') 'data/demo-catalog.json'
 
 if (-not $OutputPath) {
   $OutputPath = Join-Path (Join-Path $root 'artifacts') 'demo-seed'
@@ -26,8 +27,9 @@ $summary = [ordered]@{
   generatedAt = (Get-Date).ToUniversalTime().ToString('o')
   mode = 'development-only'
   insertedIntoDatabase = $false
-  reason = 'Wave 0B has no database schema or HQ API implementation.'
+  reason = 'This script summarizes safe demo fixtures only. Use scripts/run-hq-migrations.ps1 -Seed to insert SQL seed metadata.'
   fixtures = @()
+  catalog = $null
 }
 
 foreach ($fixtureFile in $fixtureFiles) {
@@ -40,6 +42,23 @@ foreach ($fixtureFile in $fixtureFiles) {
   $summary.fixtures += [ordered]@{
     file = $fixtureFile.Name
     recordCount = $count
+  }
+}
+
+if (Test-Path -LiteralPath $catalogSeedPath -PathType Leaf) {
+  $catalog = Get-Content -LiteralPath $catalogSeedPath -Raw | ConvertFrom-Json
+  $mediaCount = 0
+  foreach ($song in $catalog.songs) {
+    $mediaCount += $song.media.Count
+  }
+
+  $summary.catalog = [ordered]@{
+    file = 'server/hq/data/demo-catalog.json'
+    mode = $catalog.mode
+    songs = $catalog.songs.Count
+    providers = $catalog.providers.Count
+    authorizedMediaFiles = $mediaCount
+    alternateVersions = $catalog.alternateVersions.Count
   }
 }
 

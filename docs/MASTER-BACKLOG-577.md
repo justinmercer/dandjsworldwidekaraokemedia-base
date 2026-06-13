@@ -87,31 +87,31 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 03. HQ server database and authorized catalog service
 
-- [ ] `KARA-061` — Create the HQ database project and initial migration pipeline.
-- [ ] `KARA-062` — Create the song table with normalized artist and title fields.
-- [ ] `KARA-063` — Create the authorized media-file table.
-- [ ] `KARA-064` — Create the alternate-version relationship model.
-- [ ] `KARA-065` — Create provider/source records for authorized content origins.
-- [ ] `KARA-066` — Create authorization-note fields for operator recordkeeping.
-- [ ] `KARA-067` — Create SHA-256 checksum fields and indexes.
-- [ ] `KARA-068` — Create file-size and duration fields.
-- [ ] `KARA-069` — Create file-format enumeration values.
-- [ ] `KARA-070` — Create vocal-guide type enumeration values.
-- [ ] `KARA-071` — Create preferred-version fields.
-- [ ] `KARA-072` — Create review-state fields for imported media.
-- [ ] `KARA-073` — Create quality-rating fields.
-- [ ] `KARA-074` — Create storage-relative key fields without exposing filesystem paths publicly.
-- [ ] `KARA-075` — Create last-verified timestamps.
-- [ ] `KARA-076` — Create created-at and updated-at audit timestamps.
-- [ ] `KARA-077` — Create soft-retirement fields for catalog records.
-- [ ] `KARA-078` — Add database indexes for normalized artist and title search.
-- [ ] `KARA-079` — Add database indexes for checksums.
-- [ ] `KARA-080` — Add database indexes for sync-manifest generation.
-- [ ] `KARA-081` — Add demo catalog seed data.
-- [ ] `KARA-082` — Create the catalog health endpoint.
-- [ ] `KARA-083` — Create paginated catalog-search endpoints.
-- [ ] `KARA-084` — Create exact-match lookup endpoints.
-- [ ] `KARA-085` — Create song-detail endpoints.
+- [x] `KARA-061` — Create the HQ database project and initial migration pipeline.
+- [x] `KARA-062` — Create the song table with normalized artist and title fields.
+- [x] `KARA-063` — Create the authorized media-file table.
+- [x] `KARA-064` — Create the alternate-version relationship model.
+- [x] `KARA-065` — Create provider/source records for authorized content origins.
+- [x] `KARA-066` — Create authorization-note fields for operator recordkeeping.
+- [x] `KARA-067` — Create SHA-256 checksum fields and indexes.
+- [x] `KARA-068` — Create file-size and duration fields.
+- [x] `KARA-069` — Create file-format enumeration values.
+- [x] `KARA-070` — Create vocal-guide type enumeration values.
+- [x] `KARA-071` — Create preferred-version fields.
+- [x] `KARA-072` — Create review-state fields for imported media.
+- [x] `KARA-073` — Create quality-rating fields.
+- [x] `KARA-074` — Create storage-relative key fields without exposing filesystem paths publicly.
+- [x] `KARA-075` — Create last-verified timestamps.
+- [x] `KARA-076` — Create created-at and updated-at audit timestamps.
+- [x] `KARA-077` — Create soft-retirement fields for catalog records.
+- [x] `KARA-078` — Add database indexes for normalized artist and title search.
+- [x] `KARA-079` — Add database indexes for checksums.
+- [x] `KARA-080` — Add database indexes for sync-manifest generation.
+- [x] `KARA-081` — Add demo catalog seed data.
+- [x] `KARA-082` — Create the catalog health endpoint.
+- [x] `KARA-083` — Create paginated catalog-search endpoints.
+- [x] `KARA-084` — Create exact-match lookup endpoints.
+- [x] `KARA-085` — Create song-detail endpoints.
 - [ ] `KARA-086` — Create alternate-version listing endpoints.
 - [ ] `KARA-087` — Create admin-only song-create endpoints.
 - [ ] `KARA-088` — Create admin-only song-update endpoints.

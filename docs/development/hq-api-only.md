@@ -1,32 +1,48 @@
 # Run Only the HQ API
 
-There is no HQ API implementation in Wave 0B. This page documents the intended developer workflow once the API project exists.
+Wave 1A adds the first runnable read-only HQ catalog API.
 
-## Today
+## Supported framework
 
-Use the local database and cache containers only:
+The supported framework for this batch is Node.js with the built-in `node:http` server. The project path is `server/hq`.
+
+## Start local dependencies
+
+The catalog API can run against safe demo JSON without a database. To prepare a local Postgres database for migration checks, start the local stack:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.ps1
 ```
 
-Validate the current foundation checks:
+## Apply migrations
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
+$env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 ```
 
-## Later
+This applies `server/hq/database/migrations/0001_authorized_catalog.sql` and, with `-Seed`, loads synthetic catalog seed metadata from `server/hq/database/seeds/0001_demo_catalog.sql`.
 
-When the HQ API project is added, this page should include:
+## Run the API
 
-- The project path.
-- Required safe `.env.example` values.
-- Build and test commands.
-- Local-only ports.
-- Health and readiness URLs.
-- How to run without request web or host dependencies.
+```powershell
+Set-Location .\server\hq
+npm test
+npm start
+```
 
-## Wave 0B limitation
+The default local port is `5100`.
 
-No API routes, catalog database, migrations, authentication, synchronization endpoints, or production server features are added here.
+## Read-only routes
+
+- `GET /healthz`
+- `GET /api/catalog/healthz`
+- `GET /api/catalog/search?query=demo&page=1&pageSize=20`
+- `GET /api/catalog/exact-match?artist=Demo%20Artist&title=Demo%20Opening%20Song`
+- `GET /api/catalog/songs/song_demo_opening`
+
+Public responses intentionally omit `storageRelativeKey`, checksums, and filesystem paths. The API returns operator-authorized catalog metadata and opaque public identifiers only.
+
+## Wave 1A limitation
+
+This batch does not add admin write endpoints, alternate-version listing endpoints, authentication, synchronization endpoints, Windows host features, playback, request screens, OBS, Replay, or external-source acquisition workflows.
