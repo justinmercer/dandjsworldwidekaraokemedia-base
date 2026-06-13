@@ -17,9 +17,23 @@ This index links the current foundation documents and placeholders. Keep it upda
 
 ## Architecture
 
+- [System context diagram](architecture/system-context.md)
+- [Service boundaries and data ownership](architecture/service-boundaries.md)
+- [Shared contracts](architecture/shared-contracts.md)
+- [Contract versioning](architecture/contract-versioning.md)
+- [Compatibility policy](architecture/compatibility-policy.md)
+- [Observability and service health](architecture/observability-and-service-health.md)
 - [Naming conventions](architecture/naming-conventions.md)
 - [Feature-flag conventions](architecture/feature-flags.md)
 - [ADR template](adr/0000-template.md)
+
+## Development
+
+- [Local stack](development/local-stack.md)
+- [HQ API only](development/hq-api-only.md)
+- [Request web only](development/request-web-only.md)
+- [Windows host command-line build](development/windows-host-cli-build.md)
+- [Quality gates](development/quality-gates.md)
 
 ## Operator and release documents
 

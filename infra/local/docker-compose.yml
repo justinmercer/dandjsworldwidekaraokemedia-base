@@ -1,0 +1,37 @@
+name: dandjs-foundation-local
+
+services:
+  hq-db:
+    image: postgres:16-alpine
+    container_name: dandjs-hq-db
+    environment:
+      POSTGRES_DB: dandjs_demo
+      POSTGRES_USER: dandjs_demo
+      POSTGRES_PASSWORD: demo_password_placeholder
+    ports:
+      - "15432:5432"
+    volumes:
+      - hq-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dandjs_demo -d dandjs_demo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  hq-cache:
+    image: redis:7-alpine
+    container_name: dandjs-hq-cache
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "16379:6379"
+    volumes:
+      - hq-cache-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  hq-db-data:
+  hq-cache-data:

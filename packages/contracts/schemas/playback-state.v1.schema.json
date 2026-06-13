@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/playback-state.schema.json",
+  "title": "Playback State",
+  "description": "Future host-owned playback status contract. This does not implement playback.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "showSessionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "songId": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["idle", "loading", "playing", "paused", "stopped", "error"]
+    },
+    "positionSeconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "durationSeconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "volumePercent": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["contractVersion", "showSessionId", "state", "positionSeconds", "volumePercent", "updatedAt"]
+}

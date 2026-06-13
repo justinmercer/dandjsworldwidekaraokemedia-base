@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/api-request-context.schema.json",
+  "title": "API Request Context",
+  "description": "Future server request context with correlation ID support.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 8
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "serviceName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["contractVersion", "correlationId", "requestId", "serviceName", "startedAt"]
+}

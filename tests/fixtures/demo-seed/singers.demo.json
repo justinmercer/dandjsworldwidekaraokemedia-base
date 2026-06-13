@@ -1,0 +1,20 @@
+[
+  {
+    "contractVersion": "v1",
+    "singerId": "singer_demo_one",
+    "displayName": "Demo Singer One",
+    "profileState": "active",
+    "privacyNotes": "Synthetic fixture only.",
+    "preferredKeyOffset": 0,
+    "updatedAt": "2026-06-13T00:00:00Z"
+  },
+  {
+    "contractVersion": "v1",
+    "singerId": "singer_demo_two",
+    "displayName": "Demo Singer Two",
+    "profileState": "paused",
+    "privacyNotes": "Synthetic fixture only.",
+    "preferredKeyOffset": 0,
+    "updatedAt": "2026-06-13T00:00:00Z"
+  }
+]

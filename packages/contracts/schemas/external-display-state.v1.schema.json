@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/external-display-state.schema.json",
+  "title": "External Display State",
+  "description": "Future host-owned external display status contract. This does not implement display windows.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "showSessionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["blank", "welcome", "now-singing", "up-next", "intermission", "message"]
+    },
+    "themeName": {
+      "type": "string"
+    },
+    "nowSinging": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "singerDisplayName": {
+          "type": "string"
+        },
+        "songTitle": {
+          "type": "string"
+        },
+        "artistName": {
+          "type": "string"
+        }
+      }
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["contractVersion", "showSessionId", "mode", "updatedAt"]
+}

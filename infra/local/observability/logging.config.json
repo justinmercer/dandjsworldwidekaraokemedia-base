@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "v1",
+  "mode": "development-only",
+  "format": "json-lines",
+  "minimumLevel": "information",
+  "correlationIdHeader": "x-correlation-id",
+  "requiredFields": [
+    "timestamp",
+    "level",
+    "service",
+    "environment",
+    "message",
+    "correlationId",
+    "eventName"
+  ],
+  "redactedFields": [
+    "password",
+    "secret",
+    "token",
+    "apiKey",
+    "privateUrl",
+    "mediaPath"
+  ]
+}

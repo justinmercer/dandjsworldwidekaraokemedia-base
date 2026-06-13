@@ -24,6 +24,16 @@ Thanks for helping with D & J's Karaoke Software. This repository is currently i
 2. Confirm the changed files match the issue scope.
 3. Document validation results and any deferred decisions in the pull request body.
 
+Additional focused checks are available when a change touches a narrower area:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-format.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\lint-web.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-contracts.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-secrets.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-media-files.ps1
+```
+
 ## Pull request notes
 
 Use clear, operator-safe wording. If a task introduces behavior that could affect a live show, document the fallback and rollback expectations before asking for review.
