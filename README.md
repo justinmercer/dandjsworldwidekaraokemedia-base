@@ -24,8 +24,10 @@ This repository is in Wave 0A foundation mode. The current contents are document
 There is no runnable product stack yet. For now, validate the foundation files with:
 
 ```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
 ```
+
+PowerShell 7 (`pwsh`) can run the same script if it is installed.
 
 Future startup commands will be added as host, server, request-web, and shared-contract projects land in later backlog tasks.
 
