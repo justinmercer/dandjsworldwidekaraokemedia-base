@@ -1,0 +1,647 @@
+# D & J’s Karaoke Software — Master Codex Backlog
+
+Generated: 2026-06-13
+
+This backlog breaks the full product into implementation-sized tasks for Codex. It is intentionally broader than the first pilot release so the repository has one source of truth for the work that remains.
+
+## Non-negotiable rules
+
+- Live karaoke playback remains local-first and must continue during internet, server, OBS companion, or Replay outages.
+- The HQ server stores and synchronizes only operator-owned or authorized karaoke media.
+- YouTube integration is limited to official search and embedded preview review. Do not add arbitrary ripping or unattended download workflows.
+- Use demo fixtures only in tests. Never commit real media, credentials, private URLs, or personal singer information.
+- Use backup-first, review-first, and rollback-safe behavior for imports, cleanup, updates, and restores.
+
+## How to use this backlog
+
+- Work in dependency order using `docs/CODEX-EXECUTION-WAVES.md`.
+- Keep pull requests focused. A PR may complete one task or a tightly related small group.
+- Mark completed checkboxes in this file as work lands.
+- Add tests and documentation whenever a task changes operator workflow.
+
+## 01. Product definition and repository foundation
+
+- [ ] `KARA-001` — Write a product brief for D & J’s Karaoke Software covering host app, request web app, HQ server, Replay integration, and future licensing.
+- [ ] `KARA-002` — Define the Phase 1 pilot-show scope and explicitly list deferred features.
+- [ ] `KARA-003` — Define supported Windows versions for the first host-app release.
+- [ ] `KARA-004` — Define the minimum supported laptop hardware profile for a live show.
+- [ ] `KARA-005` — Define the minimum recommended server hardware and storage profile.
+- [ ] `KARA-006` — Document the local-first rule: internet or cloud failure must never stop an active show.
+- [ ] `KARA-007` — Document the safety rule: only operator-owned or authorized media may be stored and synchronized.
+- [ ] `KARA-008` — Document the YouTube rule: official search and embedded previews only; no arbitrary ripping workflow.
+- [ ] `KARA-009` — Create the monorepo folder layout for host, server, request web app, shared contracts, docs, infrastructure, and tests.
+- [ ] `KARA-010` — Create the root README with development startup instructions.
+- [ ] `KARA-011` — Create a root `.gitignore` covering .NET, Node, IDE, secrets, logs, media, database dumps, and build output.
+- [ ] `KARA-012` — Create `.env.example` files for each service with safe placeholder values.
+- [ ] `KARA-013` — Add root editor formatting rules and line-ending settings.
+- [ ] `KARA-014` — Add a root license placeholder and document the decision still required.
+- [ ] `KARA-015` — Create architecture decision record templates.
+- [ ] `KARA-016` — Create a changelog template.
+- [ ] `KARA-017` — Create a contribution guide for future collaborators.
+- [ ] `KARA-018` — Create a security-reporting document.
+- [ ] `KARA-019` — Create a release checklist template.
+- [ ] `KARA-020` — Create a repo-wide smoke-test script placeholder.
+- [ ] `KARA-021` — Define issue-label conventions for Codex work, bugs, QA, deferred work, and release blockers.
+- [ ] `KARA-022` — Add a CODEOWNERS placeholder for future collaborators.
+- [ ] `KARA-023` — Create a docs index linking every architecture and operator document.
+- [ ] `KARA-024` — Document naming conventions for services, endpoints, database tables, and UI routes.
+- [ ] `KARA-025` — Document feature-flag conventions for unfinished or optional modules.
+
+## 02. Architecture, contracts, and development environment
+
+- [ ] `KARA-026` — Create an architecture diagram for host app, HQ server, request app, OBS companion, and Replay boundary.
+- [ ] `KARA-027` — Define service boundaries and which component owns each type of data.
+- [ ] `KARA-028` — Define the canonical song metadata contract.
+- [ ] `KARA-029` — Define the singer-profile contract.
+- [ ] `KARA-030` — Define the venue-profile contract.
+- [ ] `KARA-031` — Define the show-session contract.
+- [ ] `KARA-032` — Define the request contract.
+- [ ] `KARA-033` — Define the host-device contract.
+- [ ] `KARA-034` — Define the synchronization-manifest contract.
+- [ ] `KARA-035` — Define the playback-state contract.
+- [ ] `KARA-036` — Define the external-display state contract.
+- [ ] `KARA-037` — Define the OBS companion event contract.
+- [ ] `KARA-038` — Define the future Replay event contract.
+- [ ] `KARA-039` — Create JSON schema or strongly typed DTO definitions for shared contracts.
+- [ ] `KARA-040` — Version all shared API contracts.
+- [ ] `KARA-041` — Create a compatibility policy for older host-app versions.
+- [ ] `KARA-042` — Add local Docker Compose services for the HQ API database and cache.
+- [ ] `KARA-043` — Add a development-only seed-data loader.
+- [ ] `KARA-044` — Add a local development proxy configuration for the request web app.
+- [ ] `KARA-045` — Add consistent structured logging configuration across services.
+- [ ] `KARA-046` — Add correlation IDs for server API requests.
+- [ ] `KARA-047` — Add health endpoints for each server-side service.
+- [ ] `KARA-048` — Add readiness endpoints for each server-side service.
+- [ ] `KARA-049` — Add developer scripts to start, stop, reset, and inspect the local stack.
+- [ ] `KARA-050` — Document how to run the stack on a clean workstation.
+- [ ] `KARA-051` — Document how to run only the HQ API for backend development.
+- [ ] `KARA-052` — Document how to run only the request web app for UI development.
+- [ ] `KARA-053` — Document how to build the Windows host from the command line.
+- [ ] `KARA-054` — Add automated formatting checks for .NET and web code.
+- [ ] `KARA-055` — Add automated lint checks for web code.
+- [ ] `KARA-056` — Add basic CI that runs builds and tests on every pull request.
+- [ ] `KARA-057` — Add dependency vulnerability scanning in CI.
+- [ ] `KARA-058` — Add a secret-scanning check in CI.
+- [ ] `KARA-059` — Add a check that prevents committing common media-file extensions.
+- [ ] `KARA-060` — Add a check that prevents committing `.env` files with secrets.
+
+## 03. HQ server database and authorized catalog service
+
+- [ ] `KARA-061` — Create the HQ database project and initial migration pipeline.
+- [ ] `KARA-062` — Create the song table with normalized artist and title fields.
+- [ ] `KARA-063` — Create the authorized media-file table.
+- [ ] `KARA-064` — Create the alternate-version relationship model.
+- [ ] `KARA-065` — Create provider/source records for authorized content origins.
+- [ ] `KARA-066` — Create authorization-note fields for operator recordkeeping.
+- [ ] `KARA-067` — Create SHA-256 checksum fields and indexes.
+- [ ] `KARA-068` — Create file-size and duration fields.
+- [ ] `KARA-069` — Create file-format enumeration values.
+- [ ] `KARA-070` — Create vocal-guide type enumeration values.
+- [ ] `KARA-071` — Create preferred-version fields.
+- [ ] `KARA-072` — Create review-state fields for imported media.
+- [ ] `KARA-073` — Create quality-rating fields.
+- [ ] `KARA-074` — Create storage-relative key fields without exposing filesystem paths publicly.
+- [ ] `KARA-075` — Create last-verified timestamps.
+- [ ] `KARA-076` — Create created-at and updated-at audit timestamps.
+- [ ] `KARA-077` — Create soft-retirement fields for catalog records.
+- [ ] `KARA-078` — Add database indexes for normalized artist and title search.
+- [ ] `KARA-079` — Add database indexes for checksums.
+- [ ] `KARA-080` — Add database indexes for sync-manifest generation.
+- [ ] `KARA-081` — Add demo catalog seed data.
+- [ ] `KARA-082` — Create the catalog health endpoint.
+- [ ] `KARA-083` — Create paginated catalog-search endpoints.
+- [ ] `KARA-084` — Create exact-match lookup endpoints.
+- [ ] `KARA-085` — Create song-detail endpoints.
+- [ ] `KARA-086` — Create alternate-version listing endpoints.
+- [ ] `KARA-087` — Create admin-only song-create endpoints.
+- [ ] `KARA-088` — Create admin-only song-update endpoints.
+- [ ] `KARA-089` — Create admin-only preferred-version selection endpoints.
+- [ ] `KARA-090` — Create admin-only review-state endpoints.
+- [ ] `KARA-091` — Create admin-only source-note endpoints.
+- [ ] `KARA-092` — Create admin-only soft-retirement endpoints.
+- [ ] `KARA-093` — Create deterministic search normalization for punctuation and capitalization.
+- [ ] `KARA-094` — Normalize common artist-name variants.
+- [ ] `KARA-095` — Normalize common duet separators such as `&`, `and`, and `feat.`.
+- [ ] `KARA-096` — Add search tests for punctuation differences.
+- [ ] `KARA-097` — Add search tests for capitalization differences.
+- [ ] `KARA-098` — Add search tests for accented characters.
+- [ ] `KARA-099` — Add search tests for alternate versions.
+- [ ] `KARA-100` — Add validation for malformed metadata.
+- [ ] `KARA-101` — Add API error envelopes with user-safe messages.
+- [ ] `KARA-102` — Add server-side pagination limits.
+- [ ] `KARA-103` — Add request-rate limits for public search endpoints.
+- [ ] `KARA-104` — Add structured audit logging for catalog changes.
+- [ ] `KARA-105` — Add an admin audit-history endpoint.
+- [ ] `KARA-106` — Add storage-mount documentation.
+- [ ] `KARA-107` — Add catalog-service API documentation.
+- [ ] `KARA-108` — Add database reset and reseed scripts for development.
+- [ ] `KARA-109` — Add migration rollback documentation.
+- [ ] `KARA-110` — Add a catalog-service smoke test.
+
+## 04. Host device registration and library synchronization
+
+- [ ] `KARA-111` — Create the host-device database table.
+- [ ] `KARA-112` — Add host-device display name and venue label fields.
+- [ ] `KARA-113` — Add host-app version reporting.
+- [ ] `KARA-114` — Add local free-space reporting.
+- [ ] `KARA-115` — Add local library root reporting.
+- [ ] `KARA-116` — Add host last-seen timestamps.
+- [ ] `KARA-117` — Add host active/inactive state.
+- [ ] `KARA-118` — Add development-safe host registration tokens.
+- [ ] `KARA-119` — Add a host registration endpoint.
+- [ ] `KARA-120` — Add a host heartbeat endpoint.
+- [ ] `KARA-121` — Add a host status dashboard in HQ admin.
+- [ ] `KARA-122` — Create deterministic host manifest generation.
+- [ ] `KARA-123` — Include song ID, media key, checksum, size, priority, and version timestamps in manifests.
+- [ ] `KARA-124` — Create a host manifest endpoint.
+- [ ] `KARA-125` — Create a manifest-diff endpoint.
+- [ ] `KARA-126` — Represent additions in manifest diffs.
+- [ ] `KARA-127` — Represent updates in manifest diffs.
+- [ ] `KARA-128` — Represent review-first cleanup candidates in manifest diffs.
+- [ ] `KARA-129` — Add device-specific manifest filters.
+- [ ] `KARA-130` — Add always-keep-on-host flags.
+- [ ] `KARA-131` — Add server-archive-only flags.
+- [ ] `KARA-132` — Add selected-host synchronization flags.
+- [ ] `KARA-133` — Add requested-song priority boosts.
+- [ ] `KARA-134` — Add recently-used-song priority boosts.
+- [ ] `KARA-135` — Add interrupted-sync state tracking.
+- [ ] `KARA-136` — Add synchronization progress reporting from host to server.
+- [ ] `KARA-137` — Add synchronization error reporting from host to server.
+- [ ] `KARA-138` — Add host-side pause controls.
+- [ ] `KARA-139` — Add host-side resume controls.
+- [ ] `KARA-140` — Add host-side cancel controls for pending noncritical operations.
+- [ ] `KARA-141` — Add host-side storage-capacity checks.
+- [ ] `KARA-142` — Add host-side checksum verification.
+- [ ] `KARA-143` — Add a host-side quarantine area for failed verification.
+- [ ] `KARA-144` — Add resume support for interrupted operations.
+- [ ] `KARA-145` — Add safe retry limits and backoff.
+- [ ] `KARA-146` — Add UI states for ready, pending, syncing, verified, failed, and review needed.
+- [ ] `KARA-147` — Add an operator-facing synchronization summary.
+- [ ] `KARA-148` — Add a manual `Sync Now` action.
+- [ ] `KARA-149` — Add a `Verify Library` action.
+- [ ] `KARA-150` — Add a `View Missing Locally` action.
+- [ ] `KARA-151` — Add a `Review Cleanup Candidates` action.
+- [ ] `KARA-152` — Add tests for deterministic manifest order.
+- [ ] `KARA-153` — Add tests for additions.
+- [ ] `KARA-154` — Add tests for updates.
+- [ ] `KARA-155` — Add tests for cleanup candidates.
+- [ ] `KARA-156` — Add tests for insufficient disk space.
+- [ ] `KARA-157` — Add tests for interrupted operations.
+- [ ] `KARA-158` — Add tests for checksum mismatch handling.
+- [ ] `KARA-159` — Add host-sync documentation.
+- [ ] `KARA-160` — Add a sync-readiness smoke test using demo fixtures only.
+
+## 05. Windows host application shell and local persistence
+
+- [ ] `KARA-161` — Create the Windows host solution and initial desktop project.
+- [ ] `KARA-162` — Choose and document the Windows UI framework.
+- [ ] `KARA-163` — Create the main host window.
+- [ ] `KARA-164` — Create the dark premium nightlife theme.
+- [ ] `KARA-165` — Create the app navigation structure.
+- [ ] `KARA-166` — Create the show dashboard layout.
+- [ ] `KARA-167` — Add rotation-panel placeholders.
+- [ ] `KARA-168` — Add now-playing-panel placeholders.
+- [ ] `KARA-169` — Add incoming-request-panel placeholders.
+- [ ] `KARA-170` — Add song-search-panel placeholders.
+- [ ] `KARA-171` — Add sync-health-panel placeholders.
+- [ ] `KARA-172` — Add playback-control placeholders.
+- [ ] `KARA-173` — Add a venue selector.
+- [ ] `KARA-174` — Add a current-show status indicator.
+- [ ] `KARA-175` — Add online, local-only, and offline status indicators.
+- [ ] `KARA-176` — Add an OBS companion connection indicator.
+- [ ] `KARA-177` — Add a Replay integration indicator placeholder.
+- [ ] `KARA-178` — Add keyboard shortcut infrastructure.
+- [ ] `KARA-179` — Add a keyboard shortcut help dialog.
+- [ ] `KARA-180` — Add application settings persistence.
+- [ ] `KARA-181` — Add local SQLite persistence.
+- [ ] `KARA-182` — Create local database migrations.
+- [ ] `KARA-183` — Create local song-cache tables.
+- [ ] `KARA-184` — Create local singer-profile tables.
+- [ ] `KARA-185` — Create local show-session tables.
+- [ ] `KARA-186` — Create local request tables.
+- [ ] `KARA-187` — Create local venue-profile tables.
+- [ ] `KARA-188` — Create local sync-status tables.
+- [ ] `KARA-189` — Add demo mode.
+- [ ] `KARA-190` — Add demo data.
+- [ ] `KARA-191` — Add a first-run setup wizard.
+- [ ] `KARA-192` — Add folder-selection settings for local authorized media.
+- [ ] `KARA-193` — Add server URL settings.
+- [ ] `KARA-194` — Add local-network request-server settings.
+- [ ] `KARA-195` — Add UI scaling support.
+- [ ] `KARA-196` — Add 1080p layout tests.
+- [ ] `KARA-197` — Add laptop-width layout tests.
+- [ ] `KARA-198` — Add high-DPI layout checks.
+- [ ] `KARA-199` — Add basic accessibility labels.
+- [ ] `KARA-200` — Add visible focus states.
+- [ ] `KARA-201` — Add safe error dialogs.
+- [ ] `KARA-202` — Add nonblocking notification toasts.
+- [ ] `KARA-203` — Add an activity log panel.
+- [ ] `KARA-204` — Add a diagnostics-export action.
+- [ ] `KARA-205` — Add host app build documentation.
+- [ ] `KARA-206` — Add compile checks in CI.
+- [ ] `KARA-207` — Add a host-app startup smoke test.
+- [ ] `KARA-208` — Add a host-app clean-shutdown test.
+- [ ] `KARA-209` — Add a host-app settings migration test.
+- [ ] `KARA-210` — Add a host-app demo-mode screenshot checklist.
+
+## 06. Local catalog import and Siglos migration
+
+- [ ] `KARA-211` — Add a host-side catalog-import wizard.
+- [ ] `KARA-212` — Add folder selection for operator-owned karaoke files.
+- [ ] `KARA-213` — Add supported-file-type detection.
+- [ ] `KARA-214` — Add filename metadata parsing.
+- [ ] `KARA-215` — Add manual metadata correction.
+- [ ] `KARA-216` — Add batch metadata review.
+- [ ] `KARA-217` — Add duplicate warning display.
+- [ ] `KARA-218` — Add alternate-version warning display.
+- [ ] `KARA-219` — Add import progress display.
+- [ ] `KARA-220` — Add import cancellation with safe rollback.
+- [ ] `KARA-221` — Add import error summaries.
+- [ ] `KARA-222` — Add an import review queue.
+- [ ] `KARA-223` — Add a `needs manual review` state.
+- [ ] `KARA-224` — Add a `skip for now` action.
+- [ ] `KARA-225` — Add a `mark preferred version` action.
+- [ ] `KARA-226` — Add a `keep both versions` action.
+- [ ] `KARA-227` — Add a `merge duplicate records` action.
+- [ ] `KARA-228` — Add safe confirmation before any destructive merge.
+- [ ] `KARA-229` — Add import audit logging.
+- [ ] `KARA-230` — Add demo fixture files for tests only.
+- [ ] `KARA-231` — Add catalog-import tests.
+- [ ] `KARA-232` — Add malformed-filename tests.
+- [ ] `KARA-233` — Add duplicate-detection tests.
+- [ ] `KARA-234` — Add alternate-version tests.
+- [ ] `KARA-235` — Add cancellation tests.
+- [ ] `KARA-236` — Document the import workflow.
+- [ ] `KARA-237` — Create the Siglos migration wizard shell.
+- [ ] `KARA-238` — Support Siglos song-metadata exports.
+- [ ] `KARA-239` — Support Siglos singer-profile exports.
+- [ ] `KARA-240` — Support Siglos singer-history exports.
+- [ ] `KARA-241` — Support remembered key-change imports where present.
+- [ ] `KARA-242` — Support venue-entry imports where present.
+- [ ] `KARA-243` — Support saved preference imports where present.
+- [ ] `KARA-244` — Add migration preview.
+- [ ] `KARA-245` — Add migration validation.
+- [ ] `KARA-246` — Add duplicate warnings during migration.
+- [ ] `KARA-247` — Add backup-first messaging.
+- [ ] `KARA-248` — Add migration summary reports.
+- [ ] `KARA-249` — Add demo Siglos export fixtures.
+- [ ] `KARA-250` — Add Siglos migration tests.
+
+## 07. Singer profiles, rotation, and show-session management
+
+- [ ] `KARA-251` — Create singer-profile models.
+- [ ] `KARA-252` — Add singer display names.
+- [ ] `KARA-253` — Add optional singer contact fields with privacy-safe defaults.
+- [ ] `KARA-254` — Add singer notes visible only to staff.
+- [ ] `KARA-255` — Add singer favourites.
+- [ ] `KARA-256` — Add singer song-history records.
+- [ ] `KARA-257` — Add remembered key changes per singer and song.
+- [ ] `KARA-258` — Add duet and group-performance support.
+- [ ] `KARA-259` — Add singer aliases and merge support.
+- [ ] `KARA-260` — Add repeat-singer detection.
+- [ ] `KARA-261` — Create show-session models.
+- [ ] `KARA-262` — Add show start and end timestamps.
+- [ ] `KARA-263` — Add venue association.
+- [ ] `KARA-264` — Add active rotation state.
+- [ ] `KARA-265` — Add queued songs per singer.
+- [ ] `KARA-266` — Add current singer state.
+- [ ] `KARA-267` — Add up-next state.
+- [ ] `KARA-268` — Add temporary disable state.
+- [ ] `KARA-269` — Add skip state.
+- [ ] `KARA-270` — Add priority insert.
+- [ ] `KARA-271` — Add drag-and-drop ordering.
+- [ ] `KARA-272` — Add fair-round ordering rules.
+- [ ] `KARA-273` — Add configurable rotation policies.
+- [ ] `KARA-274` — Add estimated wait calculations.
+- [ ] `KARA-275` — Add a rotation preview.
+- [ ] `KARA-276` — Add a `call singer` action.
+- [ ] `KARA-277` — Add a `singer not ready` action.
+- [ ] `KARA-278` — Add a `move to next round` action.
+- [ ] `KARA-279` — Add a `remove from tonight` action.
+- [ ] `KARA-280` — Add a `restore singer` action.
+- [ ] `KARA-281` — Add a completed-performance record.
+- [ ] `KARA-282` — Add a show notes field.
+- [ ] `KARA-283` — Add manual session snapshots.
+- [ ] `KARA-284` — Add autosave after every meaningful rotation change.
+- [ ] `KARA-285` — Add recovery prompts after an unclean shutdown.
+- [ ] `KARA-286` — Add restore-session flow.
+- [ ] `KARA-287` — Add discard-stale-session flow.
+- [ ] `KARA-288` — Add rotation-rule tests.
+- [ ] `KARA-289` — Add estimated-wait tests.
+- [ ] `KARA-290` — Add crash-recovery tests.
+
+## 08. Playback, audio, preview, and external displays
+
+- [ ] `KARA-291` — Choose and document the local media playback engine.
+- [ ] `KARA-292` — Add local playback state.
+- [ ] `KARA-293` — Add play.
+- [ ] `KARA-294` — Add pause.
+- [ ] `KARA-295` — Add stop.
+- [ ] `KARA-296` — Add next.
+- [ ] `KARA-297` — Add previous where safe.
+- [ ] `KARA-298` — Add fade-out.
+- [ ] `KARA-299` — Add emergency skip.
+- [ ] `KARA-300` — Add volume controls.
+- [ ] `KARA-301` — Add output-device selection.
+- [ ] `KARA-302` — Add microphone-recording control placeholders.
+- [ ] `KARA-303` — Add key-change controls.
+- [ ] `KARA-304` — Add tempo controls.
+- [ ] `KARA-305` — Add reset-to-default controls.
+- [ ] `KARA-306` — Add playback progress.
+- [ ] `KARA-307` — Add remaining-time display.
+- [ ] `KARA-308` — Add end-of-track detection.
+- [ ] `KARA-309` — Add filler-audio hooks.
+- [ ] `KARA-310` — Add filler-audio enable and disable control.
+- [ ] `KARA-311` — Add filler-audio volume settings.
+- [ ] `KARA-312` — Add preview-window plumbing.
+- [ ] `KARA-313` — Add external display window.
+- [ ] `KARA-314` — Add full-screen external display mode.
+- [ ] `KARA-315` — Add display selection for multi-monitor systems.
+- [ ] `KARA-316` — Add cloned display support placeholders.
+- [ ] `KARA-317` — Add now-singing card.
+- [ ] `KARA-318` — Add up-next card.
+- [ ] `KARA-319` — Add welcome screen.
+- [ ] `KARA-320` — Add scrolling announcement area.
+- [ ] `KARA-321` — Add venue logo overlay.
+- [ ] `KARA-322` — Add custom background support.
+- [ ] `KARA-323` — Add camera-background placeholder.
+- [ ] `KARA-324` — Add theme selection.
+- [ ] `KARA-325` — Add private-party theme.
+- [ ] `KARA-326` — Add wedding theme.
+- [ ] `KARA-327` — Add bar-night theme.
+- [ ] `KARA-328` — Add external-display fallback when a monitor disconnects.
+- [ ] `KARA-329` — Add playback failure isolation.
+- [ ] `KARA-330` — Add demo playback fixtures only.
+- [ ] `KARA-331` — Add playback-control tests.
+- [ ] `KARA-332` — Add external-display state tests.
+- [ ] `KARA-333` — Add monitor reconnect tests.
+- [ ] `KARA-334` — Add keyboard shortcut tests.
+- [ ] `KARA-335` — Document live-show playback troubleshooting.
+
+## 09. Mobile request web app and shared tablet mode
+
+- [ ] `KARA-336` — Create the request web-app project.
+- [ ] `KARA-337` — Create the mobile-first app shell.
+- [ ] `KARA-338` — Add D & J’s branding.
+- [ ] `KARA-339` — Add venue branding overrides.
+- [ ] `KARA-340` — Add QR-code entry routes.
+- [ ] `KARA-341` — Add guest-name entry.
+- [ ] `KARA-342` — Add returning-singer lookup.
+- [ ] `KARA-343` — Add privacy-safe singer matching.
+- [ ] `KARA-344` — Add catalog search.
+- [ ] `KARA-345` — Add search debouncing.
+- [ ] `KARA-346` — Add search empty states.
+- [ ] `KARA-347` — Add recent-song browsing.
+- [ ] `KARA-348` — Add popular-song browsing.
+- [ ] `KARA-349` — Add favourites browsing.
+- [ ] `KARA-350` — Add singer-history browsing.
+- [ ] `KARA-351` — Add duet indicators.
+- [ ] `KARA-352` — Add alternate-version display where appropriate.
+- [ ] `KARA-353` — Add request submission.
+- [ ] `KARA-354` — Add optional key-change request.
+- [ ] `KARA-355` — Add optional duet-partner request.
+- [ ] `KARA-356` — Add optional request note.
+- [ ] `KARA-357` — Add request confirmation.
+- [ ] `KARA-358` — Add personal request list.
+- [ ] `KARA-359` — Add request statuses.
+- [ ] `KARA-360` — Add estimated wait display.
+- [ ] `KARA-361` — Add request-limit messaging.
+- [ ] `KARA-362` — Add venue-access-code entry.
+- [ ] `KARA-363` — Add local-network mode.
+- [ ] `KARA-364` — Add cloud mode.
+- [ ] `KARA-365` — Add automatic mode fallback messaging.
+- [ ] `KARA-366` — Add connection-state display.
+- [ ] `KARA-367` — Add offline-friendly static shell caching.
+- [ ] `KARA-368` — Add installable PWA metadata.
+- [ ] `KARA-369` — Add mobile responsive tests.
+- [ ] `KARA-370` — Add common iPhone viewport tests.
+- [ ] `KARA-371` — Add common Android viewport tests.
+- [ ] `KARA-372` — Add accessibility checks.
+- [ ] `KARA-373` — Add large tap targets.
+- [ ] `KARA-374` — Add shared tablet mode route.
+- [ ] `KARA-375` — Add kiosk-style large controls.
+- [ ] `KARA-376` — Add kiosk idle timeout.
+- [ ] `KARA-377` — Add kiosk automatic reset.
+- [ ] `KARA-378` — Add kiosk QR fallback.
+- [ ] `KARA-379` — Add kiosk responsive tests.
+- [ ] `KARA-380` — Add request-web smoke tests.
+- [ ] `KARA-381` — Document venue-router setup for local request mode.
+
+## 10. Request moderation, missing songs, and safe YouTube previews
+
+- [ ] `KARA-382` — Create incoming-request models.
+- [ ] `KARA-383` — Add host-side incoming-request list.
+- [ ] `KARA-384` — Add approve action.
+- [ ] `KARA-385` — Add edit action.
+- [ ] `KARA-386` — Add reject action.
+- [ ] `KARA-387` — Add add-all action.
+- [ ] `KARA-388` — Add singer-match suggestions.
+- [ ] `KARA-389` — Add duplicate-request detection.
+- [ ] `KARA-390` — Add per-singer request limits.
+- [ ] `KARA-391` — Add host override for request limits.
+- [ ] `KARA-392` — Add venue default request limits.
+- [ ] `KARA-393` — Add request-status updates back to guests.
+- [ ] `KARA-394` — Add request audit history.
+- [ ] `KARA-395` — Add missing-song state.
+- [ ] `KARA-396` — Create missing-song review queue.
+- [ ] `KARA-397` — Search the authorized catalog before any external search.
+- [ ] `KARA-398` — Add official YouTube Data API configuration placeholders.
+- [ ] `KARA-399` — Add official YouTube search integration.
+- [ ] `KARA-400` — Limit YouTube search to host-reviewed missing-song workflows.
+- [ ] `KARA-401` — Add cached search results.
+- [ ] `KARA-402` — Add quota-friendly search behavior.
+- [ ] `KARA-403` — Add candidate ranking.
+- [ ] `KARA-404` — Rank exact title matches.
+- [ ] `KARA-405` — Rank artist matches.
+- [ ] `KARA-406` — Rank `karaoke` keyword matches.
+- [ ] `KARA-407` — Rank `instrumental` keyword matches.
+- [ ] `KARA-408` — Down-rank obvious tutorial or reaction results.
+- [ ] `KARA-409` — Add embedded YouTube preview player.
+- [ ] `KARA-410` — Add preview play and pause controls.
+- [ ] `KARA-411` — Add candidate duration display.
+- [ ] `KARA-412` — Add channel display.
+- [ ] `KARA-413` — Add `mark preferred candidate` action.
+- [ ] `KARA-414` — Add `open in YouTube` action.
+- [ ] `KARA-415` — Add `approved local copy still needed` state.
+- [ ] `KARA-416` — Add an approved-copy import action for files the operator is authorized to store.
+- [ ] `KARA-417` — Add source-note capture.
+- [ ] `KARA-418` — Add search-result cache expiry.
+- [ ] `KARA-419` — Add missing-song analytics.
+- [ ] `KARA-420` — Add missing-song workflow tests.
+- [ ] `KARA-421` — Add YouTube-disabled fallback tests.
+- [ ] `KARA-422` — Document the safe YouTube-preview boundary.
+
+## 11. Venue profiles, themes, announcements, and settings
+
+- [ ] `KARA-423` — Create venue-profile models.
+- [ ] `KARA-424` — Add venue name.
+- [ ] `KARA-425` — Add venue address fields.
+- [ ] `KARA-426` — Add venue logo.
+- [ ] `KARA-427` — Add venue contact notes.
+- [ ] `KARA-428` — Add venue request settings.
+- [ ] `KARA-429` — Add venue access-code settings.
+- [ ] `KARA-430` — Add venue local-router notes.
+- [ ] `KARA-431` — Add venue default display theme.
+- [ ] `KARA-432` — Add venue announcement text.
+- [ ] `KARA-433` — Add venue scrolling-message settings.
+- [ ] `KARA-434` — Add venue opening screen.
+- [ ] `KARA-435` — Add venue closing screen.
+- [ ] `KARA-436` — Add venue saved show preferences.
+- [ ] `KARA-437` — Add venue default filler-audio settings.
+- [ ] `KARA-438` — Add venue default volume settings.
+- [ ] `KARA-439` — Add venue default rotation policy.
+- [ ] `KARA-440` — Add venue QR-code generation.
+- [ ] `KARA-441` — Add printable QR-code sheet.
+- [ ] `KARA-442` — Add table-tent QR layout.
+- [ ] `KARA-443` — Add venue profile import and export.
+- [ ] `KARA-444` — Add venue theme preview.
+- [ ] `KARA-445` — Add venue settings validation.
+- [ ] `KARA-446` — Add venue profile tests.
+- [ ] `KARA-447` — Document venue onboarding.
+
+## 12. OBS companion, Replay boundary, and performance events
+
+- [ ] `KARA-448` — Define performance-start event payload.
+- [ ] `KARA-449` — Define performance-end event payload.
+- [ ] `KARA-450` — Include singer name, song, artist, venue, show ID, and timestamps.
+- [ ] `KARA-451` — Add configurable companion endpoint settings.
+- [ ] `KARA-452` — Add optional OBS event export module.
+- [ ] `KARA-453` — Add event-export enable and disable switch.
+- [ ] `KARA-454` — Add export connection status.
+- [ ] `KARA-455` — Add retry-safe event queue.
+- [ ] `KARA-456` — Add backoff for companion outages.
+- [ ] `KARA-457` — Add a mock companion receiver.
+- [ ] `KARA-458` — Add companion-isolation tests.
+- [ ] `KARA-459` — Ensure companion failures never interrupt playback.
+- [ ] `KARA-460` — Document the existing separate-recording-computer topology.
+- [ ] `KARA-461` — Document OBS WebSocket port configuration as an operator setting.
+- [ ] `KARA-462` — Add a future Replay adapter interface.
+- [ ] `KARA-463` — Define minimal Replay event fields.
+- [ ] `KARA-464` — Add a mock Replay adapter.
+- [ ] `KARA-465` — Add retry expectations for Replay.
+- [ ] `KARA-466` — Add failure-isolation rules for Replay.
+- [ ] `KARA-467` — Add a future clip-processing status placeholder.
+- [ ] `KARA-468` — Add a future lower-third metadata placeholder.
+- [ ] `KARA-469` — Add a future filename metadata placeholder.
+- [ ] `KARA-470` — Add performance-event audit history.
+- [ ] `KARA-471` — Add performance-event tests.
+- [ ] `KARA-472` — Document the Replay integration boundary.
+
+## 13. Admin console, authentication, privacy, and security
+
+- [ ] `KARA-473` — Add basic admin sign-in.
+- [ ] `KARA-474` — Add host role.
+- [ ] `KARA-475` — Add admin role.
+- [ ] `KARA-476` — Add read-only staff role.
+- [ ] `KARA-477` — Protect admin-only routes.
+- [ ] `KARA-478` — Protect catalog-management routes.
+- [ ] `KARA-479` — Protect venue-settings routes.
+- [ ] `KARA-480` — Protect backup routes.
+- [ ] `KARA-481` — Protect host-device-management routes.
+- [ ] `KARA-482` — Add password hashing.
+- [ ] `KARA-483` — Add development-safe initial setup flow.
+- [ ] `KARA-484` — Add password-change flow.
+- [ ] `KARA-485` — Require password update after first sign-in for newly created staff.
+- [ ] `KARA-486` — Add session expiration.
+- [ ] `KARA-487` — Add sign-out.
+- [ ] `KARA-488` — Add failed-login rate limits.
+- [ ] `KARA-489` — Add audit logging for sign-ins.
+- [ ] `KARA-490` — Add audit logging for administrative changes.
+- [ ] `KARA-491` — Add singer-data privacy notes.
+- [ ] `KARA-492` — Add data-retention settings.
+- [ ] `KARA-493` — Add singer-profile export.
+- [ ] `KARA-494` — Add singer-profile deletion workflow.
+- [ ] `KARA-495` — Add staff-account disable workflow.
+- [ ] `KARA-496` — Add secrets-management documentation.
+- [ ] `KARA-497` — Add security smoke tests.
+
+## 14. Backup, restore, diagnostics, installer, and updates
+
+- [ ] `KARA-498` — Add HQ metadata backup.
+- [ ] `KARA-499` — Add singer-history backup.
+- [ ] `KARA-500` — Add venue-profile backup.
+- [ ] `KARA-501` — Add show-session snapshot export.
+- [ ] `KARA-502` — Add host settings backup.
+- [ ] `KARA-503` — Add restore preview.
+- [ ] `KARA-504` — Add restore confirmation.
+- [ ] `KARA-505` — Add restore validation.
+- [ ] `KARA-506` — Add rollback after failed restore.
+- [ ] `KARA-507` — Add backup scheduling documentation.
+- [ ] `KARA-508` — Add backup-status dashboard.
+- [ ] `KARA-509` — Add backup failure alert placeholders.
+- [ ] `KARA-510` — Add diagnostics export.
+- [ ] `KARA-511` — Include logs in diagnostics export.
+- [ ] `KARA-512` — Include app version in diagnostics export.
+- [ ] `KARA-513` — Include sync status in diagnostics export.
+- [ ] `KARA-514` — Exclude secrets from diagnostics export.
+- [ ] `KARA-515` — Create Windows installer project.
+- [ ] `KARA-516` — Add installer versioning.
+- [ ] `KARA-517` — Add installer release notes.
+- [ ] `KARA-518` — Add update-check placeholder.
+- [ ] `KARA-519` — Add postpone-update-during-show behavior.
+- [ ] `KARA-520` — Add backup-before-update behavior.
+- [ ] `KARA-521` — Add rollback-safe update behavior.
+- [ ] `KARA-522` — Add update-failure messaging.
+- [ ] `KARA-523` — Add uninstall behavior documentation.
+- [ ] `KARA-524` — Add clean-install smoke tests.
+- [ ] `KARA-525` — Add upgrade smoke tests.
+- [ ] `KARA-526` — Add rollback smoke tests.
+- [ ] `KARA-527` — Document release packaging.
+
+## 15. Analytics, QA, reliability, pilot show, and future productization
+
+- [ ] `KARA-528` — Create completed-show analytics models.
+- [ ] `KARA-529` — Add singer-count metrics.
+- [ ] `KARA-530` — Add request-volume metrics.
+- [ ] `KARA-531` — Add most-requested-song metrics.
+- [ ] `KARA-532` — Add repeat-singer metrics.
+- [ ] `KARA-533` — Add average-wait metrics.
+- [ ] `KARA-534` — Add venue trend metrics.
+- [ ] `KARA-535` — Add library-gap metrics.
+- [ ] `KARA-536` — Add CSV analytics export.
+- [ ] `KARA-537` — Add analytics empty states.
+- [ ] `KARA-538` — Add analytics tests.
+- [ ] `KARA-539` — Add server-unavailable test scenario.
+- [ ] `KARA-540` — Add venue-internet-loss test scenario.
+- [ ] `KARA-541` — Add local-router-only request test scenario.
+- [ ] `KARA-542` — Add interrupted-sync test scenario.
+- [ ] `KARA-543` — Add checksum-mismatch test scenario.
+- [ ] `KARA-544` — Add insufficient-storage test scenario.
+- [ ] `KARA-545` — Add host-restart recovery test scenario.
+- [ ] `KARA-546` — Add unclean-shutdown recovery test scenario.
+- [ ] `KARA-547` — Add OBS companion outage test scenario.
+- [ ] `KARA-548` — Add Replay adapter outage test scenario.
+- [ ] `KARA-549` — Add external-monitor disconnect test scenario.
+- [ ] `KARA-550` — Add empty-library startup test scenario.
+- [ ] `KARA-551` — Add empty-show startup test scenario.
+- [ ] `KARA-552` — Add large-catalog search performance test.
+- [ ] `KARA-553` — Add high-request-volume test.
+- [ ] `KARA-554` — Add multi-hour soak test.
+- [ ] `KARA-555` — Add host CPU and memory baseline measurements.
+- [ ] `KARA-556` — Add HQ API load-test script.
+- [ ] `KARA-557` — Add request-web load-test script.
+- [ ] `KARA-558` — Add repeatable readiness-report generation.
+- [ ] `KARA-559` — Create pilot-show go/no-go checklist.
+- [ ] `KARA-560` — Create pre-show checklist.
+- [ ] `KARA-561` — Create post-show checklist.
+- [ ] `KARA-562` — Create known-limitations document.
+- [ ] `KARA-563` — Create operator quick-start guide.
+- [ ] `KARA-564` — Create host troubleshooting guide.
+- [ ] `KARA-565` — Create venue-router troubleshooting guide.
+- [ ] `KARA-566` — Create OBS companion troubleshooting guide.
+- [ ] `KARA-567` — Create recovery drill guide.
+- [ ] `KARA-568` — Create first-pilot feedback form.
+- [ ] `KARA-569` — Create bug-triage workflow.
+- [ ] `KARA-570` — Create release-blocker criteria.
+- [ ] `KARA-571` — Create Phase 2 backlog document.
+- [ ] `KARA-572` — Create future licensing model placeholder.
+- [ ] `KARA-573` — Create future multi-tenant architecture notes.
+- [ ] `KARA-574` — Create future branded-reseller notes.
+- [ ] `KARA-575` — Create future cloud-hosting cost notes.
+- [ ] `KARA-576` — Create future mobile-app decision record.
+- [ ] `KARA-577` — Create future face-matching privacy and consent research note.
+
+## Totals
+
+- Total tasks: **577**
+- Categories: **15**
