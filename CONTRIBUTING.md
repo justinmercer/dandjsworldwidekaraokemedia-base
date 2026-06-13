@@ -16,8 +16,10 @@ Thanks for helping with D & J's Karaoke Software. This repository is currently i
 1. Run the repo-wide smoke test from the repository root:
 
    ```powershell
-   pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
    ```
+
+   PowerShell 7 (`pwsh`) can run the same script if it is installed.
 
 2. Confirm the changed files match the issue scope.
 3. Document validation results and any deferred decisions in the pull request body.
