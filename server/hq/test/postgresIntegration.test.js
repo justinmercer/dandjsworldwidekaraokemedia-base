@@ -258,6 +258,52 @@ test('PostgreSQL catalog reads, protected writes, audit history, and normalizati
     assert.equal(diffBody.totals.additions, 2);
     assert.equal(diffBody.totals.updates, 1);
     assert.equal(diffBody.cleanupCandidates[0].deleteReady, false);
+
+    const operation = await repository.createHostSyncOperation(HOST_DEVICE_ID, {
+      operationKind: 'verify_library',
+      status: 'syncing',
+      progress: { totalEntries: 3, completedEntries: 1, pendingEntries: 2, failedEntries: 0, bytesTotal: 300, bytesCompleted: 100, percentComplete: 33 },
+      capacityCheck: { localFreeSpaceBytes: 987650000, requiredBytes: 300, isSufficient: true }
+    });
+    assert.equal(operation.status, 'syncing');
+    assert.equal(operation.progress.totalEntries, 3);
+
+    const verified = await repository.updateHostSyncOperation(operation.syncOperationId, {
+      status: 'verified',
+      verification: { checksumAlgorithm: 'sha256', result: 'passed' }
+    });
+    assert.equal(verified.status, 'verified');
+    assert.equal(verified.verification.result, 'passed');
+
+    const operationList = await repository.listHostSyncOperations(HOST_DEVICE_ID);
+    assert.equal(operationList.total, 1);
+    assert.equal(operationList.items[0].syncOperationId, operation.syncOperationId);
+
+    const action = await repository.queueHostSyncOperatorAction(HOST_DEVICE_ID, {
+      action: 'sync_now',
+      requestedBy: 'postgres-test-admin',
+      reason: 'Synthetic planning-only sync action.',
+      payload: { dryRun: true }
+    });
+    assert.equal(action.status, 'queued');
+    assert.equal(action.safetyMode, 'plan_only');
+
+    const actionList = await repository.listHostSyncOperatorActions(HOST_DEVICE_ID);
+    assert.equal(actionList.total, 1);
+    assert.equal(actionList.items[0].action, 'sync_now');
+
+    const quarantine = await repository.recordHostSyncQuarantine(HOST_DEVICE_ID, {
+      syncOperationId: operation.syncOperationId,
+      authorizedMediaId: '00000000-0000-4000-8000-000000000301',
+      reason: 'Synthetic checksum mismatch marker.',
+      verification: { expected: 'sha256-placeholder', actual: 'sha256-placeholder-other' },
+      quarantineKey: 'host-sync-quarantine/00000000-0000-4000-8000-000000000301'
+    });
+    assert.equal(quarantine.reason, 'Synthetic checksum mismatch marker.');
+
+    const quarantineList = await repository.listHostSyncQuarantine(HOST_DEVICE_ID);
+    assert.equal(quarantineList.total, 1);
+    assert.equal(JSON.stringify(quarantineList).includes('C:\\Demo\\Karaoke'), false);
   } finally {
     await new Promise((resolve) => server.close(resolve));
     await repository.close();
