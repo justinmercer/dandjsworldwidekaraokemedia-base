@@ -44,7 +44,7 @@ test('PostgreSQL catalog reads, protected writes, audit history, and normalizati
     const healthBody = await health.json();
     assert.equal(health.status, 200);
     assert.equal(healthBody.mode, 'postgres');
-    assert.equal(healthBody.migrationVersion, '0003');
+    assert.equal(healthBody.migrationVersion, '0004');
     assert.deepEqual(healthBody.counts, {
       songs: 3,
       providers: 2,
@@ -263,3 +263,4 @@ test('PostgreSQL catalog reads, protected writes, audit history, and normalizati
     await repository.close();
   }
 });
+
