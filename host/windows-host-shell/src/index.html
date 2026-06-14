@@ -49,6 +49,7 @@
 
         <div class="topbar-actions">
           <button id="shortcutHelpButton" type="button" class="secondary-action">Keyboard Shortcuts</button>
+          <button id="firstRunButton" type="button" class="secondary-action">First-Run Setup</button>
           <div class="show-status" role="status" aria-live="polite">
             <span class="status-dot"></span>
             <span id="showStatusText">Show Not Started</span>
@@ -152,12 +153,60 @@
             </label>
 
             <button type="submit">Save settings locally</button>
+            <label>
+              Demo mode
+              <select id="demoMode">
+                <option value="enabled">Enabled with safe demo data</option>
+                <option value="disabled">Disabled</option>
+              </select>
+            </label>
+
+            <label>
+              Local authorized media folder
+              <input id="authorizedMediaFolder" type="text" value="D:\\Karaoke\\Authorized" aria-describedby="folderHelp">
+            </label>
+            <p id="folderHelp" class="helper-text">Display-only placeholder. Wave 3D does not scan folders.</p>
+
+            <label>
+              HQ server URL
+              <input id="serverUrl" type="url" value="http://localhost:4000" aria-describedby="serverUrlHelp">
+            </label>
+            <p id="serverUrlHelp" class="helper-text">Display-only placeholder. Live show stays local-first.</p>
+
+            <label>
+              Local request server port
+              <input id="requestServerPort" type="number" min="1024" max="65535" value="7070">
+            </label>
+
+            <label>
+              UI scaling
+              <select id="uiScale">
+                <option value="90">90%</option>
+                <option value="100">100%</option>
+                <option value="110">110%</option>
+                <option value="125">125%</option>
+              </select>
+            </label>
+
             <p id="settingsStatus" class="helper-text" aria-live="polite">Settings are stored in browser localStorage only.</p>
           </form>
         </article>
       </section>
     </section>
   </main>
+
+  <dialog id="firstRunDialog" class="shortcut-dialog" aria-labelledby="firstRunDialogTitle">
+    <h2 id="firstRunDialogTitle">First-Run Setup</h2>
+    <p>This safe setup wizard records display preferences only. It does not scan media folders, connect to servers, or start playback.</p>
+    <ol class="setup-list">
+      <li>Confirm demo mode.</li>
+      <li>Review local authorized media folder placeholder.</li>
+      <li>Review HQ server URL placeholder.</li>
+      <li>Review local request server settings placeholder.</li>
+      <li>Choose UI scale.</li>
+    </ol>
+    <button id="closeFirstRunButton" type="button">Close setup</button>
+  </dialog>
 
   <dialog id="shortcutDialog" class="shortcut-dialog" aria-labelledby="shortcutDialogTitle">
     <h2 id="shortcutDialogTitle">Keyboard Shortcuts</h2>

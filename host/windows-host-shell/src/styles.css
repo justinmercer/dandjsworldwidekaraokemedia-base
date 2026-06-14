@@ -365,3 +365,10 @@ kbd {
   color: var(--text);
   font-weight: 900;
 }
+
+
+.setup-list {
+  display: grid;
+  gap: 0.5rem;
+  color: var(--muted);
+}

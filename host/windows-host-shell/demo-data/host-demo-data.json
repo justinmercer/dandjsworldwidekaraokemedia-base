@@ -1,0 +1,54 @@
+{
+  "contractVersion": "v1",
+  "description": "Safe demo-only host shell data. No media paths, files, credentials, or private network values are included.",
+  "venue": {
+    "name": "D & J's Demo Venue",
+    "city": "Demo City",
+    "province": "ON"
+  },
+  "singers": [
+    {
+      "displayName": "Demo Singer",
+      "rotationPosition": 1
+    },
+    {
+      "displayName": "Guest Singer",
+      "rotationPosition": 2
+    },
+    {
+      "displayName": "Walk-in Singer",
+      "rotationPosition": 3
+    }
+  ],
+  "songs": [
+    {
+      "title": "Demo Opening Song",
+      "artist": "Demo Artist"
+    },
+    {
+      "title": "Practice Ballad",
+      "artist": "Sample Singer"
+    },
+    {
+      "title": "Finale Placeholder",
+      "artist": "House Band"
+    }
+  ],
+  "requests": [
+    {
+      "singerName": "Demo Singer",
+      "title": "Demo Opening Song",
+      "status": "queued"
+    },
+    {
+      "singerName": "Guest Singer",
+      "title": "Practice Ballad",
+      "status": "pending"
+    }
+  ],
+  "settings": {
+    "demoMode": true,
+    "uiScale": "100",
+    "connectionMode": "local-only"
+  }
+}

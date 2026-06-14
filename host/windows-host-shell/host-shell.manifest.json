@@ -31,6 +31,29 @@
       "enabled": true,
       "storage": "browser-localStorage",
       "safeScope": "display-and-preference-placeholders-only"
+    },
+    "demoMode": {
+      "enabled": true,
+      "dataFile": "demo-data/host-demo-data.json",
+      "mediaFree": true
+    },
+    "firstRunSetup": {
+      "enabled": true,
+      "safePlaceholderOnly": true
+    },
+    "settingsPlaceholders": {
+      "localAuthorizedMediaFolder": "display-only",
+      "serverUrl": "display-only",
+      "localRequestServer": "display-only"
+    },
+    "uiScaling": {
+      "enabled": true,
+      "supportedPercentages": [
+        90,
+        100,
+        110,
+        125
+      ]
     }
   }
 }
