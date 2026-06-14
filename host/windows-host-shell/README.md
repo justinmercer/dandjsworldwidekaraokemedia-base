@@ -56,3 +56,10 @@ These are display and preference placeholders only. They do not connect to OBS, 
 Wave 3D adds safe demo mode, demo data, first-run setup, display-only folder and server settings, local request-server settings, and UI scaling.
 
 These features do not scan folders, connect to servers, play media, transfer files, or delete files.
+
+
+## Wave 3E additions
+
+Wave 3E adds loading, empty, and error states, plus safe toast notifications and a confirmation-dialog pattern.
+
+These are UI-only patterns and do not perform media, file, playback, sync, OBS, or Replay actions.

@@ -228,11 +228,11 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-193` — Add server URL settings.
 - [x] `KARA-194` — Add local-network request-server settings.
 - [x] `KARA-195` — Add UI scaling support.
-- [ ] `KARA-196` — Add 1080p layout tests.
-- [ ] `KARA-197` — Add laptop-width layout tests.
-- [ ] `KARA-198` — Add high-DPI layout checks.
-- [ ] `KARA-199` — Add basic accessibility labels.
-- [ ] `KARA-200` — Add visible focus states.
+- [x] `KARA-196` — Add 1080p layout tests.
+- [x] `KARA-197` — Add laptop-width layout tests.
+- [x] `KARA-198` — Add high-DPI layout checks.
+- [x] `KARA-199` — Add basic accessibility labels.
+- [x] `KARA-200` — Add visible focus states.
 - [ ] `KARA-201` — Add safe error dialogs.
 - [ ] `KARA-202` — Add nonblocking notification toasts.
 - [ ] `KARA-203` — Add an activity log panel.

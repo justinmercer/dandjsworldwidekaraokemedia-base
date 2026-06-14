@@ -132,6 +132,36 @@
           </dl>
         </article>
 
+        <article class="panel state-patterns" id="state-patterns">
+          <div class="panel-header">
+            <p class="eyebrow">Host States</p>
+            <span>UI Pattern</span>
+          </div>
+
+          <div class="state-card loading-state" aria-label="Loading state preview">
+            <span class="loading-spinner" aria-hidden="true"></span>
+            <div>
+              <h3>Loading state</h3>
+              <p>Preparing safe local host shell preview.</p>
+            </div>
+          </div>
+
+          <div class="state-card empty-state" aria-label="Empty state preview">
+            <strong>No singers queued</strong>
+            <p>Empty states guide the host without interrupting the show.</p>
+          </div>
+
+          <div class="state-card error-state" aria-label="Error state preview">
+            <strong>Action unavailable</strong>
+            <p>Errors stay local and user-safe. No file operation was attempted.</p>
+          </div>
+
+          <div class="state-actions">
+            <button id="toastDemoButton" type="button">Show safe toast</button>
+            <button id="confirmDemoButton" type="button">Show confirmation</button>
+          </div>
+        </article>
+
         <article class="panel" id="settings">
           <div class="panel-header">
             <p class="eyebrow">Settings</p>
@@ -194,6 +224,17 @@
       </section>
     </section>
   </main>
+
+  <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="confirmationDialog" class="shortcut-dialog" aria-labelledby="confirmationDialogTitle">
+    <h2 id="confirmationDialogTitle">Confirm Safe Placeholder Action</h2>
+    <p>This confirmation pattern is UI-only. It does not delete files, move media, start playback, or connect to external services.</p>
+    <div class="dialog-actions">
+      <button id="cancelConfirmationButton" type="button">Cancel</button>
+      <button id="acceptConfirmationButton" type="button">Confirm placeholder</button>
+    </div>
+  </dialog>
 
   <dialog id="firstRunDialog" class="shortcut-dialog" aria-labelledby="firstRunDialogTitle">
     <h2 id="firstRunDialogTitle">First-Run Setup</h2>

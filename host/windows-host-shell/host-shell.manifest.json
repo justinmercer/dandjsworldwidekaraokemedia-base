@@ -54,6 +54,19 @@
         110,
         125
       ]
+    },
+    "statePatterns": {
+      "loading": true,
+      "empty": true,
+      "error": true
+    },
+    "notifications": {
+      "toastRegion": true,
+      "localOnly": true
+    },
+    "confirmationDialogs": {
+      "safePatternOnly": true,
+      "destructiveActionsEnabled": false
     }
   }
 }

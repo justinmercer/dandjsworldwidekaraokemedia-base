@@ -32,6 +32,21 @@ function saveSettings(settings) {
   localStorage.setItem(settingsKey, JSON.stringify(settings));
 }
 
+function showToast(message, tone = 'info') {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${tone}`;
+  toast.textContent = message;
+  toastRegion.append(toast);
+
+  window.setTimeout(() => {
+    toast.remove();
+  }, 4200);
+}
+
+function showConfirmationDialog() {
+  confirmationDialog.showModal();
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -50,6 +65,12 @@ const serverUrl = document.querySelector('#serverUrl');
 const requestServerPort = document.querySelector('#requestServerPort');
 const uiScale = document.querySelector('#uiScale');
 const settingsStatus = document.querySelector('#settingsStatus');
+const toastRegion = document.querySelector('#toastRegion');
+const toastDemoButton = document.querySelector('#toastDemoButton');
+const confirmDemoButton = document.querySelector('#confirmDemoButton');
+const confirmationDialog = document.querySelector('#confirmationDialog');
+const cancelConfirmationButton = document.querySelector('#cancelConfirmationButton');
+const acceptConfirmationButton = document.querySelector('#acceptConfirmationButton');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -75,6 +96,13 @@ shortcutHelpButton.addEventListener('click', () => shortcutDialog.showModal());
 closeShortcutsButton.addEventListener('click', () => shortcutDialog.close());
 firstRunButton.addEventListener('click', () => firstRunDialog.showModal());
 closeFirstRunButton.addEventListener('click', () => firstRunDialog.close());
+toastDemoButton.addEventListener('click', () => showToast('Safe host notification preview. No media action was started.', 'success'));
+confirmDemoButton.addEventListener('click', () => showConfirmationDialog());
+cancelConfirmationButton.addEventListener('click', () => confirmationDialog.close());
+acceptConfirmationButton.addEventListener('click', () => {
+  confirmationDialog.close();
+  showToast('Placeholder confirmed. No destructive action was performed.', 'info');
+});
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -101,6 +129,7 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     if (shortcutDialog.open) shortcutDialog.close();
     if (firstRunDialog.open) firstRunDialog.close();
+    if (confirmationDialog.open) confirmationDialog.close();
     return;
   }
 
@@ -133,5 +162,11 @@ window.DJKaraokeHostShell = Object.freeze({
   demoModeEnabled: true,
   demoData: safeDemoData,
   firstRunSetupEnabled: true,
-  uiScalingEnabled: true
+  uiScalingEnabled: true,
+  loadingStateEnabled: true,
+  emptyStateEnabled: true,
+  errorStateEnabled: true,
+  toastNotificationsEnabled: true,
+  confirmationDialogPatternEnabled: true,
+  destructiveConfirmationActionsEnabled: false
 });
