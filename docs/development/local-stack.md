@@ -1,6 +1,6 @@
 # Local Development Stack
 
-Wave 1B uses the local-only Docker Compose stack for HQ catalog migration and protected API integration checks.
+Wave 2A uses the local-only Docker Compose stack for HQ catalog migration, protected API integration checks, host registration, and manifest-planning checks.
 
 ## Prerequisites
 
@@ -52,12 +52,13 @@ The validation script runs `docker compose config --quiet` when Docker is availa
 
 ```powershell
 $env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
+$env:HQ_HOST_REGISTRATION_TOKEN = "changeme-local-host-registration-token-placeholder"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 ```
 
 The SQL seed data is synthetic and references opaque storage keys only. It does not include real karaoke files, credentials, private URLs, venue network details, or personal singer data.
 
-The migration command is safe to run more than once. CI verifies this by running migrations and seed loading twice before exercising the database-backed api.
+The migration command is safe to run more than once. CI verifies this by running migrations and seed loading twice before exercising the database-backed API.
 
 ## Summarize demo fixtures
 
@@ -73,8 +74,8 @@ This writes a local artifact summary for demo fixtures and catalog seed metadata
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-hq-postgres-integration.ps1
 ```
 
-This starts local PostgreSQL, waits for readiness, runs migrations with seed data twice, verifies catalog counts through the API health response, exercises public search, exact-match, song-detail, alternate-version, protected write, normalization, and audit-history paths, and stops the Compose service afterward.
+This starts local PostgreSQL, waits for readiness, runs migrations with seed data twice, verifies catalog counts through the API health response, exercises public search, exact-match, song-detail, alternate-version, protected write, normalization, audit-history, host registration, heartbeat, admin host-status, manifest, and manifest-diff paths, and stops the Compose service afterward.
 
 ## Limitation
 
-This stack does not include an HQ API container, request web app, Windows host, media storage service, synchronization worker, OBS adapter, or Replay adapter.
+This stack does not include an HQ API container, request web app, Windows host, media storage service, synchronization worker, file-transfer worker, playback engine, OBS adapter, or Replay adapter.

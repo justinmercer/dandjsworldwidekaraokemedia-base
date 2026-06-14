@@ -1,6 +1,6 @@
 # HQ Migration Rollback
 
-Wave 1B keeps migrations forward-only for the development catalog. Full production rollback policy belongs to the later backup and restore waves.
+Wave 2A keeps migrations forward-only for the development catalog and host-sync planning tables. Full production rollback policy belongs to the later backup and restore waves.
 
 ## Development reset
 
@@ -23,6 +23,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\reseed-hq-catalog.
 ```
 
 The migration runner checks `hq_catalog.schema_migrations` before applying each migration file and skips versions that are already tracked.
+
+## Wave 2A schema notes
+
+Migration `0003_host_sync_foundation.sql` adds `hq_catalog.host_devices` and sync-planning metadata columns on `hq_catalog.authorized_media_files`. The new fields are planning metadata only:
+
+- `local_library_root` stores host-reported local configuration for HQ diagnostics, but API responses expose only `localLibraryRootReported`.
+- `server_archive_only` excludes media from host manifests.
+- `selected_host_device_ids` limits manifest entries to selected hosts.
+- priority boost columns are deterministic inputs and do not use real singer data in this wave.
+- interrupted-sync state tracks the last safe marker only; it does not add progress reporting or retry execution.
 
 ## Manual rollback expectations
 

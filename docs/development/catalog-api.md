@@ -1,6 +1,6 @@
 # HQ Catalog API
 
-Wave 1B exposes public catalog reads and temporary protected catalog-management routes for local development.
+The HQ catalog API exposes public catalog reads and temporary protected catalog-management routes for local development. Wave 2A keeps these routes and adds separate protected host sync-planning routes documented in [Host sync foundation](host-sync-foundation.md).
 
 ## Configuration
 
@@ -9,6 +9,7 @@ Run against PostgreSQL:
 ```powershell
 $env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
 $env:HQ_ADMIN_TOKEN = "changeme-local-admin-token-placeholder"
+$env:HQ_HOST_REGISTRATION_TOKEN = "changeme-local-host-registration-token-placeholder"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 Set-Location .\server\hq
 npm install

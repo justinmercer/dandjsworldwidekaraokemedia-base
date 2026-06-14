@@ -1,6 +1,6 @@
 # Observability and Service Health
 
-Wave 1B keeps the observability expectations and implements lightweight correlation IDs for public and protected HQ catalog API routes.
+Wave 2A keeps the observability expectations and implements lightweight correlation IDs for public catalog, protected admin, and protected host sync-planning routes.
 
 ## Structured logging
 
@@ -41,7 +41,7 @@ GET /healthz
 
 The response shape is `service-health.v1.schema.json`.
 
-Wave 1B implements `GET /healthz` and `GET /api/catalog/healthz` for the HQ catalog foundation in both PostgreSQL and explicit demo modes.
+Wave 2A implements `GET /healthz` and `GET /api/catalog/healthz` for the HQ catalog and host sync-planning foundation in both PostgreSQL and explicit demo modes.
 
 ## Readiness endpoint contract
 
@@ -57,6 +57,6 @@ Readiness may check dependencies such as database and cache connectivity. A serv
 
 The response shape is `service-readiness.v1.schema.json`.
 
-## Wave 1B limitation
+## Wave 2A limitation
 
-The HQ catalog API returns correlation IDs and a lightweight health response. It does not add production monitoring, readiness dependency checks, request screens, playback, syncing, OBS, or Replay behavior.
+The HQ catalog API returns correlation IDs and a lightweight health response. It does not add production monitoring, readiness dependency checks, request screens, playback, host download/transfer execution, cleanup deletion execution, OBS, or Replay behavior.

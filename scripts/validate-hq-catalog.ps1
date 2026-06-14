@@ -4,10 +4,11 @@ $root = Split-Path -Parent $PSScriptRoot
 $hqRoot = Join-Path (Join-Path $root 'server') 'hq'
 $migrationPath = Join-Path $hqRoot 'database/migrations/0001_authorized_catalog.sql'
 $controlsMigrationPath = Join-Path $hqRoot 'database/migrations/0002_catalog_controls.sql'
+$hostSyncMigrationPath = Join-Path $hqRoot 'database/migrations/0003_host_sync_foundation.sql'
 $seedSqlPath = Join-Path $hqRoot 'database/seeds/0001_demo_catalog.sql'
 $seedJsonPath = Join-Path $hqRoot 'data/demo-catalog.json'
 
-foreach ($path in @($migrationPath, $controlsMigrationPath, $seedSqlPath, $seedJsonPath)) {
+foreach ($path in @($migrationPath, $controlsMigrationPath, $hostSyncMigrationPath, $seedSqlPath, $seedJsonPath)) {
   if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
     throw "Missing HQ catalog file: $path"
   }
@@ -15,6 +16,7 @@ foreach ($path in @($migrationPath, $controlsMigrationPath, $seedSqlPath, $seedJ
 
 $migration = Get-Content -LiteralPath $migrationPath -Raw
 $controlsMigration = Get-Content -LiteralPath $controlsMigrationPath -Raw
+$hostSyncMigration = Get-Content -LiteralPath $hostSyncMigrationPath -Raw
 $requiredMigrationTokens = @(
   'CREATE SCHEMA IF NOT EXISTS hq_catalog',
   'CREATE TABLE IF NOT EXISTS hq_catalog.schema_migrations',
@@ -50,6 +52,29 @@ foreach ($token in $requiredControlsTokens) {
   }
 }
 
+$requiredHostSyncTokens = @(
+  'CREATE TABLE IF NOT EXISTS hq_catalog.host_devices',
+  'display_name text NOT NULL',
+  'local_free_space_bytes bigint',
+  'local_library_root text',
+  'sync_state hq_catalog.host_sync_state',
+  'interrupted_sync_state jsonb',
+  'ADD COLUMN IF NOT EXISTS sync_manifest_priority',
+  'ADD COLUMN IF NOT EXISTS always_keep_on_host',
+  'ADD COLUMN IF NOT EXISTS server_archive_only',
+  'ADD COLUMN IF NOT EXISTS selected_host_device_ids',
+  'ADD COLUMN IF NOT EXISTS requested_song_priority_boost',
+  'ADD COLUMN IF NOT EXISTS recently_used_priority_boost',
+  'idx_authorized_media_files_selected_hosts',
+  "VALUES ('0003', 'host registration and sync manifest foundation')"
+)
+
+foreach ($token in $requiredHostSyncTokens) {
+  if ($hostSyncMigration -notlike "*$token*") {
+    throw "HQ host sync migration is missing required token: $token"
+  }
+}
+
 $catalog = Get-Content -LiteralPath $seedJsonPath -Raw | ConvertFrom-Json
 if ($catalog.mode -ne 'development-only') {
   throw 'HQ demo catalog must be marked development-only.'
@@ -75,6 +100,18 @@ foreach ($song in $catalog.songs) {
     if ($media.sha256Checksum -notmatch '^[0-9a-f]{64}$') {
       throw "SHA-256 checksum is not a lowercase 64-character hex value for $($media.authorizedMediaId)."
     }
+    if ($null -eq $media.syncManifestPriority -or $media.syncManifestPriority -lt 0) {
+      throw "Sync manifest priority is missing or negative for $($media.authorizedMediaId)."
+    }
+    if ($null -eq $media.alwaysKeepOnHost -or $null -eq $media.serverArchiveOnly) {
+      throw "Sync manifest flags are missing for $($media.authorizedMediaId)."
+    }
+    if ($null -eq $media.requestedSongPriorityBoost -or $media.requestedSongPriorityBoost -lt 0) {
+      throw "Requested-song priority boost is missing or negative for $($media.authorizedMediaId)."
+    }
+    if ($null -eq $media.recentlyUsedPriorityBoost -or $media.recentlyUsedPriorityBoost -lt 0) {
+      throw "Recently-used priority boost is missing or negative for $($media.authorizedMediaId)."
+    }
   }
 }
 
@@ -93,4 +130,4 @@ try {
   Pop-Location
 }
 
-Write-Host 'HQ catalog validation passed: migrations, seed metadata, public reads, protected controls, and audit tests are covered.'
+Write-Host 'HQ catalog validation passed: migrations, seed metadata, public reads, protected controls, audit tests, host registration, and manifest planning are covered.'

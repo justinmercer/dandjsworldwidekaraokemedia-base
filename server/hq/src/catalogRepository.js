@@ -1,4 +1,10 @@
 const { randomUUID } = require('node:crypto');
+const {
+  createHostSyncManifest,
+  diffHostSyncManifest,
+  normalizeInterruptedSyncState,
+  toSafeHostDevice
+} = require('./hostSync');
 const { normalizeArtistName, normalizeCatalogText } = require('./normalization');
 
 const DEFAULT_PAGE_SIZE = 20;
@@ -9,6 +15,7 @@ class CatalogRepository {
     this.catalog = catalog;
     this.providersById = new Map((catalog.providers || []).map((provider) => [provider.providerId, provider]));
     this.songsById = new Map((catalog.songs || []).map((song) => [song.songId, song]));
+    this.hostDevicesById = new Map((catalog.hostDevices || []).map((hostDevice) => [hostDevice.hostDeviceId, hostDevice]));
     this.auditRecords = [];
   }
 
@@ -314,6 +321,113 @@ class CatalogRepository {
     };
   }
 
+  registerHostDevice(payload = {}) {
+    const now = new Date().toISOString();
+    const hostDeviceId = payload.hostDeviceId || randomUUID();
+    const existing = this.hostDevicesById.get(hostDeviceId) || {};
+    const syncState = payload.syncState || (payload.interruptedSyncState || payload.interruptedSync ? 'interrupted' : 'idle');
+    const hostDevice = {
+      ...existing,
+      hostDeviceId,
+      displayName: payload.displayName || existing.displayName,
+      venueLabel: payload.venueLabel === undefined ? existing.venueLabel || null : payload.venueLabel || null,
+      appVersion: payload.appVersion === undefined ? existing.appVersion || null : payload.appVersion || null,
+      localFreeSpaceBytes: payload.localFreeSpaceBytes === undefined ? existing.localFreeSpaceBytes || null : payload.localFreeSpaceBytes,
+      localLibraryRoot: payload.localLibraryRoot === undefined ? existing.localLibraryRoot || null : payload.localLibraryRoot || null,
+      lastSeenAt: now,
+      isActive: payload.isActive === undefined ? true : Boolean(payload.isActive),
+      syncState,
+      interruptedSyncState: syncState === 'interrupted'
+        ? normalizeInterruptedSyncState(payload.interruptedSyncState || payload.interruptedSync)
+        : null,
+      createdAt: existing.createdAt || now,
+      updatedAt: now
+    };
+
+    this.hostDevicesById.set(hostDeviceId, hostDevice);
+    this.catalog.hostDevices = Array.from(this.hostDevicesById.values());
+    return toSafeHostDevice(hostDevice);
+  }
+
+  updateHostHeartbeat(hostDeviceId, payload = {}) {
+    const hostDevice = this.requireHostDevice(hostDeviceId);
+    const now = new Date().toISOString();
+    const syncState = payload.syncState || (payload.interruptedSyncState || payload.interruptedSync ? 'interrupted' : hostDevice.syncState || 'idle');
+
+    if (payload.displayName !== undefined) hostDevice.displayName = payload.displayName;
+    if (payload.venueLabel !== undefined) hostDevice.venueLabel = payload.venueLabel || null;
+    if (payload.appVersion !== undefined) hostDevice.appVersion = payload.appVersion || null;
+    if (payload.localFreeSpaceBytes !== undefined) hostDevice.localFreeSpaceBytes = payload.localFreeSpaceBytes;
+    if (payload.localLibraryRoot !== undefined) hostDevice.localLibraryRoot = payload.localLibraryRoot || null;
+    if (payload.isActive !== undefined) hostDevice.isActive = Boolean(payload.isActive);
+    hostDevice.syncState = syncState;
+    hostDevice.interruptedSyncState = syncState === 'interrupted'
+      ? normalizeInterruptedSyncState(payload.interruptedSyncState || payload.interruptedSync || hostDevice.interruptedSyncState)
+      : null;
+    hostDevice.lastSeenAt = now;
+    hostDevice.updatedAt = now;
+
+    return toSafeHostDevice(hostDevice);
+  }
+
+  listHostStatuses(options = {}) {
+    const page = toPositiveInteger(options.page, 1);
+    const pageSize = Math.min(toPositiveInteger(options.pageSize, DEFAULT_PAGE_SIZE), MAX_PAGE_SIZE);
+    const hosts = Array.from(this.hostDevicesById.values())
+      .map(toSafeHostDevice)
+      .sort((left, right) => {
+        if (left.isActive !== right.isActive) {
+          return left.isActive ? -1 : 1;
+        }
+        return (right.lastSeenAt || '').localeCompare(left.lastSeenAt || '') ||
+          left.displayName.localeCompare(right.displayName);
+      });
+    const total = hosts.length;
+    const start = (page - 1) * pageSize;
+
+    return {
+      page,
+      pageSize,
+      total,
+      hasNextPage: start + pageSize < total,
+      items: hosts.slice(start, start + pageSize)
+    };
+  }
+
+  createHostManifest(hostDeviceId) {
+    const hostDevice = this.requireHostDevice(hostDeviceId);
+    const mediaRecords = [];
+
+    for (const song of this.getPublicSongs()) {
+      for (const media of song.media || []) {
+        if (media.retiredAt || media.reviewState !== 'approved') {
+          continue;
+        }
+
+        mediaRecords.push({
+          songId: song.songId,
+          authorizedMediaId: media.authorizedMediaId,
+          sha256Checksum: media.sha256Checksum,
+          fileSizeBytes: media.fileSizeBytes,
+          songUpdatedAt: song.updatedAt,
+          mediaUpdatedAt: media.updatedAt,
+          syncManifestPriority: media.syncManifestPriority,
+          alwaysKeepOnHost: media.alwaysKeepOnHost,
+          serverArchiveOnly: media.serverArchiveOnly,
+          selectedHostDeviceIds: media.selectedHostDeviceIds,
+          requestedSongPriorityBoost: media.requestedSongPriorityBoost,
+          recentlyUsedPriorityBoost: media.recentlyUsedPriorityBoost
+        });
+      }
+    }
+
+    return createHostSyncManifest({ hostDevice, mediaRecords });
+  }
+
+  diffHostManifest(hostDeviceId, currentEntries = []) {
+    return diffHostSyncManifest(this.createHostManifest(hostDeviceId), currentEntries);
+  }
+
   getPublicSongs() {
     return (this.catalog.songs || []).filter(isPublicSong);
   }
@@ -368,6 +482,15 @@ class CatalogRepository {
     }
 
     return song;
+  }
+
+  requireHostDevice(hostDeviceId) {
+    const hostDevice = this.hostDevicesById.get(hostDeviceId);
+    if (!hostDevice) {
+      throw new CatalogOperationError('host_device_not_found', 'Host device was not found.', 404);
+    }
+
+    return hostDevice;
   }
 
   recordAudit(entityType, entityId, action, beforeSnapshot, afterSnapshot, auditContext) {

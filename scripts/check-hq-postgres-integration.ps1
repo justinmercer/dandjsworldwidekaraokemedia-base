@@ -76,4 +76,4 @@ try {
   }
 }
 
-Write-Host 'Live HQ PostgreSQL integration check passed: repeat-safe migrations, protected writes, normalization, audit history, and public read safety are covered.'
+Write-Host 'Live HQ PostgreSQL integration check passed: repeat-safe migrations, protected writes, normalization, audit history, host registration, manifest planning, manifest diffs, and public read safety are covered.'

@@ -84,3 +84,81 @@ test('catalog writes produce protected audit history records', () => {
   assert.equal(audit.total, 5);
   assert.equal(audit.items.every((item) => item.actorLabel === 'test-admin'), true);
 });
+
+test('host registration heartbeat manifest planning and diffing stay safe', () => {
+  const repository = new CatalogRepository(loadDemoCatalog());
+  const host = repository.registerHostDevice({
+    hostDeviceId: 'host_demo_main',
+    displayName: 'Demo Booth Laptop',
+    venueLabel: 'Demo Venue',
+    appVersion: '0.2.0-demo',
+    localFreeSpaceBytes: 123456789,
+    localLibraryRoot: 'C:\\Demo\\Karaoke'
+  });
+
+  assert.equal(host.hostDeviceId, 'host_demo_main');
+  assert.equal(host.localLibraryRootReported, true);
+  assert.equal(JSON.stringify(host).includes('C:\\Demo\\Karaoke'), false);
+
+  const heartbeat = repository.updateHostHeartbeat('host_demo_main', {
+    appVersion: '0.2.1-demo',
+    localFreeSpaceBytes: 123450000,
+    isActive: true,
+    syncState: 'interrupted',
+    interruptedSyncState: {
+      syncId: 'sync-demo-001',
+      reason: 'Synthetic interrupted sync marker.',
+      lastMediaKey: 'authorized-media:media_demo_opening_cdg',
+      interruptedAt: '2026-06-14T00:00:00Z'
+    }
+  });
+
+  assert.equal(heartbeat.syncState, 'interrupted');
+  assert.equal(heartbeat.interruptedSyncState.lastMediaKey, 'authorized-media:media_demo_opening_cdg');
+
+  const statuses = repository.listHostStatuses();
+  assert.equal(statuses.total, 1);
+  assert.equal(statuses.items[0].displayName, 'Demo Booth Laptop');
+
+  const manifest = repository.createHostManifest('host_demo_main');
+  const serializedManifest = JSON.stringify(manifest);
+  assert.equal(manifest.entries.length, 3);
+  assert.equal(manifest.entries[0].authorizedMediaId, 'media_demo_opening_cdg');
+  assert.equal(manifest.entries.some((entry) => entry.authorizedMediaId === 'media_demo_opening_guide'), false);
+  assert.equal(manifest.entries.some((entry) => entry.authorizedMediaId === 'media_demo_finale_cdg'), true);
+  assert.equal(manifest.entries[0].flags.alwaysKeepOnHost, true);
+  assert.equal(manifest.entries[0].priorityInputs.requestedSongBoost, 30);
+  assert.equal(serializedManifest.includes('storageRelativeKey'), false);
+  assert.equal(serializedManifest.includes('demo-catalog'), false);
+  assert.match(manifest.manifestVersion, /^[0-9a-f]{64}$/);
+
+  const repeatManifest = repository.createHostManifest('host_demo_main');
+  assert.deepEqual(
+    repeatManifest.entries.map((entry) => entry.mediaKey),
+    manifest.entries.map((entry) => entry.mediaKey)
+  );
+  assert.equal(repeatManifest.manifestVersion, manifest.manifestVersion);
+
+  const diff = repository.diffHostManifest('host_demo_main', [
+    {
+      songId: 'song_demo_opening',
+      authorizedMediaId: 'media_demo_opening_cdg',
+      sha256Checksum: '0000000000000000000000000000000000000000000000000000000000000000',
+      fileSizeBytes: 1,
+      versionTimestamp: '2026-01-01T00:00:00Z'
+    },
+    {
+      songId: 'song_demo_stale',
+      authorizedMediaId: 'media_demo_stale',
+      sha256Checksum: '5555555555555555555555555555555555555555555555555555555555555555',
+      fileSizeBytes: 10,
+      versionTimestamp: '2026-01-01T00:00:00Z'
+    }
+  ]);
+
+  assert.equal(diff.totals.additions, 2);
+  assert.equal(diff.totals.updates, 1);
+  assert.equal(diff.totals.cleanupCandidates, 1);
+  assert.equal(diff.cleanupCandidates[0].action, 'review_cleanup_candidate');
+  assert.equal(diff.cleanupCandidates[0].deleteReady, false);
+});

@@ -5,6 +5,7 @@ const port = Number.parseInt(process.env.PORT || '5100', 10);
 const repository = createCatalogRepositoryFromEnvironment(process.env);
 const server = createCatalogServer({
   adminCredential: process.env.HQ_ADMIN_TOKEN,
+  hostRegistrationCredential: process.env.HQ_HOST_REGISTRATION_TOKEN,
   repository
 });
 

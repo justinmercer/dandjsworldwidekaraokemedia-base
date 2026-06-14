@@ -2,6 +2,7 @@ const http = require('node:http');
 const { randomUUID, timingSafeEqual } = require('node:crypto');
 const { CatalogOperationError, CatalogRepository } = require('./catalogRepository');
 const { loadDemoCatalog } = require('./catalogData');
+const { HOST_SYNC_STATES } = require('./hostSync');
 
 const MAX_BODY_BYTES = 64 * 1024;
 const REVIEW_STATES = new Set(['pending_review', 'approved', 'rejected', 'needs_metadata', 'retired']);
@@ -11,6 +12,7 @@ const VOCAL_GUIDE_TYPES = new Set(['none', 'guide_vocal', 'background_vocals', '
 function createCatalogServer(options = {}) {
   const repository = options.repository || new CatalogRepository(options.catalog || loadDemoCatalog());
   const adminCredential = options.adminCredential || null;
+  const hostRegistrationCredential = options.hostRegistrationCredential || null;
   const publicSearchLimiter = createPublicSearchLimiter(options.publicSearchRateLimit);
 
   return http.createServer(async (request, response) => {
@@ -21,6 +23,7 @@ function createCatalogServer(options = {}) {
       await routeRequest(request, response, {
         adminCredential,
         correlationId,
+        hostRegistrationCredential,
         publicSearchLimiter,
         repository
       });
@@ -90,6 +93,16 @@ async function routeRequest(request, response, context) {
 
   if (pathname.startsWith('/api/admin/catalog')) {
     await routeAdminRequest(request, response, requestUrl, pathname, context);
+    return;
+  }
+
+  if (pathname.startsWith('/api/admin/hosts')) {
+    await routeAdminHostsRequest(request, response, requestUrl, pathname, context);
+    return;
+  }
+
+  if (pathname.startsWith('/api/host')) {
+    await routeHostRequest(request, response, requestUrl, pathname, context);
     return;
   }
 
@@ -173,6 +186,53 @@ async function routeAdminRequest(request, response, requestUrl, pathname, contex
   throw new HttpError(404, 'not_found', 'Route was not found.');
 }
 
+async function routeAdminHostsRequest(request, response, requestUrl, pathname, context) {
+  requireAdminAuthorization(request, context.adminCredential);
+
+  if (request.method === 'GET' && (pathname === '/api/admin/hosts' || pathname === '/api/admin/hosts/status')) {
+    writeJson(response, 200, await context.repository.listHostStatuses(Object.fromEntries(requestUrl.searchParams.entries())));
+    return;
+  }
+
+  throw new HttpError(404, 'not_found', 'Route was not found.');
+}
+
+async function routeHostRequest(request, response, requestUrl, pathname, context) {
+  requireHostRegistrationAuthorization(request, context.hostRegistrationCredential);
+  const { repository } = context;
+
+  if (request.method === 'POST' && pathname === '/api/host/register') {
+    const body = await readJsonBody(request);
+    validateHostRegistration(body);
+    const hostDevice = await repository.registerHostDevice(body);
+    writeJson(response, 201, { hostDevice });
+    return;
+  }
+
+  if (request.method === 'POST' && pathname === '/api/host/heartbeat') {
+    const body = await readJsonBody(request);
+    validateHostHeartbeat(body);
+    const hostDevice = await repository.updateHostHeartbeat(body.hostDeviceId, body);
+    writeJson(response, 200, { hostDevice });
+    return;
+  }
+
+  if (request.method === 'GET' && pathname === '/api/host/manifest') {
+    const hostDeviceId = requireSearchParam(requestUrl, 'hostDeviceId');
+    writeJson(response, 200, await repository.createHostManifest(hostDeviceId));
+    return;
+  }
+
+  if (request.method === 'POST' && pathname === '/api/host/manifest/diff') {
+    const body = await readJsonBody(request);
+    validateManifestDiffRequest(body);
+    writeJson(response, 200, await repository.diffHostManifest(body.hostDeviceId, body.currentEntries || []));
+    return;
+  }
+
+  throw new HttpError(404, 'not_found', 'Route was not found.');
+}
+
 function requireAdminAuthorization(request, adminCredential) {
   if (!adminCredential) {
     throw new HttpError(503, 'admin_auth_not_configured', 'Catalog management is not configured.');
@@ -187,6 +247,27 @@ function requireAdminAuthorization(request, adminCredential) {
     actorLabel: sanitizeAuditLabel(request.headers['x-admin-actor']) || 'temporary-admin',
     changeReason: sanitizeAuditLabel(request.headers['x-change-reason']) || null
   };
+}
+
+function requireHostRegistrationAuthorization(request, hostRegistrationCredential) {
+  if (!hostRegistrationCredential) {
+    throw new HttpError(503, 'host_registration_not_configured', 'Host registration is not configured.');
+  }
+
+  const presented = getPresentedHostRegistrationToken(request);
+  if (!presented || !safeTokenEquals(presented, hostRegistrationCredential)) {
+    throw new HttpError(401, 'host_unauthorized', 'Host registration authorization is required.');
+  }
+}
+
+function getPresentedHostRegistrationToken(request) {
+  const authorization = request.headers.authorization || '';
+  const bearerMatch = authorization.match(/^Bearer\s+(.+)$/i);
+  if (bearerMatch) {
+    return bearerMatch[1];
+  }
+
+  return request.headers['x-hq-host-registration-token'] || null;
 }
 
 function getPresentedAdminToken(request) {
@@ -261,6 +342,55 @@ function validateSongUpdate(body) {
   validateOptionalString(body.language, 'language', 12);
   validateOptionalString(body.lastVerifiedAt, 'lastVerifiedAt', 64);
   validateQualityRating(body.qualityRating);
+}
+
+function validateHostRegistration(body) {
+  requireObject(body);
+  validateOptionalString(body.hostDeviceId, 'hostDeviceId', 120);
+  validateOptionalString(body.displayName, 'displayName', 120, true);
+  validateOptionalString(body.venueLabel, 'venueLabel', 120);
+  validateOptionalString(body.appVersion, 'appVersion', 80);
+  validateOptionalNonNegativeInteger(body.localFreeSpaceBytes, 'localFreeSpaceBytes');
+  validateOptionalString(body.localLibraryRoot, 'localLibraryRoot', 500);
+  validateOptionalBoolean(body.isActive, 'isActive');
+  validateOptionalHostSyncState(body.syncState);
+  validateInterruptedSyncState(body.interruptedSyncState || body.interruptedSync);
+}
+
+function validateHostHeartbeat(body) {
+  requireObject(body);
+  validateOptionalString(body.hostDeviceId, 'hostDeviceId', 120, true);
+  validateOptionalString(body.displayName, 'displayName', 120);
+  validateOptionalString(body.venueLabel, 'venueLabel', 120);
+  validateOptionalString(body.appVersion, 'appVersion', 80);
+  validateOptionalNonNegativeInteger(body.localFreeSpaceBytes, 'localFreeSpaceBytes');
+  validateOptionalString(body.localLibraryRoot, 'localLibraryRoot', 500);
+  validateOptionalBoolean(body.isActive, 'isActive');
+  validateOptionalHostSyncState(body.syncState);
+  validateInterruptedSyncState(body.interruptedSyncState || body.interruptedSync);
+}
+
+function validateManifestDiffRequest(body) {
+  requireObject(body);
+  validateOptionalString(body.hostDeviceId, 'hostDeviceId', 120, true);
+  if (body.currentEntries === undefined) {
+    return;
+  }
+  if (!Array.isArray(body.currentEntries)) {
+    throw new HttpError(400, 'validation_failed', 'currentEntries must be an array.');
+  }
+  for (const entry of body.currentEntries) {
+    requireObject(entry);
+    validateOptionalString(entry.songId, 'songId', 120);
+    validateOptionalString(entry.authorizedMediaId, 'authorizedMediaId', 120);
+    validateOptionalString(entry.mediaKey, 'mediaKey', 180);
+    validateOptionalString(entry.versionTimestamp, 'versionTimestamp', 80);
+    validateOptionalNonNegativeInteger(entry.fileSizeBytes, 'fileSizeBytes');
+    validateOptionalString(entry.sha256Checksum, 'sha256Checksum', 64);
+    if (entry.sha256Checksum !== undefined && !/^[0-9a-f]{64}$/.test(entry.sha256Checksum)) {
+      throw new HttpError(400, 'validation_failed', 'sha256Checksum must be lowercase 64-character hex.');
+    }
+  }
 }
 
 function validateMediaVersions(mediaVersions) {
@@ -344,6 +474,24 @@ function validateOptionalEnum(value, field, values) {
   requireEnum(value, field, values);
 }
 
+function validateOptionalHostSyncState(value) {
+  if (value === undefined || value === null) {
+    return;
+  }
+  requireEnum(value, 'syncState', HOST_SYNC_STATES);
+}
+
+function validateInterruptedSyncState(value) {
+  if (value === undefined || value === null) {
+    return;
+  }
+  requireObject(value);
+  validateOptionalString(value.syncId, 'interruptedSyncState.syncId', 120);
+  validateOptionalString(value.reason, 'interruptedSyncState.reason', 240);
+  validateOptionalString(value.lastMediaKey, 'interruptedSyncState.lastMediaKey', 180);
+  validateOptionalString(value.interruptedAt, 'interruptedSyncState.interruptedAt', 80);
+}
+
 function requireEnum(value, field, values) {
   if (!values.has(value)) {
     throw new HttpError(400, 'validation_failed', `${field} is not supported.`);
@@ -362,6 +510,24 @@ function validateQualityRating(value) {
 function requirePositiveInteger(value, field) {
   if (!Number.isInteger(value) || value < 1) {
     throw new HttpError(400, 'validation_failed', `${field} must be a positive integer.`);
+  }
+}
+
+function validateOptionalNonNegativeInteger(value, field) {
+  if (value === undefined || value === null) {
+    return;
+  }
+  if (!Number.isInteger(value) || value < 0) {
+    throw new HttpError(400, 'validation_failed', `${field} must be a non-negative integer.`);
+  }
+}
+
+function validateOptionalBoolean(value, field) {
+  if (value === undefined || value === null) {
+    return;
+  }
+  if (typeof value !== 'boolean') {
+    throw new HttpError(400, 'validation_failed', `${field} must be a boolean.`);
   }
 }
 
@@ -400,6 +566,15 @@ function getClientKey(request) {
   }
 
   return request.socket.remoteAddress || 'unknown';
+}
+
+function requireSearchParam(requestUrl, name) {
+  const value = requestUrl.searchParams.get(name);
+  if (!value) {
+    throw new HttpError(400, 'validation_failed', `${name} is required.`);
+  }
+
+  return value;
 }
 
 function isPublicCatalogPath(pathname) {

@@ -88,6 +88,7 @@ $requiredFiles = @(
   'server/hq/package.json',
   'server/hq/src/normalization.js',
   'server/hq/src/catalogData.js',
+  'server/hq/src/hostSync.js',
   'server/hq/src/catalogRepository.js',
   'server/hq/src/postgresCatalogRepository.js',
   'server/hq/src/repositoryFactory.js',
@@ -101,8 +102,10 @@ $requiredFiles = @(
   'server/hq/package-lock.json',
   'server/hq/database/migrations/0001_authorized_catalog.sql',
   'server/hq/database/migrations/0002_catalog_controls.sql',
-  'server/hq/database/seeds/0001_demo_catalog.sql'
+  'server/hq/database/migrations/0003_host_sync_foundation.sql',
+  'server/hq/database/seeds/0001_demo_catalog.sql',
   'docs/development/catalog-api.md',
+  'docs/development/host-sync-foundation.md',
   'docs/development/storage-mounts.md',
   'docs/development/migration-rollback.md'
 )
@@ -116,17 +119,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..110) {
+foreach ($taskNumber in 1..135) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 111..577) {
+foreach ($taskNumber in 136..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 1B."
+    throw "Backlog task $taskId should remain unchecked after Wave 2A."
   }
 }
 
@@ -137,4 +140,4 @@ foreach ($taskNumber in 111..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 1B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..110 checked, KARA-111..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 2A smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..135 checked, KARA-136..577 unchecked, and safety guardrails passed."

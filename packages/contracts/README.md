@@ -1,8 +1,8 @@
 # Shared Contracts Placeholder
 
-This directory contains shared JSON Schema contracts for future cross-component DTOs.
+This directory contains shared JSON Schema contracts for cross-component DTOs.
 
-Wave 0B defines versioned schemas only. It does not add server APIs, generated clients, database migrations, playback logic, synchronization jobs, OBS implementation, or Replay implementation.
+Wave 2A keeps the `v1` contract version and refines the host-device and synchronization-manifest schemas for protected HQ host sync planning. It does not add generated clients, playback logic, host downloading, local file transfer, cleanup deletion execution, OBS implementation, or Replay implementation.
 
 ## Current contract version
 

@@ -1,5 +1,11 @@
 const { randomUUID } = require('node:crypto');
 const { CatalogOperationError } = require('./catalogRepository');
+const {
+  createHostSyncManifest,
+  diffHostSyncManifest,
+  normalizeInterruptedSyncState,
+  toSafeHostDevice
+} = require('./hostSync');
 const { normalizeArtistName, normalizeCatalogText } = require('./normalization');
 
 let Pool;
@@ -278,6 +284,132 @@ class PostgresCatalogRepository {
     return paged(page, pageSize, total, offset, rows.map(toAuditRecord));
   }
 
+  async registerHostDevice(payload = {}) {
+    const hostDeviceId = payload.hostDeviceId || randomUUID();
+    const syncState = payload.syncState || (payload.interruptedSyncState || payload.interruptedSync ? 'interrupted' : 'idle');
+    const interruptedSyncState = syncState === 'interrupted'
+      ? normalizeInterruptedSyncState(payload.interruptedSyncState || payload.interruptedSync)
+      : null;
+    const { rows } = await this.pool.query(
+      `INSERT INTO hq_catalog.host_devices (
+        host_device_id, display_name, venue_label, app_version, local_free_space_bytes,
+        local_library_root, last_seen_at, is_active, sync_state, interrupted_sync_state
+      ) VALUES ($1,$2,$3,$4,$5,$6,now(),$7,$8,$9::jsonb)
+      ON CONFLICT (host_device_id) DO UPDATE SET
+        display_name = EXCLUDED.display_name,
+        venue_label = EXCLUDED.venue_label,
+        app_version = EXCLUDED.app_version,
+        local_free_space_bytes = EXCLUDED.local_free_space_bytes,
+        local_library_root = EXCLUDED.local_library_root,
+        last_seen_at = now(),
+        is_active = EXCLUDED.is_active,
+        sync_state = EXCLUDED.sync_state,
+        interrupted_sync_state = EXCLUDED.interrupted_sync_state,
+        updated_at = now()
+      RETURNING *`,
+      [
+        hostDeviceId,
+        payload.displayName,
+        payload.venueLabel || null,
+        payload.appVersion || null,
+        payload.localFreeSpaceBytes === undefined ? null : payload.localFreeSpaceBytes,
+        payload.localLibraryRoot || null,
+        payload.isActive === undefined ? true : Boolean(payload.isActive),
+        syncState,
+        interruptedSyncState ? JSON.stringify(interruptedSyncState) : null
+      ]
+    );
+
+    return toSafeHostDevice(toHostDevice(rows[0]));
+  }
+
+  async updateHostHeartbeat(hostDeviceId, payload = {}) {
+    const current = await this.requireHostDevice(hostDeviceId);
+    const syncState = payload.syncState || (payload.interruptedSyncState || payload.interruptedSync ? 'interrupted' : current.syncState || 'idle');
+    const interruptedSyncState = syncState === 'interrupted'
+      ? normalizeInterruptedSyncState(payload.interruptedSyncState || payload.interruptedSync || current.interruptedSyncState)
+      : null;
+    const { rows } = await this.pool.query(
+      `UPDATE hq_catalog.host_devices
+       SET display_name = $2,
+           venue_label = $3,
+           app_version = $4,
+           local_free_space_bytes = $5,
+           local_library_root = $6,
+           last_seen_at = now(),
+           is_active = $7,
+           sync_state = $8,
+           interrupted_sync_state = $9::jsonb,
+           updated_at = now()
+       WHERE host_device_id = $1
+       RETURNING *`,
+      [
+        hostDeviceId,
+        payload.displayName === undefined ? current.displayName : payload.displayName,
+        payload.venueLabel === undefined ? current.venueLabel : payload.venueLabel || null,
+        payload.appVersion === undefined ? current.appVersion : payload.appVersion || null,
+        payload.localFreeSpaceBytes === undefined ? current.localFreeSpaceBytes : payload.localFreeSpaceBytes,
+        payload.localLibraryRoot === undefined ? current.localLibraryRoot : payload.localLibraryRoot || null,
+        payload.isActive === undefined ? current.isActive : Boolean(payload.isActive),
+        syncState,
+        interruptedSyncState ? JSON.stringify(interruptedSyncState) : null
+      ]
+    );
+
+    if (!rows[0]) {
+      throw new CatalogOperationError('host_device_not_found', 'Host device was not found.', 404);
+    }
+    return toSafeHostDevice(toHostDevice(rows[0]));
+  }
+
+  async listHostStatuses(options = {}) {
+    const page = positiveInt(options.page, 1);
+    const pageSize = pageCap(options.pageSize);
+    const offset = (page - 1) * pageSize;
+    const total = (await this.pool.query('SELECT count(*)::int AS total FROM hq_catalog.host_devices')).rows[0].total;
+    const { rows } = await this.pool.query(
+      `SELECT *
+       FROM hq_catalog.host_devices
+       ORDER BY is_active DESC, last_seen_at DESC, display_name ASC
+       LIMIT $1 OFFSET $2`,
+      [pageSize, offset]
+    );
+
+    return paged(page, pageSize, total, offset, rows.map((row) => toSafeHostDevice(toHostDevice(row))));
+  }
+
+  async createHostManifest(hostDeviceId) {
+    const hostDevice = await this.requireHostDevice(hostDeviceId);
+    const { rows } = await this.pool.query(
+      `SELECT s.song_id, s.updated_at AS song_updated_at,
+              media.authorized_media_id, media.sha256_checksum, media.file_size_bytes,
+              media.updated_at AS media_updated_at, media.sync_manifest_priority,
+              media.always_keep_on_host, media.server_archive_only, media.selected_host_device_ids,
+              media.requested_song_priority_boost, media.recently_used_priority_boost
+       FROM hq_catalog.authorized_media_files media
+       INNER JOIN hq_catalog.songs s ON s.song_id = media.song_id
+       WHERE s.retired_at IS NULL
+         AND s.review_state = 'approved'
+         AND media.retired_at IS NULL
+         AND media.review_state = 'approved'
+         AND media.server_archive_only = false
+         AND (
+           cardinality(media.selected_host_device_ids) = 0
+           OR $1::uuid = ANY(media.selected_host_device_ids)
+         )`,
+      [hostDeviceId]
+    );
+
+    return createHostSyncManifest({
+      hostDevice,
+      mediaRecords: rows.map(toManifestMediaRecord)
+    });
+  }
+
+  async diffHostManifest(hostDeviceId, currentEntries = []) {
+    return diffHostSyncManifest(await this.createHostManifest(hostDeviceId), currentEntries);
+  }
+
   async getPublicMediaVersions(songId) {
     const { rows } = await this.pool.query(
       `SELECT media.authorized_media_id, media.provider_id, providers.display_name AS provider_name,
@@ -306,6 +438,15 @@ class PostgresCatalogRepository {
     } finally {
       client.release();
     }
+  }
+
+  async requireHostDevice(hostDeviceId) {
+    const { rows } = await this.pool.query('SELECT * FROM hq_catalog.host_devices WHERE host_device_id = $1 LIMIT 1', [hostDeviceId]);
+    if (!rows[0]) {
+      throw new CatalogOperationError('host_device_not_found', 'Host device was not found.', 404);
+    }
+
+    return toHostDevice(rows[0]);
   }
 }
 
@@ -540,6 +681,40 @@ function toAuditRecord(row) {
     beforeSnapshot: row.before_snapshot,
     afterSnapshot: row.after_snapshot,
     createdAt: toIso(row.created_at)
+  };
+}
+
+function toHostDevice(row) {
+  return {
+    hostDeviceId: row.host_device_id,
+    displayName: row.display_name,
+    venueLabel: row.venue_label,
+    appVersion: row.app_version,
+    localFreeSpaceBytes: row.local_free_space_bytes === null ? null : Number(row.local_free_space_bytes),
+    localLibraryRoot: row.local_library_root,
+    lastSeenAt: toIso(row.last_seen_at),
+    isActive: row.is_active,
+    syncState: row.sync_state,
+    interruptedSyncState: row.interrupted_sync_state,
+    createdAt: toIso(row.created_at),
+    updatedAt: toIso(row.updated_at)
+  };
+}
+
+function toManifestMediaRecord(row) {
+  return {
+    songId: row.song_id,
+    authorizedMediaId: row.authorized_media_id,
+    sha256Checksum: row.sha256_checksum,
+    fileSizeBytes: Number(row.file_size_bytes),
+    songUpdatedAt: toIso(row.song_updated_at),
+    mediaUpdatedAt: toIso(row.media_updated_at),
+    syncManifestPriority: row.sync_manifest_priority,
+    alwaysKeepOnHost: row.always_keep_on_host,
+    serverArchiveOnly: row.server_archive_only,
+    selectedHostDeviceIds: row.selected_host_device_ids || [],
+    requestedSongPriorityBoost: row.requested_song_priority_boost,
+    recentlyUsedPriorityBoost: row.recently_used_priority_boost
   };
 }
 

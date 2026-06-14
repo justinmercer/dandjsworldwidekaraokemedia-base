@@ -40,4 +40,4 @@ When UI work begins in later waves:
 
 ## Batch policy
 
-Wave 1B creates public HQ catalog endpoints and temporary protected catalog-management endpoints only. It does not create host features, playback, syncing, mobile requests, OBS integration, Replay integration, full staff authentication, or external-source acquisition workflows.
+Wave 2A creates public HQ catalog endpoints, temporary protected catalog-management endpoints, protected host registration endpoints, and host manifest-planning endpoints only. It does not create host downloading, local file transfer, playback, Windows UI, mobile requests, OBS integration, Replay integration, cleanup deletion execution, full staff authentication, or external-source acquisition workflows.

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.dandjs.example/foundation/v1/synchronization-manifest.schema.json",
   "title": "Synchronization Manifest",
-  "description": "Future manifest summary for host verification of authorized metadata changes.",
+  "description": "Deterministic host manifest for authorized karaoke media planning only.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -13,6 +13,10 @@
       "type": "string",
       "minLength": 1
     },
+    "manifestVersion": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
     "generatedAt": {
       "type": "string",
       "format": "date-time"
@@ -22,36 +26,127 @@
       "enum": ["hq-server"]
     },
     "targetHostDeviceId": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
-    "items": {
+    "hostDevice": {
+      "$ref": "host-device.v1.schema.json"
+    },
+    "entries": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "entityType": {
+          "songId": {
             "type": "string",
-            "enum": ["song", "singer", "venue", "request", "host-device"]
+            "minLength": 1
           },
-          "entityId": {
-            "type": "string"
-          },
-          "revision": {
-            "type": "string"
-          },
-          "sha256": {
+          "authorizedMediaId": {
             "type": "string",
-            "pattern": "^[a-fA-F0-9]{64}$"
+            "minLength": 1
           },
-          "operation": {
+          "mediaKey": {
             "type": "string",
-            "enum": ["upsert", "retire", "delete"]
+            "pattern": "^authorized-media:.+"
+          },
+          "sha256Checksum": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "fileSizeBytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "versionTimestamp": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "songUpdatedAt": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "mediaUpdatedAt": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "flags": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "alwaysKeepOnHost": {
+                "type": "boolean"
+              },
+              "serverArchiveOnly": {
+                "type": "boolean"
+              },
+              "selectedHostSync": {
+                "type": "boolean"
+              }
+            },
+            "required": ["alwaysKeepOnHost", "serverArchiveOnly", "selectedHostSync"]
+          },
+          "priorityInputs": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "basePriority": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "requestedSongBoost": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "recentlyUsedBoost": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": ["basePriority", "requestedSongBoost", "recentlyUsedBoost"]
           }
         },
-        "required": ["entityType", "entityId", "revision", "sha256", "operation"]
+        "required": [
+          "songId",
+          "authorizedMediaId",
+          "mediaKey",
+          "sha256Checksum",
+          "fileSizeBytes",
+          "priority",
+          "versionTimestamp",
+          "flags",
+          "priorityInputs"
+        ]
       }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "totalBytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["entries", "totalBytes"]
     }
   },
-  "required": ["contractVersion", "manifestId", "generatedAt", "sourceService", "items"]
+  "required": [
+    "contractVersion",
+    "manifestId",
+    "manifestVersion",
+    "generatedAt",
+    "sourceService",
+    "targetHostDeviceId",
+    "entries",
+    "totals"
+  ]
 }

@@ -5,6 +5,7 @@ const { CatalogRepository } = require('../src/catalogRepository');
 const { loadDemoCatalog } = require('../src/catalogData');
 
 const ADMIN_TOKEN = 'placeholder-test-admin-token';
+const HOST_TOKEN = 'placeholder-test-host-registration-token';
 
 async function withServer(options, run) {
   const server = createCatalogServer({
@@ -26,6 +27,14 @@ function adminHeaders(extra = {}) {
     authorization: `Bearer ${ADMIN_TOKEN}`,
     'content-type': 'application/json',
     'x-admin-actor': 'test-admin',
+    ...extra
+  };
+}
+
+function hostHeaders(extra = {}) {
+  return {
+    authorization: `Bearer ${HOST_TOKEN}`,
+    'content-type': 'application/json',
     ...extra
   };
 }
@@ -91,6 +100,126 @@ test('admin routes require the configured temporary credential', async () => {
 
     assert.equal(response.status, 401);
     assert.equal(body.error.code, 'admin_unauthorized');
+  });
+});
+
+test('host routes fail closed without registration configuration and reject bad tokens', async () => {
+  await withServer({}, async (baseUrl) => {
+    const missingConfig = await fetch(`${baseUrl}/api/host/register`, {
+      method: 'POST',
+      headers: hostHeaders(),
+      body: JSON.stringify({ displayName: 'Demo Host' })
+    });
+    const missingBody = await missingConfig.json();
+    assert.equal(missingConfig.status, 503);
+    assert.equal(missingBody.error.code, 'host_registration_not_configured');
+  });
+
+  await withServer({ hostRegistrationCredential: HOST_TOKEN }, async (baseUrl) => {
+    const invalid = await fetch(`${baseUrl}/api/host/register`, {
+      method: 'POST',
+      headers: { authorization: 'Bearer wrong-placeholder-token', 'content-type': 'application/json' },
+      body: JSON.stringify({ displayName: 'Demo Host' })
+    });
+    const invalidBody = await invalid.json();
+    assert.equal(invalid.status, 401);
+    assert.equal(invalidBody.error.code, 'host_unauthorized');
+  });
+});
+
+test('host registration heartbeat admin status manifest and diff endpoints are protected and safe', async () => {
+  await withServer({
+    adminCredential: ADMIN_TOKEN,
+    hostRegistrationCredential: HOST_TOKEN
+  }, async (baseUrl) => {
+    const register = await fetch(`${baseUrl}/api/host/register`, {
+      method: 'POST',
+      headers: hostHeaders(),
+      body: JSON.stringify({
+        hostDeviceId: 'host_demo_main',
+        displayName: 'Demo Booth Laptop',
+        venueLabel: 'Demo Venue',
+        appVersion: '0.2.0-demo',
+        localFreeSpaceBytes: 987654321,
+        localLibraryRoot: 'C:\\Demo\\Karaoke'
+      })
+    });
+    const registered = await register.json();
+    assert.equal(register.status, 201);
+    assert.equal(registered.hostDevice.hostDeviceId, 'host_demo_main');
+    assert.equal(registered.hostDevice.localLibraryRootReported, true);
+    assert.equal(JSON.stringify(registered).includes('C:\\Demo\\Karaoke'), false);
+
+    const heartbeat = await fetch(`${baseUrl}/api/host/heartbeat`, {
+      method: 'POST',
+      headers: hostHeaders(),
+      body: JSON.stringify({
+        hostDeviceId: 'host_demo_main',
+        appVersion: '0.2.1-demo',
+        localFreeSpaceBytes: 987650000,
+        isActive: true,
+        syncState: 'interrupted',
+        interruptedSyncState: {
+          syncId: 'sync-demo-001',
+          reason: 'Synthetic interrupted sync marker.',
+          lastMediaKey: 'authorized-media:media_demo_opening_cdg',
+          interruptedAt: '2026-06-14T00:00:00Z'
+        }
+      })
+    });
+    const heartbeatBody = await heartbeat.json();
+    assert.equal(heartbeat.status, 200);
+    assert.equal(heartbeatBody.hostDevice.syncState, 'interrupted');
+
+    const statuses = await fetch(`${baseUrl}/api/admin/hosts/status`, {
+      headers: adminHeaders()
+    });
+    const statusBody = await statuses.json();
+    assert.equal(statuses.status, 200);
+    assert.equal(statusBody.total, 1);
+    assert.equal(statusBody.items[0].localLibraryRootReported, true);
+
+    const manifest = await fetch(`${baseUrl}/api/host/manifest?hostDeviceId=host_demo_main`, {
+      headers: hostHeaders()
+    });
+    const manifestBody = await manifest.json();
+    const serializedManifest = JSON.stringify(manifestBody);
+    assert.equal(manifest.status, 200);
+    assert.equal(manifestBody.entries.length, 3);
+    assert.equal(manifestBody.entries[0].authorizedMediaId, 'media_demo_opening_cdg');
+    assert.equal(manifestBody.entries.some((entry) => entry.authorizedMediaId === 'media_demo_opening_guide'), false);
+    assert.equal(serializedManifest.includes('storageRelativeKey'), false);
+    assert.equal(serializedManifest.includes('demo-catalog'), false);
+    assert.match(manifestBody.manifestVersion, /^[0-9a-f]{64}$/);
+
+    const diff = await fetch(`${baseUrl}/api/host/manifest/diff`, {
+      method: 'POST',
+      headers: hostHeaders(),
+      body: JSON.stringify({
+        hostDeviceId: 'host_demo_main',
+        currentEntries: [
+          {
+            songId: 'song_demo_opening',
+            authorizedMediaId: 'media_demo_opening_cdg',
+            sha256Checksum: '0000000000000000000000000000000000000000000000000000000000000000',
+            fileSizeBytes: 1,
+            versionTimestamp: '2026-01-01T00:00:00Z'
+          },
+          {
+            songId: 'song_demo_stale',
+            authorizedMediaId: 'media_demo_stale',
+            sha256Checksum: '5555555555555555555555555555555555555555555555555555555555555555',
+            fileSizeBytes: 10,
+            versionTimestamp: '2026-01-01T00:00:00Z'
+          }
+        ]
+      })
+    });
+    const diffBody = await diff.json();
+    assert.equal(diff.status, 200);
+    assert.equal(diffBody.totals.additions, 2);
+    assert.equal(diffBody.totals.updates, 1);
+    assert.equal(diffBody.cleanupCandidates[0].deleteReady, false);
   });
 });
 
