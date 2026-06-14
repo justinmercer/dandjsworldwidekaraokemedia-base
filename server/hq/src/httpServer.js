@@ -221,6 +221,11 @@ async function routeAdminHostsRequest(request, response, requestUrl, pathname, c
     const syncResource = hostSyncMatch[2];
     const syncActionAlias = hostSyncMatch[3];
 
+    if (request.method === 'GET' && syncResource === 'summary' && !syncActionAlias) {
+      writeJson(response, 200, await repository.getHostSyncSummary(hostDeviceId));
+      return;
+    }
+
     if (request.method === 'GET' && syncResource === 'operations' && !syncActionAlias) {
       writeJson(response, 200, await repository.listHostSyncOperations(hostDeviceId, Object.fromEntries(requestUrl.searchParams.entries())));
       return;

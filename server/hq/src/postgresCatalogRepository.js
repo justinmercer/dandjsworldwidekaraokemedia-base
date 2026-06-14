@@ -579,6 +579,72 @@ class PostgresCatalogRepository {
     return paged(page, pageSize, total, offset, rows.map(toHostSyncQuarantine));
   }
 
+  async getHostSyncSummary(hostDeviceId) {
+    await this.requireHostDevice(hostDeviceId);
+
+    const statusCounts = Object.fromEntries(HOST_SYNC_SUMMARY_STATUSES.map((status) => [status, 0]));
+    const statusRows = (await this.pool.query(
+      `SELECT status, count(*)::int AS total
+       FROM hq_catalog.host_sync_operations
+       WHERE host_device_id = $1
+       GROUP BY status`,
+      [hostDeviceId]
+    )).rows;
+    for (const row of statusRows) {
+      statusCounts[row.status] = row.total;
+    }
+
+    const latestOperationRow = (await this.pool.query(
+      `SELECT *
+       FROM hq_catalog.host_sync_operations
+       WHERE host_device_id = $1
+       ORDER BY updated_at DESC, sync_operation_id DESC
+       LIMIT 1`,
+      [hostDeviceId]
+    )).rows[0] || null;
+
+    const lastErrorRow = (await this.pool.query(
+      `SELECT last_error
+       FROM hq_catalog.host_sync_operations
+       WHERE host_device_id = $1 AND last_error IS NOT NULL
+       ORDER BY updated_at DESC, sync_operation_id DESC
+       LIMIT 1`,
+      [hostDeviceId]
+    )).rows[0] || null;
+
+    const actionCounts = (await this.pool.query(
+      `SELECT
+         count(*)::int AS action_count,
+         count(*) FILTER (WHERE status = 'queued')::int AS queued_action_count
+       FROM hq_catalog.host_sync_operator_actions
+       WHERE host_device_id = $1`,
+      [hostDeviceId]
+    )).rows[0];
+
+    const quarantineCounts = (await this.pool.query(
+      `SELECT
+         count(*)::int AS quarantine_count,
+         count(*) FILTER (WHERE resolved_at IS NULL)::int AS unresolved_quarantine_count
+       FROM hq_catalog.host_sync_quarantine
+       WHERE host_device_id = $1`,
+      [hostDeviceId]
+    )).rows[0];
+
+    const latestOperation = latestOperationRow ? toHostSyncOperation(latestOperationRow) : null;
+    return {
+      hostDeviceId,
+      statusCounts,
+      latestOperation,
+      queuedActionCount: Number(actionCounts.queued_action_count || 0),
+      actionCount: Number(actionCounts.action_count || 0),
+      quarantineCount: Number(quarantineCounts.quarantine_count || 0),
+      unresolvedQuarantineCount: Number(quarantineCounts.unresolved_quarantine_count || 0),
+      lastError: lastErrorRow ? lastErrorRow.last_error : null,
+      progress: latestOperation ? latestOperation.progress : DEFAULT_SYNC_PROGRESS,
+      generatedAt: new Date().toISOString()
+    };
+  }
+
   async getPublicMediaVersions(songId) {
     const { rows } = await this.pool.query(
       `SELECT media.authorized_media_id, media.provider_id, providers.display_name AS provider_name,
@@ -750,6 +816,8 @@ async function recordAudit(client, entityType, entityId, action, beforeSnapshot,
     ]
   );
 }
+
+const HOST_SYNC_SUMMARY_STATUSES = Object.freeze(['ready', 'pending', 'syncing', 'verified', 'failed', 'review_needed', 'paused', 'cancelled']);
 
 const DEFAULT_SYNC_PROGRESS = Object.freeze({
   totalEntries: 0,
