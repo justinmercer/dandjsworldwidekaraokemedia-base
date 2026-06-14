@@ -1,5 +1,9 @@
 
 const settingsKey = 'djKaraokeHostShellSettings.v1';
+const settingsSchemaVersion = 1;
+const legacySettingsKeys = Object.freeze([
+  'djKaraokeHostShellSettings'
+]);
 
 const defaultSettings = Object.freeze({
   venue: "D & J's Demo Venue",
@@ -19,12 +23,28 @@ const safeDemoData = Object.freeze({
   mediaFilesIncluded: false
 });
 
+function migrateSavedSettings() {
+  const currentSettings = JSON.parse(localStorage.getItem(settingsKey) || '{}');
+  const legacySettings = legacySettingsKeys
+    .map((legacyKey) => JSON.parse(localStorage.getItem(legacyKey) || '{}'))
+    .find((settings) => Object.keys(settings).length > 0) || {};
+
+  const migratedSettings = {
+    ...defaultSettings,
+    ...legacySettings,
+    ...currentSettings,
+    settingsSchemaVersion
+  };
+
+  localStorage.setItem(settingsKey, JSON.stringify(migratedSettings));
+  return migratedSettings;
+}
+
 function loadSettings() {
   try {
-    const savedSettings = JSON.parse(localStorage.getItem(settingsKey) || '{}');
-    return { ...defaultSettings, ...savedSettings };
+    return migrateSavedSettings();
   } catch {
-    return { ...defaultSettings };
+    return { ...defaultSettings, settingsSchemaVersion };
   }
 }
 
@@ -208,5 +228,10 @@ window.DJKaraokeHostShell = Object.freeze({
   notificationFollowUpEnabled: true,
   activityLogPanelEnabled: true,
   diagnosticsExportPlaceholderEnabled: true,
-  diagnosticsExportWritesFiles: false
+  diagnosticsExportWritesFiles: false,
+  ciCompileChecksEnabled: true,
+  startupSmokeTestEnabled: true,
+  cleanShutdownSmokeTestEnabled: true,
+  settingsMigrationTestEnabled: true,
+  demoModeScreenshotChecklistEnabled: true
 });

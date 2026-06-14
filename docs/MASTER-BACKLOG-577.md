@@ -238,11 +238,11 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-203` — Add an activity log panel.
 - [x] `KARA-204` — Add a diagnostics-export action.
 - [x] `KARA-205` — Add host app build documentation.
-- [ ] `KARA-206` — Add compile checks in CI.
-- [ ] `KARA-207` — Add a host-app startup smoke test.
-- [ ] `KARA-208` — Add a host-app clean-shutdown test.
-- [ ] `KARA-209` — Add a host-app settings migration test.
-- [ ] `KARA-210` — Add a host-app demo-mode screenshot checklist.
+- [x] `KARA-206` — Add compile checks in CI.
+- [x] `KARA-207` — Add a host-app startup smoke test.
+- [x] `KARA-208` — Add a host-app clean-shutdown test.
+- [x] `KARA-209` — Add a host-app settings migration test.
+- [x] `KARA-210` — Add a host-app demo-mode screenshot checklist.
 
 ## 06. Local catalog import and Siglos migration
 

@@ -87,6 +87,26 @@
     "buildDocumentation": {
       "enabled": true,
       "artifactBuildEnabled": false
+    },
+    "ciCompileChecks": {
+      "enabled": true,
+      "script": "scripts/host-shell-static-compile-check.ps1"
+    },
+    "startupSmokeTest": {
+      "enabled": true,
+      "script": "scripts/host-shell-startup-smoke-test.ps1"
+    },
+    "cleanShutdownSmokeTest": {
+      "enabled": true,
+      "script": "scripts/host-shell-clean-shutdown-smoke-test.ps1"
+    },
+    "settingsMigrationTest": {
+      "enabled": true,
+      "script": "scripts/host-settings-migration-smoke-test.ps1"
+    },
+    "demoModeScreenshotChecklist": {
+      "enabled": true,
+      "path": "docs/development/windows-host-demo-mode-screenshot-checklist.md"
     }
   }
 }

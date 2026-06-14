@@ -70,3 +70,10 @@ These are UI-only patterns and do not perform media, file, playback, sync, OBS, 
 Wave 3F adds safe error dialogs, toast follow-up, a local activity log panel, diagnostics export preview, and host build documentation.
 
 These are UI/docs placeholders and do not write diagnostics files or perform media, file, playback, sync, OBS, or Replay actions.
+
+
+## Wave 3G additions
+
+Wave 3G adds CI-visible static compile checks, startup smoke tests, clean-shutdown smoke tests, settings migration checks, and a demo-mode screenshot checklist.
+
+These tests and docs do not package the app, automate screenshots, scan folders, play media, transfer files, delete files, or connect to external services.
