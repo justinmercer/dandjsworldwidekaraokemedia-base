@@ -97,6 +97,7 @@ $requiredFiles = @(
   'server/hq/src/httpServer.js',
   'server/hq/src/index.js',
   'server/hq/test/catalogRepository.test.js',
+  'server/hq/test/hostSync.test.js',
   'server/hq/test/httpServer.test.js',
   'server/hq/test/postgresIntegration.test.js',
   'server/hq/test/repositoryFactory.test.js',
@@ -123,17 +124,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..151) {
+foreach ($taskNumber in 1..158) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 152..577) {
+foreach ($taskNumber in 159..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 2B planning controls."
+    throw "Backlog task $taskId should remain unchecked after Wave 2B sync tests."
   }
 }
 
@@ -144,4 +145,4 @@ foreach ($taskNumber in 152..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 2B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..151 checked, KARA-152..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 2B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..158 checked, KARA-159..577 unchecked, and safety guardrails passed."
