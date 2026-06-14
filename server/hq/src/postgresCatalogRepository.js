@@ -211,8 +211,12 @@ class PostgresCatalogRepository {
       const before = await requireSong(client, songId);
       await client.query(
         `UPDATE hq_catalog.songs
-         SET review_state = $2,
-             retired_at = CASE WHEN $2 = 'retired' THEN COALESCE(retired_at, now()) ELSE retired_at END,
+         SET review_state = $2::hq_catalog.catalog_review_state,
+             retired_at = CASE
+               WHEN $2::hq_catalog.catalog_review_state = 'retired'::hq_catalog.catalog_review_state
+               THEN COALESCE(retired_at, now())
+               ELSE retired_at
+             END,
              updated_at = now()
          WHERE song_id = $1`,
         [songId, reviewState]
