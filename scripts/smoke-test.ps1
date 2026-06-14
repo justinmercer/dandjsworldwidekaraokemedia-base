@@ -120,6 +120,9 @@ $requiredFiles = @(
   'host/windows-host-shell/host-shell.manifest.json',
   'host/windows-host-shell/README.md',
   'docs/development/windows-host-shell.md',
+  'scripts/host-diagnostics-activity-smoke-test.ps1',
+  'docs/development/windows-host-build.md',
+  'docs/development/windows-host-diagnostics-and-activity.md',
   'scripts/host-state-patterns-smoke-test.ps1',
   'docs/development/windows-host-state-patterns.md',
   'scripts/host-demo-settings-smoke-test.ps1',
@@ -142,17 +145,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..200) {
+foreach ($taskNumber in 1..205) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 201..577) {
+foreach ($taskNumber in 206..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 3E."
+    throw "Backlog task $taskId should remain unchecked after Wave 3F."
   }
 }
 
@@ -163,4 +166,4 @@ foreach ($taskNumber in 201..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 3E smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..200 checked, KARA-201..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 3F smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..205 checked, KARA-206..577 unchecked, and safety guardrails passed."

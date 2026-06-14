@@ -162,6 +162,24 @@
           </div>
         </article>
 
+        <article class="panel activity-panel" id="activity-log-panel">
+          <div class="panel-header">
+            <p class="eyebrow">Activity Log</p>
+            <span>Local UI Only</span>
+          </div>
+
+          <ul id="activityLogList" class="activity-log-list" aria-label="Host activity log">
+            <li><strong>Ready:</strong> Host shell loaded in safe local preview mode.</li>
+            <li><strong>Notice:</strong> Diagnostics export is a placeholder only.</li>
+          </ul>
+
+          <div class="state-actions">
+            <button id="safeErrorButton" type="button">Show safe error</button>
+            <button id="toastFollowUpButton" type="button">Show toast follow-up</button>
+            <button id="diagnosticsPreviewButton" type="button">Diagnostics export preview</button>
+          </div>
+        </article>
+
         <article class="panel" id="settings">
           <div class="panel-header">
             <p class="eyebrow">Settings</p>
@@ -226,6 +244,18 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="safeErrorDialog" class="shortcut-dialog" aria-labelledby="safeErrorDialogTitle">
+    <h2 id="safeErrorDialogTitle">Safe Error Message</h2>
+    <p>The host shell could not complete that placeholder action. No media, folder, file, sync, OBS, or Replay action was attempted.</p>
+    <button id="closeSafeErrorButton" type="button">Close error</button>
+  </dialog>
+
+  <dialog id="diagnosticsDialog" class="shortcut-dialog" aria-labelledby="diagnosticsDialogTitle">
+    <h2 id="diagnosticsDialogTitle">Diagnostics Export Preview</h2>
+    <p>This is a UI placeholder for a future diagnostics export. Wave 3F does not generate, write, upload, or download diagnostic files.</p>
+    <button id="closeDiagnosticsButton" type="button">Close preview</button>
+  </dialog>
 
   <dialog id="confirmationDialog" class="shortcut-dialog" aria-labelledby="confirmationDialogTitle">
     <h2 id="confirmationDialogTitle">Confirm Safe Placeholder Action</h2>

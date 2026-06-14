@@ -63,3 +63,10 @@ These features do not scan folders, connect to servers, play media, transfer fil
 Wave 3E adds loading, empty, and error states, plus safe toast notifications and a confirmation-dialog pattern.
 
 These are UI-only patterns and do not perform media, file, playback, sync, OBS, or Replay actions.
+
+
+## Wave 3F additions
+
+Wave 3F adds safe error dialogs, toast follow-up, a local activity log panel, diagnostics export preview, and host build documentation.
+
+These are UI/docs placeholders and do not write diagnostics files or perform media, file, playback, sync, OBS, or Replay actions.

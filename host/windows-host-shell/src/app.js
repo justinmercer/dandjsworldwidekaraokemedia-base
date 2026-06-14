@@ -47,6 +47,22 @@ function showConfirmationDialog() {
   confirmationDialog.showModal();
 }
 
+function appendActivityLog(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  activityLogList.prepend(item);
+}
+
+function showSafeErrorDialog() {
+  safeErrorDialog.showModal();
+  appendActivityLog('Safe error', 'Displayed a user-safe placeholder error message.');
+}
+
+function showDiagnosticsPreview() {
+  diagnosticsDialog.showModal();
+  appendActivityLog('Diagnostics', 'Opened diagnostics export preview without writing files.');
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -71,6 +87,14 @@ const confirmDemoButton = document.querySelector('#confirmDemoButton');
 const confirmationDialog = document.querySelector('#confirmationDialog');
 const cancelConfirmationButton = document.querySelector('#cancelConfirmationButton');
 const acceptConfirmationButton = document.querySelector('#acceptConfirmationButton');
+const activityLogList = document.querySelector('#activityLogList');
+const safeErrorButton = document.querySelector('#safeErrorButton');
+const toastFollowUpButton = document.querySelector('#toastFollowUpButton');
+const diagnosticsPreviewButton = document.querySelector('#diagnosticsPreviewButton');
+const safeErrorDialog = document.querySelector('#safeErrorDialog');
+const closeSafeErrorButton = document.querySelector('#closeSafeErrorButton');
+const diagnosticsDialog = document.querySelector('#diagnosticsDialog');
+const closeDiagnosticsButton = document.querySelector('#closeDiagnosticsButton');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -102,7 +126,16 @@ cancelConfirmationButton.addEventListener('click', () => confirmationDialog.clos
 acceptConfirmationButton.addEventListener('click', () => {
   confirmationDialog.close();
   showToast('Placeholder confirmed. No destructive action was performed.', 'info');
+  appendActivityLog('Confirmation', 'Safe placeholder confirmation accepted.');
 });
+safeErrorButton.addEventListener('click', () => showSafeErrorDialog());
+toastFollowUpButton.addEventListener('click', () => {
+  showToast('Follow-up notification saved to the local activity log.', 'info');
+  appendActivityLog('Toast', 'Follow-up notification displayed.');
+});
+diagnosticsPreviewButton.addEventListener('click', () => showDiagnosticsPreview());
+closeSafeErrorButton.addEventListener('click', () => safeErrorDialog.close());
+closeDiagnosticsButton.addEventListener('click', () => diagnosticsDialog.close());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -130,6 +163,8 @@ document.addEventListener('keydown', (event) => {
     if (shortcutDialog.open) shortcutDialog.close();
     if (firstRunDialog.open) firstRunDialog.close();
     if (confirmationDialog.open) confirmationDialog.close();
+    if (safeErrorDialog.open) safeErrorDialog.close();
+    if (diagnosticsDialog.open) diagnosticsDialog.close();
     return;
   }
 
@@ -168,5 +203,10 @@ window.DJKaraokeHostShell = Object.freeze({
   errorStateEnabled: true,
   toastNotificationsEnabled: true,
   confirmationDialogPatternEnabled: true,
-  destructiveConfirmationActionsEnabled: false
+  destructiveConfirmationActionsEnabled: false,
+  safeErrorDialogsEnabled: true,
+  notificationFollowUpEnabled: true,
+  activityLogPanelEnabled: true,
+  diagnosticsExportPlaceholderEnabled: true,
+  diagnosticsExportWritesFiles: false
 });
