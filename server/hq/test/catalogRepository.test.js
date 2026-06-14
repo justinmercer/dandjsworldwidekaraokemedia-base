@@ -162,3 +162,59 @@ test('host registration heartbeat manifest planning and diffing stay safe', () =
   assert.equal(diff.cleanupCandidates[0].action, 'review_cleanup_candidate');
   assert.equal(diff.cleanupCandidates[0].deleteReady, false);
 });
+
+
+test('sync control repository methods store safe planning metadata without file actions', () => {
+  const repository = new CatalogRepository(loadDemoCatalog());
+  repository.registerHostDevice({
+    hostDeviceId: 'host_sync_controls',
+    displayName: 'Sync Control Test Host'
+  });
+
+  const operation = repository.createHostSyncOperation('host_sync_controls', {
+    operationKind: 'verify_library',
+    status: 'syncing',
+    progress: { totalEntries: 3, completedEntries: 1, pendingEntries: 2, failedEntries: 0, bytesTotal: 300, bytesCompleted: 100, percentComplete: 33 }
+  });
+  assert.equal(operation.status, 'syncing');
+  assert.equal(operation.progress.totalEntries, 3);
+
+  const verified = repository.updateHostSyncOperation(operation.syncOperationId, {
+    status: 'verified',
+    verification: { checksumAlgorithm: 'sha256', result: 'passed' }
+  });
+  assert.equal(verified.status, 'verified');
+  assert.equal(verified.verification.result, 'passed');
+
+  const operations = repository.listHostSyncOperations('host_sync_controls');
+  assert.equal(operations.total, 1);
+  assert.equal(operations.items[0].syncOperationId, operation.syncOperationId);
+
+  const action = repository.queueHostSyncOperatorAction('host_sync_controls', {
+    action: 'sync_now',
+    requestedBy: 'unit-test-admin',
+    reason: 'Synthetic planning-only sync action.',
+    payload: { dryRun: true }
+  });
+  assert.equal(action.status, 'queued');
+  assert.equal(action.safetyMode, 'plan_only');
+  assert.deepEqual(action.payload, { dryRun: true });
+
+  const actions = repository.listHostSyncOperatorActions('host_sync_controls');
+  assert.equal(actions.total, 1);
+  assert.equal(actions.items[0].action, 'sync_now');
+
+  const quarantine = repository.recordHostSyncQuarantine('host_sync_controls', {
+    syncOperationId: operation.syncOperationId,
+    authorizedMediaId: 'media_demo_opening_cdg',
+    reason: 'Synthetic checksum mismatch marker.',
+    verification: { expected: 'sha256-placeholder', actual: 'sha256-placeholder-other' },
+    quarantineKey: 'host-sync-quarantine/media_demo_opening_cdg'
+  });
+  assert.equal(quarantine.reason, 'Synthetic checksum mismatch marker.');
+  assert.equal(quarantine.quarantineKey, 'host-sync-quarantine/media_demo_opening_cdg');
+
+  const quarantined = repository.listHostSyncQuarantine('host_sync_controls');
+  assert.equal(quarantined.total, 1);
+  assert.equal(JSON.stringify(quarantined).includes('C:\\'), false);
+});

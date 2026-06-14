@@ -410,6 +410,175 @@ class PostgresCatalogRepository {
     return diffHostSyncManifest(await this.createHostManifest(hostDeviceId), currentEntries);
   }
 
+  async createHostSyncOperation(hostDeviceId, payload = {}) {
+    await this.requireHostDevice(hostDeviceId);
+    const { rows } = await this.pool.query(
+      `INSERT INTO hq_catalog.host_sync_operations (
+        sync_operation_id, host_device_id, operation_kind, status, progress, capacity_check,
+        verification, quarantine, retry_policy, last_error, pause_requested_at,
+        resume_requested_at, cancel_requested_at, started_at, completed_at
+      ) VALUES ($1,$2,$3,$4,$5::jsonb,$6::jsonb,$7::jsonb,$8::jsonb,$9::jsonb,$10::jsonb,$11,$12,$13,$14,$15)
+      RETURNING *`,
+      [
+        payload.syncOperationId || randomUUID(),
+        hostDeviceId,
+        payload.operationKind || 'sync',
+        payload.status || 'pending',
+        JSON.stringify(payload.progress || DEFAULT_SYNC_PROGRESS),
+        JSON.stringify(payload.capacityCheck || DEFAULT_CAPACITY_CHECK),
+        JSON.stringify(payload.verification || DEFAULT_VERIFICATION),
+        JSON.stringify(payload.quarantine || DEFAULT_QUARANTINE),
+        JSON.stringify(payload.retryPolicy || DEFAULT_RETRY_POLICY),
+        payload.lastError ? JSON.stringify(payload.lastError) : null,
+        payload.pauseRequestedAt || null,
+        payload.resumeRequestedAt || null,
+        payload.cancelRequestedAt || null,
+        payload.startedAt || null,
+        payload.completedAt || null
+      ]
+    );
+    return toHostSyncOperation(rows[0]);
+  }
+
+  async updateHostSyncOperation(syncOperationId, payload = {}) {
+    const current = await this.requireHostSyncOperation(syncOperationId);
+    const { rows } = await this.pool.query(
+      `UPDATE hq_catalog.host_sync_operations
+       SET status = $2,
+           progress = $3::jsonb,
+           capacity_check = $4::jsonb,
+           verification = $5::jsonb,
+           quarantine = $6::jsonb,
+           retry_policy = $7::jsonb,
+           last_error = $8::jsonb,
+           pause_requested_at = $9,
+           resume_requested_at = $10,
+           cancel_requested_at = $11,
+           started_at = $12,
+           completed_at = $13,
+           updated_at = now()
+       WHERE sync_operation_id = $1
+       RETURNING *`,
+      [
+        syncOperationId,
+        payload.status === undefined ? current.status : payload.status,
+        JSON.stringify(payload.progress === undefined ? current.progress : payload.progress),
+        JSON.stringify(payload.capacityCheck === undefined ? current.capacityCheck : payload.capacityCheck),
+        JSON.stringify(payload.verification === undefined ? current.verification : payload.verification),
+        JSON.stringify(payload.quarantine === undefined ? current.quarantine : payload.quarantine),
+        JSON.stringify(payload.retryPolicy === undefined ? current.retryPolicy : payload.retryPolicy),
+        payload.lastError === undefined ? (current.lastError ? JSON.stringify(current.lastError) : null) : (payload.lastError ? JSON.stringify(payload.lastError) : null),
+        payload.pauseRequestedAt === undefined ? current.pauseRequestedAt : payload.pauseRequestedAt || null,
+        payload.resumeRequestedAt === undefined ? current.resumeRequestedAt : payload.resumeRequestedAt || null,
+        payload.cancelRequestedAt === undefined ? current.cancelRequestedAt : payload.cancelRequestedAt || null,
+        payload.startedAt === undefined ? current.startedAt : payload.startedAt || null,
+        payload.completedAt === undefined ? current.completedAt : payload.completedAt || null
+      ]
+    );
+    return toHostSyncOperation(rows[0]);
+  }
+
+  async listHostSyncOperations(hostDeviceId, options = {}) {
+    await this.requireHostDevice(hostDeviceId);
+    const page = positiveInt(options.page, 1);
+    const pageSize = pageCap(options.pageSize);
+    const offset = (page - 1) * pageSize;
+    const total = (await this.pool.query(
+      'SELECT count(*)::int AS total FROM hq_catalog.host_sync_operations WHERE host_device_id = $1',
+      [hostDeviceId]
+    )).rows[0].total;
+    const { rows } = await this.pool.query(
+      `SELECT * FROM hq_catalog.host_sync_operations
+       WHERE host_device_id = $1
+       ORDER BY updated_at DESC, sync_operation_id DESC
+       LIMIT $2 OFFSET $3`,
+      [hostDeviceId, pageSize, offset]
+    );
+    return paged(page, pageSize, total, offset, rows.map(toHostSyncOperation));
+  }
+
+  async queueHostSyncOperatorAction(hostDeviceId, payload = {}) {
+    await this.requireHostDevice(hostDeviceId);
+    const { rows } = await this.pool.query(
+      `INSERT INTO hq_catalog.host_sync_operator_actions (
+        sync_action_id, host_device_id, action, status, safety_mode, requested_by, requested_at, reason, payload
+      ) VALUES ($1,$2,$3,$4,$5,$6,COALESCE($7, now()),$8,$9::jsonb)
+      RETURNING *`,
+      [
+        payload.syncActionId || randomUUID(),
+        hostDeviceId,
+        payload.action || 'sync_now',
+        payload.status || 'queued',
+        payload.safetyMode || 'plan_only',
+        payload.requestedBy || null,
+        payload.requestedAt || null,
+        payload.reason || null,
+        JSON.stringify(payload.payload || {})
+      ]
+    );
+    return toHostSyncOperatorAction(rows[0]);
+  }
+
+  async listHostSyncOperatorActions(hostDeviceId, options = {}) {
+    await this.requireHostDevice(hostDeviceId);
+    const page = positiveInt(options.page, 1);
+    const pageSize = pageCap(options.pageSize);
+    const offset = (page - 1) * pageSize;
+    const total = (await this.pool.query(
+      'SELECT count(*)::int AS total FROM hq_catalog.host_sync_operator_actions WHERE host_device_id = $1',
+      [hostDeviceId]
+    )).rows[0].total;
+    const { rows } = await this.pool.query(
+      `SELECT * FROM hq_catalog.host_sync_operator_actions
+       WHERE host_device_id = $1
+       ORDER BY requested_at DESC, sync_action_id DESC
+       LIMIT $2 OFFSET $3`,
+      [hostDeviceId, pageSize, offset]
+    );
+    return paged(page, pageSize, total, offset, rows.map(toHostSyncOperatorAction));
+  }
+
+  async recordHostSyncQuarantine(hostDeviceId, payload = {}) {
+    await this.requireHostDevice(hostDeviceId);
+    const { rows } = await this.pool.query(
+      `INSERT INTO hq_catalog.host_sync_quarantine (
+        sync_quarantine_id, host_device_id, sync_operation_id, authorized_media_id,
+        reason, verification, quarantine_key, resolved_at
+      ) VALUES ($1,$2,$3,$4,$5,$6::jsonb,$7,$8)
+      RETURNING *`,
+      [
+        payload.syncQuarantineId || randomUUID(),
+        hostDeviceId,
+        payload.syncOperationId || null,
+        payload.authorizedMediaId || null,
+        payload.reason || 'verification_failed',
+        JSON.stringify(payload.verification || {}),
+        payload.quarantineKey || 'planned-quarantine-entry',
+        payload.resolvedAt || null
+      ]
+    );
+    return toHostSyncQuarantine(rows[0]);
+  }
+
+  async listHostSyncQuarantine(hostDeviceId, options = {}) {
+    await this.requireHostDevice(hostDeviceId);
+    const page = positiveInt(options.page, 1);
+    const pageSize = pageCap(options.pageSize);
+    const offset = (page - 1) * pageSize;
+    const total = (await this.pool.query(
+      'SELECT count(*)::int AS total FROM hq_catalog.host_sync_quarantine WHERE host_device_id = $1',
+      [hostDeviceId]
+    )).rows[0].total;
+    const { rows } = await this.pool.query(
+      `SELECT * FROM hq_catalog.host_sync_quarantine
+       WHERE host_device_id = $1
+       ORDER BY created_at DESC, sync_quarantine_id DESC
+       LIMIT $2 OFFSET $3`,
+      [hostDeviceId, pageSize, offset]
+    );
+    return paged(page, pageSize, total, offset, rows.map(toHostSyncQuarantine));
+  }
+
   async getPublicMediaVersions(songId) {
     const { rows } = await this.pool.query(
       `SELECT media.authorized_media_id, media.provider_id, providers.display_name AS provider_name,
@@ -447,6 +616,15 @@ class PostgresCatalogRepository {
     }
 
     return toHostDevice(rows[0]);
+  }
+
+  async requireHostSyncOperation(syncOperationId) {
+    const { rows } = await this.pool.query('SELECT * FROM hq_catalog.host_sync_operations WHERE sync_operation_id = $1 LIMIT 1', [syncOperationId]);
+    if (!rows[0]) {
+      throw new CatalogOperationError('host_sync_operation_not_found', 'Host sync operation was not found.', 404);
+    }
+
+    return toHostSyncOperation(rows[0]);
   }
 }
 
@@ -573,6 +751,20 @@ async function recordAudit(client, entityType, entityId, action, beforeSnapshot,
   );
 }
 
+const DEFAULT_SYNC_PROGRESS = Object.freeze({
+  totalEntries: 0,
+  completedEntries: 0,
+  pendingEntries: 0,
+  failedEntries: 0,
+  bytesTotal: 0,
+  bytesCompleted: 0,
+  percentComplete: 0
+});
+const DEFAULT_CAPACITY_CHECK = Object.freeze({ localFreeSpaceBytes: null, requiredBytes: 0, isSufficient: true });
+const DEFAULT_VERIFICATION = Object.freeze({ checksumAlgorithm: 'sha256', result: 'not_checked' });
+const DEFAULT_QUARANTINE = Object.freeze({ required: false });
+const DEFAULT_RETRY_POLICY = Object.freeze({ attempt: 0, maxAttempts: 0, nextRetryAt: null, backoffSeconds: 0 });
+
 function normalizePostgresError(error) {
   if (error instanceof CatalogOperationError) return error;
   if (error.code === '23503') return new CatalogOperationError('referenced_record_not_found', 'Referenced catalog record was not found.', 400);
@@ -681,6 +873,58 @@ function toAuditRecord(row) {
     beforeSnapshot: row.before_snapshot,
     afterSnapshot: row.after_snapshot,
     createdAt: toIso(row.created_at)
+  };
+}
+
+function toHostSyncOperation(row) {
+  return {
+    syncOperationId: row.sync_operation_id,
+    hostDeviceId: row.host_device_id,
+    operationKind: row.operation_kind,
+    status: row.status,
+    progress: row.progress,
+    capacityCheck: row.capacity_check,
+    verification: row.verification,
+    quarantine: row.quarantine,
+    retryPolicy: row.retry_policy,
+    lastError: row.last_error,
+    pauseRequestedAt: toIso(row.pause_requested_at),
+    resumeRequestedAt: toIso(row.resume_requested_at),
+    cancelRequestedAt: toIso(row.cancel_requested_at),
+    startedAt: toIso(row.started_at),
+    completedAt: toIso(row.completed_at),
+    createdAt: toIso(row.created_at),
+    updatedAt: toIso(row.updated_at)
+  };
+}
+
+function toHostSyncOperatorAction(row) {
+  return {
+    syncActionId: row.sync_action_id,
+    hostDeviceId: row.host_device_id,
+    action: row.action,
+    status: row.status,
+    safetyMode: row.safety_mode,
+    requestedBy: row.requested_by,
+    requestedAt: toIso(row.requested_at),
+    reason: row.reason,
+    payload: row.payload,
+    createdAt: toIso(row.created_at),
+    updatedAt: toIso(row.updated_at)
+  };
+}
+
+function toHostSyncQuarantine(row) {
+  return {
+    syncQuarantineId: row.sync_quarantine_id,
+    hostDeviceId: row.host_device_id,
+    syncOperationId: row.sync_operation_id,
+    authorizedMediaId: row.authorized_media_id,
+    reason: row.reason,
+    verification: row.verification,
+    quarantineKey: row.quarantine_key,
+    createdAt: toIso(row.created_at),
+    resolvedAt: toIso(row.resolved_at)
   };
 }
 

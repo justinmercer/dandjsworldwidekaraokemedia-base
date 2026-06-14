@@ -16,6 +16,9 @@ class CatalogRepository {
     this.providersById = new Map((catalog.providers || []).map((provider) => [provider.providerId, provider]));
     this.songsById = new Map((catalog.songs || []).map((song) => [song.songId, song]));
     this.hostDevicesById = new Map((catalog.hostDevices || []).map((hostDevice) => [hostDevice.hostDeviceId, hostDevice]));
+    this.hostSyncOperationsById = new Map((catalog.hostSyncOperations || []).map((operation) => [operation.syncOperationId, operation]));
+    this.hostSyncOperatorActionsById = new Map((catalog.hostSyncOperatorActions || []).map((action) => [action.syncActionId, action]));
+    this.hostSyncQuarantineById = new Map((catalog.hostSyncQuarantine || []).map((quarantine) => [quarantine.syncQuarantineId, quarantine]));
     this.auditRecords = [];
   }
 
@@ -428,6 +431,133 @@ class CatalogRepository {
     return diffHostSyncManifest(this.createHostManifest(hostDeviceId), currentEntries);
   }
 
+  createHostSyncOperation(hostDeviceId, payload = {}) {
+    this.requireHostDevice(hostDeviceId);
+    const now = new Date().toISOString();
+    const operation = {
+      syncOperationId: payload.syncOperationId || randomUUID(),
+      hostDeviceId,
+      operationKind: payload.operationKind || 'sync',
+      status: payload.status || 'pending',
+      progress: normalizeObject(payload.progress, DEFAULT_SYNC_PROGRESS),
+      capacityCheck: normalizeObject(payload.capacityCheck, DEFAULT_CAPACITY_CHECK),
+      verification: normalizeObject(payload.verification, DEFAULT_VERIFICATION),
+      quarantine: normalizeObject(payload.quarantine, DEFAULT_QUARANTINE),
+      retryPolicy: normalizeObject(payload.retryPolicy, DEFAULT_RETRY_POLICY),
+      lastError: payload.lastError ? normalizeObject(payload.lastError, {}) : null,
+      pauseRequestedAt: payload.pauseRequestedAt || null,
+      resumeRequestedAt: payload.resumeRequestedAt || null,
+      cancelRequestedAt: payload.cancelRequestedAt || null,
+      startedAt: payload.startedAt || null,
+      completedAt: payload.completedAt || null,
+      createdAt: now,
+      updatedAt: now
+    };
+
+    this.hostSyncOperationsById.set(operation.syncOperationId, operation);
+    this.catalog.hostSyncOperations = Array.from(this.hostSyncOperationsById.values());
+    return toHostSyncOperation(operation);
+  }
+
+  updateHostSyncOperation(syncOperationId, payload = {}) {
+    const operation = this.requireHostSyncOperation(syncOperationId);
+    if (payload.status !== undefined) operation.status = payload.status;
+    if (payload.progress !== undefined) operation.progress = normalizeObject(payload.progress, DEFAULT_SYNC_PROGRESS);
+    if (payload.capacityCheck !== undefined) operation.capacityCheck = normalizeObject(payload.capacityCheck, DEFAULT_CAPACITY_CHECK);
+    if (payload.verification !== undefined) operation.verification = normalizeObject(payload.verification, DEFAULT_VERIFICATION);
+    if (payload.quarantine !== undefined) operation.quarantine = normalizeObject(payload.quarantine, DEFAULT_QUARANTINE);
+    if (payload.retryPolicy !== undefined) operation.retryPolicy = normalizeObject(payload.retryPolicy, DEFAULT_RETRY_POLICY);
+    if (payload.lastError !== undefined) operation.lastError = payload.lastError ? normalizeObject(payload.lastError, {}) : null;
+    if (payload.pauseRequestedAt !== undefined) operation.pauseRequestedAt = payload.pauseRequestedAt || null;
+    if (payload.resumeRequestedAt !== undefined) operation.resumeRequestedAt = payload.resumeRequestedAt || null;
+    if (payload.cancelRequestedAt !== undefined) operation.cancelRequestedAt = payload.cancelRequestedAt || null;
+    if (payload.startedAt !== undefined) operation.startedAt = payload.startedAt || null;
+    if (payload.completedAt !== undefined) operation.completedAt = payload.completedAt || null;
+    operation.updatedAt = new Date().toISOString();
+    return toHostSyncOperation(operation);
+  }
+
+  listHostSyncOperations(hostDeviceId, options = {}) {
+    this.requireHostDevice(hostDeviceId);
+    const page = toPositiveInteger(options.page, 1);
+    const pageSize = Math.min(toPositiveInteger(options.pageSize, DEFAULT_PAGE_SIZE), MAX_PAGE_SIZE);
+    const items = Array.from(this.hostSyncOperationsById.values())
+      .filter((operation) => operation.hostDeviceId === hostDeviceId)
+      .sort((left, right) => right.updatedAt.localeCompare(left.updatedAt))
+      .map(toHostSyncOperation);
+    const total = items.length;
+    const start = (page - 1) * pageSize;
+    return { page, pageSize, total, hasNextPage: start + pageSize < total, items: items.slice(start, start + pageSize) };
+  }
+
+  queueHostSyncOperatorAction(hostDeviceId, payload = {}) {
+    this.requireHostDevice(hostDeviceId);
+    const now = new Date().toISOString();
+    const action = {
+      syncActionId: payload.syncActionId || randomUUID(),
+      hostDeviceId,
+      action: payload.action || 'sync_now',
+      status: payload.status || 'queued',
+      safetyMode: payload.safetyMode || 'plan_only',
+      requestedBy: payload.requestedBy || null,
+      requestedAt: payload.requestedAt || now,
+      reason: payload.reason || null,
+      payload: normalizeObject(payload.payload, {}),
+      createdAt: now,
+      updatedAt: now
+    };
+
+    this.hostSyncOperatorActionsById.set(action.syncActionId, action);
+    this.catalog.hostSyncOperatorActions = Array.from(this.hostSyncOperatorActionsById.values());
+    return toHostSyncOperatorAction(action);
+  }
+
+  listHostSyncOperatorActions(hostDeviceId, options = {}) {
+    this.requireHostDevice(hostDeviceId);
+    const page = toPositiveInteger(options.page, 1);
+    const pageSize = Math.min(toPositiveInteger(options.pageSize, DEFAULT_PAGE_SIZE), MAX_PAGE_SIZE);
+    const items = Array.from(this.hostSyncOperatorActionsById.values())
+      .filter((action) => action.hostDeviceId === hostDeviceId)
+      .sort((left, right) => right.requestedAt.localeCompare(left.requestedAt))
+      .map(toHostSyncOperatorAction);
+    const total = items.length;
+    const start = (page - 1) * pageSize;
+    return { page, pageSize, total, hasNextPage: start + pageSize < total, items: items.slice(start, start + pageSize) };
+  }
+
+  recordHostSyncQuarantine(hostDeviceId, payload = {}) {
+    this.requireHostDevice(hostDeviceId);
+    const now = new Date().toISOString();
+    const quarantine = {
+      syncQuarantineId: payload.syncQuarantineId || randomUUID(),
+      hostDeviceId,
+      syncOperationId: payload.syncOperationId || null,
+      authorizedMediaId: payload.authorizedMediaId || null,
+      reason: payload.reason || 'verification_failed',
+      verification: normalizeObject(payload.verification, {}),
+      quarantineKey: payload.quarantineKey || 'planned-quarantine-entry',
+      createdAt: now,
+      resolvedAt: payload.resolvedAt || null
+    };
+
+    this.hostSyncQuarantineById.set(quarantine.syncQuarantineId, quarantine);
+    this.catalog.hostSyncQuarantine = Array.from(this.hostSyncQuarantineById.values());
+    return toHostSyncQuarantine(quarantine);
+  }
+
+  listHostSyncQuarantine(hostDeviceId, options = {}) {
+    this.requireHostDevice(hostDeviceId);
+    const page = toPositiveInteger(options.page, 1);
+    const pageSize = Math.min(toPositiveInteger(options.pageSize, DEFAULT_PAGE_SIZE), MAX_PAGE_SIZE);
+    const items = Array.from(this.hostSyncQuarantineById.values())
+      .filter((quarantine) => quarantine.hostDeviceId === hostDeviceId)
+      .sort((left, right) => right.createdAt.localeCompare(left.createdAt))
+      .map(toHostSyncQuarantine);
+    const total = items.length;
+    const start = (page - 1) * pageSize;
+    return { page, pageSize, total, hasNextPage: start + pageSize < total, items: items.slice(start, start + pageSize) };
+  }
+
   getPublicSongs() {
     return (this.catalog.songs || []).filter(isPublicSong);
   }
@@ -493,6 +623,15 @@ class CatalogRepository {
     return hostDevice;
   }
 
+  requireHostSyncOperation(syncOperationId) {
+    const operation = this.hostSyncOperationsById.get(syncOperationId);
+    if (!operation) {
+      throw new CatalogOperationError('host_sync_operation_not_found', 'Host sync operation was not found.', 404);
+    }
+
+    return operation;
+  }
+
   recordAudit(entityType, entityId, action, beforeSnapshot, afterSnapshot, auditContext) {
     this.auditRecords.push({
       auditId: randomUUID(),
@@ -519,6 +658,42 @@ function toPositiveInteger(value, fallback) {
   }
 
   return parsed;
+}
+
+const DEFAULT_SYNC_PROGRESS = Object.freeze({
+  totalEntries: 0,
+  completedEntries: 0,
+  pendingEntries: 0,
+  failedEntries: 0,
+  bytesTotal: 0,
+  bytesCompleted: 0,
+  percentComplete: 0
+});
+const DEFAULT_CAPACITY_CHECK = Object.freeze({ localFreeSpaceBytes: null, requiredBytes: 0, isSufficient: true });
+const DEFAULT_VERIFICATION = Object.freeze({ checksumAlgorithm: 'sha256', result: 'not_checked' });
+const DEFAULT_QUARANTINE = Object.freeze({ required: false });
+const DEFAULT_RETRY_POLICY = Object.freeze({ attempt: 0, maxAttempts: 0, nextRetryAt: null, backoffSeconds: 0 });
+
+function normalizeObject(value, fallback) {
+  if (value === undefined || value === null) {
+    return cloneJson(fallback);
+  }
+  if (typeof value !== 'object' || Array.isArray(value)) {
+    throw new CatalogOperationError('invalid_sync_control_metadata', 'Sync control metadata must be a JSON object.', 400);
+  }
+  return cloneJson(value);
+}
+
+function toHostSyncOperation(operation) {
+  return cloneJson(operation);
+}
+
+function toHostSyncOperatorAction(action) {
+  return cloneJson(action);
+}
+
+function toHostSyncQuarantine(quarantine) {
+  return cloneJson(quarantine);
 }
 
 function cloneJson(value) {
