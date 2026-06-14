@@ -1,4 +1,4 @@
-﻿{
+{
   "contractVersion": "v1",
   "appName": "D & J's Karaoke Host",
   "shellKind": "local-webview-shell",
@@ -13,5 +13,24 @@
     "requiresInternetForLiveShow": false,
     "connectsToObs": false,
     "connectsToReplay": false
+  },
+  "hostShellFeatures": {
+    "connectionIndicators": [
+      "online",
+      "local-only",
+      "offline",
+      "obs-placeholder",
+      "replay-placeholder"
+    ],
+    "keyboardShortcuts": {
+      "enabled": true,
+      "helpDialog": true,
+      "safeActionsOnly": true
+    },
+    "settingsPersistence": {
+      "enabled": true,
+      "storage": "browser-localStorage",
+      "safeScope": "display-and-preference-placeholders-only"
+    }
   }
 }

@@ -208,11 +208,11 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-173` — Add a venue selector.
 - [x] `KARA-174` — Add a current-show status indicator.
 - [x] `KARA-175` — Add online, local-only, and offline status indicators.
-- [ ] `KARA-176` — Add an OBS companion connection indicator.
-- [ ] `KARA-177` — Add a Replay integration indicator placeholder.
-- [ ] `KARA-178` — Add keyboard shortcut infrastructure.
-- [ ] `KARA-179` — Add a keyboard shortcut help dialog.
-- [ ] `KARA-180` — Add application settings persistence.
+- [x] `KARA-176` — Add an OBS companion connection indicator.
+- [x] `KARA-177` — Add a Replay integration indicator placeholder.
+- [x] `KARA-178` — Add keyboard shortcut infrastructure.
+- [x] `KARA-179` — Add a keyboard shortcut help dialog.
+- [x] `KARA-180` — Add application settings persistence.
 - [ ] `KARA-181` — Add local SQLite persistence.
 - [ ] `KARA-182` — Create local database migrations.
 - [ ] `KARA-183` — Create local song-cache tables.
