@@ -213,14 +213,14 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-178` — Add keyboard shortcut infrastructure.
 - [x] `KARA-179` — Add a keyboard shortcut help dialog.
 - [x] `KARA-180` — Add application settings persistence.
-- [ ] `KARA-181` — Add local SQLite persistence.
-- [ ] `KARA-182` — Create local database migrations.
-- [ ] `KARA-183` — Create local song-cache tables.
-- [ ] `KARA-184` — Create local singer-profile tables.
-- [ ] `KARA-185` — Create local show-session tables.
-- [ ] `KARA-186` — Create local request tables.
-- [ ] `KARA-187` — Create local venue-profile tables.
-- [ ] `KARA-188` — Create local sync-status tables.
+- [x] `KARA-181` — Add local SQLite persistence.
+- [x] `KARA-182` — Create local database migrations.
+- [x] `KARA-183` — Create local song-cache tables.
+- [x] `KARA-184` — Create local singer-profile tables.
+- [x] `KARA-185` — Create local show-session tables.
+- [x] `KARA-186` — Create local request tables.
+- [x] `KARA-187` — Create local venue-profile tables.
+- [x] `KARA-188` — Create local sync-status tables.
 - [ ] `KARA-189` — Add demo mode.
 - [ ] `KARA-190` — Add demo data.
 - [ ] `KARA-191` — Add a first-run setup wizard.
