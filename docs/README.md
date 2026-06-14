@@ -1,4 +1,4 @@
-# Documentation Index
+﻿# Documentation Index
 
 This index links the current foundation documents and placeholders. Keep it updated whenever architecture, operator, process, or release docs are added.
 
@@ -33,6 +33,7 @@ This index links the current foundation documents and placeholders. Keep it upda
 - [HQ API only](development/hq-api-only.md)
 - [HQ catalog API](development/catalog-api.md)
 - [Host sync foundation](development/host-sync-foundation.md)
+- [Host sync controls](development/host-sync-controls.md)
 - [Development storage mounts](development/storage-mounts.md)
 - [HQ migration rollback](development/migration-rollback.md)
 - [Request web only](development/request-web-only.md)

@@ -1,0 +1,167 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/sync-control-state.schema.json",
+  "title": "Sync Control State",
+  "description": "Safe host synchronization status, progress, verification, retry, and review state for planning/control only.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "hostDeviceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operationId": {
+      "type": ["string", "null"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ready", "pending", "syncing", "verified", "failed", "review_needed", "paused", "cancelled"]
+    },
+    "progress": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "totalEntries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completedEntries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pendingEntries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failedEntries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bytesTotal": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bytesCompleted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "percentComplete": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": ["totalEntries", "completedEntries", "pendingEntries", "failedEntries", "bytesTotal", "bytesCompleted", "percentComplete"]
+    },
+    "capacityCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "localFreeSpaceBytes": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "requiredBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "isSufficient": {
+          "type": "boolean"
+        }
+      },
+      "required": ["localFreeSpaceBytes", "requiredBytes", "isSufficient"]
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "checksumAlgorithm": {
+          "type": "string",
+          "enum": ["sha256"]
+        },
+        "expectedChecksum": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "actualChecksum": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "result": {
+          "type": "string",
+          "enum": ["not_checked", "match", "mismatch"]
+        }
+      },
+      "required": ["checksumAlgorithm", "result"]
+    },
+    "quarantine": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": ["string", "null"]
+        },
+        "quarantineKey": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["required"]
+    },
+    "retryPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "attempt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxAttempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "nextRetryAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "backoffSeconds": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["attempt", "maxAttempts", "nextRetryAt", "backoffSeconds"]
+    },
+    "lastError": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recoverable": {
+          "type": "boolean"
+        }
+      },
+      "required": ["code", "message", "occurredAt", "recoverable"]
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["contractVersion", "hostDeviceId", "status", "updatedAt"]
+}

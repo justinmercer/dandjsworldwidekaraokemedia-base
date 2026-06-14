@@ -1,0 +1,55 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/sync-operator-action.schema.json",
+  "title": "Sync Operator Action",
+  "description": "Operator-requested host sync action placeholder for safe planning/control flows only.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "actionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hostDeviceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "sync_now",
+        "verify_library",
+        "view_missing_locally",
+        "review_cleanup_candidates",
+        "pause_sync",
+        "resume_sync",
+        "cancel_pending_noncritical"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["queued", "accepted", "rejected", "completed", "failed"]
+    },
+    "safetyMode": {
+      "type": "string",
+      "enum": ["plan_only", "metadata_only"]
+    },
+    "requestedBy": {
+      "type": ["string", "null"]
+    },
+    "requestedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reason": {
+      "type": ["string", "null"]
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "required": ["contractVersion", "actionId", "hostDeviceId", "action", "status", "safetyMode", "requestedAt"]
+}
