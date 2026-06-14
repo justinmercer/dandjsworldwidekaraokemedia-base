@@ -217,4 +217,12 @@ test('sync control repository methods store safe planning metadata without file 
   const quarantined = repository.listHostSyncQuarantine('host_sync_controls');
   assert.equal(quarantined.total, 1);
   assert.equal(JSON.stringify(quarantined).includes('C:\\'), false);
+
+  const summary = repository.getHostSyncSummary('host_sync_controls');
+  assert.equal(summary.statusCounts.verified, 1);
+  assert.equal(summary.queuedActionCount, 1);
+  assert.equal(summary.quarantineCount, 1);
+  assert.equal(summary.unresolvedQuarantineCount, 1);
+  assert.equal(summary.latestOperation.syncOperationId, operation.syncOperationId);
+  assert.equal(summary.progress.totalEntries, 3);
 });

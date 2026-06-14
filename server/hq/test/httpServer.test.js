@@ -314,6 +314,16 @@ test('protected sync-control endpoints expose planning metadata only', async () 
     assert.equal(quarantineList.status, 200);
     assert.equal(quarantineBody.total, 1);
     assert.equal(JSON.stringify(quarantineBody).includes('C:\\Demo\\Karaoke'), false);
+
+    const summary = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/summary`, { headers: adminHeaders() });
+    const summaryBody = await summary.json();
+    assert.equal(summary.status, 200);
+    assert.equal(summaryBody.statusCounts.verified, 1);
+    assert.equal(summaryBody.queuedActionCount, 2);
+    assert.equal(summaryBody.quarantineCount, 1);
+    assert.equal(summaryBody.unresolvedQuarantineCount, 1);
+    assert.equal(summaryBody.progress.totalEntries, 2);
+    assert.equal(JSON.stringify(summaryBody).includes('C:\\Demo\\Karaoke'), false);
   });
 });
 

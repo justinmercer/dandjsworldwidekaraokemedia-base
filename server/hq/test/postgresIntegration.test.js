@@ -304,6 +304,14 @@ test('PostgreSQL catalog reads, protected writes, audit history, and normalizati
     const quarantineList = await repository.listHostSyncQuarantine(HOST_DEVICE_ID);
     assert.equal(quarantineList.total, 1);
     assert.equal(JSON.stringify(quarantineList).includes('C:\\Demo\\Karaoke'), false);
+
+    const summary = await repository.getHostSyncSummary(HOST_DEVICE_ID);
+    assert.equal(summary.statusCounts.verified, 1);
+    assert.equal(summary.queuedActionCount, 1);
+    assert.equal(summary.quarantineCount, 1);
+    assert.equal(summary.unresolvedQuarantineCount, 1);
+    assert.equal(summary.latestOperation.syncOperationId, operation.syncOperationId);
+    assert.equal(summary.progress.totalEntries, 3);
   } finally {
     await new Promise((resolve) => server.close(resolve));
     await repository.close();

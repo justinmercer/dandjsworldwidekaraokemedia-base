@@ -558,6 +558,37 @@ class CatalogRepository {
     return { page, pageSize, total, hasNextPage: start + pageSize < total, items: items.slice(start, start + pageSize) };
   }
 
+  getHostSyncSummary(hostDeviceId) {
+    this.requireHostDevice(hostDeviceId);
+    const operations = Array.from(this.hostSyncOperationsById.values())
+      .filter((operation) => operation.hostDeviceId === hostDeviceId)
+      .sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
+    const actions = Array.from(this.hostSyncOperatorActionsById.values())
+      .filter((action) => action.hostDeviceId === hostDeviceId);
+    const quarantineRecords = Array.from(this.hostSyncQuarantineById.values())
+      .filter((quarantine) => quarantine.hostDeviceId === hostDeviceId);
+
+    const statusCounts = Object.fromEntries(HOST_SYNC_SUMMARY_STATUSES.map((status) => [status, 0]));
+    for (const operation of operations) {
+      statusCounts[operation.status] = (statusCounts[operation.status] || 0) + 1;
+    }
+
+    const latestOperation = operations[0] ? toHostSyncOperation(operations[0]) : null;
+    const operationWithError = operations.find((operation) => operation.lastError);
+    return {
+      hostDeviceId,
+      statusCounts,
+      latestOperation,
+      queuedActionCount: actions.filter((action) => action.status === 'queued').length,
+      actionCount: actions.length,
+      quarantineCount: quarantineRecords.length,
+      unresolvedQuarantineCount: quarantineRecords.filter((quarantine) => !quarantine.resolvedAt).length,
+      lastError: operationWithError ? cloneJson(operationWithError.lastError) : null,
+      progress: latestOperation ? cloneJson(latestOperation.progress) : cloneJson(DEFAULT_SYNC_PROGRESS),
+      generatedAt: new Date().toISOString()
+    };
+  }
+
   getPublicSongs() {
     return (this.catalog.songs || []).filter(isPublicSong);
   }
@@ -659,6 +690,8 @@ function toPositiveInteger(value, fallback) {
 
   return parsed;
 }
+
+const HOST_SYNC_SUMMARY_STATUSES = Object.freeze(['ready', 'pending', 'syncing', 'verified', 'failed', 'review_needed', 'paused', 'cancelled']);
 
 const DEFAULT_SYNC_PROGRESS = Object.freeze({
   totalEntries: 0,
