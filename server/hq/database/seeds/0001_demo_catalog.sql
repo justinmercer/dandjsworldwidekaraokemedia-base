@@ -182,6 +182,42 @@ INSERT INTO hq_catalog.authorized_media_files (
   )
 ON CONFLICT (authorized_media_id) DO NOTHING;
 
+UPDATE hq_catalog.authorized_media_files
+SET sync_manifest_priority = 120,
+    always_keep_on_host = true,
+    server_archive_only = false,
+    selected_host_device_ids = ARRAY[]::uuid[],
+    requested_song_priority_boost = 30,
+    recently_used_priority_boost = 10
+WHERE authorized_media_id = '00000000-0000-4000-8000-000000000301';
+
+UPDATE hq_catalog.authorized_media_files
+SET sync_manifest_priority = 50,
+    always_keep_on_host = false,
+    server_archive_only = true,
+    selected_host_device_ids = ARRAY[]::uuid[],
+    requested_song_priority_boost = 0,
+    recently_used_priority_boost = 0
+WHERE authorized_media_id = '00000000-0000-4000-8000-000000000302';
+
+UPDATE hq_catalog.authorized_media_files
+SET sync_manifest_priority = 90,
+    always_keep_on_host = false,
+    server_archive_only = false,
+    selected_host_device_ids = ARRAY['00000000-0000-4000-8000-000000000901']::uuid[],
+    requested_song_priority_boost = 0,
+    recently_used_priority_boost = 0
+WHERE authorized_media_id = '00000000-0000-4000-8000-000000000303';
+
+UPDATE hq_catalog.authorized_media_files
+SET sync_manifest_priority = 100,
+    always_keep_on_host = false,
+    server_archive_only = false,
+    selected_host_device_ids = ARRAY[]::uuid[],
+    requested_song_priority_boost = 0,
+    recently_used_priority_boost = 25
+WHERE authorized_media_id = '00000000-0000-4000-8000-000000000304';
+
 UPDATE hq_catalog.songs
 SET preferred_authorized_media_id = media.authorized_media_id
 FROM hq_catalog.authorized_media_files AS media

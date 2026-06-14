@@ -26,7 +26,7 @@ Supporting contracts define request context, health, and readiness response shap
 - Every schema uses JSON Schema draft 2020-12.
 - Identifiers are opaque strings. They must not expose filesystem paths, private URLs, access tokens, or personal data.
 - Media references are opaque authorized-media identifiers only. The repository must never include karaoke media files.
-- Contracts can include future-facing fields, but they must not imply runtime features beyond the current Wave 1B catalog foundation.
+- Contracts can include future-facing fields, but they must not imply runtime features beyond the current Wave 2A host sync planning foundation.
 
 ## Validation
 

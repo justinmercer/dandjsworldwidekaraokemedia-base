@@ -60,7 +60,13 @@
           "createdAt": "2026-06-13T00:00:00Z",
           "updatedAt": "2026-06-13T00:00:00Z",
           "retiredAt": null,
-          "retirementReason": null
+          "retirementReason": null,
+          "syncManifestPriority": 120,
+          "alwaysKeepOnHost": true,
+          "serverArchiveOnly": false,
+          "selectedHostDeviceIds": [],
+          "requestedSongPriorityBoost": 30,
+          "recentlyUsedPriorityBoost": 10
         },
         {
           "authorizedMediaId": "media_demo_opening_guide",
@@ -80,7 +86,13 @@
           "createdAt": "2026-06-13T00:00:00Z",
           "updatedAt": "2026-06-13T00:00:00Z",
           "retiredAt": null,
-          "retirementReason": null
+          "retirementReason": null,
+          "syncManifestPriority": 50,
+          "alwaysKeepOnHost": false,
+          "serverArchiveOnly": true,
+          "selectedHostDeviceIds": [],
+          "requestedSongPriorityBoost": 0,
+          "recentlyUsedPriorityBoost": 0
         }
       ]
     },
@@ -119,7 +131,13 @@
           "createdAt": "2026-06-13T00:00:00Z",
           "updatedAt": "2026-06-13T00:00:00Z",
           "retiredAt": null,
-          "retirementReason": null
+          "retirementReason": null,
+          "syncManifestPriority": 90,
+          "alwaysKeepOnHost": false,
+          "serverArchiveOnly": false,
+          "selectedHostDeviceIds": ["host_demo_main"],
+          "requestedSongPriorityBoost": 0,
+          "recentlyUsedPriorityBoost": 0
         }
       ]
     },
@@ -158,7 +176,13 @@
           "createdAt": "2026-06-13T00:00:00Z",
           "updatedAt": "2026-06-13T00:00:00Z",
           "retiredAt": null,
-          "retirementReason": null
+          "retirementReason": null,
+          "syncManifestPriority": 100,
+          "alwaysKeepOnHost": false,
+          "serverArchiveOnly": false,
+          "selectedHostDeviceIds": [],
+          "requestedSongPriorityBoost": 0,
+          "recentlyUsedPriorityBoost": 25
         }
       ]
     }

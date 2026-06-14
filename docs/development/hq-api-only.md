@@ -1,6 +1,6 @@
 # Run Only the HQ API
 
-Wave 1B adds alternate-version reads, protected catalog-management routes, audit history, normalization, and development reset/reseed tools on top of the runnable HQ catalog API.
+Wave 2A adds host registration, heartbeat state, admin host-status summaries, deterministic manifest planning, and review-first manifest diffs on top of the runnable HQ catalog API.
 
 ## Supported framework
 
@@ -19,6 +19,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.
 ```powershell
 $env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
 $env:HQ_ADMIN_TOKEN = "changeme-local-admin-token-placeholder"
+$env:HQ_HOST_REGISTRATION_TOKEN = "changeme-local-host-registration-token-placeholder"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 ```
 
@@ -71,6 +72,21 @@ Protected routes require `HQ_ADMIN_TOKEN` from the runtime environment. There is
 - `POST /api/admin/catalog/songs/{songId}/retire`
 - `GET /api/admin/catalog/audit`
 
+## Protected host sync planning routes
+
+Host routes require `HQ_HOST_REGISTRATION_TOKEN` from the runtime environment. There is no working default; if the token is missing, these routes fail closed.
+
+- `POST /api/host/register`
+- `POST /api/host/heartbeat`
+- `GET /api/host/manifest?hostDeviceId={hostDeviceId}`
+- `POST /api/host/manifest/diff`
+
+Admin host status uses `HQ_ADMIN_TOKEN`:
+
+- `GET /api/admin/hosts/status`
+
+See [Host sync foundation](host-sync-foundation.md) for request and response examples. Host manifest planning returns opaque media keys and review-first diff candidates only; it does not download, transfer, play, or delete files.
+
 ## Reset and reseed
 
 Repeat-safe reseed:
@@ -85,6 +101,6 @@ Development reset:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\reset-hq-catalog.ps1 -Seed -ConfirmReset
 ```
 
-## Wave 1B limitation
+## Wave 2A limitation
 
-This batch does not add full staff authentication, host sync, Windows host features, playback, request screens, OBS, Replay, or external-source acquisition workflows.
+This batch does not add full staff authentication, host downloading, local file transfer, Windows host UI, playback, request screens, OBS, Replay, cleanup deletion execution, synchronization progress/error reporting, or external-source acquisition workflows.

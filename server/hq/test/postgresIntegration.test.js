@@ -6,6 +6,8 @@ const { createCatalogServer } = require('../src/httpServer');
 
 const databaseUrl = process.env.DATABASE_URL;
 const ADMIN_TOKEN = 'placeholder-test-admin-token';
+const HOST_TOKEN = 'placeholder-test-host-registration-token';
+const HOST_DEVICE_ID = '00000000-0000-4000-8000-000000000901';
 
 function adminHeaders(extra = {}) {
   return {
@@ -16,11 +18,20 @@ function adminHeaders(extra = {}) {
   };
 }
 
+function hostHeaders(extra = {}) {
+  return {
+    authorization: `Bearer ${HOST_TOKEN}`,
+    'content-type': 'application/json',
+    ...extra
+  };
+}
+
 test('PostgreSQL catalog reads, protected writes, audit history, and normalization work', { skip: !databaseUrl }, async () => {
   const repository = new PostgresCatalogRepository({ databaseUrl });
   const createdSongId = randomUUID();
   const server = createCatalogServer({
     adminCredential: ADMIN_TOKEN,
+    hostRegistrationCredential: HOST_TOKEN,
     repository
   });
 
@@ -33,7 +44,7 @@ test('PostgreSQL catalog reads, protected writes, audit history, and normalizati
     const healthBody = await health.json();
     assert.equal(health.status, 200);
     assert.equal(healthBody.mode, 'postgres');
-    assert.equal(healthBody.migrationVersion, '0002');
+    assert.equal(healthBody.migrationVersion, '0003');
     assert.deepEqual(healthBody.counts, {
       songs: 3,
       providers: 2,
@@ -161,6 +172,92 @@ test('PostgreSQL catalog reads, protected writes, audit history, and normalizati
     const malformedBody = await malformed.json();
     assert.equal(malformed.status, 400);
     assert.equal(malformedBody.error.code, 'validation_failed');
+
+    const register = await fetch(`${baseUrl}/api/host/register`, {
+      method: 'POST',
+      headers: hostHeaders(),
+      body: JSON.stringify({
+        hostDeviceId: HOST_DEVICE_ID,
+        displayName: 'PostgreSQL Demo Host',
+        venueLabel: 'Demo Venue',
+        appVersion: '0.2.0-demo',
+        localFreeSpaceBytes: 987654321,
+        localLibraryRoot: 'C:\\Demo\\Karaoke'
+      })
+    });
+    const registered = await register.json();
+    assert.equal(register.status, 201);
+    assert.equal(registered.hostDevice.localLibraryRootReported, true);
+    assert.equal(JSON.stringify(registered).includes('C:\\Demo\\Karaoke'), false);
+
+    const heartbeat = await fetch(`${baseUrl}/api/host/heartbeat`, {
+      method: 'POST',
+      headers: hostHeaders(),
+      body: JSON.stringify({
+        hostDeviceId: HOST_DEVICE_ID,
+        appVersion: '0.2.1-demo',
+        localFreeSpaceBytes: 987650000,
+        isActive: true,
+        syncState: 'interrupted',
+        interruptedSyncState: {
+          syncId: 'sync-postgres-demo-001',
+          reason: 'Synthetic interrupted sync marker.',
+          lastMediaKey: 'authorized-media:00000000-0000-4000-8000-000000000301',
+          interruptedAt: '2026-06-14T00:00:00Z'
+        }
+      })
+    });
+    const heartbeatBody = await heartbeat.json();
+    assert.equal(heartbeat.status, 200);
+    assert.equal(heartbeatBody.hostDevice.syncState, 'interrupted');
+
+    const statuses = await fetch(`${baseUrl}/api/admin/hosts/status`, {
+      headers: adminHeaders()
+    });
+    const statusBody = await statuses.json();
+    assert.equal(statuses.status, 200);
+    assert.equal(statusBody.items.some((item) => item.hostDeviceId === HOST_DEVICE_ID), true);
+
+    const manifest = await fetch(`${baseUrl}/api/host/manifest?hostDeviceId=${HOST_DEVICE_ID}`, {
+      headers: hostHeaders()
+    });
+    const manifestBody = await manifest.json();
+    const serializedManifest = JSON.stringify(manifestBody);
+    assert.equal(manifest.status, 200);
+    assert.equal(manifestBody.entries.length, 3);
+    assert.equal(manifestBody.entries[0].authorizedMediaId, '00000000-0000-4000-8000-000000000301');
+    assert.equal(manifestBody.entries.some((entry) => entry.authorizedMediaId === '00000000-0000-4000-8000-000000000302'), false);
+    assert.equal(serializedManifest.includes('storage_relative_key'), false);
+    assert.equal(serializedManifest.includes('demo-catalog/opening'), false);
+
+    const diff = await fetch(`${baseUrl}/api/host/manifest/diff`, {
+      method: 'POST',
+      headers: hostHeaders(),
+      body: JSON.stringify({
+        hostDeviceId: HOST_DEVICE_ID,
+        currentEntries: [
+          {
+            songId: '00000000-0000-4000-8000-000000000201',
+            authorizedMediaId: '00000000-0000-4000-8000-000000000301',
+            sha256Checksum: '0000000000000000000000000000000000000000000000000000000000000000',
+            fileSizeBytes: 1,
+            versionTimestamp: '2026-01-01T00:00:00Z'
+          },
+          {
+            songId: '00000000-0000-4000-8000-000000000999',
+            authorizedMediaId: '00000000-0000-4000-8000-000000000999',
+            sha256Checksum: '5555555555555555555555555555555555555555555555555555555555555555',
+            fileSizeBytes: 10,
+            versionTimestamp: '2026-01-01T00:00:00Z'
+          }
+        ]
+      })
+    });
+    const diffBody = await diff.json();
+    assert.equal(diff.status, 200);
+    assert.equal(diffBody.totals.additions, 2);
+    assert.equal(diffBody.totals.updates, 1);
+    assert.equal(diffBody.cleanupCandidates[0].deleteReady, false);
   } finally {
     await new Promise((resolve) => server.close(resolve));
     await repository.close();

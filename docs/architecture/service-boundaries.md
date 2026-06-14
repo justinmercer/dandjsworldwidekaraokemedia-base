@@ -1,6 +1,6 @@
 # Service Boundaries and Data Ownership
 
-This document defines ownership boundaries for implementation. Wave 1B adds HQ catalog database controls and public catalog APIs while preserving the local-first host boundary.
+This document defines ownership boundaries for implementation. Wave 2A adds HQ host registration and sync-manifest planning while preserving the local-first host boundary.
 
 ## Component responsibilities
 
@@ -22,14 +22,14 @@ This document defines ownership boundaries for implementation. Wave 1B adds HQ c
 | Venue profile | Future HQ server | `venue-profile.v1.schema.json` | No private network details in source control. |
 | Show session | Windows host app during active show | `show-session.v1.schema.json` | Host remains authoritative while a show is active. |
 | Request | Future request web app creates, host moderates | `song-request.v1.schema.json` | Submission and moderation behavior is future work. |
-| Host device | Future HQ server registration plus host local identity | `host-device.v1.schema.json` | Registration APIs are not part of Wave 1A. |
-| Synchronization manifest | Future HQ server generates, host verifies | `synchronization-manifest.v1.schema.json` | Wave 1A adds sync-manifest indexes only. No sync jobs are added here. |
+| Host device | HQ server registration plus host local identity | `host-device.v1.schema.json`, `server/hq/database/migrations/0003_host_sync_foundation.sql` | Wave 2A stores host status and redacts local library roots from API responses. |
+| Synchronization manifest | HQ server generates planning manifests, host verifies later | `synchronization-manifest.v1.schema.json`, `server/hq/src/hostSync.js` | Wave 2A adds deterministic planning and review-first diffs only. No download, transfer, or cleanup execution jobs are added here. |
 | Playback state | Windows host app | `playback-state.v1.schema.json` | Contract only. No playback engine work. |
 | External display state | Windows host app | `external-display-state.v1.schema.json` | Contract only. No display windows. |
 | OBS event | Windows host app emits only when optional feature is enabled | `obs-companion-event.v1.schema.json` | Optional, failure-isolated future boundary. |
 | Replay event | Windows host app emits only when optional feature is enabled | `replay-event.v1.schema.json` | Optional, failure-isolated future boundary. |
 | Request context | Future server middleware | `api-request-context.v1.schema.json` | Defines correlation IDs only. |
-| Health and readiness | Server-side services | `service-health.v1.schema.json`, `service-readiness.v1.schema.json`, `server/hq/src/httpServer.js` | Wave 1B keeps lightweight catalog health only. |
+| Health and readiness | Server-side services | `service-health.v1.schema.json`, `service-readiness.v1.schema.json`, `server/hq/src/httpServer.js` | Wave 2A keeps lightweight catalog health only. |
 
 ## Review rules
 

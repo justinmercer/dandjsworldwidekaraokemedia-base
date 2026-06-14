@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.dandjs.example/foundation/v1/host-device.schema.json",
   "title": "Host Device",
-  "description": "Future host laptop identity and capability summary.",
+  "description": "Safe HQ-side host registration and heartbeat summary for sync planning.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -17,25 +17,65 @@
       "type": "string",
       "minLength": 1
     },
+    "venueLabel": {
+      "type": ["string", "null"]
+    },
     "appVersion": {
-      "type": "string"
+      "type": ["string", "null"]
     },
-    "platform": {
-      "type": "string",
-      "enum": ["windows"]
+    "localFreeSpaceBytes": {
+      "type": ["integer", "null"],
+      "minimum": 0
     },
-    "capabilities": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": ["offline-show", "external-display", "local-playback", "request-moderation", "optional-obs-events", "optional-replay-events"]
-      },
-      "uniqueItems": true
+    "localLibraryRootReported": {
+      "type": "boolean"
     },
     "lastSeenAt": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "isActive": {
+      "type": "boolean"
+    },
+    "syncState": {
       "type": "string",
+      "enum": ["idle", "interrupted", "needs_review"]
+    },
+    "interruptedSyncState": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "syncId": {
+          "type": ["string", "null"]
+        },
+        "reason": {
+          "type": ["string", "null"]
+        },
+        "lastMediaKey": {
+          "type": ["string", "null"]
+        },
+        "interruptedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        }
+      }
+    },
+    "createdAt": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": ["string", "null"],
       "format": "date-time"
     }
   },
-  "required": ["contractVersion", "hostDeviceId", "displayName", "platform", "capabilities", "lastSeenAt"]
+  "required": [
+    "contractVersion",
+    "hostDeviceId",
+    "displayName",
+    "localLibraryRootReported",
+    "lastSeenAt",
+    "isActive",
+    "syncState"
+  ]
 }

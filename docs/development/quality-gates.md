@@ -1,6 +1,6 @@
 # Quality Gates
 
-Wave 1B keeps the foundation guardrails and adds HQ catalog controls validation.
+Wave 2A keeps the foundation guardrails and adds host registration plus sync-manifest planning validation.
 
 ## Local checks
 
@@ -28,6 +28,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-env-secrets.
 - Final vulnerability scanning provider if GitHub Advanced Security or another service is enabled.
 - Final generated-client strategy for shared contracts.
 
-## Wave 1B limitation
+## Wave 2A limitation
 
-The checks validate repository safety, shared contracts, the HQ catalog migration shape, public catalog reads, protected catalog-management routes, audit history, and the database-backed catalog API. They do not validate playback, syncing, request screens, OBS, Replay, full staff authentication, or external-source acquisition workflows.
+The checks validate repository safety, shared contracts, the HQ catalog migration shape, public catalog reads, protected catalog-management routes, audit history, host registration, host heartbeat state, admin host-status summaries, deterministic manifest generation, manifest diffs, sync flags, priority inputs, interrupted-sync tracking, and the database-backed catalog API where Docker is available. They do not validate host downloading, local file transfer, playback, request screens, OBS, Replay, cleanup deletion execution, full staff authentication, or external-source acquisition workflows.

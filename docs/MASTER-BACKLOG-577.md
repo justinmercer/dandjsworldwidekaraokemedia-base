@@ -140,31 +140,31 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 04. Host device registration and library synchronization
 
-- [ ] `KARA-111` — Create the host-device database table.
-- [ ] `KARA-112` — Add host-device display name and venue label fields.
-- [ ] `KARA-113` — Add host-app version reporting.
-- [ ] `KARA-114` — Add local free-space reporting.
-- [ ] `KARA-115` — Add local library root reporting.
-- [ ] `KARA-116` — Add host last-seen timestamps.
-- [ ] `KARA-117` — Add host active/inactive state.
-- [ ] `KARA-118` — Add development-safe host registration tokens.
-- [ ] `KARA-119` — Add a host registration endpoint.
-- [ ] `KARA-120` — Add a host heartbeat endpoint.
-- [ ] `KARA-121` — Add a host status dashboard in HQ admin.
-- [ ] `KARA-122` — Create deterministic host manifest generation.
-- [ ] `KARA-123` — Include song ID, media key, checksum, size, priority, and version timestamps in manifests.
-- [ ] `KARA-124` — Create a host manifest endpoint.
-- [ ] `KARA-125` — Create a manifest-diff endpoint.
-- [ ] `KARA-126` — Represent additions in manifest diffs.
-- [ ] `KARA-127` — Represent updates in manifest diffs.
-- [ ] `KARA-128` — Represent review-first cleanup candidates in manifest diffs.
-- [ ] `KARA-129` — Add device-specific manifest filters.
-- [ ] `KARA-130` — Add always-keep-on-host flags.
-- [ ] `KARA-131` — Add server-archive-only flags.
-- [ ] `KARA-132` — Add selected-host synchronization flags.
-- [ ] `KARA-133` — Add requested-song priority boosts.
-- [ ] `KARA-134` — Add recently-used-song priority boosts.
-- [ ] `KARA-135` — Add interrupted-sync state tracking.
+- [x] `KARA-111` — Create the host-device database table.
+- [x] `KARA-112` — Add host-device display name and venue label fields.
+- [x] `KARA-113` — Add host-app version reporting.
+- [x] `KARA-114` — Add local free-space reporting.
+- [x] `KARA-115` — Add local library root reporting.
+- [x] `KARA-116` — Add host last-seen timestamps.
+- [x] `KARA-117` — Add host active/inactive state.
+- [x] `KARA-118` — Add development-safe host registration tokens.
+- [x] `KARA-119` — Add a host registration endpoint.
+- [x] `KARA-120` — Add a host heartbeat endpoint.
+- [x] `KARA-121` — Add a host status dashboard in HQ admin.
+- [x] `KARA-122` — Create deterministic host manifest generation.
+- [x] `KARA-123` — Include song ID, media key, checksum, size, priority, and version timestamps in manifests.
+- [x] `KARA-124` — Create a host manifest endpoint.
+- [x] `KARA-125` — Create a manifest-diff endpoint.
+- [x] `KARA-126` — Represent additions in manifest diffs.
+- [x] `KARA-127` — Represent updates in manifest diffs.
+- [x] `KARA-128` — Represent review-first cleanup candidates in manifest diffs.
+- [x] `KARA-129` — Add device-specific manifest filters.
+- [x] `KARA-130` — Add always-keep-on-host flags.
+- [x] `KARA-131` — Add server-archive-only flags.
+- [x] `KARA-132` — Add selected-host synchronization flags.
+- [x] `KARA-133` — Add requested-song priority boosts.
+- [x] `KARA-134` — Add recently-used-song priority boosts.
+- [x] `KARA-135` — Add interrupted-sync state tracking.
 - [ ] `KARA-136` — Add synchronization progress reporting from host to server.
 - [ ] `KARA-137` — Add synchronization error reporting from host to server.
 - [ ] `KARA-138` — Add host-side pause controls.

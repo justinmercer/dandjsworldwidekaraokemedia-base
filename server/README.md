@@ -2,7 +2,7 @@
 
 This directory contains HQ server work.
 
-Wave 1B adds the first protected catalog-management controls in `server/hq`.
+Wave 2A adds protected host registration and sync-manifest planning in `server/hq`.
 
 ## Supported framework
 
@@ -14,6 +14,7 @@ The supported HQ catalog runtime for this batch is Node.js using the built-in `n
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.ps1
 $env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
 $env:HQ_ADMIN_TOKEN = "changeme-local-admin-token-placeholder"
+$env:HQ_HOST_REGISTRATION_TOKEN = "changeme-local-host-registration-token-placeholder"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 Set-Location .\server\hq
 npm install
@@ -40,6 +41,14 @@ Temporary protected routes require `HQ_ADMIN_TOKEN` from the environment:
 - `PATCH /api/admin/catalog/songs/{songId}/source-notes`
 - `POST /api/admin/catalog/songs/{songId}/retire`
 - `GET /api/admin/catalog/audit`
+- `GET /api/admin/hosts/status`
+
+Temporary host routes require `HQ_HOST_REGISTRATION_TOKEN` from the environment:
+
+- `POST /api/host/register`
+- `POST /api/host/heartbeat`
+- `GET /api/host/manifest?hostDeviceId={hostDeviceId}`
+- `POST /api/host/manifest/diff`
 
 ## Explicit demo mode
 
@@ -73,4 +82,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\reset-hq-catalog.p
 
 ## Batch boundary
 
-Wave 1B does not add full staff authentication, host sync, Windows host features, playback, request screens, OBS, Replay, or external-source acquisition workflows.
+Wave 2A does not add full staff authentication, host downloading, local file transfer, Windows host UI, playback, request screens, OBS, Replay, cleanup deletion execution, synchronization progress/error reporting, or external-source acquisition workflows.

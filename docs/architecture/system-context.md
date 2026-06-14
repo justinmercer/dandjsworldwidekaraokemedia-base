@@ -1,12 +1,12 @@
 # System Context
 
-Wave 1B keeps the component boundaries and adds HQ catalog reads plus temporary protected catalog-management controls.
+Wave 2A keeps the component boundaries and adds HQ-side host registration plus sync-manifest planning while preserving local-first show control.
 
 ```mermaid
 flowchart LR
   Host["Windows host app\nlocal show control"]:::core
   LocalStore["Local host storage\nfuture catalog and show cache"]:::local
-  HQ["HQ server\ncatalog API and controls\nfuture full auth, sync, reports"]:::server
+  HQ["HQ server\ncatalog API, controls,\nhost sync planning"]:::server
   DB["Local development DB\nPostgres catalog schema"]:::infra
   Cache["Local development cache\nRedis container only"]:::infra
   RequestWeb["Request web app\nfuture guest request UI"]:::edge
@@ -14,7 +14,7 @@ flowchart LR
   Replay["Replay boundary\nfuture optional event adapter"]:::optional
 
   Host --> LocalStore
-  Host -. "future authorized sync only" .-> HQ
+  Host -. "protected registration and manifest planning" .-> HQ
   HQ -. "catalog migrations" .-> DB
   HQ -. "future development cache" .-> Cache
   RequestWeb -. "future request APIs" .-> HQ
@@ -32,11 +32,11 @@ flowchart LR
 ## Boundary rules
 
 - The Windows host app remains the live-show authority and must continue operating if HQ, request web, OBS, Replay, or internet access is unavailable.
-- HQ server work now includes public catalog health, search, exact-match, song-detail, and alternate-version endpoints plus protected development catalog controls backed by PostgreSQL when `DATABASE_URL` is configured.
-- Request web is a future guest-facing surface. Wave 1B adds no mobile request screens or request submission behavior.
-- OBS and Replay remain optional event boundaries. Wave 1B adds no implementation for either integration.
-- Local development Postgres includes the initial authorized-catalog schema and synthetic seed SQL.
+- HQ server work now includes public catalog reads, protected development catalog controls, protected host registration, heartbeat state, admin host status, deterministic host manifests, and review-first manifest diffs backed by PostgreSQL when `DATABASE_URL` is configured.
+- Request web is a future guest-facing surface. Wave 2A adds no mobile request screens or request submission behavior.
+- OBS and Replay remain optional event boundaries. Wave 2A adds no implementation for either integration.
+- Local development Postgres includes authorized-catalog, catalog-controls, host-device, and sync-planning metadata schema with synthetic seed SQL.
 
-## Wave 1B limitation
+## Wave 2A limitation
 
-This batch does not add full staff authentication, Windows host features, playback, synchronization jobs, request screens, OBS integration, Replay integration, external-source acquisition workflows, real karaoke media, credentials, private URLs, venue network details, or personal singer data.
+This batch does not add full staff authentication, host downloading, local file transfer, Windows host UI, playback, synchronization progress/error reporting, cleanup deletion execution, request screens, OBS integration, Replay integration, external-source acquisition workflows, real karaoke media, credentials, private URLs, venue network details, or personal singer data.

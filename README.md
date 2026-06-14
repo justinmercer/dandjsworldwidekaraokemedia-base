@@ -4,7 +4,7 @@ D & J's Karaoke Software is planned as a local-first karaoke operations system f
 
 ## Current status
 
-This repository is in Wave 1B catalog-controls mode. The current contents include documentation, shared contract schemas, local-development guardrails, safe environment examples, PostgreSQL catalog migrations, a runnable HQ catalog API, protected development-only catalog-management routes, and audit-history support backed by safe demo metadata. There are no Windows host features, playback features, synchronization jobs, mobile request screens, OBS companion implementation, Replay integration code, external-source acquisition workflows, credentials, private URLs, venue network details, real karaoke media, or personal singer data in this batch.
+This repository is in Wave 2A host-sync-foundation mode. The current contents include documentation, shared contract schemas, local-development guardrails, safe environment examples, PostgreSQL catalog migrations, a runnable HQ catalog API, protected development-only catalog-management routes, audit-history support, host registration, host heartbeat state, admin host-status summaries, and deterministic host manifest planning backed by safe demo metadata. There are no host downloading features, local file transfer features, playback features, Windows UI, mobile request screens, OBS companion implementation, Replay integration code, cleanup deletion execution, external-source acquisition workflows, credentials, private URLs, venue network details, real karaoke media, or personal singer data in this batch.
 
 ## Repository layout
 
@@ -35,6 +35,7 @@ Run the HQ catalog API against PostgreSQL:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.ps1
 $env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
 $env:HQ_ADMIN_TOKEN = "changeme-local-admin-token-placeholder"
+$env:HQ_HOST_REGISTRATION_TOKEN = "changeme-local-host-registration-token-placeholder"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 Set-Location .\server\hq
 npm install
@@ -56,8 +57,14 @@ The default local API base URL is `http://localhost:5100`. Useful endpoints are:
 - `GET /api/catalog/exact-match?artist=Demo%20Artist&title=Demo%20Opening%20Song`
 - `GET /api/catalog/songs/song_demo_opening`
 - `GET /api/catalog/songs/song_demo_opening/alternate-versions`
+- `POST /api/host/register`
+- `POST /api/host/heartbeat`
+- `GET /api/host/manifest?hostDeviceId={hostDeviceId}`
+- `POST /api/host/manifest/diff`
+- `GET /api/admin/hosts/status`
 
 Protected catalog-management and audit-history routes require `HQ_ADMIN_TOKEN` from the runtime environment. If the token is absent, admin routes fail closed.
+Host registration and host manifest routes require `HQ_HOST_REGISTRATION_TOKEN` from the runtime environment. If the token is absent, host routes fail closed.
 
 The optional local development stack contains database and cache containers:
 
@@ -89,6 +96,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\reset-hq-catalog.p
 - Only operator-owned or otherwise authorized karaoke media may be stored or synchronized.
 - YouTube work is limited to official search and embedded preview review. This repository must not add arbitrary ripping or unattended download workflows.
 - Public catalog endpoints are read-only and do not expose storage-relative keys, checksums, or filesystem paths.
+- Host manifest planning exposes opaque media keys and review-first diff candidates only. It does not download, transfer, play, or delete files.
 - Catalog-management and audit-history endpoints are protected by the temporary development admin boundary until the later staff-auth wave.
 - Demo placeholders are allowed. Real media, secrets, private URLs, venue network details, and personal singer data are not.
 
