@@ -112,31 +112,31 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-083` — Create paginated catalog-search endpoints.
 - [x] `KARA-084` — Create exact-match lookup endpoints.
 - [x] `KARA-085` — Create song-detail endpoints.
-- [ ] `KARA-086` — Create alternate-version listing endpoints.
-- [ ] `KARA-087` — Create admin-only song-create endpoints.
-- [ ] `KARA-088` — Create admin-only song-update endpoints.
-- [ ] `KARA-089` — Create admin-only preferred-version selection endpoints.
-- [ ] `KARA-090` — Create admin-only review-state endpoints.
-- [ ] `KARA-091` — Create admin-only source-note endpoints.
-- [ ] `KARA-092` — Create admin-only soft-retirement endpoints.
-- [ ] `KARA-093` — Create deterministic search normalization for punctuation and capitalization.
-- [ ] `KARA-094` — Normalize common artist-name variants.
-- [ ] `KARA-095` — Normalize common duet separators such as `&`, `and`, and `feat.`.
-- [ ] `KARA-096` — Add search tests for punctuation differences.
-- [ ] `KARA-097` — Add search tests for capitalization differences.
-- [ ] `KARA-098` — Add search tests for accented characters.
-- [ ] `KARA-099` — Add search tests for alternate versions.
-- [ ] `KARA-100` — Add validation for malformed metadata.
-- [ ] `KARA-101` — Add API error envelopes with user-safe messages.
-- [ ] `KARA-102` — Add server-side pagination limits.
-- [ ] `KARA-103` — Add request-rate limits for public search endpoints.
-- [ ] `KARA-104` — Add structured audit logging for catalog changes.
-- [ ] `KARA-105` — Add an admin audit-history endpoint.
-- [ ] `KARA-106` — Add storage-mount documentation.
-- [ ] `KARA-107` — Add catalog-service API documentation.
-- [ ] `KARA-108` — Add database reset and reseed scripts for development.
-- [ ] `KARA-109` — Add migration rollback documentation.
-- [ ] `KARA-110` — Add a catalog-service smoke test.
+- [x] `KARA-086` — Create alternate-version listing endpoints.
+- [x] `KARA-087` — Create admin-only song-create endpoints.
+- [x] `KARA-088` — Create admin-only song-update endpoints.
+- [x] `KARA-089` — Create admin-only preferred-version selection endpoints.
+- [x] `KARA-090` — Create admin-only review-state endpoints.
+- [x] `KARA-091` — Create admin-only source-note endpoints.
+- [x] `KARA-092` — Create admin-only soft-retirement endpoints.
+- [x] `KARA-093` — Create deterministic search normalization for punctuation and capitalization.
+- [x] `KARA-094` — Normalize common artist-name variants.
+- [x] `KARA-095` — Normalize common duet separators such as `&`, `and`, and `feat.`.
+- [x] `KARA-096` — Add search tests for punctuation differences.
+- [x] `KARA-097` — Add search tests for capitalization differences.
+- [x] `KARA-098` — Add search tests for accented characters.
+- [x] `KARA-099` — Add search tests for alternate versions.
+- [x] `KARA-100` — Add validation for malformed metadata.
+- [x] `KARA-101` — Add API error envelopes with user-safe messages.
+- [x] `KARA-102` — Add server-side pagination limits.
+- [x] `KARA-103` — Add request-rate limits for public search endpoints.
+- [x] `KARA-104` — Add structured audit logging for catalog changes.
+- [x] `KARA-105` — Add an admin audit-history endpoint.
+- [x] `KARA-106` — Add storage-mount documentation.
+- [x] `KARA-107` — Add catalog-service API documentation.
+- [x] `KARA-108` — Add database reset and reseed scripts for development.
+- [x] `KARA-109` — Add migration rollback documentation.
+- [x] `KARA-110` — Add a catalog-service smoke test.
 
 ## 04. Host device registration and library synchronization
 

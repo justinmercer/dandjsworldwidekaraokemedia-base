@@ -1,16 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { normalizeArtistName, normalizeCatalogText } = require('./normalization');
 
 const DEFAULT_CATALOG_PATH = path.join(__dirname, '..', 'data', 'demo-catalog.json');
-
-function normalizeCatalogText(value) {
-  return String(value || '')
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim();
-}
 
 function loadDemoCatalog(catalogPath = DEFAULT_CATALOG_PATH) {
   const raw = fs.readFileSync(catalogPath, 'utf8');
@@ -18,7 +10,7 @@ function loadDemoCatalog(catalogPath = DEFAULT_CATALOG_PATH) {
 
   for (const song of catalog.songs || []) {
     song.normalizedTitle = song.normalizedTitle || normalizeCatalogText(song.title);
-    song.normalizedArtist = song.normalizedArtist || normalizeCatalogText(song.artistName);
+    song.normalizedArtist = song.normalizedArtist || normalizeArtistName(song.artistName);
   }
 
   return catalog;
@@ -26,5 +18,6 @@ function loadDemoCatalog(catalogPath = DEFAULT_CATALOG_PATH) {
 
 module.exports = {
   loadDemoCatalog,
+  normalizeArtistName,
   normalizeCatalogText
 };

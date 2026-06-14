@@ -52,7 +52,7 @@ foreach ($file in $files) {
     $lineNumber += 1
     foreach ($pattern in $patterns) {
       if ($line -match $pattern.Pattern) {
-        $findings.Add("{0}:{1} matched {2}" -f $relative, $lineNumber, $pattern.Name)
+        $findings.Add(('{0}:{1} matched {2}' -f $relative, $lineNumber, $pattern.Name))
       }
     }
   }

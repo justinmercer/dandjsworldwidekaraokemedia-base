@@ -1,12 +1,12 @@
 # System Context
 
-Wave 1A keeps the component boundaries and adds the first read-only HQ catalog foundation.
+Wave 1B keeps the component boundaries and adds HQ catalog reads plus temporary protected catalog-management controls.
 
 ```mermaid
 flowchart LR
   Host["Windows host app\nlocal show control"]:::core
   LocalStore["Local host storage\nfuture catalog and show cache"]:::local
-  HQ["HQ server\nread-only catalog foundation\nfuture admin, sync, reports"]:::server
+  HQ["HQ server\ncatalog API and controls\nfuture full auth, sync, reports"]:::server
   DB["Local development DB\nPostgres catalog schema"]:::infra
   Cache["Local development cache\nRedis container only"]:::infra
   RequestWeb["Request web app\nfuture guest request UI"]:::edge
@@ -32,11 +32,11 @@ flowchart LR
 ## Boundary rules
 
 - The Windows host app remains the live-show authority and must continue operating if HQ, request web, OBS, Replay, or internet access is unavailable.
-- HQ server work now includes read-only catalog health, search, exact-match, and song-detail endpoints backed by PostgreSQL when `DATABASE_URL` is configured.
-- Request web is a future guest-facing surface. Wave 1A adds no mobile request screens or request submission behavior.
-- OBS and Replay remain optional event boundaries. Wave 1A adds no implementation for either integration.
+- HQ server work now includes public catalog health, search, exact-match, song-detail, and alternate-version endpoints plus protected development catalog controls backed by PostgreSQL when `DATABASE_URL` is configured.
+- Request web is a future guest-facing surface. Wave 1B adds no mobile request screens or request submission behavior.
+- OBS and Replay remain optional event boundaries. Wave 1B adds no implementation for either integration.
 - Local development Postgres includes the initial authorized-catalog schema and synthetic seed SQL.
 
-## Wave 1A limitation
+## Wave 1B limitation
 
-This batch does not add admin write APIs, alternate-version listing endpoints, Windows host features, playback, synchronization jobs, request screens, OBS integration, Replay integration, external-source acquisition workflows, real karaoke media, credentials, private URLs, venue network details, or personal singer data.
+This batch does not add full staff authentication, Windows host features, playback, synchronization jobs, request screens, OBS integration, Replay integration, external-source acquisition workflows, real karaoke media, credentials, private URLs, venue network details, or personal singer data.

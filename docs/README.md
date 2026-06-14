@@ -31,6 +31,9 @@ This index links the current foundation documents and placeholders. Keep it upda
 
 - [Local stack](development/local-stack.md)
 - [HQ API only](development/hq-api-only.md)
+- [HQ catalog API](development/catalog-api.md)
+- [Development storage mounts](development/storage-mounts.md)
+- [HQ migration rollback](development/migration-rollback.md)
 - [Request web only](development/request-web-only.md)
 - [Windows host command-line build](development/windows-host-cli-build.md)
 - [Quality gates](development/quality-gates.md)
