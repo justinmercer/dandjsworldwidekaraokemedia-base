@@ -181,13 +181,13 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-149` — Add a `Verify Library` action.
 - [x] `KARA-150` — Add a `View Missing Locally` action.
 - [x] `KARA-151` — Add a `Review Cleanup Candidates` action.
-- [ ] `KARA-152` — Add tests for deterministic manifest order.
-- [ ] `KARA-153` — Add tests for additions.
-- [ ] `KARA-154` — Add tests for updates.
-- [ ] `KARA-155` — Add tests for cleanup candidates.
-- [ ] `KARA-156` — Add tests for insufficient disk space.
-- [ ] `KARA-157` — Add tests for interrupted operations.
-- [ ] `KARA-158` — Add tests for checksum mismatch handling.
+- [x] `KARA-152` — Add tests for deterministic manifest order.
+- [x] `KARA-153` — Add tests for additions.
+- [x] `KARA-154` — Add tests for updates.
+- [x] `KARA-155` — Add tests for cleanup candidates.
+- [x] `KARA-156` — Add tests for insufficient disk space.
+- [x] `KARA-157` — Add tests for interrupted operations.
+- [x] `KARA-158` — Add tests for checksum mismatch handling.
 - [ ] `KARA-159` — Add host-sync documentation.
 - [ ] `KARA-160` — Add a sync-readiness smoke test using demo fixtures only.
 
