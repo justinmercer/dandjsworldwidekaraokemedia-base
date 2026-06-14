@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -28,6 +28,8 @@
         <span class="status-pill online">Online Ready</span>
         <span class="status-pill local-only">Local-Only Safe</span>
         <span class="status-pill offline">Offline Capable</span>
+        <span class="status-pill external-placeholder">OBS Companion: Placeholder Only</span>
+        <span class="status-pill external-placeholder">Replay: Placeholder Only</span>
       </section>
     </aside>
 
@@ -45,9 +47,12 @@
           </label>
         </div>
 
-        <div class="show-status" role="status" aria-live="polite">
-          <span class="status-dot"></span>
-          <span>Show Not Started</span>
+        <div class="topbar-actions">
+          <button id="shortcutHelpButton" type="button" class="secondary-action">Keyboard Shortcuts</button>
+          <div class="show-status" role="status" aria-live="polite">
+            <span class="status-dot"></span>
+            <span id="showStatusText">Show Not Started</span>
+          </div>
         </div>
       </header>
 
@@ -121,19 +126,49 @@
             <div><dt>Mode</dt><dd>Metadata-only</dd></div>
             <div><dt>Last check</dt><dd>Demo fixture</dd></div>
             <div><dt>Action</dt><dd>Review only</dd></div>
+            <div><dt>OBS Companion</dt><dd>Indicator placeholder only</dd></div>
+            <div><dt>Replay</dt><dd>Indicator placeholder only</dd></div>
           </dl>
         </article>
 
         <article class="panel" id="settings">
           <div class="panel-header">
             <p class="eyebrow">Settings</p>
-            <span>Placeholder</span>
+            <span>Local Placeholder</span>
           </div>
-          <p>First-run, folders, server URL, and local request-server settings are deferred.</p>
+          <form id="settingsForm" class="settings-form">
+            <label>
+              Host display name
+              <input id="hostDisplayName" type="text" maxlength="64" value="Main Host Laptop">
+            </label>
+
+            <label>
+              Connection display mode
+              <select id="connectionMode">
+                <option value="online">Online Ready</option>
+                <option value="local-only">Local-Only Safe</option>
+                <option value="offline">Offline Capable</option>
+              </select>
+            </label>
+
+            <button type="submit">Save settings locally</button>
+            <p id="settingsStatus" class="helper-text" aria-live="polite">Settings are stored in browser localStorage only.</p>
+          </form>
         </article>
       </section>
     </section>
   </main>
+
+  <dialog id="shortcutDialog" class="shortcut-dialog" aria-labelledby="shortcutDialogTitle">
+    <h2 id="shortcutDialogTitle">Keyboard Shortcuts</h2>
+    <p>Wave 3B adds safe shortcut infrastructure only. Playback shortcuts are visible but disabled until a later scoped wave.</p>
+    <dl class="shortcut-list">
+      <div><dt><kbd>?</kbd> or <kbd>H</kbd></dt><dd>Open shortcut help</dd></div>
+      <div><dt><kbd>/</kbd></dt><dd>Focus song search placeholder</dd></div>
+      <div><dt><kbd>Esc</kbd></dt><dd>Close this dialog</dd></div>
+    </dl>
+    <button id="closeShortcutsButton" type="button">Close</button>
+  </dialog>
 
   <script src="./app.js"></script>
 </body>

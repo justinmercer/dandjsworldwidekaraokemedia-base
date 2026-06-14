@@ -1,4 +1,4 @@
-﻿# Windows Host Shell
+# Windows Host Shell
 
 This is the first Windows host application shell for D & J's Karaoke.
 
@@ -42,3 +42,10 @@ Native packaging, runtime bootstrap, and compile checks are deferred to later ho
 ## Preview
 
 Open `src/index.html` locally in a browser for a safe visual preview.
+
+
+## Wave 3B additions
+
+Wave 3B adds UI-only placeholders for OBS companion and Replay status, keyboard shortcut infrastructure, a keyboard shortcut help dialog, and browser-local settings persistence.
+
+These are display and preference placeholders only. They do not connect to OBS, connect to Replay, play media, scan media, transfer files, or delete files.
