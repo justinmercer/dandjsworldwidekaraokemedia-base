@@ -103,6 +103,23 @@ function showImportCancelPreview() {
   appendActivityLog('Import', 'Displayed safe cancellation and rollback preview.');
 }
 
+function appendImportAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  importAuditLogPreview.prepend(item);
+}
+
+function setImportReviewState(actionName) {
+  appendImportAudit('Review action', `${actionName} previewed with no catalog writes.`);
+  appendActivityLog('Import review', `${actionName} previewed safely.`);
+  showToast(`${actionName} preview saved to the import audit log.`, 'info');
+}
+
+function showMergeDuplicatePreview() {
+  mergeDuplicateDialog.showModal();
+  appendImportAudit('Merge preview', 'Safe confirmation displayed before duplicate merge preview.');
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -140,6 +157,13 @@ const filenameParsePreview = document.querySelector('#filenameParsePreview');
 const importCancelPreviewButton = document.querySelector('#importCancelPreviewButton');
 const importCancelDialog = document.querySelector('#importCancelDialog');
 const closeImportCancelButton = document.querySelector('#closeImportCancelButton');
+const skipForNowButton = document.querySelector('#skipForNowButton');
+const markPreferredButton = document.querySelector('#markPreferredButton');
+const keepBothButton = document.querySelector('#keepBothButton');
+const mergeDuplicatePreviewButton = document.querySelector('#mergeDuplicatePreviewButton');
+const mergeDuplicateDialog = document.querySelector('#mergeDuplicateDialog');
+const closeMergeDuplicateButton = document.querySelector('#closeMergeDuplicateButton');
+const importAuditLogPreview = document.querySelector('#importAuditLogPreview');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -184,6 +208,11 @@ closeDiagnosticsButton.addEventListener('click', () => diagnosticsDialog.close()
 importFilenamePreview.addEventListener('input', () => renderFilenameParsePreview());
 importCancelPreviewButton.addEventListener('click', () => showImportCancelPreview());
 closeImportCancelButton.addEventListener('click', () => importCancelDialog.close());
+skipForNowButton.addEventListener('click', () => setImportReviewState('Skip for now'));
+markPreferredButton.addEventListener('click', () => setImportReviewState('Mark preferred version'));
+keepBothButton.addEventListener('click', () => setImportReviewState('Keep both versions'));
+mergeDuplicatePreviewButton.addEventListener('click', () => showMergeDuplicatePreview());
+closeMergeDuplicateButton.addEventListener('click', () => mergeDuplicateDialog.close());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -215,6 +244,7 @@ document.addEventListener('keydown', (event) => {
     if (safeErrorDialog.open) safeErrorDialog.close();
     if (diagnosticsDialog.open) diagnosticsDialog.close();
     if (importCancelDialog.open) importCancelDialog.close();
+    if (mergeDuplicateDialog.open) mergeDuplicateDialog.close();
     return;
   }
 
@@ -276,5 +306,19 @@ window.DJKaraokeHostShell = Object.freeze({
   importCancellationSafeRollbackPreviewEnabled: true,
   importErrorSummaryEnabled: true,
   importReviewQueueEnabled: true,
-  importReadsMediaFiles: false
+  importReadsMediaFiles: false,
+  importNeedsManualReviewStateEnabled: true,
+  importSkipForNowActionEnabled: true,
+  importMarkPreferredVersionActionEnabled: true,
+  importKeepBothVersionsActionEnabled: true,
+  importMergeDuplicateRecordsPreviewEnabled: true,
+  importSafeMergeConfirmationEnabled: true,
+  importAuditLogPreviewEnabled: true,
+  importDemoFixturesForTestsOnly: true,
+  catalogImportTestsEnabled: true,
+  malformedFilenameTestsEnabled: true,
+  duplicateDetectionTestsEnabled: true,
+  alternateVersionTestsEnabled: true,
+  importCancellationTestsEnabled: true,
+  importWritesCatalogRecords: false
 });

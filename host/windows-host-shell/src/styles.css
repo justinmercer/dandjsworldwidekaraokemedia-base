@@ -544,3 +544,10 @@ kbd {
 .catalog-import-panel progress {
   width: 100%;
 }
+
+
+.import-review-table button {
+  margin: 0.15rem;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.85rem;
+}

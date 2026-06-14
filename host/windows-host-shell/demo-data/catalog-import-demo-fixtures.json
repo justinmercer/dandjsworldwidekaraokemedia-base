@@ -1,0 +1,30 @@
+{
+  "fixturePurpose": "Catalog import review tests only",
+  "containsRealMedia": false,
+  "cases": [
+    {
+      "id": "malformed-filename",
+      "fileName": "UnknownSongFile.zip",
+      "expectedState": "needs manual review",
+      "expectedWarning": "Malformed filename"
+    },
+    {
+      "id": "duplicate-candidate",
+      "fileName": "Journey - Don't Stop Believin.zip",
+      "expectedState": "needs manual review",
+      "expectedWarning": "Duplicate candidate"
+    },
+    {
+      "id": "alternate-version",
+      "fileName": "Queen - Bohemian Rhapsody.mp4",
+      "expectedState": "ready to review",
+      "expectedWarning": "Alternate version"
+    },
+    {
+      "id": "cancellation-preview",
+      "fileName": "Preview Cancel Only.zip",
+      "expectedState": "safe cancellation preview",
+      "expectedWarning": "No records changed"
+    }
+  ]
+}

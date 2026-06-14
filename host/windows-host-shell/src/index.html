@@ -183,13 +183,13 @@
                   <td>Journey - Don't Stop Believin.zip</td>
                   <td>Duplicate warning display</td>
                   <td>Needs manual review</td>
-                  <td>Skip for now</td>
+                  <td><button id="skipForNowButton" type="button">Skip for now</button></td>
                 </tr>
                 <tr>
                   <td>Queen - Bohemian Rhapsody.mp4</td>
                   <td>Alternate-version warning display</td>
                   <td>Ready to review</td>
-                  <td>Keep pending</td>
+                  <td><button id="markPreferredButton" type="button">Mark preferred</button> <button id="keepBothButton" type="button">Keep both versions</button></td>
                 </tr>
               </tbody>
             </table>
@@ -209,6 +209,15 @@
               <li><strong>Duplicate candidate:</strong> Review before saving.</li>
             </ul>
             <p class="helper-text">Import review queue is placeholder-only in Wave 4A.</p>
+
+            <div class="state-actions">
+              <button id="mergeDuplicatePreviewButton" type="button">Preview duplicate merge confirmation</button>
+            </div>
+
+            <ul id="importAuditLogPreview" class="activity-log-list" aria-label="Import audit log preview">
+              <li><strong>Audit:</strong> Import wizard opened with test fixtures only.</li>
+              <li><strong>Audit:</strong> Needs manual review state visible.</li>
+            </ul>
           </div>
         </article>
 
@@ -338,6 +347,12 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="mergeDuplicateDialog" class="shortcut-dialog" aria-labelledby="mergeDuplicateDialogTitle">
+    <h2 id="mergeDuplicateDialogTitle">Safe Duplicate Merge Preview</h2>
+    <p>This confirmation is a placeholder only. No catalog records are merged and no media files are changed.</p>
+    <button id="closeMergeDuplicateButton" type="button">Close merge preview</button>
+  </dialog>
 
   <dialog id="importCancelDialog" class="shortcut-dialog" aria-labelledby="importCancelDialogTitle">
     <h2 id="importCancelDialogTitle">Cancel Import Preview</h2>

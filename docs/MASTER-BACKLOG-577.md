@@ -258,20 +258,20 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-220` — Add import cancellation with safe rollback.
 - [x] `KARA-221` — Add import error summaries.
 - [x] `KARA-222` — Add an import review queue.
-- [ ] `KARA-223` — Add a `needs manual review` state.
-- [ ] `KARA-224` — Add a `skip for now` action.
-- [ ] `KARA-225` — Add a `mark preferred version` action.
-- [ ] `KARA-226` — Add a `keep both versions` action.
-- [ ] `KARA-227` — Add a `merge duplicate records` action.
-- [ ] `KARA-228` — Add safe confirmation before any destructive merge.
-- [ ] `KARA-229` — Add import audit logging.
-- [ ] `KARA-230` — Add demo fixture files for tests only.
-- [ ] `KARA-231` — Add catalog-import tests.
-- [ ] `KARA-232` — Add malformed-filename tests.
-- [ ] `KARA-233` — Add duplicate-detection tests.
-- [ ] `KARA-234` — Add alternate-version tests.
-- [ ] `KARA-235` — Add cancellation tests.
-- [ ] `KARA-236` — Document the import workflow.
+- [x] `KARA-223` — Add a `needs manual review` state.
+- [x] `KARA-224` — Add a `skip for now` action.
+- [x] `KARA-225` — Add a `mark preferred version` action.
+- [x] `KARA-226` — Add a `keep both versions` action.
+- [x] `KARA-227` — Add a `merge duplicate records` action.
+- [x] `KARA-228` — Add safe confirmation before any destructive merge.
+- [x] `KARA-229` — Add import audit logging.
+- [x] `KARA-230` — Add demo fixture files for tests only.
+- [x] `KARA-231` — Add catalog-import tests.
+- [x] `KARA-232` — Add malformed-filename tests.
+- [x] `KARA-233` — Add duplicate-detection tests.
+- [x] `KARA-234` — Add alternate-version tests.
+- [x] `KARA-235` — Add cancellation tests.
+- [x] `KARA-236` — Document the import workflow.
 - [ ] `KARA-237` — Create the Siglos migration wizard shell.
 - [ ] `KARA-238` — Support Siglos song-metadata exports.
 - [ ] `KARA-239` — Support Siglos singer-profile exports.
