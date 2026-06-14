@@ -221,13 +221,13 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-186` — Create local request tables.
 - [x] `KARA-187` — Create local venue-profile tables.
 - [x] `KARA-188` — Create local sync-status tables.
-- [ ] `KARA-189` — Add demo mode.
-- [ ] `KARA-190` — Add demo data.
-- [ ] `KARA-191` — Add a first-run setup wizard.
-- [ ] `KARA-192` — Add folder-selection settings for local authorized media.
-- [ ] `KARA-193` — Add server URL settings.
-- [ ] `KARA-194` — Add local-network request-server settings.
-- [ ] `KARA-195` — Add UI scaling support.
+- [x] `KARA-189` — Add demo mode.
+- [x] `KARA-190` — Add demo data.
+- [x] `KARA-191` — Add a first-run setup wizard.
+- [x] `KARA-192` — Add folder-selection settings for local authorized media.
+- [x] `KARA-193` — Add server URL settings.
+- [x] `KARA-194` — Add local-network request-server settings.
+- [x] `KARA-195` — Add UI scaling support.
 - [ ] `KARA-196` — Add 1080p layout tests.
 - [ ] `KARA-197` — Add laptop-width layout tests.
 - [ ] `KARA-198` — Add high-DPI layout checks.

@@ -49,3 +49,10 @@ Open `src/index.html` locally in a browser for a safe visual preview.
 Wave 3B adds UI-only placeholders for OBS companion and Replay status, keyboard shortcut infrastructure, a keyboard shortcut help dialog, and browser-local settings persistence.
 
 These are display and preference placeholders only. They do not connect to OBS, connect to Replay, play media, scan media, transfer files, or delete files.
+
+
+## Wave 3D additions
+
+Wave 3D adds safe demo mode, demo data, first-run setup, display-only folder and server settings, local request-server settings, and UI scaling.
+
+These features do not scan folders, connect to servers, play media, transfer files, or delete files.
