@@ -1,9 +1,9 @@
 # Host App Placeholder
 
-This directory is reserved for the future Windows host application.
+This directory now contains the first safe Windows host shell under `host/windows-host-shell`.
 
-Wave 0B intentionally adds no host UI, playback, local database, synchronization, OBS companion, or Replay behavior. The live-show local-first rule is documented before implementation begins.
+Wave 3A adds a local-first host shell with dashboard placeholders only. It intentionally adds no playback, local database, synchronization execution, OBS companion, or Replay behavior.
 
 Use `host/.env.example` for safe demo-only configuration placeholders when the host project is created.
 
-Command-line build expectations are documented in `docs/development/windows-host-cli-build.md`; the actual host project begins in a later backlog wave.
+Command-line build expectations are documented in `docs/development/windows-host-cli-build.md`; the current shell decision is documented in `docs/development/windows-host-shell.md`.

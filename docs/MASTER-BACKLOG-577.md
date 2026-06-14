@@ -193,21 +193,21 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 05. Windows host application shell and local persistence
 
-- [ ] `KARA-161` — Create the Windows host solution and initial desktop project.
-- [ ] `KARA-162` — Choose and document the Windows UI framework.
-- [ ] `KARA-163` — Create the main host window.
-- [ ] `KARA-164` — Create the dark premium nightlife theme.
-- [ ] `KARA-165` — Create the app navigation structure.
-- [ ] `KARA-166` — Create the show dashboard layout.
-- [ ] `KARA-167` — Add rotation-panel placeholders.
-- [ ] `KARA-168` — Add now-playing-panel placeholders.
-- [ ] `KARA-169` — Add incoming-request-panel placeholders.
-- [ ] `KARA-170` — Add song-search-panel placeholders.
-- [ ] `KARA-171` — Add sync-health-panel placeholders.
-- [ ] `KARA-172` — Add playback-control placeholders.
-- [ ] `KARA-173` — Add a venue selector.
-- [ ] `KARA-174` — Add a current-show status indicator.
-- [ ] `KARA-175` — Add online, local-only, and offline status indicators.
+- [x] `KARA-161` — Create the Windows host solution and initial desktop project.
+- [x] `KARA-162` — Choose and document the Windows UI framework.
+- [x] `KARA-163` — Create the main host window.
+- [x] `KARA-164` — Create the dark premium nightlife theme.
+- [x] `KARA-165` — Create the app navigation structure.
+- [x] `KARA-166` — Create the show dashboard layout.
+- [x] `KARA-167` — Add rotation-panel placeholders.
+- [x] `KARA-168` — Add now-playing-panel placeholders.
+- [x] `KARA-169` — Add incoming-request-panel placeholders.
+- [x] `KARA-170` — Add song-search-panel placeholders.
+- [x] `KARA-171` — Add sync-health-panel placeholders.
+- [x] `KARA-172` — Add playback-control placeholders.
+- [x] `KARA-173` — Add a venue selector.
+- [x] `KARA-174` — Add a current-show status indicator.
+- [x] `KARA-175` — Add online, local-only, and offline status indicators.
 - [ ] `KARA-176` — Add an OBS companion connection indicator.
 - [ ] `KARA-177` — Add a Replay integration indicator placeholder.
 - [ ] `KARA-178` — Add keyboard shortcut infrastructure.

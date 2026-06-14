@@ -1,0 +1,140 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D & J's Karaoke Host</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="host-shell" data-connection-state="local-only">
+    <aside class="sidebar" aria-label="Host navigation">
+      <div class="brand-block">
+        <p class="eyebrow">D & J's</p>
+        <h1>Karaoke Host</h1>
+        <p class="tagline">Local-first show control</p>
+      </div>
+
+      <nav class="nav-list" aria-label="Primary">
+        <a class="nav-item active" href="#dashboard">Show Dashboard</a>
+        <a class="nav-item" href="#rotation">Rotation</a>
+        <a class="nav-item" href="#requests">Requests</a>
+        <a class="nav-item" href="#songs">Song Search</a>
+        <a class="nav-item" href="#sync">Sync Health</a>
+        <a class="nav-item" href="#settings">Settings</a>
+      </nav>
+
+      <section class="connection-card" aria-label="Connection status">
+        <span class="status-pill online">Online Ready</span>
+        <span class="status-pill local-only">Local-Only Safe</span>
+        <span class="status-pill offline">Offline Capable</span>
+      </section>
+    </aside>
+
+    <section class="workspace" id="dashboard">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Current Venue</p>
+          <label class="venue-selector">
+            <span class="sr-only">Venue</span>
+            <select aria-label="Venue selector">
+              <option>D & J's Demo Venue</option>
+              <option>Friday Night Karaoke</option>
+              <option>Private Event</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="show-status" role="status" aria-live="polite">
+          <span class="status-dot"></span>
+          <span>Show Not Started</span>
+        </div>
+      </header>
+
+      <section class="hero-panel">
+        <div>
+          <p class="eyebrow">Tonight's Show</p>
+          <h2>Ready for a local-first karaoke night.</h2>
+          <p>No internet, HQ server, OBS, or Replay dependency is required for the live-show shell.</p>
+        </div>
+
+        <div class="host-actions" aria-label="Playback placeholders">
+          <button type="button" disabled>Play Placeholder</button>
+          <button type="button" disabled>Pause Placeholder</button>
+          <button type="button" disabled>Stop Placeholder</button>
+        </div>
+      </section>
+
+      <section class="dashboard-grid" aria-label="Show dashboard panels">
+        <article class="panel" id="rotation">
+          <div class="panel-header">
+            <p class="eyebrow">Rotation</p>
+            <span>Placeholder</span>
+          </div>
+          <h3>Singer queue</h3>
+          <ol class="rotation-list">
+            <li><span>1</span>Demo Singer — Demo Opening Song</li>
+            <li><span>2</span>Guest Singer — Waiting for request</li>
+            <li><span>3</span>Walk-in Singer — Not assigned</li>
+          </ol>
+        </article>
+
+        <article class="panel now-playing" id="now-playing">
+          <div class="panel-header">
+            <p class="eyebrow">Now Playing</p>
+            <span>Placeholder</span>
+          </div>
+          <h3>No active song</h3>
+          <p>The playback engine is intentionally not connected in this wave.</p>
+        </article>
+
+        <article class="panel" id="requests">
+          <div class="panel-header">
+            <p class="eyebrow">Incoming Requests</p>
+            <span>Placeholder</span>
+          </div>
+          <ul class="request-list">
+            <li>Demo request card</li>
+            <li>Pending approval card</li>
+            <li>Duplicate warning card</li>
+          </ul>
+        </article>
+
+        <article class="panel" id="songs">
+          <div class="panel-header">
+            <p class="eyebrow">Song Search</p>
+            <span>Placeholder</span>
+          </div>
+          <label>
+            <span class="sr-only">Search songs</span>
+            <input type="search" placeholder="Search local catalog placeholder">
+          </label>
+          <p class="helper-text">Local catalog persistence lands in a later wave.</p>
+        </article>
+
+        <article class="panel" id="sync">
+          <div class="panel-header">
+            <p class="eyebrow">Sync Health</p>
+            <span>Placeholder</span>
+          </div>
+          <dl class="sync-list">
+            <div><dt>Mode</dt><dd>Metadata-only</dd></div>
+            <div><dt>Last check</dt><dd>Demo fixture</dd></div>
+            <div><dt>Action</dt><dd>Review only</dd></div>
+          </dl>
+        </article>
+
+        <article class="panel" id="settings">
+          <div class="panel-header">
+            <p class="eyebrow">Settings</p>
+            <span>Placeholder</span>
+          </div>
+          <p>First-run, folders, server URL, and local request-server settings are deferred.</p>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
