@@ -1,0 +1,17 @@
+﻿{
+  "contractVersion": "v1",
+  "appName": "D & J's Karaoke Host",
+  "shellKind": "local-webview-shell",
+  "targetPlatform": "windows",
+  "uiFrameworkDecision": "Windows WebView2 desktop shell with static local assets first; native packaging and playback are deferred.",
+  "liveShowRule": "The live show remains local-first and must not depend on internet, HQ server, OBS, or Replay.",
+  "safetyBoundaries": {
+    "playsMedia": false,
+    "downloadsMedia": false,
+    "deletesMedia": false,
+    "movesLocalFiles": false,
+    "requiresInternetForLiveShow": false,
+    "connectsToObs": false,
+    "connectsToReplay": false
+  }
+}

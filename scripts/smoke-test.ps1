@@ -113,6 +113,13 @@ $requiredFiles = @(
   'docs/development/host-sync-foundation.md',
   'docs/development/host-sync-controls.md',
   'docs/development/host-sync-readiness.md',
+  'scripts/host-shell-smoke-test.ps1',
+  'host/windows-host-shell/src/app.js',
+  'host/windows-host-shell/src/styles.css',
+  'host/windows-host-shell/src/index.html',
+  'host/windows-host-shell/host-shell.manifest.json',
+  'host/windows-host-shell/README.md',
+  'docs/development/windows-host-shell.md',
   'docs/development/storage-mounts.md',
   'docs/development/migration-rollback.md'
 )
@@ -126,17 +133,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..160) {
+foreach ($taskNumber in 1..175) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 161..577) {
+foreach ($taskNumber in 176..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 2."
+    throw "Backlog task $taskId should remain unchecked after Wave 3A."
   }
 }
 
@@ -147,4 +154,4 @@ foreach ($taskNumber in 161..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 2 smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..160 checked, KARA-161..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 3A smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..175 checked, KARA-176..577 unchecked, and safety guardrails passed."
