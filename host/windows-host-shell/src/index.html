@@ -20,6 +20,7 @@
         <a class="nav-item" href="#rotation">Rotation</a>
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
+        <a class="nav-item" href="#catalog-import">Catalog Import</a>
         <a class="nav-item" href="#sync">Sync Health</a>
         <a class="nav-item" href="#settings">Settings</a>
       </nav>
@@ -39,7 +40,7 @@
           <p class="eyebrow">Current Venue</p>
           <label class="venue-selector">
             <span class="sr-only">Venue</span>
-            <select aria-label="Venue selector">
+            <select id="venueSelector" aria-label="Venue selector">
               <option>D & J's Demo Venue</option>
               <option>Friday Night Karaoke</option>
               <option>Private Event</option>
@@ -113,9 +114,102 @@
           </div>
           <label>
             <span class="sr-only">Search songs</span>
-            <input type="search" placeholder="Search local catalog placeholder">
+            <input id="songSearchInput" type="search" placeholder="Search local catalog placeholder">
           </label>
           <p class="helper-text">Local catalog persistence lands in a later wave.</p>
+        </article>
+
+        <article class="panel catalog-import-panel" id="catalog-import">
+          <div class="panel-header">
+            <p class="eyebrow">Catalog Import</p>
+            <span>Wizard Shell</span>
+          </div>
+
+          <div class="wizard-step">
+            <h3>1. Select operator-owned folder</h3>
+            <label>
+              Folder placeholder
+              <input id="importFolderInput" type="text" value="D:\\Karaoke\\Authorized" aria-describedby="importFolderHelp">
+            </label>
+            <p id="importFolderHelp" class="helper-text">Display-only placeholder. Wave 4A does not scan folders or read media files.</p>
+          </div>
+
+          <div class="wizard-step">
+            <h3>2. Detect supported file types</h3>
+            <p class="helper-text">Supported detection preview: MP3+G, CDG, ZIP, MP4, M4V, MOV, MKV, AVI.</p>
+            <ul class="import-chip-list" aria-label="Supported file type detection">
+              <li>.mp3 + .cdg</li>
+              <li>.zip</li>
+              <li>.mp4</li>
+              <li>.mkv</li>
+            </ul>
+          </div>
+
+          <div class="wizard-step">
+            <h3>3. Parse filename metadata</h3>
+            <label>
+              Demo filename
+              <input id="importFilenamePreview" type="text" value="Journey - Don't Stop Believin.zip">
+            </label>
+            <dl id="filenameParsePreview" class="sync-list" aria-label="Filename metadata parsing preview">
+              <div><dt>Artist</dt><dd>Journey</dd></div>
+              <div><dt>Title</dt><dd>Don't Stop Believin</dd></div>
+              <div><dt>State</dt><dd>Ready for manual review</dd></div>
+            </dl>
+          </div>
+
+          <div class="wizard-step">
+            <h3>4. Manual correction and batch review</h3>
+            <label>
+              Corrected artist
+              <input id="manualArtistCorrection" type="text" value="Journey">
+            </label>
+            <label>
+              Corrected title
+              <input id="manualTitleCorrection" type="text" value="Don't Stop Believin">
+            </label>
+
+            <table class="import-review-table" aria-label="Batch metadata review">
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Warning</th>
+                  <th>Review state</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Journey - Don't Stop Believin.zip</td>
+                  <td>Duplicate warning display</td>
+                  <td>Needs manual review</td>
+                  <td>Skip for now</td>
+                </tr>
+                <tr>
+                  <td>Queen - Bohemian Rhapsody.mp4</td>
+                  <td>Alternate-version warning display</td>
+                  <td>Ready to review</td>
+                  <td>Keep pending</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="wizard-step">
+            <h3>5. Import progress and safe cancellation</h3>
+            <progress id="importProgressPreview" value="35" max="100">35%</progress>
+            <p class="helper-text">Progress display only. Cancellation preview does not roll back real records.</p>
+            <button id="importCancelPreviewButton" type="button">Preview cancel with safe rollback message</button>
+          </div>
+
+          <div class="wizard-step">
+            <h3>6. Import error summary and review queue</h3>
+            <ul id="importErrorSummary" class="activity-log-list" aria-label="Import error summary">
+              <li><strong>Malformed filename:</strong> Needs manual review.</li>
+              <li><strong>Duplicate candidate:</strong> Review before saving.</li>
+            </ul>
+            <p class="helper-text">Import review queue is placeholder-only in Wave 4A.</p>
+          </div>
         </article>
 
         <article class="panel" id="sync">
@@ -244,6 +338,12 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="importCancelDialog" class="shortcut-dialog" aria-labelledby="importCancelDialogTitle">
+    <h2 id="importCancelDialogTitle">Cancel Import Preview</h2>
+    <p>This safe rollback message is a placeholder only. No catalog records, media files, folders, or queue items were changed.</p>
+    <button id="closeImportCancelButton" type="button">Close cancellation preview</button>
+  </dialog>
 
   <dialog id="safeErrorDialog" class="shortcut-dialog" aria-labelledby="safeErrorDialogTitle">
     <h2 id="safeErrorDialogTitle">Safe Error Message</h2>

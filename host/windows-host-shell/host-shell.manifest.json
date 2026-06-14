@@ -107,6 +107,19 @@
     "demoModeScreenshotChecklist": {
       "enabled": true,
       "path": "docs/development/windows-host-demo-mode-screenshot-checklist.md"
+    },
+    "catalogImportWizard": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "scansFolders": false,
+      "readsMediaFiles": false,
+      "writesCatalogRecords": false,
+      "performsRollback": false
+    },
+    "catalogImportReviewQueue": {
+      "enabled": true,
+      "manualReviewState": true,
+      "skipForNowAction": true
     }
   }
 }

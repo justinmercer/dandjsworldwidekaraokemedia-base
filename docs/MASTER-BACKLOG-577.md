@@ -246,18 +246,18 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 06. Local catalog import and Siglos migration
 
-- [ ] `KARA-211` — Add a host-side catalog-import wizard.
-- [ ] `KARA-212` — Add folder selection for operator-owned karaoke files.
-- [ ] `KARA-213` — Add supported-file-type detection.
-- [ ] `KARA-214` — Add filename metadata parsing.
-- [ ] `KARA-215` — Add manual metadata correction.
-- [ ] `KARA-216` — Add batch metadata review.
-- [ ] `KARA-217` — Add duplicate warning display.
-- [ ] `KARA-218` — Add alternate-version warning display.
-- [ ] `KARA-219` — Add import progress display.
-- [ ] `KARA-220` — Add import cancellation with safe rollback.
-- [ ] `KARA-221` — Add import error summaries.
-- [ ] `KARA-222` — Add an import review queue.
+- [x] `KARA-211` — Add a host-side catalog-import wizard.
+- [x] `KARA-212` — Add folder selection for operator-owned karaoke files.
+- [x] `KARA-213` — Add supported-file-type detection.
+- [x] `KARA-214` — Add filename metadata parsing.
+- [x] `KARA-215` — Add manual metadata correction.
+- [x] `KARA-216` — Add batch metadata review.
+- [x] `KARA-217` — Add duplicate warning display.
+- [x] `KARA-218` — Add alternate-version warning display.
+- [x] `KARA-219` — Add import progress display.
+- [x] `KARA-220` — Add import cancellation with safe rollback.
+- [x] `KARA-221` — Add import error summaries.
+- [x] `KARA-222` — Add an import review queue.
 - [ ] `KARA-223` — Add a `needs manual review` state.
 - [ ] `KARA-224` — Add a `skip for now` action.
 - [ ] `KARA-225` — Add a `mark preferred version` action.

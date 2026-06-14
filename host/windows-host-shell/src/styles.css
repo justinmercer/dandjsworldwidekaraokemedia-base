@@ -486,3 +486,61 @@ kbd {
 .activity-log-list strong {
   color: var(--text);
 }
+
+
+.catalog-import-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.wizard-step {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.wizard-step h3 {
+  margin: 0;
+}
+
+.import-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.import-chip-list li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.4rem 0.7rem;
+  color: var(--muted);
+}
+
+.import-review-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 0.9rem;
+}
+
+.import-review-table th,
+.import-review-table td {
+  border: 1px solid var(--line);
+  padding: 0.65rem;
+  text-align: left;
+  color: var(--muted);
+}
+
+.import-review-table th {
+  color: var(--text);
+}
+
+.catalog-import-panel progress {
+  width: 100%;
+}
