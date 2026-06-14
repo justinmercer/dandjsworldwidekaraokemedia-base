@@ -3,16 +3,18 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $hqRoot = Join-Path (Join-Path $root 'server') 'hq'
 $migrationPath = Join-Path $hqRoot 'database/migrations/0001_authorized_catalog.sql'
+$controlsMigrationPath = Join-Path $hqRoot 'database/migrations/0002_catalog_controls.sql'
 $seedSqlPath = Join-Path $hqRoot 'database/seeds/0001_demo_catalog.sql'
 $seedJsonPath = Join-Path $hqRoot 'data/demo-catalog.json'
 
-foreach ($path in @($migrationPath, $seedSqlPath, $seedJsonPath)) {
+foreach ($path in @($migrationPath, $controlsMigrationPath, $seedSqlPath, $seedJsonPath)) {
   if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
     throw "Missing HQ catalog file: $path"
   }
 }
 
 $migration = Get-Content -LiteralPath $migrationPath -Raw
+$controlsMigration = Get-Content -LiteralPath $controlsMigrationPath -Raw
 $requiredMigrationTokens = @(
   'CREATE SCHEMA IF NOT EXISTS hq_catalog',
   'CREATE TABLE IF NOT EXISTS hq_catalog.schema_migrations',
@@ -31,6 +33,20 @@ $requiredMigrationTokens = @(
 foreach ($token in $requiredMigrationTokens) {
   if ($migration -notlike "*$token*") {
     throw "HQ catalog migration is missing required token: $token"
+  }
+}
+
+$requiredControlsTokens = @(
+  'CREATE TABLE IF NOT EXISTS hq_catalog.catalog_change_audit',
+  'before_snapshot jsonb',
+  'after_snapshot jsonb',
+  'idx_catalog_change_audit_entity_created',
+  "VALUES ('0002', 'catalog controls and audit history')"
+)
+
+foreach ($token in $requiredControlsTokens) {
+  if ($controlsMigration -notlike "*$token*") {
+    throw "HQ catalog controls migration is missing required token: $token"
   }
 }
 
@@ -77,4 +93,4 @@ try {
   Pop-Location
 }
 
-Write-Host 'HQ catalog validation passed: migration, seed metadata, and read-only endpoints are covered.'
+Write-Host 'HQ catalog validation passed: migrations, seed metadata, public reads, protected controls, and audit tests are covered.'

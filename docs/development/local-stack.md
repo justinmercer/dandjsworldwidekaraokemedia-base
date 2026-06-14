@@ -1,6 +1,6 @@
 # Local Development Stack
 
-Wave 1A uses the local-only Docker Compose stack for HQ catalog database migration checks.
+Wave 1B uses the local-only Docker Compose stack for HQ catalog migration and protected API integration checks.
 
 ## Prerequisites
 
@@ -57,7 +57,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.
 
 The SQL seed data is synthetic and references opaque storage keys only. It does not include real karaoke files, credentials, private URLs, venue network details, or personal singer data.
 
-The migration command is safe to run more than once. CI verifies this by running migrations and seed loading twice before exercising the database-backed API.
+The migration command is safe to run more than once. CI verifies this by running migrations and seed loading twice before exercising the database-backed api.
 
 ## Summarize demo fixtures
 
@@ -73,7 +73,7 @@ This writes a local artifact summary for demo fixtures and catalog seed metadata
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-hq-postgres-integration.ps1
 ```
 
-This starts local PostgreSQL, waits for readiness, runs migrations with seed data twice, verifies catalog counts through the API health response, exercises search, exact-match, and song-detail endpoints, and stops the Compose service afterward.
+This starts local PostgreSQL, waits for readiness, runs migrations with seed data twice, verifies catalog counts through the API health response, exercises public search, exact-match, song-detail, alternate-version, protected write, normalization, and audit-history paths, and stops the Compose service afterward.
 
 ## Limitation
 

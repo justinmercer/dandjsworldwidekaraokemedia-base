@@ -1,6 +1,6 @@
 # Run Only the HQ API
 
-Wave 1A adds the first runnable read-only HQ catalog API.
+Wave 1B adds alternate-version reads, protected catalog-management routes, audit history, normalization, and development reset/reseed tools on top of the runnable HQ catalog API.
 
 ## Supported framework
 
@@ -18,10 +18,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local-stack.
 
 ```powershell
 $env:DATABASE_URL = "postgresql://dandjs_demo:demo_password_placeholder@localhost:15432/dandjs_demo"
+$env:HQ_ADMIN_TOKEN = "changeme-local-admin-token-placeholder"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-hq-migrations.ps1 -Seed
 ```
 
-This applies `server/hq/database/migrations/0001_authorized_catalog.sql` and, with `-Seed`, loads synthetic catalog seed metadata from `server/hq/database/seeds/0001_demo_catalog.sql`.
+This applies tracked migrations under `server/hq/database/migrations` and, with `-Seed`, loads synthetic catalog seed metadata from `server/hq/database/seeds/0001_demo_catalog.sql`.
 
 ## Run the API
 
@@ -47,16 +48,43 @@ npm start
 
 If neither `DATABASE_URL` nor explicit demo mode is set, startup fails with a configuration error.
 
-## Read-only routes
+## Public routes
 
 - `GET /healthz`
 - `GET /api/catalog/healthz`
 - `GET /api/catalog/search?query=demo&page=1&pageSize=20`
 - `GET /api/catalog/exact-match?artist=Demo%20Artist&title=Demo%20Opening%20Song`
 - `GET /api/catalog/songs/song_demo_opening`
+- `GET /api/catalog/songs/song_demo_opening/alternate-versions`
 
 Public responses intentionally omit `storageRelativeKey`, checksums, and filesystem paths in both PostgreSQL and demo modes. The API returns operator-authorized catalog metadata and opaque public identifiers only.
 
-## Wave 1A limitation
+## Protected catalog-management routes
 
-This batch does not add admin write endpoints, alternate-version listing endpoints, authentication, synchronization endpoints, Windows host features, playback, request screens, OBS, Replay, or external-source acquisition workflows.
+Protected routes require `HQ_ADMIN_TOKEN` from the runtime environment. There is no working default; if the token is missing, these routes fail closed.
+
+- `POST /api/admin/catalog/songs`
+- `PATCH /api/admin/catalog/songs/{songId}`
+- `PUT /api/admin/catalog/songs/{songId}/preferred-version`
+- `PATCH /api/admin/catalog/songs/{songId}/review-state`
+- `PATCH /api/admin/catalog/songs/{songId}/source-notes`
+- `POST /api/admin/catalog/songs/{songId}/retire`
+- `GET /api/admin/catalog/audit`
+
+## Reset and reseed
+
+Repeat-safe reseed:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\reseed-hq-catalog.ps1
+```
+
+Development reset:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\reset-hq-catalog.ps1 -Seed -ConfirmReset
+```
+
+## Wave 1B limitation
+
+This batch does not add full staff authentication, host sync, Windows host features, playback, request screens, OBS, Replay, or external-source acquisition workflows.

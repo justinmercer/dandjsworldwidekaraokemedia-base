@@ -1,6 +1,6 @@
 # Service Boundaries and Data Ownership
 
-This document defines ownership boundaries for implementation. Wave 1A adds the first HQ catalog database and read-only catalog API while preserving the local-first host boundary.
+This document defines ownership boundaries for implementation. Wave 1B adds HQ catalog database controls and public catalog APIs while preserving the local-first host boundary.
 
 ## Component responsibilities
 
@@ -29,11 +29,11 @@ This document defines ownership boundaries for implementation. Wave 1A adds the 
 | OBS event | Windows host app emits only when optional feature is enabled | `obs-companion-event.v1.schema.json` | Optional, failure-isolated future boundary. |
 | Replay event | Windows host app emits only when optional feature is enabled | `replay-event.v1.schema.json` | Optional, failure-isolated future boundary. |
 | Request context | Future server middleware | `api-request-context.v1.schema.json` | Defines correlation IDs only. |
-| Health and readiness | Server-side services | `service-health.v1.schema.json`, `service-readiness.v1.schema.json`, `server/hq/src/httpServer.js` | Wave 1A implements catalog health only. |
+| Health and readiness | Server-side services | `service-health.v1.schema.json`, `service-readiness.v1.schema.json`, `server/hq/src/httpServer.js` | Wave 1B keeps lightweight catalog health only. |
 
 ## Review rules
 
 - Do not move live-show authority away from the host app without an ADR.
 - Do not put real media, credentials, private URLs, venue network details, or personal singer information in fixtures or docs.
 - Treat future integrations as optional. A failed integration must not block a live show.
-- Keep public catalog endpoints read-only until admin and request workflows are explicitly added in later tasks.
+- Keep public catalog endpoints read-only; catalog-management writes must stay on protected admin routes.

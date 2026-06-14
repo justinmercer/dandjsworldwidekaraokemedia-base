@@ -1,4 +1,5 @@
-const { normalizeCatalogText } = require('./catalogData');
+const { randomUUID } = require('node:crypto');
+const { normalizeArtistName, normalizeCatalogText } = require('./normalization');
 
 const DEFAULT_PAGE_SIZE = 20;
 const MAX_PAGE_SIZE = 50;
@@ -8,6 +9,7 @@ class CatalogRepository {
     this.catalog = catalog;
     this.providersById = new Map((catalog.providers || []).map((provider) => [provider.providerId, provider]));
     this.songsById = new Map((catalog.songs || []).map((song) => [song.songId, song]));
+    this.auditRecords = [];
   }
 
   getHealth() {
@@ -32,7 +34,7 @@ class CatalogRepository {
     const page = toPositiveInteger(options.page, 1);
     const pageSize = Math.min(toPositiveInteger(options.pageSize, DEFAULT_PAGE_SIZE), MAX_PAGE_SIZE);
     const query = normalizeCatalogText(options.query);
-    const artist = normalizeCatalogText(options.artist);
+    const artist = normalizeArtistName(options.artist);
     const title = normalizeCatalogText(options.title);
 
     let songs = this.getPublicSongs();
@@ -75,7 +77,7 @@ class CatalogRepository {
   }
 
   findExactMatch(artistName, title) {
-    const normalizedArtist = normalizeCatalogText(artistName);
+    const normalizedArtist = normalizeArtistName(artistName);
     const normalizedTitle = normalizeCatalogText(title);
 
     if (!normalizedArtist || !normalizedTitle) {
@@ -104,6 +106,214 @@ class CatalogRepository {
     };
   }
 
+  listAlternateVersions(songId, options = {}) {
+    const page = toPositiveInteger(options.page, 1);
+    const pageSize = Math.min(toPositiveInteger(options.pageSize, DEFAULT_PAGE_SIZE), MAX_PAGE_SIZE);
+    const requestedSong = this.songsById.get(songId);
+    if (!requestedSong || !isPublicSong(requestedSong)) {
+      return {
+        page,
+        pageSize,
+        total: 0,
+        hasNextPage: false,
+        items: []
+      };
+    }
+
+    const relationships = (this.catalog.alternateVersions || []).filter((relationship) => {
+      return !relationship.retiredAt && (relationship.songId === songId || relationship.alternateSongId === songId);
+    });
+
+    const items = relationships
+      .map((relationship) => {
+        const alternateSongId = relationship.songId === songId ? relationship.alternateSongId : relationship.songId;
+        const alternateSong = this.songsById.get(alternateSongId);
+        if (!alternateSong || !isPublicSong(alternateSong)) {
+          return null;
+        }
+
+        return {
+          relationshipId: relationship.relationshipId,
+          relationshipType: relationship.relationshipType,
+          alternateSong: this.toSongSummary(alternateSong)
+        };
+      })
+      .filter(Boolean)
+      .sort((left, right) => {
+        const artistCompare = left.alternateSong.normalizedArtist.localeCompare(right.alternateSong.normalizedArtist);
+        if (artistCompare !== 0) {
+          return artistCompare;
+        }
+
+        return left.alternateSong.normalizedTitle.localeCompare(right.alternateSong.normalizedTitle);
+      });
+
+    const total = items.length;
+    const start = (page - 1) * pageSize;
+    return {
+      page,
+      pageSize,
+      total,
+      hasNextPage: start + pageSize < total,
+      items: items.slice(start, start + pageSize)
+    };
+  }
+
+  createSong(payload, auditContext = {}) {
+    const now = new Date().toISOString();
+    const songId = payload.songId || randomUUID();
+    const media = (payload.mediaVersions || []).map((mediaVersion) => ({
+      authorizedMediaId: mediaVersion.authorizedMediaId || randomUUID(),
+      providerId: mediaVersion.providerId,
+      providerTrackId: mediaVersion.providerTrackId || null,
+      sha256Checksum: mediaVersion.sha256Checksum,
+      fileSizeBytes: mediaVersion.fileSizeBytes,
+      durationSeconds: mediaVersion.durationSeconds,
+      fileFormat: mediaVersion.fileFormat,
+      vocalGuideType: mediaVersion.vocalGuideType || 'unknown',
+      storageRelativeKey: mediaVersion.storageRelativeKey,
+      isPreferredVersion: Boolean(mediaVersion.isPreferredVersion),
+      reviewState: mediaVersion.reviewState || 'pending_review',
+      qualityRating: mediaVersion.qualityRating || null,
+      authorizationNotes: mediaVersion.authorizationNotes || null,
+      lastVerifiedAt: mediaVersion.lastVerifiedAt || null,
+      createdAt: now,
+      updatedAt: now,
+      retiredAt: null,
+      retirementReason: null
+    }));
+    const preferred = media.find((mediaVersion) => mediaVersion.isPreferredVersion);
+    const song = {
+      songId,
+      title: payload.title,
+      artistName: payload.artistName,
+      normalizedTitle: normalizeCatalogText(payload.title),
+      normalizedArtist: normalizeArtistName(payload.artistName),
+      language: payload.language || 'und',
+      preferredAuthorizedMediaId: preferred ? preferred.authorizedMediaId : null,
+      reviewState: payload.reviewState || 'pending_review',
+      qualityRating: payload.qualityRating || null,
+      authorizationNotes: payload.authorizationNotes || null,
+      lastVerifiedAt: payload.lastVerifiedAt || null,
+      createdAt: now,
+      updatedAt: now,
+      retiredAt: null,
+      retirementReason: null,
+      media
+    };
+
+    this.catalog.songs.push(song);
+    this.songsById.set(song.songId, song);
+    this.recordAudit('song', song.songId, 'create', null, cloneJson(song), auditContext);
+    return this.toAdminSong(song);
+  }
+
+  updateSong(songId, payload, auditContext = {}) {
+    const song = this.requireSong(songId);
+    const before = cloneJson(song);
+
+    if (payload.title !== undefined) {
+      song.title = payload.title;
+      song.normalizedTitle = normalizeCatalogText(payload.title);
+    }
+    if (payload.artistName !== undefined) {
+      song.artistName = payload.artistName;
+      song.normalizedArtist = normalizeArtistName(payload.artistName);
+    }
+    if (payload.language !== undefined) {
+      song.language = payload.language;
+    }
+    if (payload.qualityRating !== undefined) {
+      song.qualityRating = payload.qualityRating;
+    }
+    if (payload.lastVerifiedAt !== undefined) {
+      song.lastVerifiedAt = payload.lastVerifiedAt;
+    }
+    song.updatedAt = new Date().toISOString();
+
+    this.recordAudit('song', song.songId, 'update', before, cloneJson(song), auditContext);
+    return this.toAdminSong(song);
+  }
+
+  setPreferredVersion(songId, authorizedMediaId, auditContext = {}) {
+    const song = this.requireSong(songId);
+    const media = (song.media || []).find((mediaVersion) => mediaVersion.authorizedMediaId === authorizedMediaId);
+    if (!media || media.retiredAt) {
+      throw new CatalogOperationError('media_not_found', 'Authorized media version was not found for this song.', 404);
+    }
+
+    const before = cloneJson(song);
+    for (const mediaVersion of song.media || []) {
+      mediaVersion.isPreferredVersion = mediaVersion.authorizedMediaId === authorizedMediaId;
+      mediaVersion.updatedAt = new Date().toISOString();
+    }
+    song.preferredAuthorizedMediaId = authorizedMediaId;
+    song.updatedAt = new Date().toISOString();
+
+    this.recordAudit('song', song.songId, 'set_preferred_version', before, cloneJson(song), auditContext);
+    return this.toAdminSong(song);
+  }
+
+  setReviewState(songId, reviewState, auditContext = {}) {
+    const song = this.requireSong(songId);
+    const before = cloneJson(song);
+    song.reviewState = reviewState;
+    if (reviewState === 'retired' && !song.retiredAt) {
+      song.retiredAt = new Date().toISOString();
+    }
+    song.updatedAt = new Date().toISOString();
+
+    this.recordAudit('song', song.songId, 'set_review_state', before, cloneJson(song), auditContext);
+    return this.toAdminSong(song);
+  }
+
+  updateSourceNotes(songId, authorizationNotes, auditContext = {}) {
+    const song = this.requireSong(songId);
+    const before = cloneJson(song);
+    song.authorizationNotes = authorizationNotes || null;
+    song.updatedAt = new Date().toISOString();
+
+    this.recordAudit('song', song.songId, 'update_source_notes', before, cloneJson(song), auditContext);
+    return this.toAdminSong(song);
+  }
+
+  retireSong(songId, retirementReason, auditContext = {}) {
+    const song = this.requireSong(songId);
+    const before = cloneJson(song);
+    song.reviewState = 'retired';
+    song.retiredAt = new Date().toISOString();
+    song.retirementReason = retirementReason || 'Retired by temporary catalog admin.';
+    song.updatedAt = song.retiredAt;
+
+    this.recordAudit('song', song.songId, 'soft_retire', before, cloneJson(song), auditContext);
+    return this.toAdminSong(song);
+  }
+
+  getAuditHistory(options = {}) {
+    const page = toPositiveInteger(options.page, 1);
+    const pageSize = Math.min(toPositiveInteger(options.pageSize, DEFAULT_PAGE_SIZE), MAX_PAGE_SIZE);
+    let records = [...this.auditRecords];
+
+    if (options.entityType) {
+      records = records.filter((record) => record.entityType === options.entityType);
+    }
+    if (options.entityId) {
+      records = records.filter((record) => record.entityId === options.entityId);
+    }
+
+    records = records.sort((left, right) => right.createdAt.localeCompare(left.createdAt));
+    const total = records.length;
+    const start = (page - 1) * pageSize;
+
+    return {
+      page,
+      pageSize,
+      total,
+      hasNextPage: start + pageSize < total,
+      items: records.slice(start, start + pageSize)
+    };
+  }
+
   getPublicSongs() {
     return (this.catalog.songs || []).filter(isPublicSong);
   }
@@ -124,6 +334,15 @@ class CatalogRepository {
     };
   }
 
+  toAdminSong(song) {
+    return {
+      ...this.toSongSummary(song),
+      authorizationNotes: song.authorizationNotes || null,
+      retiredAt: song.retiredAt || null,
+      retirementReason: song.retirementReason || null
+    };
+  }
+
   toPublicMediaVersion(media) {
     const provider = this.providersById.get(media.providerId);
 
@@ -141,6 +360,29 @@ class CatalogRepository {
       lastVerifiedAt: media.lastVerifiedAt
     };
   }
+
+  requireSong(songId) {
+    const song = this.songsById.get(songId);
+    if (!song) {
+      throw new CatalogOperationError('song_not_found', 'Song was not found.', 404);
+    }
+
+    return song;
+  }
+
+  recordAudit(entityType, entityId, action, beforeSnapshot, afterSnapshot, auditContext) {
+    this.auditRecords.push({
+      auditId: randomUUID(),
+      entityType,
+      entityId,
+      action,
+      actorLabel: auditContext.actorLabel || 'temporary-admin',
+      changeReason: auditContext.changeReason || null,
+      beforeSnapshot,
+      afterSnapshot,
+      createdAt: new Date().toISOString()
+    });
+  }
 }
 
 function isPublicSong(song) {
@@ -156,6 +398,19 @@ function toPositiveInteger(value, fallback) {
   return parsed;
 }
 
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+class CatalogOperationError extends Error {
+  constructor(code, message, statusCode = 400) {
+    super(message);
+    this.code = code;
+    this.statusCode = statusCode;
+  }
+}
+
 module.exports = {
+  CatalogOperationError,
   CatalogRepository
 };
