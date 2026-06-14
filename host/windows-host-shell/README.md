@@ -84,3 +84,10 @@ These tests and docs do not package the app, automate screenshots, scan folders,
 Wave 4A adds the catalog-import wizard shell, supported-file-type detection preview, filename parsing preview, manual correction, batch review, duplicate and alternate-version warning displays, import progress display, cancellation preview, error summaries, and review queue placeholder.
 
 This wave does not scan folders, read media files, write catalog records, merge duplicates, move files, delete files, or execute rollback.
+
+
+## Wave 4B additions
+
+Wave 4B adds import review action placeholders, needs-manual-review state, skip-for-now, mark-preferred, keep-both, duplicate merge preview, safe merge confirmation preview, audit-log preview, and test-only catalog import fixtures.
+
+This wave does not write catalog records, merge records, read media files, move files, or change operator folders.

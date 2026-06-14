@@ -120,6 +120,27 @@
       "enabled": true,
       "manualReviewState": true,
       "skipForNowAction": true
+    },
+    "catalogImportReviewActions": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "needsManualReviewState": true,
+      "skipForNowAction": true,
+      "markPreferredVersionAction": true,
+      "keepBothVersionsAction": true,
+      "mergeDuplicateRecordsPreview": true,
+      "safeConfirmationBeforeMerge": true,
+      "writesCatalogRecords": false
+    },
+    "importAuditLog": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "writesAuditRecords": false
+    },
+    "catalogImportTestFixtures": {
+      "enabled": true,
+      "containsRealMedia": false,
+      "path": "host/windows-host-shell/demo-data/catalog-import-demo-fixtures.json"
     }
   }
 }
