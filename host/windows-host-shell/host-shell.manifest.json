@@ -67,6 +67,26 @@
     "confirmationDialogs": {
       "safePatternOnly": true,
       "destructiveActionsEnabled": false
+    },
+    "safeErrorDialogs": {
+      "enabled": true,
+      "userSafeCopyOnly": true
+    },
+    "notificationFollowUp": {
+      "enabled": true,
+      "activityLogLinked": true
+    },
+    "activityLogPanel": {
+      "enabled": true,
+      "localUiOnly": true
+    },
+    "diagnosticsExport": {
+      "placeholderOnly": true,
+      "writesFiles": false
+    },
+    "buildDocumentation": {
+      "enabled": true,
+      "artifactBuildEnabled": false
     }
   }
 }

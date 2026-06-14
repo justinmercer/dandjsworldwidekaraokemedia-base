@@ -233,11 +233,11 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-198` — Add high-DPI layout checks.
 - [x] `KARA-199` — Add basic accessibility labels.
 - [x] `KARA-200` — Add visible focus states.
-- [ ] `KARA-201` — Add safe error dialogs.
-- [ ] `KARA-202` — Add nonblocking notification toasts.
-- [ ] `KARA-203` — Add an activity log panel.
-- [ ] `KARA-204` — Add a diagnostics-export action.
-- [ ] `KARA-205` — Add host app build documentation.
+- [x] `KARA-201` — Add safe error dialogs.
+- [x] `KARA-202` — Add nonblocking notification toasts.
+- [x] `KARA-203` — Add an activity log panel.
+- [x] `KARA-204` — Add a diagnostics-export action.
+- [x] `KARA-205` — Add host app build documentation.
 - [ ] `KARA-206` — Add compile checks in CI.
 - [ ] `KARA-207` — Add a host-app startup smoke test.
 - [ ] `KARA-208` — Add a host-app clean-shutdown test.

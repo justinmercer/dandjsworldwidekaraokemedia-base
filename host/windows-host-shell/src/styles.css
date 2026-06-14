@@ -460,3 +460,29 @@ kbd {
     transform: rotate(360deg);
   }
 }
+
+
+.activity-panel {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.activity-log-list {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.activity-log-list li {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+}
+
+.activity-log-list strong {
+  color: var(--text);
+}
