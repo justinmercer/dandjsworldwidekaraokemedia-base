@@ -58,6 +58,8 @@ $requiredFiles = @(
   'packages/contracts/schemas/api-request-context.v1.schema.json',
   'packages/contracts/schemas/service-health.v1.schema.json',
   'packages/contracts/schemas/service-readiness.v1.schema.json',
+  'packages/contracts/schemas/sync-control-state.v1.schema.json',
+  'packages/contracts/schemas/sync-operator-action.v1.schema.json',
   'infra/README.md',
   'infra/local/docker-compose.yml',
   'infra/local/observability/logging.config.json',
@@ -103,9 +105,11 @@ $requiredFiles = @(
   'server/hq/database/migrations/0001_authorized_catalog.sql',
   'server/hq/database/migrations/0002_catalog_controls.sql',
   'server/hq/database/migrations/0003_host_sync_foundation.sql',
+  'server/hq/database/migrations/0004_sync_control_persistence.sql',
   'server/hq/database/seeds/0001_demo_catalog.sql',
   'docs/development/catalog-api.md',
   'docs/development/host-sync-foundation.md',
+  'docs/development/host-sync-controls.md',
   'docs/development/storage-mounts.md',
   'docs/development/migration-rollback.md'
 )
@@ -119,17 +123,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..135) {
+foreach ($taskNumber in 1..151) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 136..577) {
+foreach ($taskNumber in 152..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 2A."
+    throw "Backlog task $taskId should remain unchecked after Wave 2B planning controls."
   }
 }
 
@@ -140,4 +144,4 @@ foreach ($taskNumber in 136..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 2A smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..135 checked, KARA-136..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 2B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..151 checked, KARA-152..577 unchecked, and safety guardrails passed."

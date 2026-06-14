@@ -165,22 +165,22 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-133` — Add requested-song priority boosts.
 - [x] `KARA-134` — Add recently-used-song priority boosts.
 - [x] `KARA-135` — Add interrupted-sync state tracking.
-- [ ] `KARA-136` — Add synchronization progress reporting from host to server.
-- [ ] `KARA-137` — Add synchronization error reporting from host to server.
-- [ ] `KARA-138` — Add host-side pause controls.
-- [ ] `KARA-139` — Add host-side resume controls.
-- [ ] `KARA-140` — Add host-side cancel controls for pending noncritical operations.
-- [ ] `KARA-141` — Add host-side storage-capacity checks.
-- [ ] `KARA-142` — Add host-side checksum verification.
-- [ ] `KARA-143` — Add a host-side quarantine area for failed verification.
-- [ ] `KARA-144` — Add resume support for interrupted operations.
-- [ ] `KARA-145` — Add safe retry limits and backoff.
-- [ ] `KARA-146` — Add UI states for ready, pending, syncing, verified, failed, and review needed.
-- [ ] `KARA-147` — Add an operator-facing synchronization summary.
-- [ ] `KARA-148` — Add a manual `Sync Now` action.
-- [ ] `KARA-149` — Add a `Verify Library` action.
-- [ ] `KARA-150` — Add a `View Missing Locally` action.
-- [ ] `KARA-151` — Add a `Review Cleanup Candidates` action.
+- [x] `KARA-136` — Add synchronization progress reporting from host to server.
+- [x] `KARA-137` — Add synchronization error reporting from host to server.
+- [x] `KARA-138` — Add host-side pause controls.
+- [x] `KARA-139` — Add host-side resume controls.
+- [x] `KARA-140` — Add host-side cancel controls for pending noncritical operations.
+- [x] `KARA-141` — Add host-side storage-capacity checks.
+- [x] `KARA-142` — Add host-side checksum verification.
+- [x] `KARA-143` — Add a host-side quarantine area for failed verification.
+- [x] `KARA-144` — Add resume support for interrupted operations.
+- [x] `KARA-145` — Add safe retry limits and backoff.
+- [x] `KARA-146` — Add UI states for ready, pending, syncing, verified, failed, and review needed.
+- [x] `KARA-147` — Add an operator-facing synchronization summary.
+- [x] `KARA-148` — Add a manual `Sync Now` action.
+- [x] `KARA-149` — Add a `Verify Library` action.
+- [x] `KARA-150` — Add a `View Missing Locally` action.
+- [x] `KARA-151` — Add a `Review Cleanup Candidates` action.
 - [ ] `KARA-152` — Add tests for deterministic manifest order.
 - [ ] `KARA-153` — Add tests for additions.
 - [ ] `KARA-154` — Add tests for updates.
