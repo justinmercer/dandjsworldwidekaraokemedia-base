@@ -83,6 +83,26 @@ function showDiagnosticsPreview() {
   appendActivityLog('Diagnostics', 'Opened diagnostics export preview without writing files.');
 }
 
+function parseImportFilenameCandidate(fileName) {
+  const baseName = fileName.replace(/\.[^.]+$/, '');
+  const [artist = 'Needs review', title = 'Needs review'] = baseName.split(' - ').map((part) => part.trim());
+  return { artist, title, state: 'Ready for manual review' };
+}
+
+function renderFilenameParsePreview() {
+  const parsed = parseImportFilenameCandidate(importFilenamePreview.value);
+  filenameParsePreview.innerHTML = `
+    <div><dt>Artist</dt><dd>${parsed.artist}</dd></div>
+    <div><dt>Title</dt><dd>${parsed.title}</dd></div>
+    <div><dt>State</dt><dd>${parsed.state}</dd></div>
+  `;
+}
+
+function showImportCancelPreview() {
+  importCancelDialog.showModal();
+  appendActivityLog('Import', 'Displayed safe cancellation and rollback preview.');
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -115,6 +135,11 @@ const safeErrorDialog = document.querySelector('#safeErrorDialog');
 const closeSafeErrorButton = document.querySelector('#closeSafeErrorButton');
 const diagnosticsDialog = document.querySelector('#diagnosticsDialog');
 const closeDiagnosticsButton = document.querySelector('#closeDiagnosticsButton');
+const importFilenamePreview = document.querySelector('#importFilenamePreview');
+const filenameParsePreview = document.querySelector('#filenameParsePreview');
+const importCancelPreviewButton = document.querySelector('#importCancelPreviewButton');
+const importCancelDialog = document.querySelector('#importCancelDialog');
+const closeImportCancelButton = document.querySelector('#closeImportCancelButton');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -156,6 +181,9 @@ toastFollowUpButton.addEventListener('click', () => {
 diagnosticsPreviewButton.addEventListener('click', () => showDiagnosticsPreview());
 closeSafeErrorButton.addEventListener('click', () => safeErrorDialog.close());
 closeDiagnosticsButton.addEventListener('click', () => diagnosticsDialog.close());
+importFilenamePreview.addEventListener('input', () => renderFilenameParsePreview());
+importCancelPreviewButton.addEventListener('click', () => showImportCancelPreview());
+closeImportCancelButton.addEventListener('click', () => importCancelDialog.close());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -172,6 +200,7 @@ settingsForm.addEventListener('submit', (event) => {
   });
 
   applySettings(loadSettings());
+renderFilenameParsePreview();
   settingsStatus.textContent = 'Settings saved locally in this browser only. No folder scan or server connection was started.';
 });
 
@@ -185,6 +214,7 @@ document.addEventListener('keydown', (event) => {
     if (confirmationDialog.open) confirmationDialog.close();
     if (safeErrorDialog.open) safeErrorDialog.close();
     if (diagnosticsDialog.open) diagnosticsDialog.close();
+    if (importCancelDialog.open) importCancelDialog.close();
     return;
   }
 
@@ -233,5 +263,18 @@ window.DJKaraokeHostShell = Object.freeze({
   startupSmokeTestEnabled: true,
   cleanShutdownSmokeTestEnabled: true,
   settingsMigrationTestEnabled: true,
-  demoModeScreenshotChecklistEnabled: true
+  demoModeScreenshotChecklistEnabled: true,
+  catalogImportWizardEnabled: true,
+  catalogImportFolderSelectionPlaceholderEnabled: true,
+  supportedFileTypeDetectionPreviewEnabled: true,
+  filenameMetadataParsingPreviewEnabled: true,
+  manualMetadataCorrectionPreviewEnabled: true,
+  batchMetadataReviewPreviewEnabled: true,
+  duplicateWarningDisplayEnabled: true,
+  alternateVersionWarningDisplayEnabled: true,
+  importProgressDisplayEnabled: true,
+  importCancellationSafeRollbackPreviewEnabled: true,
+  importErrorSummaryEnabled: true,
+  importReviewQueueEnabled: true,
+  importReadsMediaFiles: false
 });

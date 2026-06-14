@@ -77,3 +77,10 @@ These are UI/docs placeholders and do not write diagnostics files or perform med
 Wave 3G adds CI-visible static compile checks, startup smoke tests, clean-shutdown smoke tests, settings migration checks, and a demo-mode screenshot checklist.
 
 These tests and docs do not package the app, automate screenshots, scan folders, play media, transfer files, delete files, or connect to external services.
+
+
+## Wave 4A additions
+
+Wave 4A adds the catalog-import wizard shell, supported-file-type detection preview, filename parsing preview, manual correction, batch review, duplicate and alternate-version warning displays, import progress display, cancellation preview, error summaries, and review queue placeholder.
+
+This wave does not scan folders, read media files, write catalog records, merge duplicates, move files, delete files, or execute rollback.
