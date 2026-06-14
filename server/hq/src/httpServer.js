@@ -8,6 +8,26 @@ const MAX_BODY_BYTES = 64 * 1024;
 const REVIEW_STATES = new Set(['pending_review', 'approved', 'rejected', 'needs_metadata', 'retired']);
 const MEDIA_FORMATS = new Set(['cdg_mp3_bundle', 'mp4_karaoke', 'webm_karaoke', 'zip_bundle', 'other']);
 const VOCAL_GUIDE_TYPES = new Set(['none', 'guide_vocal', 'background_vocals', 'duet', 'unknown']);
+const HOST_SYNC_ACTIONS = new Set([
+  'sync_now',
+  'verify_library',
+  'view_missing_locally',
+  'review_cleanup_candidates',
+  'pause_sync',
+  'resume_sync',
+  'cancel_pending_noncritical'
+]);
+const HOST_SYNC_OPERATION_STATUSES = new Set(['ready', 'pending', 'syncing', 'verified', 'failed', 'review_needed', 'paused', 'cancelled']);
+const HOST_SYNC_SAFETY_MODES = new Set(['plan_only', 'metadata_only']);
+const HOST_SYNC_ACTION_ALIASES = new Map([
+  ['sync-now', 'sync_now'],
+  ['verify-library', 'verify_library'],
+  ['view-missing-locally', 'view_missing_locally'],
+  ['review-cleanup-candidates', 'review_cleanup_candidates'],
+  ['pause', 'pause_sync'],
+  ['resume', 'resume_sync'],
+  ['cancel-pending-noncritical', 'cancel_pending_noncritical']
+]);
 
 function createCatalogServer(options = {}) {
   const repository = options.repository || new CatalogRepository(options.catalog || loadDemoCatalog());
@@ -187,11 +207,73 @@ async function routeAdminRequest(request, response, requestUrl, pathname, contex
 }
 
 async function routeAdminHostsRequest(request, response, requestUrl, pathname, context) {
-  requireAdminAuthorization(request, context.adminCredential);
+  const auditContext = requireAdminAuthorization(request, context.adminCredential);
+  const { repository } = context;
 
   if (request.method === 'GET' && (pathname === '/api/admin/hosts' || pathname === '/api/admin/hosts/status')) {
-    writeJson(response, 200, await context.repository.listHostStatuses(Object.fromEntries(requestUrl.searchParams.entries())));
+    writeJson(response, 200, await repository.listHostStatuses(Object.fromEntries(requestUrl.searchParams.entries())));
     return;
+  }
+
+  const hostSyncMatch = pathname.match(/^\/api\/admin\/hosts\/([^/]+)\/sync\/([^/]+)(?:\/([^/]+))?$/);
+  if (hostSyncMatch) {
+    const hostDeviceId = decodeURIComponent(hostSyncMatch[1]);
+    const syncResource = hostSyncMatch[2];
+    const syncActionAlias = hostSyncMatch[3];
+
+    if (request.method === 'GET' && syncResource === 'operations' && !syncActionAlias) {
+      writeJson(response, 200, await repository.listHostSyncOperations(hostDeviceId, Object.fromEntries(requestUrl.searchParams.entries())));
+      return;
+    }
+
+    if (request.method === 'POST' && syncResource === 'operations' && !syncActionAlias) {
+      const body = await readJsonBody(request);
+      validateHostSyncOperationCreate(body);
+      writeJson(response, 201, { operation: await repository.createHostSyncOperation(hostDeviceId, body) });
+      return;
+    }
+
+    if (request.method === 'PATCH' && syncResource === 'operations' && syncActionAlias) {
+      const body = await readJsonBody(request);
+      validateHostSyncOperationUpdate(body);
+      writeJson(response, 200, { operation: await repository.updateHostSyncOperation(decodeURIComponent(syncActionAlias), body) });
+      return;
+    }
+
+    if (request.method === 'GET' && syncResource === 'actions' && !syncActionAlias) {
+      writeJson(response, 200, await repository.listHostSyncOperatorActions(hostDeviceId, Object.fromEntries(requestUrl.searchParams.entries())));
+      return;
+    }
+
+    if (request.method === 'POST' && syncResource === 'actions' && !syncActionAlias) {
+      const body = await readJsonBody(request);
+      validateHostSyncOperatorAction(body);
+      writeJson(response, 202, { action: await repository.queueHostSyncOperatorAction(hostDeviceId, withAdminActionContext(body, auditContext)) });
+      return;
+    }
+
+    if (request.method === 'POST' && syncResource === 'actions' && syncActionAlias) {
+      const action = HOST_SYNC_ACTION_ALIASES.get(syncActionAlias);
+      if (!action) {
+        throw new HttpError(404, 'not_found', 'Sync action route was not found.');
+      }
+      const body = await readJsonBody(request);
+      validateHostSyncOperatorAction({ ...body, action });
+      writeJson(response, 202, { action: await repository.queueHostSyncOperatorAction(hostDeviceId, withAdminActionContext({ ...body, action }, auditContext)) });
+      return;
+    }
+
+    if (request.method === 'GET' && syncResource === 'quarantine' && !syncActionAlias) {
+      writeJson(response, 200, await repository.listHostSyncQuarantine(hostDeviceId, Object.fromEntries(requestUrl.searchParams.entries())));
+      return;
+    }
+
+    if (request.method === 'POST' && syncResource === 'quarantine' && !syncActionAlias) {
+      const body = await readJsonBody(request);
+      validateHostSyncQuarantine(body);
+      writeJson(response, 201, { quarantine: await repository.recordHostSyncQuarantine(hostDeviceId, body) });
+      return;
+    }
   }
 
   throw new HttpError(404, 'not_found', 'Route was not found.');
@@ -370,6 +452,50 @@ function validateHostHeartbeat(body) {
   validateInterruptedSyncState(body.interruptedSyncState || body.interruptedSync);
 }
 
+function validateHostSyncOperationCreate(body) {
+  requireObject(body);
+  validateOptionalString(body.syncOperationId, 'syncOperationId', 120);
+  validateOptionalString(body.operationKind, 'operationKind', 80);
+  validateOptionalEnum(body.status, 'status', HOST_SYNC_OPERATION_STATUSES);
+  validateOptionalObject(body.progress, 'progress');
+  validateOptionalObject(body.capacityCheck, 'capacityCheck');
+  validateOptionalObject(body.verification, 'verification');
+  validateOptionalObject(body.quarantine, 'quarantine');
+  validateOptionalObject(body.retryPolicy, 'retryPolicy');
+  validateOptionalObject(body.lastError, 'lastError');
+  validateOptionalString(body.pauseRequestedAt, 'pauseRequestedAt', 80);
+  validateOptionalString(body.resumeRequestedAt, 'resumeRequestedAt', 80);
+  validateOptionalString(body.cancelRequestedAt, 'cancelRequestedAt', 80);
+  validateOptionalString(body.startedAt, 'startedAt', 80);
+  validateOptionalString(body.completedAt, 'completedAt', 80);
+}
+
+function validateHostSyncOperationUpdate(body) {
+  validateHostSyncOperationCreate(body);
+}
+
+function validateHostSyncOperatorAction(body) {
+  requireObject(body);
+  validateOptionalString(body.syncActionId, 'syncActionId', 120);
+  requireEnum(body.action || 'sync_now', 'action', HOST_SYNC_ACTIONS);
+  validateOptionalEnum(body.safetyMode, 'safetyMode', HOST_SYNC_SAFETY_MODES);
+  validateOptionalString(body.requestedBy, 'requestedBy', 160);
+  validateOptionalString(body.requestedAt, 'requestedAt', 80);
+  validateOptionalString(body.reason, 'reason', 500);
+  validateOptionalObject(body.payload, 'payload');
+}
+
+function validateHostSyncQuarantine(body) {
+  requireObject(body);
+  validateOptionalString(body.syncQuarantineId, 'syncQuarantineId', 120);
+  validateOptionalString(body.syncOperationId, 'syncOperationId', 120);
+  validateOptionalString(body.authorizedMediaId, 'authorizedMediaId', 120);
+  validateOptionalString(body.reason, 'reason', 500);
+  validateOptionalObject(body.verification, 'verification');
+  validateOptionalString(body.quarantineKey, 'quarantineKey', 240);
+  validateOptionalString(body.resolvedAt, 'resolvedAt', 80);
+}
+
 function validateManifestDiffRequest(body) {
   requireObject(body);
   validateOptionalString(body.hostDeviceId, 'hostDeviceId', 120, true);
@@ -520,6 +646,22 @@ function validateOptionalNonNegativeInteger(value, field) {
   if (!Number.isInteger(value) || value < 0) {
     throw new HttpError(400, 'validation_failed', `${field} must be a non-negative integer.`);
   }
+}
+
+function validateOptionalObject(value, field) {
+  if (value === undefined || value === null) {
+    return;
+  }
+  if (typeof value !== 'object' || Array.isArray(value)) {
+    throw new HttpError(400, 'validation_failed', `${field} must be a JSON object.`);
+  }
+}
+
+function withAdminActionContext(body, auditContext) {
+  return {
+    ...body,
+    requestedBy: body.requestedBy || auditContext.actorLabel || 'temporary-admin'
+  };
 }
 
 function validateOptionalBoolean(value, field) {

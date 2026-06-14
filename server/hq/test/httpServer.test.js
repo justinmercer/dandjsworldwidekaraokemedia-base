@@ -223,6 +223,100 @@ test('host registration heartbeat admin status manifest and diff endpoints are p
   });
 });
 
+test('protected sync-control endpoints expose planning metadata only', async () => {
+  await withServer({
+    adminCredential: ADMIN_TOKEN,
+    hostRegistrationCredential: HOST_TOKEN
+  }, async (baseUrl) => {
+    const register = await fetch(`${baseUrl}/api/host/register`, {
+      method: 'POST',
+      headers: hostHeaders(),
+      body: JSON.stringify({ hostDeviceId: 'host_sync_api', displayName: 'Sync API Host', localLibraryRoot: 'C:\\Demo\\Karaoke' })
+    });
+    assert.equal(register.status, 201);
+
+    const unauthorized = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/actions/sync-now`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ reason: 'blocked' })
+    });
+    const unauthorizedBody = await unauthorized.json();
+    assert.equal(unauthorized.status, 401);
+    assert.equal(unauthorizedBody.error.code, 'admin_unauthorized');
+
+    const createOperation = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/operations`, {
+      method: 'POST',
+      headers: adminHeaders(),
+      body: JSON.stringify({
+        operationKind: 'verify_library',
+        status: 'syncing',
+        progress: { totalEntries: 2, completedEntries: 1, pendingEntries: 1, failedEntries: 0, bytesTotal: 200, bytesCompleted: 100, percentComplete: 50 }
+      })
+    });
+    const operationBody = await createOperation.json();
+    assert.equal(createOperation.status, 201);
+    assert.equal(operationBody.operation.status, 'syncing');
+
+    const updateOperation = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/operations/${operationBody.operation.syncOperationId}`, {
+      method: 'PATCH',
+      headers: adminHeaders(),
+      body: JSON.stringify({ status: 'verified', verification: { checksumAlgorithm: 'sha256', result: 'passed' } })
+    });
+    const updateOperationBody = await updateOperation.json();
+    assert.equal(updateOperation.status, 200);
+    assert.equal(updateOperationBody.operation.verification.result, 'passed');
+
+    const syncNow = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/actions/sync-now`, {
+      method: 'POST',
+      headers: adminHeaders(),
+      body: JSON.stringify({ reason: 'Synthetic planning-only action.', payload: { dryRun: true } })
+    });
+    const syncNowBody = await syncNow.json();
+    assert.equal(syncNow.status, 202);
+    assert.equal(syncNowBody.action.action, 'sync_now');
+    assert.equal(syncNowBody.action.safetyMode, 'plan_only');
+    assert.deepEqual(syncNowBody.action.payload, { dryRun: true });
+
+    const pause = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/actions/pause`, {
+      method: 'POST',
+      headers: adminHeaders(),
+      body: JSON.stringify({ reason: 'Synthetic pause request.' })
+    });
+    const pauseBody = await pause.json();
+    assert.equal(pause.status, 202);
+    assert.equal(pauseBody.action.action, 'pause_sync');
+
+    const actions = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/actions`, { headers: adminHeaders() });
+    const actionsBody = await actions.json();
+    assert.equal(actions.status, 200);
+    assert.equal(actionsBody.total, 2);
+
+    const quarantine = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/quarantine`, {
+      method: 'POST',
+      headers: adminHeaders(),
+      body: JSON.stringify({
+        syncOperationId: operationBody.operation.syncOperationId,
+        authorizedMediaId: 'media_demo_opening_cdg',
+        reason: 'Synthetic checksum mismatch marker.',
+        verification: { expected: 'sha256-placeholder', actual: 'sha256-placeholder-other' },
+        quarantineKey: 'host-sync-quarantine/media_demo_opening_cdg'
+      })
+    });
+    assert.equal(quarantine.status, 201);
+
+    const operations = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/operations`, { headers: adminHeaders() });
+    const operationsBody = await operations.json();
+    assert.equal(operations.status, 200);
+    assert.equal(operationsBody.total, 1);
+
+    const quarantineList = await fetch(`${baseUrl}/api/admin/hosts/host_sync_api/sync/quarantine`, { headers: adminHeaders() });
+    const quarantineBody = await quarantineList.json();
+    assert.equal(quarantineList.status, 200);
+    assert.equal(quarantineBody.total, 1);
+    assert.equal(JSON.stringify(quarantineBody).includes('C:\\Demo\\Karaoke'), false);
+  });
+});
+
 test('protected catalog-management endpoints create audit history', async () => {
   await withServer({ adminCredential: ADMIN_TOKEN }, async (baseUrl) => {
     const create = await fetch(`${baseUrl}/api/admin/catalog/songs`, {
