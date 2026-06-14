@@ -79,6 +79,7 @@ $requiredFiles = @(
   'scripts/validate-hq-catalog.ps1',
   'scripts/validate-docker-compose.ps1',
   'scripts/check-hq-postgres-integration.ps1',
+  'scripts/sync-readiness-smoke-test.ps1',
   'scripts/run-hq-migrations.ps1',
   'scripts/reset-hq-catalog.ps1',
   'scripts/reseed-hq-catalog.ps1',
@@ -111,6 +112,7 @@ $requiredFiles = @(
   'docs/development/catalog-api.md',
   'docs/development/host-sync-foundation.md',
   'docs/development/host-sync-controls.md',
+  'docs/development/host-sync-readiness.md',
   'docs/development/storage-mounts.md',
   'docs/development/migration-rollback.md'
 )
@@ -124,17 +126,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..158) {
+foreach ($taskNumber in 1..160) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 159..577) {
+foreach ($taskNumber in 161..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 2B sync tests."
+    throw "Backlog task $taskId should remain unchecked after Wave 2."
   }
 }
 
@@ -145,4 +147,4 @@ foreach ($taskNumber in 159..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 2B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..158 checked, KARA-159..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 2 smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..160 checked, KARA-161..577 unchecked, and safety guardrails passed."

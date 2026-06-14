@@ -188,8 +188,8 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-156` — Add tests for insufficient disk space.
 - [x] `KARA-157` — Add tests for interrupted operations.
 - [x] `KARA-158` — Add tests for checksum mismatch handling.
-- [ ] `KARA-159` — Add host-sync documentation.
-- [ ] `KARA-160` — Add a sync-readiness smoke test using demo fixtures only.
+- [x] `KARA-159` — Add host-sync documentation.
+- [x] `KARA-160` — Add a sync-readiness smoke test using demo fixtures only.
 
 ## 05. Windows host application shell and local persistence
 
