@@ -1,0 +1,102 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke Admin Auth Security Shell</title>
+</head>
+<body>
+  <main class="admin-auth-security-shell">
+    <section>
+      <p>D & J's Karaoke</p>
+      <h1>Admin console authentication and security shell</h1>
+      <p>Static preview only. No authentication, sessions, secrets, users, or protected runtime routes are created.</p>
+    </section>
+
+    <section>
+      <h2>Basic admin sign-in</h2>
+      <p>Sign-in screen preview only. No credentials are accepted.</p>
+    </section>
+
+    <section>
+      <h2>Host role</h2>
+      <p>Host role preview: show controls and request moderation views.</p>
+    </section>
+
+    <section>
+      <h2>Admin role</h2>
+      <p>Admin role preview: settings, catalog management, and venue configuration views.</p>
+    </section>
+
+    <section>
+      <h2>Read-only staff role</h2>
+      <p>Read-only staff preview: dashboards only.</p>
+    </section>
+
+    <section>
+      <h2>Protected admin-only routes</h2>
+      <p>/admin/* preview only. No runtime route guard is installed.</p>
+    </section>
+
+    <section>
+      <h2>Protected catalog-management routes</h2>
+      <p>/catalog-management/* preview only.</p>
+    </section>
+
+    <section>
+      <h2>Protected venue-settings routes</h2>
+      <p>/venue-settings/* preview only.</p>
+    </section>
+
+    <section>
+      <h2>Protected backup routes</h2>
+      <p>/backups/* preview only. No backup access is added.</p>
+    </section>
+
+    <section>
+      <h2>Protected host-device-management routes</h2>
+      <p>/host-devices/* preview only. No host-device changes are made.</p>
+    </section>
+
+    <section>
+      <h2>Password hashing placeholder</h2>
+      <p>Future secure password hash placeholder only. No hashing is implemented.</p>
+    </section>
+
+    <section>
+      <h2>Development-safe initial setup flow</h2>
+      <p>Setup preview only. No users or secrets are created.</p>
+    </section>
+
+    <section>
+      <h2>Password-change flow</h2>
+      <p>Password-change preview only. No password is changed.</p>
+    </section>
+
+    <section>
+      <h2>Require password update after first sign-in</h2>
+      <p>New staff password-update requirement preview only.</p>
+    </section>
+
+    <section>
+      <h2>Session expiration</h2>
+      <p>Session expiration preview only. No session is created.</p>
+    </section>
+
+    <section>
+      <h2>Safety boundary</h2>
+      <ul>
+        <li>No real authentication</li>
+        <li>No password hashing implementation</li>
+        <li>No passwords or secrets</li>
+        <li>No session creation</li>
+        <li>No database writes</li>
+        <li>No protected route runtime</li>
+        <li>No backup access</li>
+        <li>No host-device changes</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
