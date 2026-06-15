@@ -21,6 +21,7 @@
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
         <a class="nav-item" href="#catalog-import">Catalog Import</a>
+        <a class="nav-item" href="#siglos-migration">Siglos Migration</a>
         <a class="nav-item" href="#sync">Sync Health</a>
         <a class="nav-item" href="#settings">Settings</a>
       </nav>
@@ -221,6 +222,51 @@
           </div>
         </article>
 
+        <article class="panel siglos-migration-panel" id="siglos-migration">
+          <div class="panel-header">
+            <p class="eyebrow">Siglos Migration</p>
+            <span>Wizard Shell</span>
+          </div>
+
+          <div class="wizard-step">
+            <h3>1. Select Siglos exports</h3>
+            <p class="helper-text">Preview-only support for song metadata, singer profiles, singer history, key changes, venue entries, and saved preferences.</p>
+            <ul class="import-chip-list" aria-label="Siglos export support preview">
+              <li>Song metadata export</li>
+              <li>Singer profiles export</li>
+              <li>Singer history export</li>
+              <li>Remembered key changes</li>
+              <li>Venue entries</li>
+              <li>Saved preferences</li>
+            </ul>
+          </div>
+
+          <div class="wizard-step">
+            <h3>2. Migration preview</h3>
+            <dl id="siglosMigrationPreview" class="sync-list" aria-label="Siglos migration preview">
+              <div><dt>Songs</dt><dd>3 preview rows</dd></div>
+              <div><dt>Singers</dt><dd>2 preview rows</dd></div>
+              <div><dt>History</dt><dd>4 preview rows</dd></div>
+              <div><dt>Validation</dt><dd>Backup-first messaging required</dd></div>
+            </dl>
+          </div>
+
+          <div class="wizard-step">
+            <h3>3. Validation and duplicate warnings</h3>
+            <ul id="siglosValidationSummary" class="activity-log-list" aria-label="Siglos validation summary">
+              <li><strong>Validation:</strong> Demo export structure looks readable.</li>
+              <li><strong>Duplicate warning:</strong> One singer alias needs review.</li>
+              <li><strong>Backup:</strong> Confirm backup before any future real migration.</li>
+            </ul>
+          </div>
+
+          <div class="wizard-step">
+            <h3>4. Migration summary report</h3>
+            <p class="helper-text">Summary reports are preview-only in Wave 4C.</p>
+            <button id="siglosPreviewButton" type="button">Preview migration summary</button>
+          </div>
+        </article>
+
         <article class="panel" id="sync">
           <div class="panel-header">
             <p class="eyebrow">Sync Health</p>
@@ -347,6 +393,12 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="siglosMigrationDialog" class="shortcut-dialog" aria-labelledby="siglosMigrationDialogTitle">
+    <h2 id="siglosMigrationDialogTitle">Siglos Migration Preview</h2>
+    <p>This migration summary is a placeholder only. No Siglos files are read and no local catalog, singer, history, venue, or preference records are written.</p>
+    <button id="closeSiglosMigrationButton" type="button">Close migration preview</button>
+  </dialog>
 
   <dialog id="mergeDuplicateDialog" class="shortcut-dialog" aria-labelledby="mergeDuplicateDialogTitle">
     <h2 id="mergeDuplicateDialogTitle">Safe Duplicate Merge Preview</h2>

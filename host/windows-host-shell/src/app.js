@@ -120,6 +120,11 @@ function showMergeDuplicatePreview() {
   appendImportAudit('Merge preview', 'Safe confirmation displayed before duplicate merge preview.');
 }
 
+function showSiglosMigrationPreview() {
+  siglosMigrationDialog.showModal();
+  appendActivityLog('Siglos migration', 'Opened preview summary with no file reads or writes.');
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -164,6 +169,9 @@ const mergeDuplicatePreviewButton = document.querySelector('#mergeDuplicatePrevi
 const mergeDuplicateDialog = document.querySelector('#mergeDuplicateDialog');
 const closeMergeDuplicateButton = document.querySelector('#closeMergeDuplicateButton');
 const importAuditLogPreview = document.querySelector('#importAuditLogPreview');
+const siglosPreviewButton = document.querySelector('#siglosPreviewButton');
+const siglosMigrationDialog = document.querySelector('#siglosMigrationDialog');
+const closeSiglosMigrationButton = document.querySelector('#closeSiglosMigrationButton');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -213,6 +221,8 @@ markPreferredButton.addEventListener('click', () => setImportReviewState('Mark p
 keepBothButton.addEventListener('click', () => setImportReviewState('Keep both versions'));
 mergeDuplicatePreviewButton.addEventListener('click', () => showMergeDuplicatePreview());
 closeMergeDuplicateButton.addEventListener('click', () => mergeDuplicateDialog.close());
+siglosPreviewButton.addEventListener('click', () => showSiglosMigrationPreview());
+closeSiglosMigrationButton.addEventListener('click', () => siglosMigrationDialog.close());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -245,6 +255,7 @@ document.addEventListener('keydown', (event) => {
     if (diagnosticsDialog.open) diagnosticsDialog.close();
     if (importCancelDialog.open) importCancelDialog.close();
     if (mergeDuplicateDialog.open) mergeDuplicateDialog.close();
+    if (siglosMigrationDialog.open) siglosMigrationDialog.close();
     return;
   }
 
@@ -320,5 +331,21 @@ window.DJKaraokeHostShell = Object.freeze({
   duplicateDetectionTestsEnabled: true,
   alternateVersionTestsEnabled: true,
   importCancellationTestsEnabled: true,
-  importWritesCatalogRecords: false
+  importWritesCatalogRecords: false,
+  siglosMigrationWizardEnabled: true,
+  siglosSongMetadataExportPreviewEnabled: true,
+  siglosSingerProfileExportPreviewEnabled: true,
+  siglosSingerHistoryExportPreviewEnabled: true,
+  siglosRememberedKeyChangePreviewEnabled: true,
+  siglosVenueEntryPreviewEnabled: true,
+  siglosSavedPreferencePreviewEnabled: true,
+  siglosMigrationPreviewEnabled: true,
+  siglosMigrationValidationEnabled: true,
+  siglosDuplicateWarningPreviewEnabled: true,
+  siglosBackupFirstMessagingEnabled: true,
+  siglosMigrationSummaryReportPreviewEnabled: true,
+  siglosDemoExportFixturesEnabled: true,
+  siglosMigrationTestsEnabled: true,
+  siglosMigrationReadsFiles: false,
+  siglosMigrationWritesRecords: false
 });

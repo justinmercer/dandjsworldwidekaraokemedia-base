@@ -141,6 +141,19 @@
       "enabled": true,
       "containsRealMedia": false,
       "path": "host/windows-host-shell/demo-data/catalog-import-demo-fixtures.json"
+    },
+    "siglosMigrationWizard": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "readsSiglosExports": false,
+      "writesCatalogRecords": false,
+      "writesSingerRecords": false,
+      "requiresBackupFirstMessaging": true
+    },
+    "siglosMigrationTestFixtures": {
+      "enabled": true,
+      "containsRealSiglosExport": false,
+      "path": "host/windows-host-shell/demo-data/siglos-export-demo-fixtures.json"
     }
   }
 }
