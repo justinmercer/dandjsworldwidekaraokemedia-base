@@ -508,18 +508,18 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-452` — Add optional OBS event export module.
 - [x] `KARA-453` — Add event-export enable and disable switch.
 - [x] `KARA-454` — Add export connection status.
-- [ ] `KARA-455` — Add retry-safe event queue.
-- [ ] `KARA-456` — Add backoff for companion outages.
-- [ ] `KARA-457` — Add a mock companion receiver.
-- [ ] `KARA-458` — Add companion-isolation tests.
-- [ ] `KARA-459` — Ensure companion failures never interrupt playback.
-- [ ] `KARA-460` — Document the existing separate-recording-computer topology.
-- [ ] `KARA-461` — Document OBS WebSocket port configuration as an operator setting.
-- [ ] `KARA-462` — Add a future Replay adapter interface.
-- [ ] `KARA-463` — Define minimal Replay event fields.
-- [ ] `KARA-464` — Add a mock Replay adapter.
-- [ ] `KARA-465` — Add retry expectations for Replay.
-- [ ] `KARA-466` — Add failure-isolation rules for Replay.
+- [x] `KARA-455` — Add retry-safe event queue.
+- [x] `KARA-456` — Add backoff for companion outages.
+- [x] `KARA-457` — Add a mock companion receiver.
+- [x] `KARA-458` — Add companion-isolation tests.
+- [x] `KARA-459` — Ensure companion failures never interrupt playback.
+- [x] `KARA-460` — Document the existing separate-recording-computer topology.
+- [x] `KARA-461` — Document OBS WebSocket port configuration as an operator setting.
+- [x] `KARA-462` — Add a future Replay adapter interface.
+- [x] `KARA-463` — Define minimal Replay event fields.
+- [x] `KARA-464` — Add a mock Replay adapter.
+- [x] `KARA-465` — Add retry expectations for Replay.
+- [x] `KARA-466` — Add failure-isolation rules for Replay.
 - [ ] `KARA-467` — Add a future clip-processing status placeholder.
 - [ ] `KARA-468` — Add a future lower-third metadata placeholder.
 - [ ] `KARA-469` — Add a future filename metadata placeholder.
