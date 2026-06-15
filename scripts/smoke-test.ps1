@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent $PSScriptRoot
 
@@ -179,6 +179,8 @@ $requiredFiles = @(
   'scripts/generate-readiness-report.ps1',
   'scripts/generate-pilot-feedback-summary-smoke-test.ps1',
   'scripts/generate-pilot-feedback-summary.ps1',
+  'scripts/generate-pilot-packet-smoke-test.ps1',
+  'scripts/generate-pilot-packet.ps1',
   'scripts/hq-api-load-test-preview.ps1',
   'scripts/request-web-load-test-preview.ps1',
   'host/windows-host-shell/demo-data/output-controls-demo-fixtures.json',
@@ -278,6 +280,7 @@ $requiredFiles = @(
   'docs/development/phase2-future-notes-shell.md',
   'docs/development/runtime-readiness-report-generator.md',
   'docs/development/runtime-pilot-feedback-summary-generator.md',
+  'docs/development/runtime-pilot-packet-generator.md',
   'docs/operations/pilot-show-go-no-go-checklist.md',
   'docs/operations/pre-show-checklist.md',
   'docs/operations/post-show-checklist.md',
@@ -336,3 +339,4 @@ foreach ($taskNumber in 1..577) {
 }
 
 Write-Host "Final backlog smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..577 checked, and safety guardrails passed."
+
