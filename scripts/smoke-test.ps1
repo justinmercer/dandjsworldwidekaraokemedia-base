@@ -145,10 +145,13 @@ $requiredFiles = @(
   'docs/development/windows-host-playback-controls.md',
   'scripts/host-output-controls-smoke-test.ps1',
   'scripts/host-display-shell-smoke-test.ps1',
+  'scripts/host-theme-shell-smoke-test.ps1',
   'host/windows-host-shell/demo-data/output-controls-demo-fixtures.json',
   'host/windows-host-shell/demo-data/display-shell-demo-fixtures.json',
+  'host/windows-host-shell/demo-data/theme-shell-demo-fixtures.json',
   'docs/development/windows-host-output-controls.md',
   'docs/development/windows-host-display-shell.md',
+  'docs/development/windows-host-theme-shell.md',
   'scripts/host-settings-migration-smoke-test.ps1',
   'scripts/host-shell-clean-shutdown-smoke-test.ps1',
   'scripts/host-shell-startup-smoke-test.ps1',
@@ -180,17 +183,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..320) {
+foreach ($taskNumber in 1..330) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 321..577) {
+foreach ($taskNumber in 331..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 6C."
+    throw "Backlog task $taskId should remain unchecked after Wave 6D."
   }
 }
 
@@ -201,4 +204,4 @@ foreach ($taskNumber in 321..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 6C smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..320 checked, KARA-321..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 6D smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..330 checked, KARA-331..577 unchecked, and safety guardrails passed."

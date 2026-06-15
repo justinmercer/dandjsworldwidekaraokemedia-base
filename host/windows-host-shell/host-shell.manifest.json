@@ -246,6 +246,21 @@
     "displayShellFixtures": {
       "enabled": true,
       "path": "host/windows-host-shell/demo-data/display-shell-demo-fixtures.json"
+    },
+    "themeShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "loadsLogoFiles": false,
+      "loadsBackgroundFiles": false,
+      "usesCamera": false,
+      "changesRealMonitorState": false,
+      "controlsLiveShow": false,
+      "readsMediaFiles": false,
+      "writesThemeState": false
+    },
+    "themeShellFixtures": {
+      "enabled": true,
+      "path": "host/windows-host-shell/demo-data/theme-shell-demo-fixtures.json"
     }
   }
 }

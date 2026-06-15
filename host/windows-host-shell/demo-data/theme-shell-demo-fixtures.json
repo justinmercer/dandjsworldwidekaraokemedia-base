@@ -1,0 +1,35 @@
+{
+  "fixturePurpose": "Theme shell preview tests only",
+  "loadsLogoFiles": false,
+  "loadsBackgroundFiles": false,
+  "usesCamera": false,
+  "changesRealMonitorState": false,
+  "controlsLiveShow": false,
+  "readsMediaFiles": false,
+  "writesThemeState": false,
+  "venueLogoOverlayPreview": {
+    "label": "D & J logo placeholder",
+    "enabled": true
+  },
+  "customBackgroundPreview": {
+    "label": "Gradient background placeholder",
+    "source": "fixture-only"
+  },
+  "cameraBackgroundPreview": {
+    "enabled": false,
+    "label": "Camera placeholder only"
+  },
+  "themes": [
+    "Default",
+    "Private Party",
+    "Wedding",
+    "Bar Night"
+  ],
+  "disconnectedMonitorFallbackPreview": {
+    "status": "Fallback banner only"
+  },
+  "failureIsolationPreview": {
+    "status": "Failure notice only"
+  },
+  "demoOnly": true
+}

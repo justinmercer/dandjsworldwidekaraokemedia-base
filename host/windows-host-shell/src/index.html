@@ -22,6 +22,7 @@
         <a class="nav-item" href="#playback-controls">Playback</a>
         <a class="nav-item" href="#output-controls">Output Controls</a>
         <a class="nav-item" href="#display-shell">Audience Display</a>
+        <a class="nav-item" href="#theme-shell">Theme Shell</a>
         <a class="nav-item" href="#singer-profiles">Singer Profiles</a>
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
@@ -225,6 +226,77 @@
           <ul id="rotationAuditPreview" class="activity-log-list" aria-label="Rotation audit preview">
             <li><strong>Session:</strong> Demo show session shell loaded.</li>
             <li><strong>Rotation:</strong> Fair-round preview with no live change.</li>
+          </ul>
+        </article>
+
+        <article class="panel theme-shell-panel" id="theme-shell">
+          <div class="panel-header">
+            <p class="eyebrow">Theme Shell</p>
+            <span>Preview Shell</span>
+          </div>
+
+          <section class="wizard-step">
+            <h3>Venue logo overlay</h3>
+            <label class="toggle-row">
+              <input id="venueLogoOverlayPreviewToggle" type="checkbox" checked />
+              Show venue logo placeholder
+            </label>
+            <div class="audience-card logo-overlay-card">
+              <span class="logo-chip">D & J</span>
+              <p>Venue logo overlay preview only.</p>
+            </div>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Custom background support</h3>
+            <label>
+              Background placeholder
+              <select id="customBackgroundPreviewSelect">
+                <option>Gradient background placeholder</option>
+                <option>Star field placeholder</option>
+                <option>Venue wall placeholder</option>
+              </select>
+            </label>
+            <p class="helper-text">No background files are loaded in this wave.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Camera-background placeholder</h3>
+            <button id="cameraBackgroundPreviewButton" type="button">Camera placeholder</button>
+            <p class="helper-text">No camera device is accessed.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Theme selection</h3>
+            <label>
+              Theme preview
+              <select id="themePreviewSelect">
+                <option>Default</option>
+                <option>Private Party</option>
+                <option>Wedding</option>
+                <option>Bar Night</option>
+              </select>
+            </label>
+            <div class="theme-preview-strip">
+              <span>Private Party</span>
+              <span>Wedding</span>
+              <span>Bar Night</span>
+            </div>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Fallback and failure isolation</h3>
+            <div class="state-actions">
+              <button id="monitorFallbackPreviewButton" type="button">Monitor fallback placeholder</button>
+              <button id="failureIsolationPreviewButton" type="button">Failure isolation placeholder</button>
+              <button id="demoFixturePreviewButton" type="button">Demo fixture placeholder</button>
+            </div>
+            <p class="helper-text">No real monitor state, media operation, or live-show state is changed.</p>
+          </section>
+
+          <ul id="themeShellAuditPreview" class="activity-log-list" aria-label="Theme shell audit preview">
+            <li><strong>Theme shell:</strong> Preview shell loaded with fixture-only theme data.</li>
+            <li><strong>Safety:</strong> Logo files, background files, camera devices, monitor state, and live-show controls remain untouched.</li>
           </ul>
         </article>
 
@@ -760,6 +832,12 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="themeShellDialog" class="shortcut-dialog" aria-labelledby="themeShellDialogTitle">
+    <h2 id="themeShellDialogTitle">Theme Shell Preview</h2>
+    <p id="themeShellDialogText">This theme control is preview-only. It does not load files, use cameras, change monitor state, or control the live show.</p>
+    <button id="closeThemeShellButton" type="button">Close theme preview</button>
+  </dialog>
 
   <dialog id="displayShellDialog" class="shortcut-dialog" aria-labelledby="displayShellDialogTitle">
     <h2 id="displayShellDialogTitle">Audience Display Preview</h2>

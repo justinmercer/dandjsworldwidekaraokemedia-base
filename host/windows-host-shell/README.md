@@ -147,3 +147,10 @@ This wave does not enumerate real devices, select real devices, access microphon
 Wave 6C adds filler-volume preview, preview-window plumbing placeholders, external display placeholders, display-selection placeholders, cloned-display placeholders, now-singing/up-next cards, welcome screen preview, and scrolling announcement preview.
 
 This wave does not open real preview windows, open real external display windows, enter full-screen mode, enumerate monitors, select monitors, clone displays, load background files, use cameras, or write display state.
+
+
+## Wave 6D additions
+
+Wave 6D adds venue logo overlay preview, custom background preview, camera placeholder, theme selection, private-party/wedding/bar-night theme previews, disconnected-monitor fallback preview, failure-isolation preview, and demo fixtures only.
+
+This wave does not load logo files, load background files, use cameras, change monitor state, control the live show, read media files, or write theme state.

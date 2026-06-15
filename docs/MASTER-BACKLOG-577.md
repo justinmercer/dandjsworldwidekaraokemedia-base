@@ -362,16 +362,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-318` — Add up-next card.
 - [x] `KARA-319` — Add welcome screen.
 - [x] `KARA-320` — Add scrolling announcement area.
-- [ ] `KARA-321` — Add venue logo overlay.
-- [ ] `KARA-322` — Add custom background support.
-- [ ] `KARA-323` — Add camera-background placeholder.
-- [ ] `KARA-324` — Add theme selection.
-- [ ] `KARA-325` — Add private-party theme.
-- [ ] `KARA-326` — Add wedding theme.
-- [ ] `KARA-327` — Add bar-night theme.
-- [ ] `KARA-328` — Add external-display fallback when a monitor disconnects.
-- [ ] `KARA-329` — Add playback failure isolation.
-- [ ] `KARA-330` — Add demo playback fixtures only.
+- [x] `KARA-321` — Add venue logo overlay.
+- [x] `KARA-322` — Add custom background support.
+- [x] `KARA-323` — Add camera-background placeholder.
+- [x] `KARA-324` — Add theme selection.
+- [x] `KARA-325` — Add private-party theme.
+- [x] `KARA-326` — Add wedding theme.
+- [x] `KARA-327` — Add bar-night theme.
+- [x] `KARA-328` — Add external-display fallback when a monitor disconnects.
+- [x] `KARA-329` — Add playback failure isolation.
+- [x] `KARA-330` — Add demo playback fixtures only.
 - [ ] `KARA-331` — Add playback-control tests.
 - [ ] `KARA-332` — Add external-display state tests.
 - [ ] `KARA-333` — Add monitor reconnect tests.
