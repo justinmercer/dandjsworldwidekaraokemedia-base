@@ -543,17 +543,17 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-484` — Add password-change flow.
 - [x] `KARA-485` — Require password update after first sign-in for newly created staff.
 - [x] `KARA-486` — Add session expiration.
-- [ ] `KARA-487` — Add sign-out.
-- [ ] `KARA-488` — Add failed-login rate limits.
-- [ ] `KARA-489` — Add audit logging for sign-ins.
-- [ ] `KARA-490` — Add audit logging for administrative changes.
-- [ ] `KARA-491` — Add singer-data privacy notes.
-- [ ] `KARA-492` — Add data-retention settings.
-- [ ] `KARA-493` — Add singer-profile export.
-- [ ] `KARA-494` — Add singer-profile deletion workflow.
-- [ ] `KARA-495` — Add staff-account disable workflow.
-- [ ] `KARA-496` — Add secrets-management documentation.
-- [ ] `KARA-497` — Add security smoke tests.
+- [x] `KARA-487` — Add sign-out.
+- [x] `KARA-488` — Add failed-login rate limits.
+- [x] `KARA-489` — Add audit logging for sign-ins.
+- [x] `KARA-490` — Add audit logging for administrative changes.
+- [x] `KARA-491` — Add singer-data privacy notes.
+- [x] `KARA-492` — Add data-retention settings.
+- [x] `KARA-493` — Add singer-profile export.
+- [x] `KARA-494` — Add singer-profile deletion workflow.
+- [x] `KARA-495` — Add staff-account disable workflow.
+- [x] `KARA-496` — Add secrets-management documentation.
+- [x] `KARA-497` — Add security smoke tests.
 
 ## 14. Backup, restore, diagnostics, installer, and updates
 

@@ -1,0 +1,67 @@
+{
+  "fixturePurpose": "Admin privacy and security shell fixtures only",
+  "signsOutUsers": false,
+  "rateLimitsLogin": false,
+  "writesSignInAuditLog": false,
+  "writesAdminChangeAuditLog": false,
+  "readsSingerData": false,
+  "exportsSingerProfiles": false,
+  "deletesSingerProfiles": false,
+  "disablesStaffAccounts": false,
+  "storesSecrets": false,
+  "writesSecrets": false,
+  "writesDatabase": false,
+  "createsSessions": false,
+  "destroysSessions": false,
+  "signOutPreview": {
+    "label": "Sign-out preview",
+    "destroysSessions": false
+  },
+  "failedLoginRateLimitPreview": {
+    "maxAttemptsPreview": 5,
+    "lockoutMinutesPreview": 15,
+    "rateLimitsLogin": false
+  },
+  "signInAuditLoggingPreview": {
+    "auditEvent": "admin.signin.preview",
+    "writesSignInAuditLog": false
+  },
+  "administrativeChangeAuditPreview": {
+    "auditEvent": "admin.change.preview",
+    "writesAdminChangeAuditLog": false
+  },
+  "singerDataPrivacyNotesPreview": {
+    "note": "Singer data should only be used for karaoke operations and managed with clear retention rules.",
+    "readsSingerData": false
+  },
+  "dataRetentionSettingsPreview": {
+    "singerHistoryRetentionDaysPreview": 365,
+    "inactiveProfileReviewDaysPreview": 180,
+    "writesDatabase": false
+  },
+  "singerProfileExportPreview": {
+    "formatPreview": "json",
+    "exportsSingerProfiles": false,
+    "writesFiles": false
+  },
+  "singerProfileDeletionWorkflowPreview": {
+    "reviewRequired": true,
+    "deletesSingerProfiles": false
+  },
+  "staffAccountDisableWorkflowPreview": {
+    "reviewRequired": true,
+    "disablesStaffAccounts": false
+  },
+  "secretsManagementDocumentationPreview": {
+    "storesSecrets": false,
+    "writesSecrets": false,
+    "note": "Documentation-only placeholder for future secret handling rules."
+  },
+  "securitySmokeTestsPreview": [
+    "sign-out stays preview-only",
+    "rate-limit preview does not enforce runtime auth",
+    "audit previews do not write",
+    "singer profile export and deletion stay disabled",
+    "secrets documentation stores no secret values"
+  ]
+}
