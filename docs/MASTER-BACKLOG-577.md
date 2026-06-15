@@ -420,12 +420,12 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-373` — Add large tap targets.
 - [x] `KARA-374` — Add shared tablet mode route.
 - [x] `KARA-375` — Add kiosk-style large controls.
-- [ ] `KARA-376` — Add kiosk idle timeout.
-- [ ] `KARA-377` — Add kiosk automatic reset.
-- [ ] `KARA-378` — Add kiosk QR fallback.
-- [ ] `KARA-379` — Add kiosk responsive tests.
-- [ ] `KARA-380` — Add request-web smoke tests.
-- [ ] `KARA-381` — Document venue-router setup for local request mode.
+- [x] `KARA-376` — Add kiosk idle timeout.
+- [x] `KARA-377` — Add kiosk automatic reset.
+- [x] `KARA-378` — Add kiosk QR fallback.
+- [x] `KARA-379` — Add kiosk responsive tests.
+- [x] `KARA-380` — Add request-web smoke tests.
+- [x] `KARA-381` — Document venue-router setup for local request mode.
 
 ## 10. Request moderation, missing songs, and safe YouTube previews
 

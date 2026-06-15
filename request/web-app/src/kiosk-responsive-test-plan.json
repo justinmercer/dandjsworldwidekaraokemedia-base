@@ -1,0 +1,33 @@
+{
+  "fixturePurpose": "Kiosk responsive test plan only",
+  "runsBrowserAutomation": false,
+  "viewports": [
+    {
+      "name": "Tablet portrait",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "Tablet landscape",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "Small kiosk",
+      "width": 800,
+      "height": 600
+    },
+    {
+      "name": "Large kiosk",
+      "width": 1366,
+      "height": 768
+    }
+  ],
+  "requiredMarkers": [
+    "Kiosk controls",
+    "Idle timeout preview",
+    "Automatic reset preview",
+    "QR fallback preview",
+    "Clear session preview"
+  ]
+}

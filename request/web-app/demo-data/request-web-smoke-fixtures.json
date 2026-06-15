@@ -1,0 +1,12 @@
+{
+  "fixturePurpose": "Request web smoke coverage index only",
+  "coversRequestWebShell": true,
+  "coversRequestWorkflowShell": true,
+  "coversRequestSessionStatusShell": true,
+  "coversMobilePwaKioskShell": true,
+  "coversKioskSessionShell": true,
+  "callsServerApis": false,
+  "writesQueueRecords": false,
+  "writesSingerRecords": false,
+  "storesPersonalData": false
+}
