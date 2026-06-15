@@ -1,0 +1,75 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke Incoming Requests</title>
+</head>
+<body>
+  <main class="request-moderation-shell">
+    <section>
+      <p>D & J's Karaoke</p>
+      <h1>Incoming request moderation</h1>
+      <p>Host-side incoming-request list preview only.</p>
+    </section>
+
+    <section aria-labelledby="modelTitle">
+      <h2 id="modelTitle">Incoming-request model</h2>
+      <dl>
+        <dt>Request ID</dt>
+        <dd>fixture-request-001</dd>
+        <dt>Singer</dt>
+        <dd>Fixture Singer</dd>
+        <dt>Song</dt>
+        <dd>Fixture Song — Fixture Artist</dd>
+        <dt>Status</dt>
+        <dd>Pending preview</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="listTitle">
+      <h2 id="listTitle">Host-side incoming-request list</h2>
+      <article>
+        <h3>Fixture Song</h3>
+        <p>Fixture Artist · Fixture Singer · Pending preview</p>
+        <p>Duplicate-request detection: Possible duplicate preview</p>
+        <p>Singer-match suggestions: Possible existing singer preview</p>
+      </article>
+      <article>
+        <h3>Another Fixture Song</h3>
+        <p>Demo Artist · Demo Guest · Needs review preview</p>
+        <p>Per-singer request limits: Within preview limit</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="actionsTitle">
+      <h2 id="actionsTitle">Preview actions</h2>
+      <button type="button">Approve action preview</button>
+      <button type="button">Edit action preview</button>
+      <button type="button">Reject action preview</button>
+      <button type="button">Add-all action preview</button>
+      <p>These buttons do not approve, edit, reject, or add requests to a real queue.</p>
+    </section>
+
+    <section aria-labelledby="limitsTitle">
+      <h2 id="limitsTitle">Request limits</h2>
+      <p>Per-singer request limits: 2 active preview requests.</p>
+      <p>Host override for request limits: visible preview only.</p>
+      <p>No request-limit override is saved.</p>
+    </section>
+
+    <section aria-labelledby="safetyTitle">
+      <h2 id="safetyTitle">Safety boundary</h2>
+      <ul>
+        <li>No real request approval</li>
+        <li>No real request edits</li>
+        <li>No real request rejection</li>
+        <li>No add-all queue writes</li>
+        <li>No singer record writes</li>
+        <li>No server API calls</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
