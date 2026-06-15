@@ -1,0 +1,37 @@
+{
+  "fixturePurpose": "Siglos migration preview tests only",
+  "containsRealSiglosExport": false,
+  "readsLocalFiles": false,
+  "cases": [
+    {
+      "id": "song-metadata-export",
+      "exportType": "song metadata",
+      "rows": 3,
+      "expectedPreviewState": "valid preview"
+    },
+    {
+      "id": "singer-profile-export",
+      "exportType": "singer profiles",
+      "rows": 2,
+      "expectedPreviewState": "valid preview"
+    },
+    {
+      "id": "singer-history-export",
+      "exportType": "singer history",
+      "rows": 4,
+      "expectedPreviewState": "valid preview"
+    },
+    {
+      "id": "key-change-and-preferences",
+      "exportType": "saved preferences",
+      "rows": 2,
+      "expectedPreviewState": "optional fields present"
+    },
+    {
+      "id": "duplicate-warning-preview",
+      "exportType": "duplicate migration candidates",
+      "rows": 1,
+      "expectedPreviewState": "needs review"
+    }
+  ]
+}

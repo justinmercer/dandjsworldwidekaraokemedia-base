@@ -272,20 +272,20 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-234` — Add alternate-version tests.
 - [x] `KARA-235` — Add cancellation tests.
 - [x] `KARA-236` — Document the import workflow.
-- [ ] `KARA-237` — Create the Siglos migration wizard shell.
-- [ ] `KARA-238` — Support Siglos song-metadata exports.
-- [ ] `KARA-239` — Support Siglos singer-profile exports.
-- [ ] `KARA-240` — Support Siglos singer-history exports.
-- [ ] `KARA-241` — Support remembered key-change imports where present.
-- [ ] `KARA-242` — Support venue-entry imports where present.
-- [ ] `KARA-243` — Support saved preference imports where present.
-- [ ] `KARA-244` — Add migration preview.
-- [ ] `KARA-245` — Add migration validation.
-- [ ] `KARA-246` — Add duplicate warnings during migration.
-- [ ] `KARA-247` — Add backup-first messaging.
-- [ ] `KARA-248` — Add migration summary reports.
-- [ ] `KARA-249` — Add demo Siglos export fixtures.
-- [ ] `KARA-250` — Add Siglos migration tests.
+- [x] `KARA-237` — Create the Siglos migration wizard shell.
+- [x] `KARA-238` — Support Siglos song-metadata exports.
+- [x] `KARA-239` — Support Siglos singer-profile exports.
+- [x] `KARA-240` — Support Siglos singer-history exports.
+- [x] `KARA-241` — Support remembered key-change imports where present.
+- [x] `KARA-242` — Support venue-entry imports where present.
+- [x] `KARA-243` — Support saved preference imports where present.
+- [x] `KARA-244` — Add migration preview.
+- [x] `KARA-245` — Add migration validation.
+- [x] `KARA-246` — Add duplicate warnings during migration.
+- [x] `KARA-247` — Add backup-first messaging.
+- [x] `KARA-248` — Add migration summary reports.
+- [x] `KARA-249` — Add demo Siglos export fixtures.
+- [x] `KARA-250` — Add Siglos migration tests.
 
 ## 07. Singer profiles, rotation, and show-session management
 

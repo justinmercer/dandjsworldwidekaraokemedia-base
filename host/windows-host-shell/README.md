@@ -91,3 +91,10 @@ This wave does not scan folders, read media files, write catalog records, merge 
 Wave 4B adds import review action placeholders, needs-manual-review state, skip-for-now, mark-preferred, keep-both, duplicate merge preview, safe merge confirmation preview, audit-log preview, and test-only catalog import fixtures.
 
 This wave does not write catalog records, merge records, read media files, move files, or change operator folders.
+
+
+## Wave 4C additions
+
+Wave 4C adds the Siglos migration wizard shell, export preview sections, migration validation preview, duplicate warnings, backup-first messaging, migration summary report preview, and test-only Siglos fixture data.
+
+This wave does not read Siglos files, write records, move files, or change local preferences.

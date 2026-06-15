@@ -125,6 +125,9 @@ $requiredFiles = @(
   'scripts/host-catalog-import-review-actions-smoke-test.ps1',
   'host/windows-host-shell/demo-data/catalog-import-demo-fixtures.json',
   'docs/development/windows-host-catalog-import-review-actions.md',
+  'scripts/host-siglos-migration-smoke-test.ps1',
+  'host/windows-host-shell/demo-data/siglos-export-demo-fixtures.json',
+  'docs/development/windows-host-siglos-migration.md',
   'scripts/host-settings-migration-smoke-test.ps1',
   'scripts/host-shell-clean-shutdown-smoke-test.ps1',
   'scripts/host-shell-startup-smoke-test.ps1',
@@ -156,17 +159,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..236) {
+foreach ($taskNumber in 1..250) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 237..577) {
+foreach ($taskNumber in 251..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 4B."
+    throw "Backlog task $taskId should remain unchecked after Wave 4C."
   }
 }
 
@@ -177,4 +180,4 @@ foreach ($taskNumber in 237..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 4B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..236 checked, KARA-237..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 4C smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..250 checked, KARA-251..577 unchecked, and safety guardrails passed."
