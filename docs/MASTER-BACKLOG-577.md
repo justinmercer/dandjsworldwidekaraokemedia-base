@@ -332,16 +332,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 08. Playback, audio, preview, and external displays
 
-- [ ] `KARA-291` — Choose and document the local media playback engine.
-- [ ] `KARA-292` — Add local playback state.
-- [ ] `KARA-293` — Add play.
-- [ ] `KARA-294` — Add pause.
-- [ ] `KARA-295` — Add stop.
-- [ ] `KARA-296` — Add next.
-- [ ] `KARA-297` — Add previous where safe.
-- [ ] `KARA-298` — Add fade-out.
-- [ ] `KARA-299` — Add emergency skip.
-- [ ] `KARA-300` — Add volume controls.
+- [x] `KARA-291` — Choose and document the local media playback engine.
+- [x] `KARA-292` — Add local playback state.
+- [x] `KARA-293` — Add play.
+- [x] `KARA-294` — Add pause.
+- [x] `KARA-295` — Add stop.
+- [x] `KARA-296` — Add next.
+- [x] `KARA-297` — Add previous where safe.
+- [x] `KARA-298` — Add fade-out.
+- [x] `KARA-299` — Add emergency skip.
+- [x] `KARA-300` — Add volume controls.
 - [ ] `KARA-301` — Add output-device selection.
 - [ ] `KARA-302` — Add microphone-recording control placeholders.
 - [ ] `KARA-303` — Add key-change controls.

@@ -596,3 +596,17 @@ kbd {
   display: grid;
   gap: 1rem;
 }
+
+
+.playback-controls-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.playback-control-buttons {
+  flex-wrap: wrap;
+}
+
+.playback-controls-panel input[type='range'] {
+  width: 100%;
+}

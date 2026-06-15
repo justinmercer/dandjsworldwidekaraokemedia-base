@@ -1,0 +1,57 @@
+{
+  "fixturePurpose": "Playback controls preview tests only",
+  "playbackEngineChosen": "documented-placeholder",
+  "startsAudio": false,
+  "readsMediaFiles": false,
+  "changesAudioOutput": false,
+  "writesPlaybackState": false,
+  "controls": [
+    {
+      "id": "play",
+      "label": "Play",
+      "startsAudio": false
+    },
+    {
+      "id": "pause",
+      "label": "Pause",
+      "startsAudio": false
+    },
+    {
+      "id": "stop",
+      "label": "Stop",
+      "startsAudio": false
+    },
+    {
+      "id": "next",
+      "label": "Next",
+      "startsAudio": false
+    },
+    {
+      "id": "previous-safe",
+      "label": "Previous where safe",
+      "startsAudio": false
+    },
+    {
+      "id": "fade-out",
+      "label": "Fade out",
+      "startsAudio": false
+    },
+    {
+      "id": "emergency-skip",
+      "label": "Emergency skip",
+      "startsAudio": false
+    },
+    {
+      "id": "volume",
+      "label": "Volume controls",
+      "changesAudioOutput": false
+    }
+  ],
+  "playbackStatePreview": {
+    "state": "stopped",
+    "currentTrack": "Demo song placeholder",
+    "positionSeconds": 0,
+    "durationSeconds": 210,
+    "persisted": false
+  }
+}
