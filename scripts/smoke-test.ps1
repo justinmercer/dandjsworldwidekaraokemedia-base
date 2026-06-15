@@ -161,6 +161,7 @@ $requiredFiles = @(
   'scripts/venue-display-qr-onboarding-smoke-test.ps1',
   'scripts/obs-companion-event-export-smoke-test.ps1',
   'scripts/obs-replay-reliability-boundary-smoke-test.ps1',
+  'scripts/replay-metadata-boundary-smoke-test.ps1',
   'host/windows-host-shell/demo-data/output-controls-demo-fixtures.json',
   'host/windows-host-shell/demo-data/display-shell-demo-fixtures.json',
   'host/windows-host-shell/demo-data/theme-shell-demo-fixtures.json',
@@ -179,6 +180,7 @@ $requiredFiles = @(
   'venue/profiles/demo-data/venue-display-qr-fixtures.json',
   'obs/companion/demo-data/performance-event-export-fixtures.json',
   'obs/companion/demo-data/companion-replay-reliability-fixtures.json',
+  'obs/companion/demo-data/replay-metadata-boundary-fixtures.json',
   'request/moderation/src/index.html',
   'request/moderation/src/missing-song-safe-youtube.html',
   'request/moderation/src/youtube-ranking-preview-controls.html',
@@ -187,6 +189,7 @@ $requiredFiles = @(
   'venue/profiles/src/display-qr-onboarding.html',
   'obs/companion/src/performance-event-export.html',
   'obs/companion/src/reliability-replay-boundary.html',
+  'obs/companion/src/replay-metadata-boundary.html',
   'request/web-app/package.json',
   'request/web-app/README.md',
   'request/web-app/src/index.html',
@@ -214,6 +217,7 @@ $requiredFiles = @(
   'docs/development/venue-display-qr-onboarding-shell.md',
   'docs/development/obs-companion-event-export-shell.md',
   'docs/development/obs-replay-reliability-boundary-shell.md',
+  'docs/development/replay-metadata-boundary-shell.md',
   'scripts/host-settings-migration-smoke-test.ps1',
   'scripts/host-shell-clean-shutdown-smoke-test.ps1',
   'scripts/host-shell-startup-smoke-test.ps1',
@@ -245,17 +249,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..466) {
+foreach ($taskNumber in 1..472) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 467..577) {
+foreach ($taskNumber in 473..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 10B."
+    throw "Backlog task $taskId should remain unchecked after Wave 10C."
   }
 }
 
@@ -266,4 +270,4 @@ foreach ($taskNumber in 467..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 10B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..466 checked, KARA-467..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 10C smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..472 checked, KARA-473..577 unchecked, and safety guardrails passed."
