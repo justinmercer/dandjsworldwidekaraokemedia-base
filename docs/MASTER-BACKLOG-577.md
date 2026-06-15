@@ -606,14 +606,14 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-541` — Add local-router-only request test scenario.
 - [x] `KARA-542` — Add interrupted-sync test scenario.
 - [x] `KARA-543` — Add checksum-mismatch test scenario.
-- [ ] `KARA-544` — Add insufficient-storage test scenario.
-- [ ] `KARA-545` — Add host-restart recovery test scenario.
-- [ ] `KARA-546` — Add unclean-shutdown recovery test scenario.
-- [ ] `KARA-547` — Add OBS companion outage test scenario.
-- [ ] `KARA-548` — Add Replay adapter outage test scenario.
-- [ ] `KARA-549` — Add external-monitor disconnect test scenario.
-- [ ] `KARA-550` — Add empty-library startup test scenario.
-- [ ] `KARA-551` — Add empty-show startup test scenario.
+- [x] `KARA-544` — Add insufficient-storage test scenario.
+- [x] `KARA-545` — Add host-restart recovery test scenario.
+- [x] `KARA-546` — Add unclean-shutdown recovery test scenario.
+- [x] `KARA-547` — Add OBS companion outage test scenario.
+- [x] `KARA-548` — Add Replay adapter outage test scenario.
+- [x] `KARA-549` — Add external-monitor disconnect test scenario.
+- [x] `KARA-550` — Add empty-library startup test scenario.
+- [x] `KARA-551` — Add empty-show startup test scenario.
 - [ ] `KARA-552` — Add large-catalog search performance test.
 - [ ] `KARA-553` — Add high-request-volume test.
 - [ ] `KARA-554` — Add multi-hour soak test.

@@ -1,0 +1,45 @@
+{
+  "fixturePurpose": "Reliability scenario preview shell fixtures only",
+  "probesStorage": false,
+  "runsRestartCommand": false,
+  "runsShutdownCommand": false,
+  "connectsObs": false,
+  "connectsReplay": false,
+  "probesMonitors": false,
+  "readsCatalogDatabase": false,
+  "readsShowDatabase": false,
+  "makesNetworkRequests": false,
+  "writesFiles": false,
+  "insufficientStorageScenarioPreview": {
+    "label": "Insufficient-storage test scenario preview",
+    "probesStorage": false
+  },
+  "hostRestartRecoveryScenarioPreview": {
+    "label": "Host-restart recovery test scenario preview",
+    "runsRestartCommand": false
+  },
+  "uncleanShutdownRecoveryScenarioPreview": {
+    "label": "Unclean-shutdown recovery test scenario preview",
+    "runsShutdownCommand": false
+  },
+  "obsCompanionOutageScenarioPreview": {
+    "label": "OBS companion outage test scenario preview",
+    "connectsObs": false
+  },
+  "replayAdapterOutageScenarioPreview": {
+    "label": "Replay adapter outage test scenario preview",
+    "connectsReplay": false
+  },
+  "externalMonitorDisconnectScenarioPreview": {
+    "label": "External-monitor disconnect test scenario preview",
+    "probesMonitors": false
+  },
+  "emptyLibraryStartupScenarioPreview": {
+    "label": "Empty-library startup test scenario preview",
+    "readsCatalogDatabase": false
+  },
+  "emptyShowStartupScenarioPreview": {
+    "label": "Empty-show startup test scenario preview",
+    "readsShowDatabase": false
+  }
+}
