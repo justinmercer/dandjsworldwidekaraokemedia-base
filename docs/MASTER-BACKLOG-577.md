@@ -400,16 +400,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-353` — Add request submission.
 - [x] `KARA-354` — Add optional key-change request.
 - [x] `KARA-355` — Add optional duet-partner request.
-- [ ] `KARA-356` — Add optional request note.
-- [ ] `KARA-357` — Add request confirmation.
-- [ ] `KARA-358` — Add personal request list.
-- [ ] `KARA-359` — Add request statuses.
-- [ ] `KARA-360` — Add estimated wait display.
-- [ ] `KARA-361` — Add request-limit messaging.
-- [ ] `KARA-362` — Add venue-access-code entry.
-- [ ] `KARA-363` — Add local-network mode.
-- [ ] `KARA-364` — Add cloud mode.
-- [ ] `KARA-365` — Add automatic mode fallback messaging.
+- [x] `KARA-356` — Add optional request note.
+- [x] `KARA-357` — Add request confirmation.
+- [x] `KARA-358` — Add personal request list.
+- [x] `KARA-359` — Add request statuses.
+- [x] `KARA-360` — Add estimated wait display.
+- [x] `KARA-361` — Add request-limit messaging.
+- [x] `KARA-362` — Add venue-access-code entry.
+- [x] `KARA-363` — Add local-network mode.
+- [x] `KARA-364` — Add cloud mode.
+- [x] `KARA-365` — Add automatic mode fallback messaging.
 - [ ] `KARA-366` — Add connection-state display.
 - [ ] `KARA-367` — Add offline-friendly static shell caching.
 - [ ] `KARA-368` — Add installable PWA metadata.
