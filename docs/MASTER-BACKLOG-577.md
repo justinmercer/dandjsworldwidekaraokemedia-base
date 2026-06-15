@@ -380,16 +380,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 09. Mobile request web app and shared tablet mode
 
-- [ ] `KARA-336` — Create the request web-app project.
-- [ ] `KARA-337` — Create the mobile-first app shell.
-- [ ] `KARA-338` — Add D & J’s branding.
-- [ ] `KARA-339` — Add venue branding overrides.
-- [ ] `KARA-340` — Add QR-code entry routes.
-- [ ] `KARA-341` — Add guest-name entry.
-- [ ] `KARA-342` — Add returning-singer lookup.
-- [ ] `KARA-343` — Add privacy-safe singer matching.
-- [ ] `KARA-344` — Add catalog search.
-- [ ] `KARA-345` — Add search debouncing.
+- [x] `KARA-336` — Create the request web-app project.
+- [x] `KARA-337` — Create the mobile-first app shell.
+- [x] `KARA-338` — Add D & J’s branding.
+- [x] `KARA-339` — Add venue branding overrides.
+- [x] `KARA-340` — Add QR-code entry routes.
+- [x] `KARA-341` — Add guest-name entry.
+- [x] `KARA-342` — Add returning-singer lookup.
+- [x] `KARA-343` — Add privacy-safe singer matching.
+- [x] `KARA-344` — Add catalog search.
+- [x] `KARA-345` — Add search debouncing.
 - [ ] `KARA-346` — Add search empty states.
 - [ ] `KARA-347` — Add recent-song browsing.
 - [ ] `KARA-348` — Add popular-song browsing.

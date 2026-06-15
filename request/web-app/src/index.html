@@ -1,0 +1,76 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke Requests</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="request-shell" data-route-preview="/r/:venueCode">
+    <section class="hero-card">
+      <p class="eyebrow">D & J's Karaoke</p>
+      <h1>Request a song</h1>
+      <p class="hero-copy">Mobile-first request shell for guests and shared-tablet mode.</p>
+      <span class="mode-pill">Preview only</span>
+    </section>
+
+    <section class="panel route-panel">
+      <h2>QR entry route</h2>
+      <p id="qrRoutePreview">/r/demo-venue</p>
+      <p class="helper-text">Route placeholder only. No venue lookup is performed.</p>
+    </section>
+
+    <section class="panel branding-panel">
+      <h2>Venue branding</h2>
+      <p class="brand-main">D & J's Karaoke</p>
+      <p class="brand-venue">Friday Night Karaoke</p>
+      <p class="helper-text">Venue branding override preview only.</p>
+    </section>
+
+    <section class="panel singer-panel">
+      <h2>Who is singing?</h2>
+      <label>
+        Stage name
+        <input id="guestNameInput" type="text" autocomplete="off" placeholder="Your stage name" />
+      </label>
+      <button id="returningSingerPreviewButton" type="button">Returning singer lookup preview</button>
+      <button id="privacyMatchPreviewButton" type="button">Privacy-safe match preview</button>
+      <p id="singerPreviewStatus" class="status-line">No singer data is read or written.</p>
+    </section>
+
+    <section class="panel search-panel">
+      <h2>Find a song</h2>
+      <label>
+        Song or artist
+        <input id="catalogSearchInput" type="search" autocomplete="off" placeholder="Search song or artist" />
+      </label>
+      <p id="searchDebounceStatus" class="status-line">Start typing a song or artist.</p>
+      <ul id="catalogSearchResults" class="result-list" aria-label="Catalog search preview results">
+        <li><strong>Demo Song</strong><span>Demo Artist · Fixture only</span></li>
+        <li><strong>Another Demo Song</strong><span>Another Artist · Fixture only</span></li>
+      </ul>
+    </section>
+
+    <section class="panel tablet-panel">
+      <h2>Shared tablet route</h2>
+      <p>/tablet/demo-venue</p>
+      <p class="helper-text">Shared tablet mode is route-preview only in this wave.</p>
+    </section>
+
+    <section class="panel safety-panel">
+      <h2>Safety boundary</h2>
+      <ul>
+        <li>No request submission</li>
+        <li>No server API calls</li>
+        <li>No singer record reads or writes</li>
+        <li>No real catalog search</li>
+        <li>No personal data storage</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
