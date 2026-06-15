@@ -150,6 +150,7 @@ $requiredFiles = @(
   'scripts/request-web-shell-smoke-test.ps1',
   'scripts/request-workflow-smoke-test.ps1',
   'scripts/request-session-status-smoke-test.ps1',
+  'scripts/mobile-pwa-kiosk-smoke-test.ps1',
   'host/windows-host-shell/demo-data/output-controls-demo-fixtures.json',
   'host/windows-host-shell/demo-data/display-shell-demo-fixtures.json',
   'host/windows-host-shell/demo-data/theme-shell-demo-fixtures.json',
@@ -157,10 +158,14 @@ $requiredFiles = @(
   'request/web-app/demo-data/request-web-shell-fixtures.json',
   'request/web-app/demo-data/request-workflow-fixtures.json',
   'request/web-app/demo-data/request-session-status-fixtures.json',
+  'request/web-app/demo-data/mobile-pwa-kiosk-fixtures.json',
   'request/web-app/package.json',
   'request/web-app/README.md',
   'request/web-app/src/index.html',
   'request/web-app/src/app.js',
+  'request/web-app/src/manifest.webmanifest',
+  'request/web-app/src/offline.html',
+  'request/web-app/src/static-cache-plan.json',
   'request/web-app/src/styles.css',
   'docs/development/windows-host-output-controls.md',
   'docs/development/windows-host-display-shell.md',
@@ -169,6 +174,7 @@ $requiredFiles = @(
   'docs/development/request-web-shell.md',
   'docs/development/request-workflow-shell.md',
   'docs/development/request-session-status-shell.md',
+  'docs/development/mobile-pwa-kiosk-shell.md',
   'scripts/host-settings-migration-smoke-test.ps1',
   'scripts/host-shell-clean-shutdown-smoke-test.ps1',
   'scripts/host-shell-startup-smoke-test.ps1',
@@ -200,17 +206,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..365) {
+foreach ($taskNumber in 1..375) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 366..577) {
+foreach ($taskNumber in 376..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 7C."
+    throw "Backlog task $taskId should remain unchecked after Wave 7D."
   }
 }
 
@@ -221,4 +227,4 @@ foreach ($taskNumber in 366..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 7C smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..365 checked, KARA-366..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 7D smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..375 checked, KARA-376..577 unchecked, and safety guardrails passed."

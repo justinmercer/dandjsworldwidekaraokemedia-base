@@ -1,0 +1,10 @@
+{
+  "name": "D & J's Karaoke Requests",
+  "short_name": "D&J Requests",
+  "start_url": "/r/demo-venue",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#2563eb",
+  "description": "Preview-only request web app metadata for D & J's Karaoke.",
+  "icons": []
+}

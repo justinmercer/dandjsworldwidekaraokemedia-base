@@ -4,7 +4,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="description" content="D & J's Karaoke request shell preview." />
   <title>D & J's Karaoke Requests</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -16,17 +19,24 @@
       <span class="mode-pill">Preview only</span>
     </section>
 
+    <section class="panel connection-state-panel" aria-labelledby="connectionStateTitle">
+      <h2 id="connectionStateTitle">Connection state</h2>
+      <p><strong>Status:</strong> Local preview</p>
+      <p><strong>Fallback:</strong> Offline shell preview available</p>
+      <p class="helper-text">Connection-state display only. No network mode is changed.</p>
+    </section>
+
+    <section class="panel pwa-panel" aria-labelledby="pwaTitle">
+      <h2 id="pwaTitle">Offline and PWA metadata</h2>
+      <p>Installable PWA metadata preview is present.</p>
+      <p>Static shell cache plan is documented.</p>
+      <p class="helper-text">No service worker is registered in this wave.</p>
+    </section>
+
     <section class="panel route-panel">
       <h2>QR entry route</h2>
       <p id="qrRoutePreview">/r/demo-venue</p>
       <p class="helper-text">Route placeholder only. No venue lookup is performed.</p>
-    </section>
-
-    <section class="panel branding-panel">
-      <h2>Venue branding</h2>
-      <p class="brand-main">D & J's Karaoke</p>
-      <p class="brand-venue">Friday Night Karaoke</p>
-      <p class="helper-text">Venue branding override preview only.</p>
     </section>
 
     <section class="panel access-panel">
@@ -63,35 +73,6 @@
       </ul>
     </section>
 
-    <section class="panel browse-panel">
-      <h2>Browse ideas</h2>
-      <div class="card-grid">
-        <article>
-          <h3>Recent songs</h3>
-          <p>Fixture Recent Song · Demo Artist</p>
-        </article>
-        <article>
-          <h3>Popular songs</h3>
-          <p>Fixture Crowd Favorite · 12 preview requests</p>
-        </article>
-        <article>
-          <h3>Favourites</h3>
-          <p>Fixture Favourite · saved preview only</p>
-        </article>
-        <article>
-          <h3>Singer history</h3>
-          <p>Fixture History Song · preview only</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="panel version-panel">
-      <h2>Song details</h2>
-      <p><strong>Duet:</strong> available</p>
-      <p><strong>Alternate versions:</strong> radio edit, acoustic, duet version</p>
-      <p class="helper-text">Duet and alternate-version indicators are display-only in this wave.</p>
-    </section>
-
     <section class="panel request-draft-panel">
       <h2>Request draft</h2>
       <label>
@@ -116,34 +97,25 @@
       <p id="requestPreviewStatus" class="status-line">Request submission is preview-only.</p>
     </section>
 
-    <section class="panel confirmation-panel">
-      <h2>Request confirmation</h2>
-      <p id="confirmationPreview">Request preview confirmed. Nothing was submitted.</p>
-      <p class="helper-text">Confirmation is draft-preview only.</p>
-    </section>
-
-    <section class="panel my-requests-panel">
-      <h2>My request list</h2>
-      <p class="limit-message">Preview limit: 2 active requests</p>
-      <p class="wait-message">Estimated wait: about 3 singers</p>
-      <ul class="status-list" aria-label="Personal request list preview">
-        <li><strong>Fixture Recent Song</strong><span>Draft preview</span></li>
-        <li><strong>Fixture Crowd Favorite</strong><span>Waiting preview</span></li>
+    <section class="panel mobile-test-panel" aria-labelledby="mobileTestTitle">
+      <h2 id="mobileTestTitle">Mobile responsive test fixtures</h2>
+      <ul class="status-list">
+        <li><strong>iPhone SE</strong><span>375 × 667 preview</span></li>
+        <li><strong>iPhone 15</strong><span>393 × 852 preview</span></li>
+        <li><strong>Pixel 7</strong><span>412 × 915 preview</span></li>
+        <li><strong>Galaxy S22</strong><span>360 × 780 preview</span></li>
       </ul>
-      <div class="status-pills" aria-label="Request statuses preview">
-        <span>Draft preview</span>
-        <span>Waiting preview</span>
-        <span>Called preview</span>
-        <span>Complete preview</span>
-      </div>
     </section>
 
-    <section class="panel connection-panel">
-      <h2>Connection mode</h2>
-      <p><strong>Local:</strong> Local network mode preview</p>
-      <p><strong>Cloud:</strong> Cloud mode preview</p>
-      <p><strong>Fallback:</strong> Automatic fallback message preview only</p>
-      <p id="connectionModeStatus" class="status-line">No network mode is changed.</p>
+    <section class="panel accessibility-panel" aria-labelledby="accessibilityTitle">
+      <h2 id="accessibilityTitle">Accessibility checks</h2>
+      <ul>
+        <li>Main landmark is present</li>
+        <li>Inputs have labels</li>
+        <li>Buttons have visible text</li>
+        <li>Status copy is readable</li>
+        <li>Large tap targets are styled</li>
+      </ul>
     </section>
 
     <section class="panel tablet-panel">
@@ -152,14 +124,25 @@
       <p class="helper-text">Shared tablet mode is route-preview only in this wave.</p>
     </section>
 
+    <section class="panel kiosk-panel" data-route-preview="/tablet/:venueCode/kiosk">
+      <h2>Kiosk controls</h2>
+      <div class="kiosk-controls">
+        <button type="button">Start request</button>
+        <button type="button">Browse songs</button>
+        <button type="button">My requests</button>
+        <button type="button">Clear session preview</button>
+      </div>
+      <p class="helper-text">Kiosk controls are large preview buttons only.</p>
+    </section>
+
     <section class="panel safety-panel">
       <h2>Safety boundary</h2>
       <ul>
         <li>No live request submission</li>
         <li>No server API calls</li>
         <li>No queue or singer record writes</li>
-        <li>No venue access-code validation</li>
-        <li>No connection mode changes</li>
+        <li>No service worker registration</li>
+        <li>No runtime offline caching</li>
         <li>No personal data storage</li>
       </ul>
     </section>

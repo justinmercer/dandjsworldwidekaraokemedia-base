@@ -1,0 +1,12 @@
+{
+  "cacheName": "dj-request-shell-preview-v1",
+  "runtimeCachingEnabled": false,
+  "serviceWorkerRegistered": false,
+  "plannedStaticFiles": [
+    "./index.html",
+    "./styles.css",
+    "./app.js",
+    "./offline.html",
+    "./manifest.webmanifest"
+  ]
+}
