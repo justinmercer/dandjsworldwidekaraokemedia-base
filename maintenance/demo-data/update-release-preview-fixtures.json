@@ -1,0 +1,46 @@
+{
+  "fixturePurpose": "Update and release preview shell fixtures only",
+  "runsUpdate": false,
+  "performsBackup": false,
+  "performsRollback": false,
+  "runsUninstall": false,
+  "buildsInstaller": false,
+  "buildsPackage": false,
+  "deletesFiles": false,
+  "makesNetworkRequests": false,
+  "writesFiles": false,
+  "backupBeforeUpdatePreview": {
+    "label": "Backup-before-update behavior preview",
+    "performsBackup": false,
+    "runsUpdate": false
+  },
+  "rollbackSafeUpdatePreview": {
+    "label": "Rollback-safe update behavior preview",
+    "performsRollback": false,
+    "runsUpdate": false
+  },
+  "updateFailureMessagingPreview": {
+    "label": "Update-failure messaging preview"
+  },
+  "uninstallBehaviorDocumentationPreview": {
+    "label": "Uninstall behavior documentation preview",
+    "runsUninstall": false,
+    "deletesFiles": false
+  },
+  "cleanInstallSmokeTestPreview": {
+    "label": "Clean-install smoke test preview",
+    "buildsInstaller": false
+  },
+  "upgradeSmokeTestPreview": {
+    "label": "Upgrade smoke test preview",
+    "runsUpdate": false
+  },
+  "rollbackSmokeTestPreview": {
+    "label": "Rollback smoke test preview",
+    "performsRollback": false
+  },
+  "releasePackagingDocumentationPreview": {
+    "label": "Release packaging documentation preview",
+    "buildsPackage": false
+  }
+}
