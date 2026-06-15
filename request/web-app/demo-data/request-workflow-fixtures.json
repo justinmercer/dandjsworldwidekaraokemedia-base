@@ -1,0 +1,71 @@
+{
+  "fixturePurpose": "Request workflow shell fixtures only",
+  "submitsRequests": false,
+  "callsServerApis": false,
+  "writesQueueRecords": false,
+  "writesSingerRecords": false,
+  "searchesRealCatalog": false,
+  "storesPersonalData": false,
+  "moderatesRequests": false,
+  "sendsNotifications": false,
+  "searchEmptyStates": [
+    "Start typing a song or artist",
+    "No fixture results found",
+    "Try a title, artist, or duet keyword"
+  ],
+  "recentSongs": [
+    {
+      "title": "Fixture Recent Song",
+      "artist": "Demo Artist",
+      "lastRequested": "Preview only"
+    },
+    {
+      "title": "Fixture Encore",
+      "artist": "Demo Band",
+      "lastRequested": "Preview only"
+    }
+  ],
+  "popularSongs": [
+    {
+      "title": "Fixture Crowd Favorite",
+      "artist": "Demo Artist",
+      "requestCount": 12
+    },
+    {
+      "title": "Fixture Singalong",
+      "artist": "Demo Group",
+      "requestCount": 9
+    }
+  ],
+  "favourites": [
+    {
+      "title": "Fixture Favourite",
+      "artist": "Demo Artist",
+      "saved": false
+    },
+    {
+      "title": "Fixture Ballad",
+      "artist": "Demo Singer",
+      "saved": false
+    }
+  ],
+  "singerHistory": [
+    {
+      "singer": "Demo Singer",
+      "title": "Fixture History Song",
+      "status": "Preview only"
+    }
+  ],
+  "requestDraftPreview": {
+    "canSubmitLive": false,
+    "status": "Draft preview only",
+    "keyChangeOptions": [
+      "Original",
+      "+1",
+      "-1",
+      "+2",
+      "-2"
+    ],
+    "duetPartnerPlaceholder": "Duet partner name"
+  }
+}

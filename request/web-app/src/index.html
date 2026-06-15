@@ -47,10 +47,60 @@
         <input id="catalogSearchInput" type="search" autocomplete="off" placeholder="Search song or artist" />
       </label>
       <p id="searchDebounceStatus" class="status-line">Start typing a song or artist.</p>
+      <p id="searchEmptyState" class="empty-state">Try a title, artist, or duet keyword.</p>
       <ul id="catalogSearchResults" class="result-list" aria-label="Catalog search preview results">
         <li><strong>Demo Song</strong><span>Demo Artist · Fixture only</span></li>
         <li><strong>Another Demo Song</strong><span>Another Artist · Fixture only</span></li>
       </ul>
+    </section>
+
+    <section class="panel browse-panel">
+      <h2>Browse ideas</h2>
+      <div class="card-grid">
+        <article>
+          <h3>Recent songs</h3>
+          <p>Fixture Recent Song · Demo Artist</p>
+        </article>
+        <article>
+          <h3>Popular songs</h3>
+          <p>Fixture Crowd Favorite · 12 preview requests</p>
+        </article>
+        <article>
+          <h3>Favourites</h3>
+          <p>Fixture Favourite · saved preview only</p>
+        </article>
+        <article>
+          <h3>Singer history</h3>
+          <p>Fixture History Song · preview only</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel version-panel">
+      <h2>Song details</h2>
+      <p><strong>Duet:</strong> available</p>
+      <p><strong>Alternate versions:</strong> radio edit, acoustic, duet version</p>
+      <p class="helper-text">Duet and alternate-version indicators are display-only in this wave.</p>
+    </section>
+
+    <section class="panel request-draft-panel">
+      <h2>Request draft</h2>
+      <label>
+        Key change
+        <select id="keyChangePreviewSelect">
+          <option>Original</option>
+          <option>+1</option>
+          <option>-1</option>
+          <option>+2</option>
+          <option>-2</option>
+        </select>
+      </label>
+      <label>
+        Duet partner
+        <input id="duetPartnerInput" type="text" autocomplete="off" placeholder="Duet partner name" />
+      </label>
+      <button id="requestPreviewButton" type="button">Preview request</button>
+      <p id="requestPreviewStatus" class="status-line">Request submission is preview-only.</p>
     </section>
 
     <section class="panel tablet-panel">
@@ -62,11 +112,12 @@
     <section class="panel safety-panel">
       <h2>Safety boundary</h2>
       <ul>
-        <li>No request submission</li>
+        <li>No live request submission</li>
         <li>No server API calls</li>
-        <li>No singer record reads or writes</li>
+        <li>No queue or singer record writes</li>
         <li>No real catalog search</li>
         <li>No personal data storage</li>
+        <li>No request moderation actions</li>
       </ul>
     </section>
   </main>

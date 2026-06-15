@@ -390,16 +390,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-343` — Add privacy-safe singer matching.
 - [x] `KARA-344` — Add catalog search.
 - [x] `KARA-345` — Add search debouncing.
-- [ ] `KARA-346` — Add search empty states.
-- [ ] `KARA-347` — Add recent-song browsing.
-- [ ] `KARA-348` — Add popular-song browsing.
-- [ ] `KARA-349` — Add favourites browsing.
-- [ ] `KARA-350` — Add singer-history browsing.
-- [ ] `KARA-351` — Add duet indicators.
-- [ ] `KARA-352` — Add alternate-version display where appropriate.
-- [ ] `KARA-353` — Add request submission.
-- [ ] `KARA-354` — Add optional key-change request.
-- [ ] `KARA-355` — Add optional duet-partner request.
+- [x] `KARA-346` — Add search empty states.
+- [x] `KARA-347` — Add recent-song browsing.
+- [x] `KARA-348` — Add popular-song browsing.
+- [x] `KARA-349` — Add favourites browsing.
+- [x] `KARA-350` — Add singer-history browsing.
+- [x] `KARA-351` — Add duet indicators.
+- [x] `KARA-352` — Add alternate-version display where appropriate.
+- [x] `KARA-353` — Add request submission.
+- [x] `KARA-354` — Add optional key-change request.
+- [x] `KARA-355` — Add optional duet-partner request.
 - [ ] `KARA-356` — Add optional request note.
 - [ ] `KARA-357` — Add request confirmation.
 - [ ] `KARA-358` — Add personal request list.
