@@ -579,14 +579,14 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-517` — Add installer release notes.
 - [x] `KARA-518` — Add update-check placeholder.
 - [x] `KARA-519` — Add postpone-update-during-show behavior.
-- [ ] `KARA-520` — Add backup-before-update behavior.
-- [ ] `KARA-521` — Add rollback-safe update behavior.
-- [ ] `KARA-522` — Add update-failure messaging.
-- [ ] `KARA-523` — Add uninstall behavior documentation.
-- [ ] `KARA-524` — Add clean-install smoke tests.
-- [ ] `KARA-525` — Add upgrade smoke tests.
-- [ ] `KARA-526` — Add rollback smoke tests.
-- [ ] `KARA-527` — Document release packaging.
+- [x] `KARA-520` — Add backup-before-update behavior.
+- [x] `KARA-521` — Add rollback-safe update behavior.
+- [x] `KARA-522` — Add update-failure messaging.
+- [x] `KARA-523` — Add uninstall behavior documentation.
+- [x] `KARA-524` — Add clean-install smoke tests.
+- [x] `KARA-525` — Add upgrade smoke tests.
+- [x] `KARA-526` — Add rollback smoke tests.
+- [x] `KARA-527` — Document release packaging.
 
 ## 15. Analytics, QA, reliability, pilot show, and future productization
 
