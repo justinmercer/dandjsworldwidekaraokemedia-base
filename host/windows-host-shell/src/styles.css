@@ -610,3 +610,20 @@ kbd {
 .playback-controls-panel input[type='range'] {
   width: 100%;
 }
+
+
+.output-controls-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.output-controls-panel select,
+.output-controls-panel input[type='number'],
+.output-controls-panel input[type='range'] {
+  width: 100%;
+}
+
+.output-controls-panel progress {
+  width: 100%;
+  height: 1rem;
+}

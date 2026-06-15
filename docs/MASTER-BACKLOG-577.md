@@ -342,16 +342,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-298` — Add fade-out.
 - [x] `KARA-299` — Add emergency skip.
 - [x] `KARA-300` — Add volume controls.
-- [ ] `KARA-301` — Add output-device selection.
-- [ ] `KARA-302` — Add microphone-recording control placeholders.
-- [ ] `KARA-303` — Add key-change controls.
-- [ ] `KARA-304` — Add tempo controls.
-- [ ] `KARA-305` — Add reset-to-default controls.
-- [ ] `KARA-306` — Add playback progress.
-- [ ] `KARA-307` — Add remaining-time display.
-- [ ] `KARA-308` — Add end-of-track detection.
-- [ ] `KARA-309` — Add filler-audio hooks.
-- [ ] `KARA-310` — Add filler-audio enable and disable control.
+- [x] `KARA-301` — Add output-device selection.
+- [x] `KARA-302` — Add microphone-recording control placeholders.
+- [x] `KARA-303` — Add key-change controls.
+- [x] `KARA-304` — Add tempo controls.
+- [x] `KARA-305` — Add reset-to-default controls.
+- [x] `KARA-306` — Add playback progress.
+- [x] `KARA-307` — Add remaining-time display.
+- [x] `KARA-308` — Add end-of-track detection.
+- [x] `KARA-309` — Add filler-audio hooks.
+- [x] `KARA-310` — Add filler-audio enable and disable control.
 - [ ] `KARA-311` — Add filler-audio volume settings.
 - [ ] `KARA-312` — Add preview-window plumbing.
 - [ ] `KARA-313` — Add external display window.

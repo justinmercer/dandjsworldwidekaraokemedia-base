@@ -1,0 +1,35 @@
+{
+  "fixturePurpose": "Output controls preview tests only",
+  "enumeratesDevices": false,
+  "selectsRealOutputDevice": false,
+  "accessesMicrophone": false,
+  "startsRecording": false,
+  "playsAudio": false,
+  "readsMediaFiles": false,
+  "writesControlState": false,
+  "outputDevicePreview": {
+    "selectedLabel": "House speakers placeholder",
+    "deviceId": "preview-only"
+  },
+  "microphoneRecordingPreview": {
+    "armed": false,
+    "recording": false,
+    "inputLabel": "Mic input placeholder"
+  },
+  "tuningPreview": {
+    "keySemitones": 0,
+    "tempoPercent": 100,
+    "resetAvailable": true
+  },
+  "progressPreview": {
+    "positionSeconds": 45,
+    "durationSeconds": 210,
+    "remainingSeconds": 165,
+    "endDetected": false
+  },
+  "fillerPreview": {
+    "hooksAvailable": true,
+    "enabled": false,
+    "volumePercent": 25
+  }
+}

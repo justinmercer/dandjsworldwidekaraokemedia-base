@@ -196,6 +196,19 @@ function showDiscardSessionPreview() {
   appendActivityLog('Session recovery', 'Discard preview opened without changing live state.');
 }
 
+function appendOutputControlsAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  outputControlsAuditPreview.prepend(item);
+}
+
+function showOutputControlPreview(kind, message) {
+  outputControlDialogText.textContent = message;
+  outputControlDialog.showModal();
+  appendOutputControlsAudit(kind, `${message} No device, microphone, recording, media, or output action occurred.`);
+  appendActivityLog('Output control', `${kind} preview opened without device access.`);
+}
+
 function appendPlaybackAudit(kind, message) {
   const item = document.createElement('li');
   item.innerHTML = `<strong>${kind}:</strong> ${message}`;
@@ -297,6 +310,17 @@ const closeRestoreSessionButton = document.querySelector('#closeRestoreSessionBu
 const closeDiscardSessionButton = document.querySelector('#closeDiscardSessionButton');
 const sessionRecoveryAuditPreview = document.querySelector('#sessionRecoveryAuditPreview');
 const playbackAuditPreview = document.querySelector('#playbackAuditPreview');
+const outputControlsAuditPreview = document.querySelector('#outputControlsAuditPreview');
+const outputDevicePreviewSelect = document.querySelector('#outputDevicePreviewSelect');
+const micArmPreviewButton = document.querySelector('#micArmPreviewButton');
+const micRecordPreviewButton = document.querySelector('#micRecordPreviewButton');
+const keyChangePreviewInput = document.querySelector('#keyChangePreviewInput');
+const tempoPreviewInput = document.querySelector('#tempoPreviewInput');
+const resetDefaultsPreviewButton = document.querySelector('#resetDefaultsPreviewButton');
+const fillerEnabledPreviewToggle = document.querySelector('#fillerEnabledPreviewToggle');
+const outputControlDialog = document.querySelector('#outputControlDialog');
+const outputControlDialogText = document.querySelector('#outputControlDialogText');
+const closeOutputControlButton = document.querySelector('#closeOutputControlButton');
 const playPreviewButton = document.querySelector('#playPreviewButton');
 const pausePreviewButton = document.querySelector('#pausePreviewButton');
 const stopPreviewButton = document.querySelector('#stopPreviewButton');
@@ -382,6 +406,19 @@ restoreSessionPreviewButton.addEventListener('click', () => showRestoreSessionPr
 discardSessionPreviewButton.addEventListener('click', () => showDiscardSessionPreview());
 closeRestoreSessionButton.addEventListener('click', () => restoreSessionDialog.close());
 closeDiscardSessionButton.addEventListener('click', () => discardSessionDialog.close());
+outputDevicePreviewSelect.addEventListener('change', () => showOutputControlPreview('Output device', 'Output-device selection preview changed.'));
+micArmPreviewButton.addEventListener('click', () => showOutputControlPreview('Mic arm', 'Microphone arm placeholder displayed.'));
+micRecordPreviewButton.addEventListener('click', () => showOutputControlPreview('Recording', 'Recording placeholder displayed.'));
+keyChangePreviewInput.addEventListener('change', () => showOutputControlPreview('Key change', `Key preview changed to ${keyChangePreviewInput.value} semitones.`));
+tempoPreviewInput.addEventListener('change', () => showOutputControlPreview('Tempo', `Tempo preview changed to ${tempoPreviewInput.value}%.`));
+resetDefaultsPreviewButton.addEventListener('click', () => {
+  keyChangePreviewInput.value = 0;
+  tempoPreviewInput.value = 100;
+  showOutputControlPreview('Defaults', 'Reset-to-default controls preview displayed.');
+});
+fillerEnabledPreviewToggle.addEventListener('change', () => showOutputControlPreview('Filler hook', `Filler placeholder preview ${fillerEnabledPreviewToggle.checked ? 'enabled' : 'disabled'}.`));
+closeOutputControlButton.addEventListener('click', () => outputControlDialog.close());
+
 playPreviewButton.addEventListener('click', () => showPlaybackControlPreview('Play', 'Play preview displayed.'));
 pausePreviewButton.addEventListener('click', () => showPlaybackControlPreview('Pause', 'Pause preview displayed.'));
 stopPreviewButton.addEventListener('click', () => showPlaybackControlPreview('Stop', 'Stop preview displayed.'));
@@ -434,6 +471,7 @@ document.addEventListener('keydown', (event) => {
     if (restoreSessionDialog.open) restoreSessionDialog.close();
     if (discardSessionDialog.open) discardSessionDialog.close();
     if (playbackControlDialog.open) playbackControlDialog.close();
+    if (outputControlDialog.open) outputControlDialog.close();
     return;
   }
 
@@ -595,5 +633,22 @@ window.DJKaraokeHostShell = Object.freeze({
   playbackStartsAudio: false,
   playbackReadsMediaFiles: false,
   playbackChangesAudioOutput: false,
-  playbackWritesState: false
+  playbackWritesState: false,
+  outputDeviceSelectionPreviewEnabled: true,
+  microphoneRecordingControlPlaceholdersEnabled: true,
+  keyChangeControlsPreviewEnabled: true,
+  tempoControlsPreviewEnabled: true,
+  resetToDefaultControlsPreviewEnabled: true,
+  playbackProgressPreviewEnabled: true,
+  remainingTimeDisplayPreviewEnabled: true,
+  endOfTrackDetectionPreviewEnabled: true,
+  fillerHooksPreviewEnabled: true,
+  fillerEnableDisablePreviewEnabled: true,
+  outputControlsEnumerateDevices: false,
+  outputControlsSelectRealDevice: false,
+  outputControlsAccessMicrophone: false,
+  outputControlsStartRecording: false,
+  outputControlsPlayAudio: false,
+  outputControlsReadMediaFiles: false,
+  outputControlsWriteState: false
 });
