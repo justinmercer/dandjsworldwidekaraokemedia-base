@@ -1,0 +1,45 @@
+{
+  "fixturePurpose": "Host checks and troubleshooting preview tests only",
+  "runsRealPlayback": false,
+  "controlsLiveShow": false,
+  "changesDisplayState": false,
+  "reconnectsMonitors": false,
+  "registersKeyboardHooks": false,
+  "readsMediaFiles": false,
+  "writesRuntimeState": false,
+  "checks": [
+    {
+      "id": "KARA-331",
+      "label": "Playback-control tests preview",
+      "status": "fixture-only"
+    },
+    {
+      "id": "KARA-332",
+      "label": "External-display state tests preview",
+      "status": "fixture-only"
+    },
+    {
+      "id": "KARA-333",
+      "label": "Monitor reconnect tests preview",
+      "status": "fixture-only"
+    },
+    {
+      "id": "KARA-334",
+      "label": "Keyboard shortcut tests preview",
+      "status": "fixture-only"
+    },
+    {
+      "id": "KARA-335",
+      "label": "Live-show playback troubleshooting docs",
+      "status": "documented"
+    }
+  ],
+  "troubleshootingPreview": {
+    "problem": "Audience display or controls are not responding",
+    "safeOperatorSteps": [
+      "Check preview-only status panel",
+      "Confirm no real output state changed",
+      "Restart host shell only after saving session notes"
+    ]
+  }
+}

@@ -23,6 +23,7 @@
         <a class="nav-item" href="#output-controls">Output Controls</a>
         <a class="nav-item" href="#display-shell">Audience Display</a>
         <a class="nav-item" href="#theme-shell">Theme Shell</a>
+        <a class="nav-item" href="#host-checks">Host Checks</a>
         <a class="nav-item" href="#singer-profiles">Singer Profiles</a>
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
@@ -226,6 +227,52 @@
           <ul id="rotationAuditPreview" class="activity-log-list" aria-label="Rotation audit preview">
             <li><strong>Session:</strong> Demo show session shell loaded.</li>
             <li><strong>Rotation:</strong> Fair-round preview with no live change.</li>
+          </ul>
+        </article>
+
+        <article class="panel host-checks-panel" id="host-checks">
+          <div class="panel-header">
+            <p class="eyebrow">Host Checks</p>
+            <span>Preview Shell</span>
+          </div>
+
+          <section class="wizard-step">
+            <h3>Playback-control tests</h3>
+            <button id="controlChecksPreviewButton" type="button">Preview control checks</button>
+            <p class="helper-text">No real playback, media read, or live-show state change occurs.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>External-display state tests</h3>
+            <button id="displayStateChecksPreviewButton" type="button">Preview display-state checks</button>
+            <p class="helper-text">No real monitor state, window state, or full-screen mode is changed.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Monitor reconnect tests</h3>
+            <button id="monitorReconnectChecksPreviewButton" type="button">Preview reconnect checks</button>
+            <p class="helper-text">No real monitor reconnect, enumeration, or routing is attempted.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Keyboard shortcut tests</h3>
+            <button id="keyboardShortcutChecksPreviewButton" type="button">Preview shortcut checks</button>
+            <p class="helper-text">No global keyboard hooks are registered in this wave.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Live-show troubleshooting</h3>
+            <button id="troubleshootingPreviewButton" type="button">Preview troubleshooting guide</button>
+            <ol class="checklist-preview">
+              <li>Confirm host shell is still responsive.</li>
+              <li>Confirm preview-only controls did not change live state.</li>
+              <li>Use saved session notes before restarting anything.</li>
+            </ol>
+          </section>
+
+          <ul id="hostChecksAuditPreview" class="activity-log-list" aria-label="Host checks audit preview">
+            <li><strong>Host checks:</strong> Preview test shell loaded without runtime control access.</li>
+            <li><strong>Safety:</strong> Playback, display state, monitor reconnect, keyboard hooks, media reads, and runtime writes remain disabled.</li>
           </ul>
         </article>
 
@@ -832,6 +879,12 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="hostChecksDialog" class="shortcut-dialog" aria-labelledby="hostChecksDialogTitle">
+    <h2 id="hostChecksDialogTitle">Host Checks Preview</h2>
+    <p id="hostChecksDialogText">This host check is preview-only. It does not control playback, displays, monitors, shortcuts, files, or live-show state.</p>
+    <button id="closeHostChecksButton" type="button">Close checks preview</button>
+  </dialog>
 
   <dialog id="themeShellDialog" class="shortcut-dialog" aria-labelledby="themeShellDialogTitle">
     <h2 id="themeShellDialogTitle">Theme Shell Preview</h2>

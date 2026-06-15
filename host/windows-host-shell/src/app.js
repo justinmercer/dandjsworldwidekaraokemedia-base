@@ -196,6 +196,19 @@ function showDiscardSessionPreview() {
   appendActivityLog('Session recovery', 'Discard preview opened without changing live state.');
 }
 
+function appendHostChecksAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  hostChecksAuditPreview.prepend(item);
+}
+
+function showHostChecksPreview(kind, message) {
+  hostChecksDialogText.textContent = message;
+  hostChecksDialog.showModal();
+  appendHostChecksAudit(kind, `${message} No playback, display state, monitor reconnect, keyboard hook, file read, or runtime write occurred.`);
+  appendActivityLog('Host checks', `${kind} preview opened without live control access.`);
+}
+
 function appendThemeShellAudit(kind, message) {
   const item = document.createElement('li');
   item.innerHTML = `<strong>${kind}:</strong> ${message}`;
@@ -370,6 +383,15 @@ const demoFixturePreviewButton = document.querySelector('#demoFixturePreviewButt
 const themeShellDialog = document.querySelector('#themeShellDialog');
 const themeShellDialogText = document.querySelector('#themeShellDialogText');
 const closeThemeShellButton = document.querySelector('#closeThemeShellButton');
+const hostChecksAuditPreview = document.querySelector('#hostChecksAuditPreview');
+const controlChecksPreviewButton = document.querySelector('#controlChecksPreviewButton');
+const displayStateChecksPreviewButton = document.querySelector('#displayStateChecksPreviewButton');
+const monitorReconnectChecksPreviewButton = document.querySelector('#monitorReconnectChecksPreviewButton');
+const keyboardShortcutChecksPreviewButton = document.querySelector('#keyboardShortcutChecksPreviewButton');
+const troubleshootingPreviewButton = document.querySelector('#troubleshootingPreviewButton');
+const hostChecksDialog = document.querySelector('#hostChecksDialog');
+const hostChecksDialogText = document.querySelector('#hostChecksDialogText');
+const closeHostChecksButton = document.querySelector('#closeHostChecksButton');
 const playPreviewButton = document.querySelector('#playPreviewButton');
 const pausePreviewButton = document.querySelector('#pausePreviewButton');
 const stopPreviewButton = document.querySelector('#stopPreviewButton');
@@ -455,6 +477,13 @@ restoreSessionPreviewButton.addEventListener('click', () => showRestoreSessionPr
 discardSessionPreviewButton.addEventListener('click', () => showDiscardSessionPreview());
 closeRestoreSessionButton.addEventListener('click', () => restoreSessionDialog.close());
 closeDiscardSessionButton.addEventListener('click', () => discardSessionDialog.close());
+controlChecksPreviewButton.addEventListener('click', () => showHostChecksPreview('Control checks', 'Playback-control test preview displayed.'));
+displayStateChecksPreviewButton.addEventListener('click', () => showHostChecksPreview('Display-state checks', 'External-display state test preview displayed.'));
+monitorReconnectChecksPreviewButton.addEventListener('click', () => showHostChecksPreview('Monitor reconnect checks', 'Monitor reconnect test preview displayed.'));
+keyboardShortcutChecksPreviewButton.addEventListener('click', () => showHostChecksPreview('Shortcut checks', 'Keyboard shortcut test preview displayed.'));
+troubleshootingPreviewButton.addEventListener('click', () => showHostChecksPreview('Troubleshooting', 'Live-show troubleshooting guide preview displayed.'));
+closeHostChecksButton.addEventListener('click', () => hostChecksDialog.close());
+
 venueLogoOverlayPreviewToggle.addEventListener('change', () => showThemeShellPreview('Venue logo', `Venue logo overlay placeholder ${venueLogoOverlayPreviewToggle.checked ? 'enabled' : 'disabled'}.`));
 customBackgroundPreviewSelect.addEventListener('change', () => showThemeShellPreview('Background', 'Custom background placeholder changed.'));
 cameraBackgroundPreviewButton.addEventListener('click', () => showThemeShellPreview('Camera background', 'Camera-background placeholder displayed.'));
@@ -544,6 +573,7 @@ document.addEventListener('keydown', (event) => {
     if (outputControlDialog.open) outputControlDialog.close();
     if (displayShellDialog.open) displayShellDialog.close();
     if (themeShellDialog.open) themeShellDialog.close();
+    if (hostChecksDialog.open) hostChecksDialog.close();
     return;
   }
 
@@ -758,5 +788,17 @@ window.DJKaraokeHostShell = Object.freeze({
   themeShellChangesRealMonitorState: false,
   themeShellControlsLiveShow: false,
   themeShellReadsMediaFiles: false,
-  themeShellWritesState: false
+  themeShellWritesState: false,
+  playbackControlTestsPreviewEnabled: true,
+  externalDisplayStateTestsPreviewEnabled: true,
+  monitorReconnectTestsPreviewEnabled: true,
+  keyboardShortcutTestsPreviewEnabled: true,
+  liveShowTroubleshootingDocsEnabled: true,
+  hostChecksRunRealPlayback: false,
+  hostChecksControlLiveShow: false,
+  hostChecksChangeDisplayState: false,
+  hostChecksReconnectMonitors: false,
+  hostChecksRegisterKeyboardHooks: false,
+  hostChecksReadMediaFiles: false,
+  hostChecksWriteRuntimeState: false
 });
