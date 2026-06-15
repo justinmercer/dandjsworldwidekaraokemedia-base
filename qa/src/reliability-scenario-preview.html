@@ -1,0 +1,74 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke Reliability Scenario Preview</title>
+</head>
+<body>
+  <main class="reliability-scenario-preview-shell">
+    <section>
+      <p>D & J's Karaoke</p>
+      <h1>Reliability scenario preview shell</h1>
+      <p>Static preview only. No storage probing, restart command, shutdown command, OBS connection, Replay connection, monitor probing, database read, network request, or file write is performed.</p>
+    </section>
+
+    <section>
+      <h2>Insufficient-storage test scenario</h2>
+      <p>Insufficient-storage test scenario preview only. No storage is probed.</p>
+    </section>
+
+    <section>
+      <h2>Host-restart recovery test scenario</h2>
+      <p>Host-restart recovery test scenario preview only. No restart command is run.</p>
+    </section>
+
+    <section>
+      <h2>Unclean-shutdown recovery test scenario</h2>
+      <p>Unclean-shutdown recovery test scenario preview only. No shutdown command is run.</p>
+    </section>
+
+    <section>
+      <h2>OBS companion outage test scenario</h2>
+      <p>OBS companion outage test scenario preview only. No OBS connection is opened.</p>
+    </section>
+
+    <section>
+      <h2>Replay adapter outage test scenario</h2>
+      <p>Replay adapter outage test scenario preview only. No Replay connection is opened.</p>
+    </section>
+
+    <section>
+      <h2>External-monitor disconnect test scenario</h2>
+      <p>External-monitor disconnect test scenario preview only. No monitor probing is performed.</p>
+    </section>
+
+    <section>
+      <h2>Empty-library startup test scenario</h2>
+      <p>Empty-library startup test scenario preview only. No catalog database is read.</p>
+    </section>
+
+    <section>
+      <h2>Empty-show startup test scenario</h2>
+      <p>Empty-show startup test scenario preview only. No show database is read.</p>
+    </section>
+
+    <section>
+      <h2>Safety boundary</h2>
+      <ul>
+        <li>No storage probing</li>
+        <li>No restart command</li>
+        <li>No shutdown command</li>
+        <li>No OBS connection</li>
+        <li>No Replay connection</li>
+        <li>No monitor probing</li>
+        <li>No catalog database reads</li>
+        <li>No show database reads</li>
+        <li>No network request</li>
+        <li>No filesystem writes beyond fixtures</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
