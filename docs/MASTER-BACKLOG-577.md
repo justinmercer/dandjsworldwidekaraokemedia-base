@@ -439,16 +439,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-389` — Add duplicate-request detection.
 - [x] `KARA-390` — Add per-singer request limits.
 - [x] `KARA-391` — Add host override for request limits.
-- [ ] `KARA-392` — Add venue default request limits.
-- [ ] `KARA-393` — Add request-status updates back to guests.
-- [ ] `KARA-394` — Add request audit history.
-- [ ] `KARA-395` — Add missing-song state.
-- [ ] `KARA-396` — Create missing-song review queue.
-- [ ] `KARA-397` — Search the authorized catalog before any external search.
-- [ ] `KARA-398` — Add official YouTube Data API configuration placeholders.
-- [ ] `KARA-399` — Add official YouTube search integration.
-- [ ] `KARA-400` — Limit YouTube search to host-reviewed missing-song workflows.
-- [ ] `KARA-401` — Add cached search results.
+- [x] `KARA-392` — Add venue default request limits.
+- [x] `KARA-393` — Add request-status updates back to guests.
+- [x] `KARA-394` — Add request audit history.
+- [x] `KARA-395` — Add missing-song state.
+- [x] `KARA-396` — Create missing-song review queue.
+- [x] `KARA-397` — Search the authorized catalog before any external search.
+- [x] `KARA-398` — Add official YouTube Data API configuration placeholders.
+- [x] `KARA-399` — Add official YouTube search integration.
+- [x] `KARA-400` — Limit YouTube search to host-reviewed missing-song workflows.
+- [x] `KARA-401` — Add cached search results.
 - [ ] `KARA-402` — Add quota-friendly search behavior.
 - [ ] `KARA-403` — Add candidate ranking.
 - [ ] `KARA-404` — Rank exact title matches.
