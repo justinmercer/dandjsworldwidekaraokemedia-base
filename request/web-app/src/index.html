@@ -39,6 +39,13 @@
       <p class="helper-text">Route placeholder only. No venue lookup is performed.</p>
     </section>
 
+    <section class="panel branding-panel">
+      <h2>Venue branding</h2>
+      <p class="brand-main">D & J's Karaoke</p>
+      <p class="brand-venue">Friday Night Karaoke</p>
+      <p class="helper-text">Venue branding override preview only.</p>
+    </section>
+
     <section class="panel access-panel">
       <h2>Venue access code</h2>
       <label>
@@ -73,6 +80,35 @@
       </ul>
     </section>
 
+    <section class="panel browse-panel">
+      <h2>Browse ideas</h2>
+      <div class="card-grid">
+        <article>
+          <h3>Recent songs</h3>
+          <p>Fixture Recent Song · Demo Artist</p>
+        </article>
+        <article>
+          <h3>Popular songs</h3>
+          <p>Fixture Crowd Favorite · 12 preview requests</p>
+        </article>
+        <article>
+          <h3>Favourites</h3>
+          <p>Fixture Favourite · saved preview only</p>
+        </article>
+        <article>
+          <h3>Singer history</h3>
+          <p>Fixture History Song · preview only</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel version-panel">
+      <h2>Song details</h2>
+      <p><strong>Duet:</strong> available</p>
+      <p><strong>Alternate versions:</strong> radio edit, acoustic, duet version</p>
+      <p class="helper-text">Duet and alternate-version indicators are display-only in this wave.</p>
+    </section>
+
     <section class="panel request-draft-panel">
       <h2>Request draft</h2>
       <label>
@@ -95,6 +131,36 @@
       </label>
       <button id="requestPreviewButton" type="button">Preview request</button>
       <p id="requestPreviewStatus" class="status-line">Request submission is preview-only.</p>
+    </section>
+
+    <section class="panel confirmation-panel">
+      <h2>Request confirmation</h2>
+      <p id="confirmationPreview">Request preview confirmed. Nothing was submitted.</p>
+      <p class="helper-text">Confirmation is draft-preview only.</p>
+    </section>
+
+    <section class="panel my-requests-panel">
+      <h2>My request list</h2>
+      <p class="limit-message">Preview limit: 2 active requests</p>
+      <p class="wait-message">Estimated wait: about 3 singers</p>
+      <ul class="status-list" aria-label="Personal request list preview">
+        <li><strong>Fixture Recent Song</strong><span>Draft preview</span></li>
+        <li><strong>Fixture Crowd Favorite</strong><span>Waiting preview</span></li>
+      </ul>
+      <div class="status-pills" aria-label="Request statuses preview">
+        <span>Draft preview</span>
+        <span>Waiting preview</span>
+        <span>Called preview</span>
+        <span>Complete preview</span>
+      </div>
+    </section>
+
+    <section class="panel connection-panel">
+      <h2>Connection mode</h2>
+      <p><strong>Local:</strong> Local network mode preview</p>
+      <p><strong>Cloud:</strong> Cloud mode preview</p>
+      <p><strong>Fallback:</strong> Automatic fallback message preview only</p>
+      <p id="connectionModeStatus" class="status-line">No connection mode changes.</p>
     </section>
 
     <section class="panel mobile-test-panel" aria-labelledby="mobileTestTitle">
@@ -135,6 +201,30 @@
       <p class="helper-text">Kiosk controls are large preview buttons only.</p>
     </section>
 
+    <section class="panel kiosk-session-panel" aria-labelledby="kioskSessionTitle">
+      <h2 id="kioskSessionTitle">Kiosk session safety</h2>
+      <p><strong>Idle timeout preview:</strong> 45 second countdown marker</p>
+      <p><strong>Automatic reset preview:</strong> no data is cleared in this fixture</p>
+      <p><strong>QR fallback preview:</strong> /tablet/demo-venue/qr-fallback</p>
+      <p class="helper-text">Kiosk timeout, automatic reset, and QR fallback are display-only in this wave.</p>
+    </section>
+
+    <section class="panel kiosk-responsive-panel" aria-labelledby="kioskResponsiveTitle">
+      <h2 id="kioskResponsiveTitle">Kiosk responsive test fixtures</h2>
+      <ul class="status-list">
+        <li><strong>Tablet portrait</strong><span>768 × 1024 preview</span></li>
+        <li><strong>Tablet landscape</strong><span>1024 × 768 preview</span></li>
+        <li><strong>Small kiosk</strong><span>800 × 600 preview</span></li>
+        <li><strong>Large kiosk</strong><span>1366 × 768 preview</span></li>
+      </ul>
+    </section>
+
+    <section class="panel router-doc-panel" aria-labelledby="routerDocTitle">
+      <h2 id="routerDocTitle">Venue-router local mode docs</h2>
+      <p>Local request-mode setup notes are documented.</p>
+      <p class="helper-text">No router settings, ports, DNS, or firewall rules are changed.</p>
+    </section>
+
     <section class="panel safety-panel">
       <h2>Safety boundary</h2>
       <ul>
@@ -143,6 +233,10 @@
         <li>No queue or singer record writes</li>
         <li>No service worker registration</li>
         <li>No runtime offline caching</li>
+        <li>No kiosk data reset</li>
+        <li>No router setting changes</li>
+        <li>No venue access-code validation</li>
+        <li>No connection mode changes</li>
         <li>No personal data storage</li>
       </ul>
     </section>

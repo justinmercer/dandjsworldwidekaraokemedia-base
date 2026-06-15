@@ -220,3 +220,21 @@ textarea {
     font-size: 2rem;
   }
 }
+
+
+.kiosk-session-panel,
+.kiosk-responsive-panel,
+.router-doc-panel {
+  outline: 1px solid rgba(34, 197, 94, 0.12);
+}
+
+.kiosk-session-panel strong,
+.router-doc-panel strong {
+  color: #bfdbfe;
+}
+
+@media (min-width: 768px) {
+  .kiosk-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
