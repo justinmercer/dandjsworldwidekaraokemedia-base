@@ -1,0 +1,84 @@
+{
+  "fixturePurpose": "Missing-song and safe YouTube preview shell fixtures only",
+  "callsYouTubeDataApi": false,
+  "performsExternalSearch": false,
+  "embedsYouTubePlayer": false,
+  "downloadsMedia": false,
+  "cachesRuntimeResults": false,
+  "writesQueueRecords": false,
+  "writesSingerRecords": false,
+  "writesAuditHistory": false,
+  "updatesGuestStatus": false,
+  "modifiesVenueDefaultLimits": false,
+  "venueDefaultRequestLimitsPreview": {
+    "defaultPerSingerLimit": 2,
+    "hostOverrideAllowed": true,
+    "savedToDatabase": false
+  },
+  "requestStatusBackToGuestPreview": {
+    "pending": "Pending host review preview",
+    "approved": "Approved preview",
+    "rejected": "Needs another song preview",
+    "missingSong": "Missing-song review preview"
+  },
+  "requestAuditHistoryPreview": [
+    {
+      "event": "Incoming request received preview",
+      "actor": "Fixture host",
+      "writesAuditHistory": false
+    },
+    {
+      "event": "Missing-song review opened preview",
+      "actor": "Fixture host",
+      "writesAuditHistory": false
+    }
+  ],
+  "missingSongStatePreview": {
+    "state": "Missing-song review preview",
+    "reason": "Authorized catalog had no exact fixture match",
+    "createsReviewQueueRecord": false
+  },
+  "missingSongReviewQueuePreview": [
+    {
+      "requestId": "fixture-request-003",
+      "title": "Missing Fixture Song",
+      "artist": "Unknown Fixture Artist",
+      "state": "Needs host review preview"
+    }
+  ],
+  "authorizedCatalogFirstRule": {
+    "requiredBeforeExternalSearch": true,
+    "externalSearchBlockedUntilHostReview": true
+  },
+  "youtubeDataApiConfigPlaceholders": {
+    "apiKeyEnvName": "YOUTUBE_DATA_API_KEY",
+    "enabledEnvName": "YOUTUBE_SEARCH_ENABLED",
+    "enabledByDefault": false,
+    "placeholderOnly": true
+  },
+  "officialYouTubeSearchShell": {
+    "integrationShellOnly": true,
+    "callsOfficialApi": false,
+    "hostReviewedMissingSongOnly": true,
+    "queryPreview": "Missing Fixture Song karaoke",
+    "cachedSearchResultsPreviewOnly": true
+  },
+  "cachedSearchResultsPreview": {
+    "ttlMinutes": 60,
+    "writesRuntimeCache": false,
+    "fixtureResults": [
+      {
+        "title": "Missing Fixture Song - Karaoke Version",
+        "channel": "Fixture Karaoke Channel",
+        "duration": "3:45",
+        "rankReason": "Exact title + karaoke keyword preview"
+      },
+      {
+        "title": "Missing Fixture Song Instrumental",
+        "channel": "Fixture Instrumental Channel",
+        "duration": "3:42",
+        "rankReason": "Instrumental keyword preview"
+      }
+    ]
+  }
+}
