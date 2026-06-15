@@ -483,21 +483,21 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-430` — Add venue local-router notes.
 - [x] `KARA-431` — Add venue default display theme.
 - [x] `KARA-432` — Add venue announcement text.
-- [ ] `KARA-433` — Add venue scrolling-message settings.
-- [ ] `KARA-434` — Add venue opening screen.
-- [ ] `KARA-435` — Add venue closing screen.
-- [ ] `KARA-436` — Add venue saved show preferences.
-- [ ] `KARA-437` — Add venue default filler-audio settings.
-- [ ] `KARA-438` — Add venue default volume settings.
-- [ ] `KARA-439` — Add venue default rotation policy.
-- [ ] `KARA-440` — Add venue QR-code generation.
-- [ ] `KARA-441` — Add printable QR-code sheet.
-- [ ] `KARA-442` — Add table-tent QR layout.
-- [ ] `KARA-443` — Add venue profile import and export.
-- [ ] `KARA-444` — Add venue theme preview.
-- [ ] `KARA-445` — Add venue settings validation.
-- [ ] `KARA-446` — Add venue profile tests.
-- [ ] `KARA-447` — Document venue onboarding.
+- [x] `KARA-433` — Add venue scrolling-message settings.
+- [x] `KARA-434` — Add venue opening screen.
+- [x] `KARA-435` — Add venue closing screen.
+- [x] `KARA-436` — Add venue saved show preferences.
+- [x] `KARA-437` — Add venue default filler-audio settings.
+- [x] `KARA-438` — Add venue default volume settings.
+- [x] `KARA-439` — Add venue default rotation policy.
+- [x] `KARA-440` — Add venue QR-code generation.
+- [x] `KARA-441` — Add printable QR-code sheet.
+- [x] `KARA-442` — Add table-tent QR layout.
+- [x] `KARA-443` — Add venue profile import and export.
+- [x] `KARA-444` — Add venue theme preview.
+- [x] `KARA-445` — Add venue settings validation.
+- [x] `KARA-446` — Add venue profile tests.
+- [x] `KARA-447` — Document venue onboarding.
 
 ## 12. OBS companion, Replay boundary, and performance events
 
