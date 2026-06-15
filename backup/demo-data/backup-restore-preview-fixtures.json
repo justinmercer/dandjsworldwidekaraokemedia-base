@@ -1,0 +1,37 @@
+{
+  "fixturePurpose": "Backup and restore preview shell fixtures only",
+  "performsBackup": false,
+  "performsRestore": false,
+  "createsExportFiles": false,
+  "readsDatabase": false,
+  "writesDatabase": false,
+  "readsSingerHistory": false,
+  "readsHostSettings": false,
+  "writesBackupStorage": false,
+  "hqMetadataBackupPreview": {
+    "label": "HQ metadata backup preview",
+    "includesCatalogMetadata": true,
+    "performsBackup": false
+  },
+  "singerHistoryBackupPreview": {
+    "label": "Singer-history backup preview",
+    "readsSingerHistory": false
+  },
+  "venueProfileBackupPreview": {
+    "label": "Venue-profile backup preview",
+    "performsBackup": false
+  },
+  "showSessionSnapshotExportPreview": {
+    "label": "Show-session snapshot export preview",
+    "createsExportFiles": false
+  },
+  "hostSettingsBackupPreview": {
+    "label": "Host settings backup preview",
+    "readsHostSettings": false
+  },
+  "restorePreview": {
+    "label": "Restore preview",
+    "performsRestore": false,
+    "writesDatabase": false
+  }
+}
