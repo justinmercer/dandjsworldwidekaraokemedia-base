@@ -98,3 +98,10 @@ This wave does not write catalog records, merge records, read media files, move 
 Wave 4C adds the Siglos migration wizard shell, export preview sections, migration validation preview, duplicate warnings, backup-first messaging, migration summary report preview, and test-only Siglos fixture data.
 
 This wave does not read Siglos files, write records, move files, or change local preferences.
+
+
+## Wave 5A additions
+
+Wave 5A adds the singer profile model shell, privacy-safe optional contact preview, staff-only notes preview, favourites and history preview, remembered key-change preview, duet/group support, alias merge warning preview, and repeat singer warning preview.
+
+This wave does not write singer records, merge records, expose contact details publicly, or change rotation.

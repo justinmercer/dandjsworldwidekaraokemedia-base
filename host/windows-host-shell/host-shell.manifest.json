@@ -154,6 +154,19 @@
       "enabled": true,
       "containsRealSiglosExport": false,
       "path": "host/windows-host-shell/demo-data/siglos-export-demo-fixtures.json"
+    },
+    "singerProfileModelShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "privacySafeDefaults": true,
+      "writesSingerRecords": false,
+      "mergesSingerRecords": false,
+      "exposesContactPublicly": false
+    },
+    "singerProfileTestFixtures": {
+      "enabled": true,
+      "containsRealSingerData": false,
+      "path": "host/windows-host-shell/demo-data/singer-profile-demo-fixtures.json"
     }
   }
 }

@@ -289,16 +289,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 07. Singer profiles, rotation, and show-session management
 
-- [ ] `KARA-251` — Create singer-profile models.
-- [ ] `KARA-252` — Add singer display names.
-- [ ] `KARA-253` — Add optional singer contact fields with privacy-safe defaults.
-- [ ] `KARA-254` — Add singer notes visible only to staff.
-- [ ] `KARA-255` — Add singer favourites.
-- [ ] `KARA-256` — Add singer song-history records.
-- [ ] `KARA-257` — Add remembered key changes per singer and song.
-- [ ] `KARA-258` — Add duet and group-performance support.
-- [ ] `KARA-259` — Add singer aliases and merge support.
-- [ ] `KARA-260` — Add repeat-singer detection.
+- [x] `KARA-251` — Create singer-profile models.
+- [x] `KARA-252` — Add singer display names.
+- [x] `KARA-253` — Add optional singer contact fields with privacy-safe defaults.
+- [x] `KARA-254` — Add singer notes visible only to staff.
+- [x] `KARA-255` — Add singer favourites.
+- [x] `KARA-256` — Add singer song-history records.
+- [x] `KARA-257` — Add remembered key changes per singer and song.
+- [x] `KARA-258` — Add duet and group-performance support.
+- [x] `KARA-259` — Add singer aliases and merge support.
+- [x] `KARA-260` — Add repeat-singer detection.
 - [ ] `KARA-261` — Create show-session models.
 - [ ] `KARA-262` — Add show start and end timestamps.
 - [ ] `KARA-263` — Add venue association.

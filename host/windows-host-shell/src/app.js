@@ -125,6 +125,22 @@ function showSiglosMigrationPreview() {
   appendActivityLog('Siglos migration', 'Opened preview summary with no file reads or writes.');
 }
 
+function appendSingerProfileAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  singerProfileAuditPreview.prepend(item);
+}
+
+function showSingerAliasPreview() {
+  singerAliasDialog.showModal();
+  appendSingerProfileAudit('Alias', 'Alias merge preview opened without changing singer records.');
+}
+
+function showRepeatSingerPreview() {
+  repeatSingerDialog.showModal();
+  appendSingerProfileAudit('Repeat warning', 'Repeat singer preview opened without changing rotation.');
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -172,6 +188,13 @@ const importAuditLogPreview = document.querySelector('#importAuditLogPreview');
 const siglosPreviewButton = document.querySelector('#siglosPreviewButton');
 const siglosMigrationDialog = document.querySelector('#siglosMigrationDialog');
 const closeSiglosMigrationButton = document.querySelector('#closeSiglosMigrationButton');
+const aliasMergePreviewButton = document.querySelector('#aliasMergePreviewButton');
+const repeatSingerPreviewButton = document.querySelector('#repeatSingerPreviewButton');
+const singerAliasDialog = document.querySelector('#singerAliasDialog');
+const repeatSingerDialog = document.querySelector('#repeatSingerDialog');
+const closeSingerAliasButton = document.querySelector('#closeSingerAliasButton');
+const closeRepeatSingerButton = document.querySelector('#closeRepeatSingerButton');
+const singerProfileAuditPreview = document.querySelector('#singerProfileAuditPreview');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -223,6 +246,10 @@ mergeDuplicatePreviewButton.addEventListener('click', () => showMergeDuplicatePr
 closeMergeDuplicateButton.addEventListener('click', () => mergeDuplicateDialog.close());
 siglosPreviewButton.addEventListener('click', () => showSiglosMigrationPreview());
 closeSiglosMigrationButton.addEventListener('click', () => siglosMigrationDialog.close());
+aliasMergePreviewButton.addEventListener('click', () => showSingerAliasPreview());
+repeatSingerPreviewButton.addEventListener('click', () => showRepeatSingerPreview());
+closeSingerAliasButton.addEventListener('click', () => singerAliasDialog.close());
+closeRepeatSingerButton.addEventListener('click', () => repeatSingerDialog.close());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -256,6 +283,8 @@ document.addEventListener('keydown', (event) => {
     if (importCancelDialog.open) importCancelDialog.close();
     if (mergeDuplicateDialog.open) mergeDuplicateDialog.close();
     if (siglosMigrationDialog.open) siglosMigrationDialog.close();
+    if (singerAliasDialog.open) singerAliasDialog.close();
+    if (repeatSingerDialog.open) repeatSingerDialog.close();
     return;
   }
 
@@ -347,5 +376,19 @@ window.DJKaraokeHostShell = Object.freeze({
   siglosDemoExportFixturesEnabled: true,
   siglosMigrationTestsEnabled: true,
   siglosMigrationReadsFiles: false,
-  siglosMigrationWritesRecords: false
+  siglosMigrationWritesRecords: false,
+  singerProfileModelShellEnabled: true,
+  singerDisplayNamesEnabled: true,
+  singerOptionalContactPrivacyDefaultsEnabled: true,
+  singerStaffOnlyNotesEnabled: true,
+  singerFavouritesPreviewEnabled: true,
+  singerSongHistoryPreviewEnabled: true,
+  singerRememberedKeyChangePreviewEnabled: true,
+  singerDuetGroupPerformancePreviewEnabled: true,
+  singerAliasMergePreviewEnabled: true,
+  repeatSingerDetectionPreviewEnabled: true,
+  singerProfileContainsRealSingerData: false,
+  singerProfileWritesRecords: false,
+  singerProfileMergesRecords: false,
+  singerContactPublicExposureEnabled: false
 });
