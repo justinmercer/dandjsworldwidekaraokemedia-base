@@ -140,3 +140,10 @@ This wave does not play audio, read media files, change output devices, or write
 Wave 6B adds output-device selection preview, microphone-recording placeholders, key/tempo/reset previews, progress/remaining-time/end-of-track previews, and filler hook enable/disable preview.
 
 This wave does not enumerate real devices, select real devices, access microphones, record audio, play audio, read media files, schedule filler audio, or write control state.
+
+
+## Wave 6C additions
+
+Wave 6C adds filler-volume preview, preview-window plumbing placeholders, external display placeholders, display-selection placeholders, cloned-display placeholders, now-singing/up-next cards, welcome screen preview, and scrolling announcement preview.
+
+This wave does not open real preview windows, open real external display windows, enter full-screen mode, enumerate monitors, select monitors, clone displays, load background files, use cameras, or write display state.

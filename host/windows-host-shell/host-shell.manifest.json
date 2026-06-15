@@ -229,6 +229,23 @@
     "outputControlsFixtures": {
       "enabled": true,
       "path": "host/windows-host-shell/demo-data/output-controls-demo-fixtures.json"
+    },
+    "displayShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "opensRealPreviewWindow": false,
+      "opensRealExternalWindow": false,
+      "entersFullscreen": false,
+      "enumeratesDisplays": false,
+      "selectsDisplay": false,
+      "clonesDisplay": false,
+      "loadsBackgroundFiles": false,
+      "usesCamera": false,
+      "writesDisplayState": false
+    },
+    "displayShellFixtures": {
+      "enabled": true,
+      "path": "host/windows-host-shell/demo-data/display-shell-demo-fixtures.json"
     }
   }
 }

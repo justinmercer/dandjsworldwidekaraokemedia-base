@@ -1,0 +1,38 @@
+{
+  "fixturePurpose": "Display shell preview tests only",
+  "opensRealPreviewWindow": false,
+  "opensRealExternalWindow": false,
+  "entersFullscreen": false,
+  "enumeratesDisplays": false,
+  "selectsDisplay": false,
+  "clonesDisplay": false,
+  "loadsBackgroundFiles": false,
+  "usesCamera": false,
+  "writesDisplayState": false,
+  "fillerVolumePreview": {
+    "enabled": true,
+    "volumePercent": 25
+  },
+  "previewWindowPreview": {
+    "status": "preview plumbing placeholder"
+  },
+  "externalDisplayPreview": {
+    "selectedDisplayLabel": "Display 1 placeholder",
+    "fullscreenPreview": false,
+    "clonedDisplayPreview": false
+  },
+  "audienceCards": {
+    "nowSinging": {
+      "singer": "Jamie",
+      "song": "Sweet Caroline",
+      "artist": "Neil Diamond"
+    },
+    "upNext": {
+      "singer": "Maya",
+      "song": "Dancing Queen",
+      "artist": "ABBA"
+    },
+    "welcomeMessage": "Welcome to D & J Karaoke",
+    "announcement": "Scan the QR code to request your next song."
+  }
+}

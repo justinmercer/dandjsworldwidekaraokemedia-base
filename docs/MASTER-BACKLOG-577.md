@@ -352,16 +352,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-308` — Add end-of-track detection.
 - [x] `KARA-309` — Add filler-audio hooks.
 - [x] `KARA-310` — Add filler-audio enable and disable control.
-- [ ] `KARA-311` — Add filler-audio volume settings.
-- [ ] `KARA-312` — Add preview-window plumbing.
-- [ ] `KARA-313` — Add external display window.
-- [ ] `KARA-314` — Add full-screen external display mode.
-- [ ] `KARA-315` — Add display selection for multi-monitor systems.
-- [ ] `KARA-316` — Add cloned display support placeholders.
-- [ ] `KARA-317` — Add now-singing card.
-- [ ] `KARA-318` — Add up-next card.
-- [ ] `KARA-319` — Add welcome screen.
-- [ ] `KARA-320` — Add scrolling announcement area.
+- [x] `KARA-311` — Add filler-audio volume settings.
+- [x] `KARA-312` — Add preview-window plumbing.
+- [x] `KARA-313` — Add external display window.
+- [x] `KARA-314` — Add full-screen external display mode.
+- [x] `KARA-315` — Add display selection for multi-monitor systems.
+- [x] `KARA-316` — Add cloned display support placeholders.
+- [x] `KARA-317` — Add now-singing card.
+- [x] `KARA-318` — Add up-next card.
+- [x] `KARA-319` — Add welcome screen.
+- [x] `KARA-320` — Add scrolling announcement area.
 - [ ] `KARA-321` — Add venue logo overlay.
 - [ ] `KARA-322` — Add custom background support.
 - [ ] `KARA-323` — Add camera-background placeholder.
