@@ -1,0 +1,49 @@
+{
+  "fixturePurpose": "Request session and status shell fixtures only",
+  "submitsRequests": false,
+  "callsServerApis": false,
+  "writesQueueRecords": false,
+  "writesSingerRecords": false,
+  "storesPersonalData": false,
+  "sendsNotifications": false,
+  "changesNetworkMode": false,
+  "requestNotePreview": {
+    "enabled": true,
+    "storesNote": false,
+    "placeholder": "Optional note for the host"
+  },
+  "confirmationPreview": {
+    "title": "Request preview confirmed",
+    "message": "Nothing was submitted. This confirms the draft only."
+  },
+  "personalRequestList": [
+    {
+      "title": "Fixture Recent Song",
+      "artist": "Demo Artist",
+      "status": "Draft preview"
+    },
+    {
+      "title": "Fixture Crowd Favorite",
+      "artist": "Demo Artist",
+      "status": "Waiting preview"
+    }
+  ],
+  "statuses": [
+    "Draft preview",
+    "Waiting preview",
+    "Called preview",
+    "Complete preview"
+  ],
+  "estimatedWaitDisplay": "About 3 singers",
+  "requestLimitMessage": "Preview limit: 2 active requests",
+  "accessCodePreview": {
+    "route": "/r/demo-venue/access",
+    "validatesCode": false,
+    "placeholder": "Venue access code"
+  },
+  "connectionModes": {
+    "localNetwork": "Local network mode preview",
+    "cloud": "Cloud mode preview",
+    "fallback": "Automatic fallback message preview only"
+  }
+}

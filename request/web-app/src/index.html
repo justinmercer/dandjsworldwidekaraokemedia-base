@@ -29,6 +29,15 @@
       <p class="helper-text">Venue branding override preview only.</p>
     </section>
 
+    <section class="panel access-panel">
+      <h2>Venue access code</h2>
+      <label>
+        Access code
+        <input id="venueAccessCodeInput" type="text" autocomplete="off" placeholder="Venue access code" />
+      </label>
+      <p id="accessCodeStatus" class="status-line">Access-code entry preview only. No code is validated.</p>
+    </section>
+
     <section class="panel singer-panel">
       <h2>Who is singing?</h2>
       <label>
@@ -99,8 +108,42 @@
         Duet partner
         <input id="duetPartnerInput" type="text" autocomplete="off" placeholder="Duet partner name" />
       </label>
+      <label>
+        Optional note
+        <textarea id="requestNoteInput" autocomplete="off" placeholder="Optional note for the host"></textarea>
+      </label>
       <button id="requestPreviewButton" type="button">Preview request</button>
       <p id="requestPreviewStatus" class="status-line">Request submission is preview-only.</p>
+    </section>
+
+    <section class="panel confirmation-panel">
+      <h2>Request confirmation</h2>
+      <p id="confirmationPreview">Request preview confirmed. Nothing was submitted.</p>
+      <p class="helper-text">Confirmation is draft-preview only.</p>
+    </section>
+
+    <section class="panel my-requests-panel">
+      <h2>My request list</h2>
+      <p class="limit-message">Preview limit: 2 active requests</p>
+      <p class="wait-message">Estimated wait: about 3 singers</p>
+      <ul class="status-list" aria-label="Personal request list preview">
+        <li><strong>Fixture Recent Song</strong><span>Draft preview</span></li>
+        <li><strong>Fixture Crowd Favorite</strong><span>Waiting preview</span></li>
+      </ul>
+      <div class="status-pills" aria-label="Request statuses preview">
+        <span>Draft preview</span>
+        <span>Waiting preview</span>
+        <span>Called preview</span>
+        <span>Complete preview</span>
+      </div>
+    </section>
+
+    <section class="panel connection-panel">
+      <h2>Connection mode</h2>
+      <p><strong>Local:</strong> Local network mode preview</p>
+      <p><strong>Cloud:</strong> Cloud mode preview</p>
+      <p><strong>Fallback:</strong> Automatic fallback message preview only</p>
+      <p id="connectionModeStatus" class="status-line">No network mode is changed.</p>
     </section>
 
     <section class="panel tablet-panel">
@@ -115,9 +158,9 @@
         <li>No live request submission</li>
         <li>No server API calls</li>
         <li>No queue or singer record writes</li>
-        <li>No real catalog search</li>
+        <li>No venue access-code validation</li>
+        <li>No connection mode changes</li>
         <li>No personal data storage</li>
-        <li>No request moderation actions</li>
       </ul>
     </section>
   </main>
