@@ -653,3 +653,36 @@ kbd {
 .audience-card h2 {
   margin: 0.25rem 0;
 }
+
+
+.theme-shell-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.theme-shell-panel select {
+  width: 100%;
+}
+
+.logo-overlay-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-chip,
+.theme-preview-strip span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(96, 165, 250, 0.35);
+}
+
+.theme-preview-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

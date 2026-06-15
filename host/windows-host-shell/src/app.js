@@ -196,6 +196,19 @@ function showDiscardSessionPreview() {
   appendActivityLog('Session recovery', 'Discard preview opened without changing live state.');
 }
 
+function appendThemeShellAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  themeShellAuditPreview.prepend(item);
+}
+
+function showThemeShellPreview(kind, message) {
+  themeShellDialogText.textContent = message;
+  themeShellDialog.showModal();
+  appendThemeShellAudit(kind, `${message} No logo file, background file, camera, monitor state, live-show control, or media read occurred.`);
+  appendActivityLog('Theme shell', `${kind} preview opened without live system access.`);
+}
+
 function appendDisplayShellAudit(kind, message) {
   const item = document.createElement('li');
   item.innerHTML = `<strong>${kind}:</strong> ${message}`;
@@ -346,6 +359,17 @@ const announcementPreviewText = document.querySelector('#announcementPreviewText
 const displayShellDialog = document.querySelector('#displayShellDialog');
 const displayShellDialogText = document.querySelector('#displayShellDialogText');
 const closeDisplayShellButton = document.querySelector('#closeDisplayShellButton');
+const themeShellAuditPreview = document.querySelector('#themeShellAuditPreview');
+const venueLogoOverlayPreviewToggle = document.querySelector('#venueLogoOverlayPreviewToggle');
+const customBackgroundPreviewSelect = document.querySelector('#customBackgroundPreviewSelect');
+const cameraBackgroundPreviewButton = document.querySelector('#cameraBackgroundPreviewButton');
+const themePreviewSelect = document.querySelector('#themePreviewSelect');
+const monitorFallbackPreviewButton = document.querySelector('#monitorFallbackPreviewButton');
+const failureIsolationPreviewButton = document.querySelector('#failureIsolationPreviewButton');
+const demoFixturePreviewButton = document.querySelector('#demoFixturePreviewButton');
+const themeShellDialog = document.querySelector('#themeShellDialog');
+const themeShellDialogText = document.querySelector('#themeShellDialogText');
+const closeThemeShellButton = document.querySelector('#closeThemeShellButton');
 const playPreviewButton = document.querySelector('#playPreviewButton');
 const pausePreviewButton = document.querySelector('#pausePreviewButton');
 const stopPreviewButton = document.querySelector('#stopPreviewButton');
@@ -431,6 +455,15 @@ restoreSessionPreviewButton.addEventListener('click', () => showRestoreSessionPr
 discardSessionPreviewButton.addEventListener('click', () => showDiscardSessionPreview());
 closeRestoreSessionButton.addEventListener('click', () => restoreSessionDialog.close());
 closeDiscardSessionButton.addEventListener('click', () => discardSessionDialog.close());
+venueLogoOverlayPreviewToggle.addEventListener('change', () => showThemeShellPreview('Venue logo', `Venue logo overlay placeholder ${venueLogoOverlayPreviewToggle.checked ? 'enabled' : 'disabled'}.`));
+customBackgroundPreviewSelect.addEventListener('change', () => showThemeShellPreview('Background', 'Custom background placeholder changed.'));
+cameraBackgroundPreviewButton.addEventListener('click', () => showThemeShellPreview('Camera background', 'Camera-background placeholder displayed.'));
+themePreviewSelect.addEventListener('change', () => showThemeShellPreview('Theme selection', `${themePreviewSelect.value} theme preview selected.`));
+monitorFallbackPreviewButton.addEventListener('click', () => showThemeShellPreview('Monitor fallback', 'Disconnected-monitor fallback placeholder displayed.'));
+failureIsolationPreviewButton.addEventListener('click', () => showThemeShellPreview('Failure isolation', 'Failure isolation placeholder displayed.'));
+demoFixturePreviewButton.addEventListener('click', () => showThemeShellPreview('Demo fixtures', 'Demo fixture placeholder displayed.'));
+closeThemeShellButton.addEventListener('click', () => themeShellDialog.close());
+
 fillerVolumePreviewInput.addEventListener('change', () => showDisplayShellPreview('Filler volume', `Filler volume preview changed to ${fillerVolumePreviewInput.value}%.`));
 previewWindowPreviewButton.addEventListener('click', () => showDisplayShellPreview('Preview window', 'Preview-window plumbing placeholder displayed.'));
 displaySelectionPreviewSelect.addEventListener('change', () => showDisplayShellPreview('Display selection', 'Display selection placeholder changed.'));
@@ -510,6 +543,7 @@ document.addEventListener('keydown', (event) => {
     if (playbackControlDialog.open) playbackControlDialog.close();
     if (outputControlDialog.open) outputControlDialog.close();
     if (displayShellDialog.open) displayShellDialog.close();
+    if (themeShellDialog.open) themeShellDialog.close();
     return;
   }
 
@@ -707,5 +741,22 @@ window.DJKaraokeHostShell = Object.freeze({
   displayShellClonesDisplay: false,
   displayShellLoadsBackgroundFiles: false,
   displayShellUsesCamera: false,
-  displayShellWritesState: false
+  displayShellWritesState: false,
+  venueLogoOverlayPreviewEnabled: true,
+  customBackgroundSupportPreviewEnabled: true,
+  cameraBackgroundPlaceholderEnabled: true,
+  themeSelectionPreviewEnabled: true,
+  privatePartyThemePreviewEnabled: true,
+  weddingThemePreviewEnabled: true,
+  barNightThemePreviewEnabled: true,
+  monitorDisconnectFallbackPreviewEnabled: true,
+  failureIsolationPreviewEnabled: true,
+  demoFixturesOnlyEnabled: true,
+  themeShellLoadsLogoFiles: false,
+  themeShellLoadsBackgroundFiles: false,
+  themeShellUsesCamera: false,
+  themeShellChangesRealMonitorState: false,
+  themeShellControlsLiveShow: false,
+  themeShellReadsMediaFiles: false,
+  themeShellWritesState: false
 });
