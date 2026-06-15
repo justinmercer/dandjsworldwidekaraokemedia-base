@@ -557,12 +557,12 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 14. Backup, restore, diagnostics, installer, and updates
 
-- [ ] `KARA-498` — Add HQ metadata backup.
-- [ ] `KARA-499` — Add singer-history backup.
-- [ ] `KARA-500` — Add venue-profile backup.
-- [ ] `KARA-501` — Add show-session snapshot export.
-- [ ] `KARA-502` — Add host settings backup.
-- [ ] `KARA-503` — Add restore preview.
+- [x] `KARA-498` — Add HQ metadata backup.
+- [x] `KARA-499` — Add singer-history backup.
+- [x] `KARA-500` — Add venue-profile backup.
+- [x] `KARA-501` — Add show-session snapshot export.
+- [x] `KARA-502` — Add host settings backup.
+- [x] `KARA-503` — Add restore preview.
 - [ ] `KARA-504` — Add restore confirmation.
 - [ ] `KARA-505` — Add restore validation.
 - [ ] `KARA-506` — Add rollback after failed restore.
