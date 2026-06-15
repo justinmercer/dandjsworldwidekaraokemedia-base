@@ -569,3 +569,13 @@ kbd {
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
+
+
+.rotation-session-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.rotation-session-panel .rotation-list li {
+  align-items: flex-start;
+}

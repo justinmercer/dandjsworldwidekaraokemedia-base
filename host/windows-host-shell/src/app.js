@@ -141,6 +141,22 @@ function showRepeatSingerPreview() {
   appendSingerProfileAudit('Repeat warning', 'Repeat singer preview opened without changing rotation.');
 }
 
+function appendRotationAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  rotationAuditPreview.prepend(item);
+}
+
+function showRotationPreview() {
+  rotationPreviewDialog.showModal();
+  appendRotationAudit('Preview', 'Rotation order and wait estimates previewed without changing live state.');
+}
+
+function showRotationPolicyPreview() {
+  rotationPolicyDialog.showModal();
+  appendRotationAudit('Policy', 'Fair-round and priority rules previewed without changing live state.');
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -195,6 +211,13 @@ const repeatSingerDialog = document.querySelector('#repeatSingerDialog');
 const closeSingerAliasButton = document.querySelector('#closeSingerAliasButton');
 const closeRepeatSingerButton = document.querySelector('#closeRepeatSingerButton');
 const singerProfileAuditPreview = document.querySelector('#singerProfileAuditPreview');
+const rotationPreviewButton = document.querySelector('#rotationPreviewButton');
+const rotationPolicyButton = document.querySelector('#rotationPolicyButton');
+const rotationPreviewDialog = document.querySelector('#rotationPreviewDialog');
+const rotationPolicyDialog = document.querySelector('#rotationPolicyDialog');
+const closeRotationPreviewButton = document.querySelector('#closeRotationPreviewButton');
+const closeRotationPolicyButton = document.querySelector('#closeRotationPolicyButton');
+const rotationAuditPreview = document.querySelector('#rotationAuditPreview');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -250,6 +273,10 @@ aliasMergePreviewButton.addEventListener('click', () => showSingerAliasPreview()
 repeatSingerPreviewButton.addEventListener('click', () => showRepeatSingerPreview());
 closeSingerAliasButton.addEventListener('click', () => singerAliasDialog.close());
 closeRepeatSingerButton.addEventListener('click', () => repeatSingerDialog.close());
+rotationPreviewButton.addEventListener('click', () => showRotationPreview());
+rotationPolicyButton.addEventListener('click', () => showRotationPolicyPreview());
+closeRotationPreviewButton.addEventListener('click', () => rotationPreviewDialog.close());
+closeRotationPolicyButton.addEventListener('click', () => rotationPolicyDialog.close());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -285,6 +312,8 @@ document.addEventListener('keydown', (event) => {
     if (siglosMigrationDialog.open) siglosMigrationDialog.close();
     if (singerAliasDialog.open) singerAliasDialog.close();
     if (repeatSingerDialog.open) repeatSingerDialog.close();
+    if (rotationPreviewDialog.open) rotationPreviewDialog.close();
+    if (rotationPolicyDialog.open) rotationPolicyDialog.close();
     return;
   }
 
@@ -390,5 +419,23 @@ window.DJKaraokeHostShell = Object.freeze({
   singerProfileContainsRealSingerData: false,
   singerProfileWritesRecords: false,
   singerProfileMergesRecords: false,
-  singerContactPublicExposureEnabled: false
+  singerContactPublicExposureEnabled: false,
+  showSessionModelShellEnabled: true,
+  showSessionTimestampPreviewEnabled: true,
+  showSessionVenueAssociationPreviewEnabled: true,
+  activeRotationStatePreviewEnabled: true,
+  queuedSongsPerSingerPreviewEnabled: true,
+  currentSingerStatePreviewEnabled: true,
+  upNextStatePreviewEnabled: true,
+  temporaryDisableStatePreviewEnabled: true,
+  skipStatePreviewEnabled: true,
+  priorityInsertPreviewEnabled: true,
+  dragDropOrderingPreviewEnabled: true,
+  fairRoundOrderingRulesPreviewEnabled: true,
+  configurableRotationPoliciesPreviewEnabled: true,
+  estimatedWaitCalculationsPreviewEnabled: true,
+  rotationPreviewEnabled: true,
+  showSessionWritesRecords: false,
+  rotationWritesRecords: false,
+  rotationChangesLiveState: false
 });

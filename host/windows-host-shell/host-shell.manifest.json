@@ -167,6 +167,17 @@
       "enabled": true,
       "containsRealSingerData": false,
       "path": "host/windows-host-shell/demo-data/singer-profile-demo-fixtures.json"
+    },
+    "showSessionRotationShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "writesShowSessionRecords": false,
+      "writesRotationRecords": false,
+      "changesLiveRotation": false
+    },
+    "showSessionRotationTestFixtures": {
+      "enabled": true,
+      "path": "host/windows-host-shell/demo-data/show-session-rotation-demo-fixtures.json"
     }
   }
 }

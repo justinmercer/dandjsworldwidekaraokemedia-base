@@ -299,21 +299,21 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-258` — Add duet and group-performance support.
 - [x] `KARA-259` — Add singer aliases and merge support.
 - [x] `KARA-260` — Add repeat-singer detection.
-- [ ] `KARA-261` — Create show-session models.
-- [ ] `KARA-262` — Add show start and end timestamps.
-- [ ] `KARA-263` — Add venue association.
-- [ ] `KARA-264` — Add active rotation state.
-- [ ] `KARA-265` — Add queued songs per singer.
-- [ ] `KARA-266` — Add current singer state.
-- [ ] `KARA-267` — Add up-next state.
-- [ ] `KARA-268` — Add temporary disable state.
-- [ ] `KARA-269` — Add skip state.
-- [ ] `KARA-270` — Add priority insert.
-- [ ] `KARA-271` — Add drag-and-drop ordering.
-- [ ] `KARA-272` — Add fair-round ordering rules.
-- [ ] `KARA-273` — Add configurable rotation policies.
-- [ ] `KARA-274` — Add estimated wait calculations.
-- [ ] `KARA-275` — Add a rotation preview.
+- [x] `KARA-261` — Create show-session models.
+- [x] `KARA-262` — Add show start and end timestamps.
+- [x] `KARA-263` — Add venue association.
+- [x] `KARA-264` — Add active rotation state.
+- [x] `KARA-265` — Add queued songs per singer.
+- [x] `KARA-266` — Add current singer state.
+- [x] `KARA-267` — Add up-next state.
+- [x] `KARA-268` — Add temporary disable state.
+- [x] `KARA-269` — Add skip state.
+- [x] `KARA-270` — Add priority insert.
+- [x] `KARA-271` — Add drag-and-drop ordering.
+- [x] `KARA-272` — Add fair-round ordering rules.
+- [x] `KARA-273` — Add configurable rotation policies.
+- [x] `KARA-274` — Add estimated wait calculations.
+- [x] `KARA-275` — Add a rotation preview.
 - [ ] `KARA-276` — Add a `call singer` action.
 - [ ] `KARA-277` — Add a `singer not ready` action.
 - [ ] `KARA-278` — Add a `move to next round` action.
