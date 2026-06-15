@@ -590,14 +590,14 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 15. Analytics, QA, reliability, pilot show, and future productization
 
-- [ ] `KARA-528` — Create completed-show analytics models.
-- [ ] `KARA-529` — Add singer-count metrics.
-- [ ] `KARA-530` — Add request-volume metrics.
-- [ ] `KARA-531` — Add most-requested-song metrics.
-- [ ] `KARA-532` — Add repeat-singer metrics.
-- [ ] `KARA-533` — Add average-wait metrics.
-- [ ] `KARA-534` — Add venue trend metrics.
-- [ ] `KARA-535` — Add library-gap metrics.
+- [x] `KARA-528` — Create completed-show analytics models.
+- [x] `KARA-529` — Add singer-count metrics.
+- [x] `KARA-530` — Add request-volume metrics.
+- [x] `KARA-531` — Add most-requested-song metrics.
+- [x] `KARA-532` — Add repeat-singer metrics.
+- [x] `KARA-533` — Add average-wait metrics.
+- [x] `KARA-534` — Add venue trend metrics.
+- [x] `KARA-535` — Add library-gap metrics.
 - [ ] `KARA-536` — Add CSV analytics export.
 - [ ] `KARA-537` — Add analytics empty states.
 - [ ] `KARA-538` — Add analytics tests.
