@@ -473,16 +473,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 11. Venue profiles, themes, announcements, and settings
 
-- [ ] `KARA-423` — Create venue-profile models.
-- [ ] `KARA-424` — Add venue name.
-- [ ] `KARA-425` — Add venue address fields.
-- [ ] `KARA-426` — Add venue logo.
-- [ ] `KARA-427` — Add venue contact notes.
-- [ ] `KARA-428` — Add venue request settings.
-- [ ] `KARA-429` — Add venue access-code settings.
-- [ ] `KARA-430` — Add venue local-router notes.
-- [ ] `KARA-431` — Add venue default display theme.
-- [ ] `KARA-432` — Add venue announcement text.
+- [x] `KARA-423` — Create venue-profile models.
+- [x] `KARA-424` — Add venue name.
+- [x] `KARA-425` — Add venue address fields.
+- [x] `KARA-426` — Add venue logo.
+- [x] `KARA-427` — Add venue contact notes.
+- [x] `KARA-428` — Add venue request settings.
+- [x] `KARA-429` — Add venue access-code settings.
+- [x] `KARA-430` — Add venue local-router notes.
+- [x] `KARA-431` — Add venue default display theme.
+- [x] `KARA-432` — Add venue announcement text.
 - [ ] `KARA-433` — Add venue scrolling-message settings.
 - [ ] `KARA-434` — Add venue opening screen.
 - [ ] `KARA-435` — Add venue closing screen.

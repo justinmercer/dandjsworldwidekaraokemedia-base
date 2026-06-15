@@ -1,0 +1,53 @@
+{
+  "fixturePurpose": "Venue profile and settings shell fixtures only",
+  "writesVenueProfile": false,
+  "uploadsLogo": false,
+  "storesLogoFile": false,
+  "generatesAccessCode": false,
+  "changesRouterConfig": false,
+  "changesDns": false,
+  "changesPorts": false,
+  "changesFirewall": false,
+  "writesRuntimeSettings": false,
+  "venueProfileModelPreview": {
+    "venueId": "venue-fixture-001",
+    "venueName": "D & J Fixture Venue",
+    "address": {
+      "line1": "123 Fixture Street",
+      "city": "Orillia",
+      "province": "ON",
+      "postalCode": "L3V 0A0",
+      "country": "Canada"
+    },
+    "logo": {
+      "displayName": "fixture-logo-placeholder.png",
+      "uploadEnabled": false,
+      "storageKey": null
+    },
+    "contactNotes": "Fixture-only contact notes for host reference.",
+    "requestSettings": {
+      "requestsEnabled": true,
+      "maxActiveRequestsPerSinger": 2,
+      "hostApprovalRequired": true,
+      "savedToDatabase": false
+    },
+    "accessCodeSettings": {
+      "guestAccessCodePreview": "FIXTURE-CODE",
+      "generatesAccessCode": false,
+      "savedToDatabase": false
+    },
+    "localRouterNotes": {
+      "notes": "Fixture router notes only. No router changes are made.",
+      "changesRouterConfig": false
+    },
+    "defaultDisplayTheme": {
+      "themeName": "D & J Default Dark",
+      "accent": "gold",
+      "savedToRuntime": false
+    },
+    "announcementText": {
+      "message": "Welcome to D & J Karaoke!",
+      "savedToRuntime": false
+    }
+  }
+}
