@@ -626,13 +626,13 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-561` — Create post-show checklist.
 - [x] `KARA-562` — Create known-limitations document.
 - [x] `KARA-563` — Create operator quick-start guide.
-- [ ] `KARA-564` — Create host troubleshooting guide.
-- [ ] `KARA-565` — Create venue-router troubleshooting guide.
-- [ ] `KARA-566` — Create OBS companion troubleshooting guide.
-- [ ] `KARA-567` — Create recovery drill guide.
-- [ ] `KARA-568` — Create first-pilot feedback form.
-- [ ] `KARA-569` — Create bug-triage workflow.
-- [ ] `KARA-570` — Create release-blocker criteria.
+- [x] `KARA-564` — Create host troubleshooting guide.
+- [x] `KARA-565` — Create venue-router troubleshooting guide.
+- [x] `KARA-566` — Create OBS companion troubleshooting guide.
+- [x] `KARA-567` — Create recovery drill guide.
+- [x] `KARA-568` — Create first-pilot feedback form.
+- [x] `KARA-569` — Create bug-triage workflow.
+- [x] `KARA-570` — Create release-blocker criteria.
 - [ ] `KARA-571` — Create Phase 2 backlog document.
 - [ ] `KARA-572` — Create future licensing model placeholder.
 - [ ] `KARA-573` — Create future multi-tenant architecture notes.

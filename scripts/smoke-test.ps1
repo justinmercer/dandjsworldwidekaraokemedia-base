@@ -173,6 +173,7 @@ $requiredFiles = @(
   'scripts/reliability-scenario-preview-smoke-test.ps1',
   'scripts/performance-baseline-preview-smoke-test.ps1',
   'scripts/load-readiness-operator-smoke-test.ps1',
+  'scripts/operator-troubleshooting-triage-smoke-test.ps1',
   'scripts/hq-api-load-test-preview.ps1',
   'scripts/request-web-load-test-preview.ps1',
   'host/windows-host-shell/demo-data/output-controls-demo-fixtures.json',
@@ -205,6 +206,7 @@ $requiredFiles = @(
   'qa/demo-data/reliability-scenario-preview-fixtures.json',
   'qa/demo-data/performance-baseline-preview-fixtures.json',
   'qa/demo-data/load-readiness-operator-fixtures.json',
+  'qa/demo-data/operator-troubleshooting-triage-fixtures.json',
   'request/moderation/src/index.html',
   'request/moderation/src/missing-song-safe-youtube.html',
   'request/moderation/src/youtube-ranking-preview-controls.html',
@@ -225,6 +227,7 @@ $requiredFiles = @(
   'qa/src/reliability-scenario-preview.html',
   'qa/src/performance-baseline-preview.html',
   'qa/src/load-readiness-operator-preview.html',
+  'qa/src/operator-troubleshooting-triage-preview.html',
   'request/web-app/package.json',
   'request/web-app/README.md',
   'request/web-app/src/index.html',
@@ -264,11 +267,19 @@ $requiredFiles = @(
   'docs/development/reliability-scenario-preview-shell.md',
   'docs/development/performance-baseline-preview-shell.md',
   'docs/development/load-readiness-operator-shell.md',
+  'docs/development/operator-troubleshooting-triage-shell.md',
   'docs/operations/pilot-show-go-no-go-checklist.md',
   'docs/operations/pre-show-checklist.md',
   'docs/operations/post-show-checklist.md',
   'docs/operations/known-limitations.md',
   'docs/operations/operator-quick-start-guide.md',
+  'docs/operations/host-troubleshooting-guide.md',
+  'docs/operations/venue-router-troubleshooting-guide.md',
+  'docs/operations/obs-companion-troubleshooting-guide.md',
+  'docs/operations/recovery-drill-guide.md',
+  'docs/operations/first-pilot-feedback-form.md',
+  'docs/operations/bug-triage-workflow.md',
+  'docs/operations/release-blocker-criteria.md',
   'scripts/host-settings-migration-smoke-test.ps1',
   'scripts/host-shell-clean-shutdown-smoke-test.ps1',
   'scripts/host-shell-startup-smoke-test.ps1',
@@ -300,17 +311,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..563) {
+foreach ($taskNumber in 1..570) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 564..577) {
+foreach ($taskNumber in 571..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 14A."
+    throw "Backlog task $taskId should remain unchecked after Wave 14B."
   }
 }
 
@@ -321,4 +332,4 @@ foreach ($taskNumber in 564..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 14A smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..563 checked, KARA-564..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 14B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..570 checked, KARA-571..577 unchecked, and safety guardrails passed."
