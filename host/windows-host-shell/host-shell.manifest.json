@@ -214,6 +214,21 @@
     "playbackControlsFixtures": {
       "enabled": true,
       "path": "host/windows-host-shell/demo-data/playback-controls-demo-fixtures.json"
+    },
+    "outputControlsShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "enumeratesDevices": false,
+      "selectsRealOutputDevice": false,
+      "accessesMicrophone": false,
+      "startsRecording": false,
+      "playsAudio": false,
+      "readsMediaFiles": false,
+      "writesControlState": false
+    },
+    "outputControlsFixtures": {
+      "enabled": true,
+      "path": "host/windows-host-shell/demo-data/output-controls-demo-fixtures.json"
     }
   }
 }

@@ -133,3 +133,10 @@ This wave does not restore or discard real sessions, write files, write records,
 Wave 6A adds playback engine decision documentation, local playback state preview, play/pause/stop/next/previous/fade-out/emergency-skip previews, and volume control preview.
 
 This wave does not play audio, read media files, change output devices, or write playback state.
+
+
+## Wave 6B additions
+
+Wave 6B adds output-device selection preview, microphone-recording placeholders, key/tempo/reset previews, progress/remaining-time/end-of-track previews, and filler hook enable/disable preview.
+
+This wave does not enumerate real devices, select real devices, access microphones, record audio, play audio, read media files, schedule filler audio, or write control state.

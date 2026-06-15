@@ -20,6 +20,7 @@
         <a class="nav-item" href="#rotation">Rotation</a>
         <a class="nav-item" href="#session-recovery">Session Recovery</a>
         <a class="nav-item" href="#playback-controls">Playback</a>
+        <a class="nav-item" href="#output-controls">Output Controls</a>
         <a class="nav-item" href="#singer-profiles">Singer Profiles</a>
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
@@ -223,6 +224,72 @@
           <ul id="rotationAuditPreview" class="activity-log-list" aria-label="Rotation audit preview">
             <li><strong>Session:</strong> Demo show session shell loaded.</li>
             <li><strong>Rotation:</strong> Fair-round preview with no live change.</li>
+          </ul>
+        </article>
+
+        <article class="panel output-controls-panel" id="output-controls">
+          <div class="panel-header">
+            <p class="eyebrow">Output Controls</p>
+            <span>Preview Shell</span>
+          </div>
+
+          <section class="wizard-step">
+            <h3>Output-device selection</h3>
+            <label>
+              Output device preview
+              <select id="outputDevicePreviewSelect">
+                <option>House speakers placeholder</option>
+                <option>Booth monitor placeholder</option>
+                <option>HDMI output placeholder</option>
+              </select>
+            </label>
+            <p class="helper-text">Preview-only. No devices are scanned and no output route is changed.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Microphone-recording placeholders</h3>
+            <div class="state-actions">
+              <button id="micArmPreviewButton" type="button">Arm mic preview</button>
+              <button id="micRecordPreviewButton" type="button">Record placeholder</button>
+            </div>
+            <p class="helper-text">No microphone access and no recording are enabled in this wave.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Key and tempo controls</h3>
+            <label>
+              Key change preview
+              <input id="keyChangePreviewInput" type="number" min="-6" max="6" value="0" />
+            </label>
+            <label>
+              Tempo preview
+              <input id="tempoPreviewInput" type="range" min="80" max="120" value="100" />
+            </label>
+            <button id="resetDefaultsPreviewButton" type="button">Reset to defaults</button>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Progress and end-of-track preview</h3>
+            <progress id="trackProgressPreview" max="210" value="45"></progress>
+            <dl class="sync-list" aria-label="Progress preview">
+              <div><dt>Elapsed</dt><dd>0:45</dd></div>
+              <div><dt>Remaining</dt><dd>2:45</dd></div>
+              <div><dt>End detection</dt><dd>Preview marker only</dd></div>
+            </dl>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Filler hooks</h3>
+            <label class="toggle-row">
+              <input id="fillerEnabledPreviewToggle" type="checkbox" />
+              Enable filler placeholder
+            </label>
+            <p class="helper-text">No filler audio is loaded, played, or scheduled in this wave.</p>
+          </section>
+
+          <ul id="outputControlsAuditPreview" class="activity-log-list" aria-label="Output controls audit preview">
+            <li><strong>Output controls:</strong> Preview shell loaded without device or audio access.</li>
+            <li><strong>Safety:</strong> Mic, recording, media reads, and output changes remain disabled.</li>
           </ul>
         </article>
 
@@ -620,6 +687,12 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="outputControlDialog" class="shortcut-dialog" aria-labelledby="outputControlDialogTitle">
+    <h2 id="outputControlDialogTitle">Output Control Preview</h2>
+    <p id="outputControlDialogText">This output control is preview-only. It does not access devices, microphone input, recordings, or audio output.</p>
+    <button id="closeOutputControlButton" type="button">Close output preview</button>
+  </dialog>
 
   <dialog id="playbackControlDialog" class="shortcut-dialog" aria-labelledby="playbackControlDialogTitle">
     <h2 id="playbackControlDialogTitle">Playback Control Preview</h2>
