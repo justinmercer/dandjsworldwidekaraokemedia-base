@@ -529,20 +529,20 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 13. Admin console, authentication, privacy, and security
 
-- [ ] `KARA-473` — Add basic admin sign-in.
-- [ ] `KARA-474` — Add host role.
-- [ ] `KARA-475` — Add admin role.
-- [ ] `KARA-476` — Add read-only staff role.
-- [ ] `KARA-477` — Protect admin-only routes.
-- [ ] `KARA-478` — Protect catalog-management routes.
-- [ ] `KARA-479` — Protect venue-settings routes.
-- [ ] `KARA-480` — Protect backup routes.
-- [ ] `KARA-481` — Protect host-device-management routes.
-- [ ] `KARA-482` — Add password hashing.
-- [ ] `KARA-483` — Add development-safe initial setup flow.
-- [ ] `KARA-484` — Add password-change flow.
-- [ ] `KARA-485` — Require password update after first sign-in for newly created staff.
-- [ ] `KARA-486` — Add session expiration.
+- [x] `KARA-473` — Add basic admin sign-in.
+- [x] `KARA-474` — Add host role.
+- [x] `KARA-475` — Add admin role.
+- [x] `KARA-476` — Add read-only staff role.
+- [x] `KARA-477` — Protect admin-only routes.
+- [x] `KARA-478` — Protect catalog-management routes.
+- [x] `KARA-479` — Protect venue-settings routes.
+- [x] `KARA-480` — Protect backup routes.
+- [x] `KARA-481` — Protect host-device-management routes.
+- [x] `KARA-482` — Add password hashing.
+- [x] `KARA-483` — Add development-safe initial setup flow.
+- [x] `KARA-484` — Add password-change flow.
+- [x] `KARA-485` — Require password update after first sign-in for newly created staff.
+- [x] `KARA-486` — Add session expiration.
 - [ ] `KARA-487` — Add sign-out.
 - [ ] `KARA-488` — Add failed-login rate limits.
 - [ ] `KARA-489` — Add audit logging for sign-ins.

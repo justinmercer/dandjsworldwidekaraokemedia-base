@@ -1,0 +1,72 @@
+{
+  "fixturePurpose": "Admin auth and security shell fixtures only",
+  "implementsAuthentication": false,
+  "hashesPasswords": false,
+  "storesPasswords": false,
+  "storesSecrets": false,
+  "createsSessions": false,
+  "writesUsers": false,
+  "writesDatabase": false,
+  "protectsRuntimeRoutes": false,
+  "accessesBackups": false,
+  "changesHostDevices": false,
+  "basicAdminSignInPreview": {
+    "screenTitle": "Admin sign-in preview",
+    "acceptsCredentials": false,
+    "authenticatesUser": false
+  },
+  "rolePreview": {
+    "host": [
+      "view show controls preview",
+      "view request moderation preview"
+    ],
+    "admin": [
+      "view settings preview",
+      "view catalog management preview"
+    ],
+    "readOnlyStaff": [
+      "view dashboards preview only"
+    ],
+    "writesRoles": false
+  },
+  "routeProtectionPreview": {
+    "adminOnlyRoutes": [
+      "/admin/*"
+    ],
+    "catalogManagementRoutes": [
+      "/catalog-management/*"
+    ],
+    "venueSettingsRoutes": [
+      "/venue-settings/*"
+    ],
+    "backupRoutes": [
+      "/backups/*"
+    ],
+    "hostDeviceManagementRoutes": [
+      "/host-devices/*"
+    ],
+    "protectsRuntimeRoutes": false
+  },
+  "passwordHashingPlaceholder": {
+    "algorithmLabel": "future secure password hash placeholder",
+    "hashesPasswords": false,
+    "storesPasswords": false
+  },
+  "developmentSafeInitialSetupPreview": {
+    "setupMode": "development-safe preview only",
+    "createsUsers": false,
+    "storesSecrets": false
+  },
+  "passwordChangeFlowPreview": {
+    "requiresCurrentPasswordPreview": true,
+    "changesPassword": false
+  },
+  "firstSignInPasswordUpdatePreview": {
+    "newlyCreatedStaffMustUpdatePassword": true,
+    "enforcesRuntimeLogin": false
+  },
+  "sessionExpirationPreview": {
+    "sessionTtlMinutesPreview": 480,
+    "createsSessions": false
+  }
+}
