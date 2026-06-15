@@ -155,6 +155,7 @@ $requiredFiles = @(
   'scripts/request-web-smoke-test.ps1',
   'scripts/request-moderation-smoke-test.ps1',
   'scripts/missing-song-safe-youtube-smoke-test.ps1',
+  'scripts/youtube-ranking-preview-smoke-test.ps1',
   'host/windows-host-shell/demo-data/output-controls-demo-fixtures.json',
   'host/windows-host-shell/demo-data/display-shell-demo-fixtures.json',
   'host/windows-host-shell/demo-data/theme-shell-demo-fixtures.json',
@@ -167,8 +168,10 @@ $requiredFiles = @(
   'request/web-app/demo-data/request-web-smoke-fixtures.json',
   'request/moderation/demo-data/incoming-request-fixtures.json',
   'request/moderation/demo-data/missing-song-safe-youtube-fixtures.json',
+  'request/moderation/demo-data/youtube-ranking-preview-fixtures.json',
   'request/moderation/src/index.html',
   'request/moderation/src/missing-song-safe-youtube.html',
+  'request/moderation/src/youtube-ranking-preview-controls.html',
   'request/web-app/package.json',
   'request/web-app/README.md',
   'request/web-app/src/index.html',
@@ -190,6 +193,7 @@ $requiredFiles = @(
   'docs/development/venue-router-local-request-mode.md',
   'docs/development/request-moderation-shell.md',
   'docs/development/missing-song-safe-youtube-shell.md',
+  'docs/development/youtube-ranking-preview-controls-shell.md',
   'scripts/host-settings-migration-smoke-test.ps1',
   'scripts/host-shell-clean-shutdown-smoke-test.ps1',
   'scripts/host-shell-startup-smoke-test.ps1',
@@ -221,17 +225,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..401) {
+foreach ($taskNumber in 1..411) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 402..577) {
+foreach ($taskNumber in 412..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 8B."
+    throw "Backlog task $taskId should remain unchecked after Wave 8C."
   }
 }
 
@@ -242,4 +246,4 @@ foreach ($taskNumber in 402..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 8B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..401 checked, KARA-402..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 8C smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..411 checked, KARA-412..577 unchecked, and safety guardrails passed."

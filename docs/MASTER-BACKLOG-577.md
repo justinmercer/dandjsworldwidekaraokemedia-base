@@ -449,16 +449,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-399` — Add official YouTube search integration.
 - [x] `KARA-400` — Limit YouTube search to host-reviewed missing-song workflows.
 - [x] `KARA-401` — Add cached search results.
-- [ ] `KARA-402` — Add quota-friendly search behavior.
-- [ ] `KARA-403` — Add candidate ranking.
-- [ ] `KARA-404` — Rank exact title matches.
-- [ ] `KARA-405` — Rank artist matches.
-- [ ] `KARA-406` — Rank `karaoke` keyword matches.
-- [ ] `KARA-407` — Rank `instrumental` keyword matches.
-- [ ] `KARA-408` — Down-rank obvious tutorial or reaction results.
-- [ ] `KARA-409` — Add embedded YouTube preview player.
-- [ ] `KARA-410` — Add preview play and pause controls.
-- [ ] `KARA-411` — Add candidate duration display.
+- [x] `KARA-402` — Add quota-friendly search behavior.
+- [x] `KARA-403` — Add candidate ranking.
+- [x] `KARA-404` — Rank exact title matches.
+- [x] `KARA-405` — Rank artist matches.
+- [x] `KARA-406` — Rank `karaoke` keyword matches.
+- [x] `KARA-407` — Rank `instrumental` keyword matches.
+- [x] `KARA-408` — Down-rank obvious tutorial or reaction results.
+- [x] `KARA-409` — Add embedded YouTube preview player.
+- [x] `KARA-410` — Add preview play and pause controls.
+- [x] `KARA-411` — Add candidate duration display.
 - [ ] `KARA-412` — Add channel display.
 - [ ] `KARA-413` — Add `mark preferred candidate` action.
 - [ ] `KARA-414` — Add `open in YouTube` action.
