@@ -1,0 +1,83 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke Candidate Action Boundary</title>
+</head>
+<body>
+  <main class="youtube-candidate-actions-boundary-shell">
+    <section>
+      <p>D & J's Karaoke</p>
+      <h1>YouTube candidate action boundary</h1>
+      <p>Candidate actions are preview-only and do not call external services.</p>
+    </section>
+
+    <section aria-labelledby="channelTitle">
+      <h2 id="channelTitle">Channel display</h2>
+      <p>Channel: Fixture Karaoke Channel</p>
+      <p>Channel display is fixture-only.</p>
+    </section>
+
+    <section aria-labelledby="preferredTitle">
+      <h2 id="preferredTitle">Mark preferred candidate action</h2>
+      <button type="button">Mark preferred candidate preview</button>
+      <p>No preferred-candidate record is written.</p>
+    </section>
+
+    <section aria-labelledby="openTitle">
+      <h2 id="openTitle">Open in YouTube action</h2>
+      <button type="button">Open in YouTube action preview</button>
+      <p>No external YouTube page is opened.</p>
+    </section>
+
+    <section aria-labelledby="copyTitle">
+      <h2 id="copyTitle">Approved local copy still needed state</h2>
+      <p>Approved local copy still needed preview.</p>
+      <p>Operator must provide a file they are authorized to store.</p>
+      <button type="button">Approved-copy import action preview</button>
+      <p>No file import, copy, move, or download happens.</p>
+    </section>
+
+    <section aria-labelledby="sourceTitle">
+      <h2 id="sourceTitle">Source-note capture</h2>
+      <p>Source-note capture preview only.</p>
+      <p>No source note is saved.</p>
+    </section>
+
+    <section aria-labelledby="cacheTitle">
+      <h2 id="cacheTitle">Search-result cache expiry</h2>
+      <p>Search-result cache expiry preview: 60 minutes.</p>
+      <p>No runtime cache is written.</p>
+    </section>
+
+    <section aria-labelledby="analyticsTitle">
+      <h2 id="analyticsTitle">Missing-song analytics</h2>
+      <p>Missing-song analytics preview only.</p>
+      <p>No analytics are written.</p>
+    </section>
+
+    <section aria-labelledby="testsTitle">
+      <h2 id="testsTitle">Missing-song workflow tests</h2>
+      <p>Workflow test coverage preview includes missing-song state, preferred candidate, local-copy-needed state, and fallback.</p>
+      <p>YouTube-disabled fallback tests show the disabled search message.</p>
+    </section>
+
+    <section aria-labelledby="boundaryTitle">
+      <h2 id="boundaryTitle">Safe YouTube-preview boundary</h2>
+      <ul>
+        <li>No real YouTube API calls</li>
+        <li>No opening YouTube</li>
+        <li>No embedded player runtime</li>
+        <li>No file imports</li>
+        <li>No file copies</li>
+        <li>No file moves</li>
+        <li>No downloads</li>
+        <li>No runtime cache writes</li>
+        <li>No analytics writes</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

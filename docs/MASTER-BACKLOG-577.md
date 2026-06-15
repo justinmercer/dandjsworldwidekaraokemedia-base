@@ -459,17 +459,17 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-409` — Add embedded YouTube preview player.
 - [x] `KARA-410` — Add preview play and pause controls.
 - [x] `KARA-411` — Add candidate duration display.
-- [ ] `KARA-412` — Add channel display.
-- [ ] `KARA-413` — Add `mark preferred candidate` action.
-- [ ] `KARA-414` — Add `open in YouTube` action.
-- [ ] `KARA-415` — Add `approved local copy still needed` state.
-- [ ] `KARA-416` — Add an approved-copy import action for files the operator is authorized to store.
-- [ ] `KARA-417` — Add source-note capture.
-- [ ] `KARA-418` — Add search-result cache expiry.
-- [ ] `KARA-419` — Add missing-song analytics.
-- [ ] `KARA-420` — Add missing-song workflow tests.
-- [ ] `KARA-421` — Add YouTube-disabled fallback tests.
-- [ ] `KARA-422` — Document the safe YouTube-preview boundary.
+- [x] `KARA-412` — Add channel display.
+- [x] `KARA-413` — Add `mark preferred candidate` action.
+- [x] `KARA-414` — Add `open in YouTube` action.
+- [x] `KARA-415` — Add `approved local copy still needed` state.
+- [x] `KARA-416` — Add an approved-copy import action for files the operator is authorized to store.
+- [x] `KARA-417` — Add source-note capture.
+- [x] `KARA-418` — Add search-result cache expiry.
+- [x] `KARA-419` — Add missing-song analytics.
+- [x] `KARA-420` — Add missing-song workflow tests.
+- [x] `KARA-421` — Add YouTube-disabled fallback tests.
+- [x] `KARA-422` — Document the safe YouTube-preview boundary.
 
 ## 11. Venue profiles, themes, announcements, and settings
 
