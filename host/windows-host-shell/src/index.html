@@ -19,6 +19,7 @@
         <a class="nav-item active" href="#dashboard">Show Dashboard</a>
         <a class="nav-item" href="#rotation">Rotation</a>
         <a class="nav-item" href="#session-recovery">Session Recovery</a>
+        <a class="nav-item" href="#playback-controls">Playback</a>
         <a class="nav-item" href="#singer-profiles">Singer Profiles</a>
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
@@ -222,6 +223,54 @@
           <ul id="rotationAuditPreview" class="activity-log-list" aria-label="Rotation audit preview">
             <li><strong>Session:</strong> Demo show session shell loaded.</li>
             <li><strong>Rotation:</strong> Fair-round preview with no live change.</li>
+          </ul>
+        </article>
+
+        <article class="panel playback-controls-panel" id="playback-controls">
+          <div class="panel-header">
+            <p class="eyebrow">Playback</p>
+            <span>Preview Shell</span>
+          </div>
+
+          <section class="wizard-step">
+            <h3>Local playback engine decision</h3>
+            <dl class="sync-list" aria-label="Playback engine decision preview">
+              <div><dt>Engine</dt><dd>Documented placeholder</dd></div>
+              <div><dt>Media file access</dt><dd>Not enabled in this wave</dd></div>
+              <div><dt>Audio output</dt><dd>Not connected in this wave</dd></div>
+            </dl>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Local playback state</h3>
+            <dl class="sync-list" aria-label="Playback state preview">
+              <div><dt>State</dt><dd>Stopped preview</dd></div>
+              <div><dt>Track</dt><dd>Demo song placeholder</dd></div>
+              <div><dt>Progress</dt><dd>0:00 / 3:30</dd></div>
+            </dl>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Playback control previews</h3>
+            <div class="state-actions playback-control-buttons" aria-label="Playback control preview buttons">
+              <button id="playPreviewButton" type="button">Play</button>
+              <button id="pausePreviewButton" type="button">Pause</button>
+              <button id="stopPreviewButton" type="button">Stop</button>
+              <button id="nextPreviewButton" type="button">Next</button>
+              <button id="previousPreviewButton" type="button">Previous where safe</button>
+              <button id="fadeOutPreviewButton" type="button">Fade out</button>
+              <button id="emergencySkipPreviewButton" type="button">Emergency skip</button>
+            </div>
+            <label>
+              Volume preview
+              <input id="volumePreviewSlider" type="range" min="0" max="100" value="75" />
+            </label>
+            <p class="helper-text">Preview-only. No audio is played, no media file is read, and no output device is changed.</p>
+          </section>
+
+          <ul id="playbackAuditPreview" class="activity-log-list" aria-label="Playback audit preview">
+            <li><strong>Playback:</strong> Preview shell loaded without audio output.</li>
+            <li><strong>Safety:</strong> Controls do not read media files or start playback.</li>
           </ul>
         </article>
 
@@ -571,6 +620,12 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="playbackControlDialog" class="shortcut-dialog" aria-labelledby="playbackControlDialogTitle">
+    <h2 id="playbackControlDialogTitle">Playback Control Preview</h2>
+    <p id="playbackControlDialogText">This playback control is preview-only. It does not play audio or read media files.</p>
+    <button id="closePlaybackControlButton" type="button">Close playback preview</button>
+  </dialog>
 
   <dialog id="restoreSessionDialog" class="shortcut-dialog" aria-labelledby="restoreSessionDialogTitle">
     <h2 id="restoreSessionDialogTitle">Restore Session Preview</h2>

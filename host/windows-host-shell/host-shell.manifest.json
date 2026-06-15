@@ -202,6 +202,18 @@
     "sessionRecoveryFixtures": {
       "enabled": true,
       "path": "host/windows-host-shell/demo-data/session-recovery-demo-fixtures.json"
+    },
+    "playbackControlsShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "startsAudio": false,
+      "readsMediaFiles": false,
+      "changesAudioOutput": false,
+      "writesPlaybackState": false
+    },
+    "playbackControlsFixtures": {
+      "enabled": true,
+      "path": "host/windows-host-shell/demo-data/playback-controls-demo-fixtures.json"
     }
   }
 }

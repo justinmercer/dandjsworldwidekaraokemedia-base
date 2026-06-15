@@ -126,3 +126,10 @@ This wave does not change live rotation, write history, write files, write sessi
 Wave 5D adds unclean-shutdown recovery prompts, restore-session preview, discard-stale-session preview, rotation-rule test markers, estimated-wait test markers, and crash-recovery test markers.
 
 This wave does not restore or discard real sessions, write files, write records, or change live show state.
+
+
+## Wave 6A additions
+
+Wave 6A adds playback engine decision documentation, local playback state preview, play/pause/stop/next/previous/fade-out/emergency-skip previews, and volume control preview.
+
+This wave does not play audio, read media files, change output devices, or write playback state.

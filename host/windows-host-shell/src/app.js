@@ -196,6 +196,23 @@ function showDiscardSessionPreview() {
   appendActivityLog('Session recovery', 'Discard preview opened without changing live state.');
 }
 
+function appendPlaybackAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  playbackAuditPreview.prepend(item);
+}
+
+function showPlaybackControlPreview(actionName, message) {
+  playbackControlDialogText.textContent = message;
+  playbackControlDialog.showModal();
+  appendPlaybackAudit(actionName, `${message} No audio was played and no file was read.`);
+  appendActivityLog('Playback control', `${actionName} preview opened without audio output.`);
+}
+
+function showVolumePreview() {
+  appendPlaybackAudit('Volume', `Volume preview changed to ${volumePreviewSlider.value}% without changing audio output.`);
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -279,6 +296,18 @@ const discardSessionDialog = document.querySelector('#discardSessionDialog');
 const closeRestoreSessionButton = document.querySelector('#closeRestoreSessionButton');
 const closeDiscardSessionButton = document.querySelector('#closeDiscardSessionButton');
 const sessionRecoveryAuditPreview = document.querySelector('#sessionRecoveryAuditPreview');
+const playbackAuditPreview = document.querySelector('#playbackAuditPreview');
+const playPreviewButton = document.querySelector('#playPreviewButton');
+const pausePreviewButton = document.querySelector('#pausePreviewButton');
+const stopPreviewButton = document.querySelector('#stopPreviewButton');
+const nextPreviewButton = document.querySelector('#nextPreviewButton');
+const previousPreviewButton = document.querySelector('#previousPreviewButton');
+const fadeOutPreviewButton = document.querySelector('#fadeOutPreviewButton');
+const emergencySkipPreviewButton = document.querySelector('#emergencySkipPreviewButton');
+const volumePreviewSlider = document.querySelector('#volumePreviewSlider');
+const playbackControlDialog = document.querySelector('#playbackControlDialog');
+const playbackControlDialogText = document.querySelector('#playbackControlDialogText');
+const closePlaybackControlButton = document.querySelector('#closePlaybackControlButton');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -353,6 +382,15 @@ restoreSessionPreviewButton.addEventListener('click', () => showRestoreSessionPr
 discardSessionPreviewButton.addEventListener('click', () => showDiscardSessionPreview());
 closeRestoreSessionButton.addEventListener('click', () => restoreSessionDialog.close());
 closeDiscardSessionButton.addEventListener('click', () => discardSessionDialog.close());
+playPreviewButton.addEventListener('click', () => showPlaybackControlPreview('Play', 'Play preview displayed.'));
+pausePreviewButton.addEventListener('click', () => showPlaybackControlPreview('Pause', 'Pause preview displayed.'));
+stopPreviewButton.addEventListener('click', () => showPlaybackControlPreview('Stop', 'Stop preview displayed.'));
+nextPreviewButton.addEventListener('click', () => showPlaybackControlPreview('Next', 'Next preview displayed.'));
+previousPreviewButton.addEventListener('click', () => showPlaybackControlPreview('Previous', 'Previous where safe preview displayed.'));
+fadeOutPreviewButton.addEventListener('click', () => showPlaybackControlPreview('Fade out', 'Fade-out preview displayed.'));
+emergencySkipPreviewButton.addEventListener('click', () => showPlaybackControlPreview('Emergency skip', 'Emergency skip preview displayed.'));
+volumePreviewSlider.addEventListener('change', () => showVolumePreview());
+closePlaybackControlButton.addEventListener('click', () => playbackControlDialog.close());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -395,6 +433,7 @@ document.addEventListener('keydown', (event) => {
     if (autosavePreviewDialog.open) autosavePreviewDialog.close();
     if (restoreSessionDialog.open) restoreSessionDialog.close();
     if (discardSessionDialog.open) discardSessionDialog.close();
+    if (playbackControlDialog.open) playbackControlDialog.close();
     return;
   }
 
@@ -542,5 +581,19 @@ window.DJKaraokeHostShell = Object.freeze({
   sessionRecoveryWritesRecords: false,
   sessionRecoveryWritesFiles: false,
   sessionRecoveryRestoresRealSession: false,
-  sessionRecoveryDiscardsRealSession: false
+  sessionRecoveryDiscardsRealSession: false,
+  playbackEngineDecisionDocumented: true,
+  localPlaybackStatePreviewEnabled: true,
+  playActionPreviewEnabled: true,
+  pauseActionPreviewEnabled: true,
+  stopActionPreviewEnabled: true,
+  nextActionPreviewEnabled: true,
+  previousWhereSafeActionPreviewEnabled: true,
+  fadeOutActionPreviewEnabled: true,
+  emergencySkipActionPreviewEnabled: true,
+  volumeControlsPreviewEnabled: true,
+  playbackStartsAudio: false,
+  playbackReadsMediaFiles: false,
+  playbackChangesAudioOutput: false,
+  playbackWritesState: false
 });
