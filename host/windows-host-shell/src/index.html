@@ -184,6 +184,40 @@
             <p class="helper-text">Preview-only. These actions do not change the live rotation.</p>
           </section>
 
+          <section class="wizard-step">
+            <h3>Host rotation actions</h3>
+            <div class="state-actions rotation-action-buttons" aria-label="Rotation action preview buttons">
+              <button id="callSingerPreviewButton" type="button">Call singer</button>
+              <button id="singerNotReadyPreviewButton" type="button">Singer not ready</button>
+              <button id="moveNextRoundPreviewButton" type="button">Move to next round</button>
+              <button id="removeTonightPreviewButton" type="button">Remove from tonight</button>
+              <button id="restoreSingerPreviewButton" type="button">Restore singer</button>
+            </div>
+            <p class="helper-text">Action previews do not change tonight's real rotation.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Completed performance record preview</h3>
+            <dl class="sync-list" aria-label="Completed performance record preview">
+              <div><dt>Singer</dt><dd>Demo Singer</dd></div>
+              <div><dt>Song</dt><dd>Journey — Don’t Stop Believin</dd></div>
+              <div><dt>Status</dt><dd>Preview only, not written to history</dd></div>
+            </dl>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Show notes and session snapshots</h3>
+            <label>
+              Show notes placeholder
+              <textarea id="showNotesPreview" rows="3">Birthday group arrives at 9:30 PM. Keep duet slot open.</textarea>
+            </label>
+            <div class="state-actions">
+              <button id="sessionSnapshotPreviewButton" type="button">Preview manual session snapshot</button>
+              <button id="autosavePreviewButton" type="button">Preview autosave trigger</button>
+            </div>
+            <p class="helper-text">Snapshot and autosave are preview-only. No files, database records, or localStorage entries are written.</p>
+          </section>
+
           <ul id="rotationAuditPreview" class="activity-log-list" aria-label="Rotation audit preview">
             <li><strong>Session:</strong> Demo show session shell loaded.</li>
             <li><strong>Rotation:</strong> Fair-round preview with no live change.</li>
@@ -496,6 +530,24 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="rotationActionDialog" class="shortcut-dialog" aria-labelledby="rotationActionDialogTitle">
+    <h2 id="rotationActionDialogTitle">Rotation Action Preview</h2>
+    <p id="rotationActionDialogText">This rotation action is preview-only. It does not change the live rotation.</p>
+    <button id="closeRotationActionButton" type="button">Close action preview</button>
+  </dialog>
+
+  <dialog id="sessionSnapshotDialog" class="shortcut-dialog" aria-labelledby="sessionSnapshotDialogTitle">
+    <h2 id="sessionSnapshotDialogTitle">Manual Session Snapshot Preview</h2>
+    <p>This manual session snapshot is preview-only. It does not write files, database records, or browser storage.</p>
+    <button id="closeSessionSnapshotButton" type="button">Close snapshot preview</button>
+  </dialog>
+
+  <dialog id="autosavePreviewDialog" class="shortcut-dialog" aria-labelledby="autosavePreviewDialogTitle">
+    <h2 id="autosavePreviewDialogTitle">Autosave Trigger Preview</h2>
+    <p>Autosave is shown as a future trigger only. It does not persist rotation changes in Wave 5C.</p>
+    <button id="closeAutosavePreviewButton" type="button">Close autosave preview</button>
+  </dialog>
 
   <dialog id="rotationPreviewDialog" class="shortcut-dialog" aria-labelledby="rotationPreviewDialogTitle">
     <h2 id="rotationPreviewDialogTitle">Rotation Preview</h2>

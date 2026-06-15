@@ -579,3 +579,14 @@ kbd {
 .rotation-session-panel .rotation-list li {
   align-items: flex-start;
 }
+
+
+.rotation-action-buttons {
+  flex-wrap: wrap;
+}
+
+.rotation-session-panel textarea {
+  width: 100%;
+  min-height: 5rem;
+  resize: vertical;
+}

@@ -178,6 +178,18 @@
     "showSessionRotationTestFixtures": {
       "enabled": true,
       "path": "host/windows-host-shell/demo-data/show-session-rotation-demo-fixtures.json"
+    },
+    "rotationActionSessionNotesShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "changesLiveRotation": false,
+      "writesCompletedPerformanceRecords": false,
+      "writesSessionSnapshots": false,
+      "persistsAutosave": false
+    },
+    "rotationActionSessionNotesFixtures": {
+      "enabled": true,
+      "path": "host/windows-host-shell/demo-data/rotation-actions-demo-fixtures.json"
     }
   }
 }

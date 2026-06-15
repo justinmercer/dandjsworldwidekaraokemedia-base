@@ -1,0 +1,49 @@
+{
+  "fixturePurpose": "Rotation action, notes, snapshot, and autosave preview tests only",
+  "writesRotationRecords": false,
+  "writesCompletedPerformanceRecords": false,
+  "writesSessionSnapshots": false,
+  "persistsAutosave": false,
+  "actions": [
+    {
+      "id": "call-singer",
+      "label": "Call singer",
+      "changesLiveRotation": false
+    },
+    {
+      "id": "singer-not-ready",
+      "label": "Singer not ready",
+      "changesLiveRotation": false
+    },
+    {
+      "id": "move-to-next-round",
+      "label": "Move to next round",
+      "changesLiveRotation": false
+    },
+    {
+      "id": "remove-from-tonight",
+      "label": "Remove from tonight",
+      "changesLiveRotation": false
+    },
+    {
+      "id": "restore-singer",
+      "label": "Restore singer",
+      "changesLiveRotation": false
+    }
+  ],
+  "completedPerformancePreview": {
+    "singer": "Demo Singer",
+    "song": "Journey - Don’t Stop Believin",
+    "writtenToHistory": false
+  },
+  "showNotesPreview": "Demo note: Birthday group arrives at 9:30 PM.",
+  "manualSessionSnapshotPreview": {
+    "name": "Before final round",
+    "writtenToDisk": false
+  },
+  "autosavePreview": {
+    "afterMeaningfulRotationChange": true,
+    "writesLocalStorage": false,
+    "writesDatabase": false
+  }
+}
