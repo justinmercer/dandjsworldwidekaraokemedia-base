@@ -1,0 +1,93 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke OBS Replay Reliability Boundary</title>
+</head>
+<body>
+  <main class="obs-replay-reliability-shell">
+    <section>
+      <p>D & J's Karaoke</p>
+      <h1>OBS companion and Replay reliability boundary</h1>
+      <p>Static preview only. No network, OBS, Replay, queue, audit, or playback action is performed.</p>
+    </section>
+
+    <section>
+      <h2>Retry-safe event queue</h2>
+      <p>Pending event queue preview only. No retry queue is written.</p>
+    </section>
+
+    <section>
+      <h2>Backoff for companion outages</h2>
+      <p>Exponential backoff preview: 5 to 60 seconds. No timers are started.</p>
+    </section>
+
+    <section>
+      <h2>Mock companion receiver</h2>
+      <p>Mock companion receiver preview only. No network receiver is started.</p>
+    </section>
+
+    <section>
+      <h2>Companion-isolation tests</h2>
+      <p>Failure isolation preview confirms export failures stay away from playback.</p>
+    </section>
+
+    <section>
+      <h2>Companion failures never interrupt playback</h2>
+      <p>No playback control is included in this shell.</p>
+    </section>
+
+    <section>
+      <h2>Existing separate-recording-computer topology</h2>
+      <p>The recording computer remains separate from the karaoke playback computer.</p>
+    </section>
+
+    <section>
+      <h2>OBS WebSocket port configuration as an operator setting</h2>
+      <p>OBS WebSocket port preview: 4455. No setting is saved.</p>
+    </section>
+
+    <section>
+      <h2>Future Replay adapter interface</h2>
+      <p>ReplayAdapter interface preview only. No Replay calls are made.</p>
+    </section>
+
+    <section>
+      <h2>Minimal Replay event fields</h2>
+      <p>eventType, performanceId, showId, singerName, songTitle, artistName, timestamp.</p>
+    </section>
+
+    <section>
+      <h2>Mock Replay adapter</h2>
+      <p>Mock Replay adapter preview only.</p>
+    </section>
+
+    <section>
+      <h2>Retry expectations for Replay</h2>
+      <p>Retryable state preview only. No timers are started.</p>
+    </section>
+
+    <section>
+      <h2>Failure-isolation rules for Replay</h2>
+      <p>Replay failures stay isolated from playback, queue, and singer flows.</p>
+    </section>
+
+    <section>
+      <h2>Safety boundary</h2>
+      <ul>
+        <li>No OBS connection</li>
+        <li>No WebSocket calls</li>
+        <li>No network requests</li>
+        <li>No Replay calls</li>
+        <li>No playback control</li>
+        <li>No retry queue writes</li>
+        <li>No audit writes</li>
+        <li>No runtime settings writes</li>
+        <li>No timers started</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

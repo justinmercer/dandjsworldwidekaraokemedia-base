@@ -1,0 +1,83 @@
+{
+  "fixturePurpose": "OBS companion and future Replay reliability boundary fixtures only",
+  "connectsToObs": false,
+  "opensWebSocket": false,
+  "sendsNetworkRequests": false,
+  "callsReplay": false,
+  "controlsPlayback": false,
+  "writesRetryQueue": false,
+  "writesAuditHistory": false,
+  "writesRuntimeSettings": false,
+  "startsTimers": false,
+  "retrySafeEventQueuePreview": {
+    "queueName": "fixture-event-export-queue",
+    "pendingEvents": 2,
+    "writesQueue": false
+  },
+  "companionOutageBackoffPreview": {
+    "strategy": "exponential-backoff-preview",
+    "firstDelaySeconds": 5,
+    "maxDelaySeconds": 60,
+    "startsTimers": false
+  },
+  "mockCompanionReceiverPreview": {
+    "receiverName": "mock-companion-receiver",
+    "receivesNetworkRequests": false,
+    "fixtureOnly": true
+  },
+  "companionIsolationTestsPreview": [
+    "network failure does not interrupt playback",
+    "mock receiver failure stays isolated",
+    "retry queue preview does not write"
+  ],
+  "companionFailurePlaybackRulePreview": {
+    "rule": "companion failures never interrupt playback",
+    "controlsPlayback": false
+  },
+  "separateRecordingComputerTopologyDocPreview": {
+    "topology": "Existing recording computer remains separate from karaoke playback computer",
+    "changesTopology": false
+  },
+  "obsWebSocketPortOperatorSettingPreview": {
+    "label": "OBS WebSocket port",
+    "portPreview": 4455,
+    "savedToRuntime": false
+  },
+  "futureReplayAdapterInterfacePreview": {
+    "adapterName": "ReplayAdapter",
+    "methods": [
+      "previewStartEvent",
+      "previewEndEvent",
+      "previewClipStatus"
+    ],
+    "callsReplay": false
+  },
+  "minimalReplayEventFieldsPreview": {
+    "fields": [
+      "eventType",
+      "performanceId",
+      "showId",
+      "singerName",
+      "songTitle",
+      "artistName",
+      "timestamp"
+    ]
+  },
+  "mockReplayAdapterPreview": {
+    "adapterName": "mock-replay-adapter",
+    "callsReplay": false,
+    "fixtureOnly": true
+  },
+  "replayRetryExpectationsPreview": {
+    "retryableStates": [
+      "temporary-unavailable",
+      "timeout-preview"
+    ],
+    "startsTimers": false
+  },
+  "replayFailureIsolationRulesPreview": {
+    "rule": "Replay failures stay isolated from playback, queue, and singer flows",
+    "controlsPlayback": false,
+    "writesQueue": false
+  }
+}
