@@ -520,12 +520,12 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-464` — Add a mock Replay adapter.
 - [x] `KARA-465` — Add retry expectations for Replay.
 - [x] `KARA-466` — Add failure-isolation rules for Replay.
-- [ ] `KARA-467` — Add a future clip-processing status placeholder.
-- [ ] `KARA-468` — Add a future lower-third metadata placeholder.
-- [ ] `KARA-469` — Add a future filename metadata placeholder.
-- [ ] `KARA-470` — Add performance-event audit history.
-- [ ] `KARA-471` — Add performance-event tests.
-- [ ] `KARA-472` — Document the Replay integration boundary.
+- [x] `KARA-467` — Add a future clip-processing status placeholder.
+- [x] `KARA-468` — Add a future lower-third metadata placeholder.
+- [x] `KARA-469` — Add a future filename metadata placeholder.
+- [x] `KARA-470` — Add performance-event audit history.
+- [x] `KARA-471` — Add performance-event tests.
+- [x] `KARA-472` — Document the Replay integration boundary.
 
 ## 13. Admin console, authentication, privacy, and security
 

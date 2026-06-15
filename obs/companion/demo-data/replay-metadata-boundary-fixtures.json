@@ -1,0 +1,47 @@
+{
+  "fixturePurpose": "Future Replay clip-processing and metadata boundary fixtures only",
+  "processesClips": false,
+  "rendersLowerThirds": false,
+  "renamesFiles": false,
+  "writesFiles": false,
+  "writesAuditHistory": false,
+  "writesPerformanceEvents": false,
+  "callsReplay": false,
+  "sendsNetworkRequests": false,
+  "controlsPlayback": false,
+  "clipProcessingStatusPlaceholder": {
+    "performanceId": "performance-fixture-001",
+    "status": "future-placeholder",
+    "progressPercent": 0,
+    "processesClips": false
+  },
+  "lowerThirdMetadataPlaceholder": {
+    "singerName": "Fixture Singer",
+    "songTitle": "Fixture Song",
+    "artistName": "Fixture Artist",
+    "venueName": "D & J Fixture Venue",
+    "rendersLowerThirds": false
+  },
+  "filenameMetadataPlaceholder": {
+    "templatePreview": "2026-01-01_Fixture-Singer_Fixture-Song_Fixture-Artist.mp4",
+    "renamesFiles": false,
+    "writesFiles": false
+  },
+  "performanceEventAuditHistoryPreview": {
+    "auditPreviewOnly": true,
+    "eventType": "performance.metadata.preview",
+    "actor": "fixture-system",
+    "writesAuditHistory": false
+  },
+  "performanceEventTestsPreview": [
+    "clip-processing placeholder remains read-only",
+    "lower-third metadata placeholder does not render",
+    "filename metadata placeholder does not rename files",
+    "audit history preview does not write"
+  ],
+  "replayIntegrationBoundaryDocumentationPreview": {
+    "title": "Replay integration boundary",
+    "callsReplay": false,
+    "sendsNetworkRequests": false
+  }
+}
