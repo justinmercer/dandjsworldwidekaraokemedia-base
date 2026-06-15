@@ -410,16 +410,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-363` — Add local-network mode.
 - [x] `KARA-364` — Add cloud mode.
 - [x] `KARA-365` — Add automatic mode fallback messaging.
-- [ ] `KARA-366` — Add connection-state display.
-- [ ] `KARA-367` — Add offline-friendly static shell caching.
-- [ ] `KARA-368` — Add installable PWA metadata.
-- [ ] `KARA-369` — Add mobile responsive tests.
-- [ ] `KARA-370` — Add common iPhone viewport tests.
-- [ ] `KARA-371` — Add common Android viewport tests.
-- [ ] `KARA-372` — Add accessibility checks.
-- [ ] `KARA-373` — Add large tap targets.
-- [ ] `KARA-374` — Add shared tablet mode route.
-- [ ] `KARA-375` — Add kiosk-style large controls.
+- [x] `KARA-366` — Add connection-state display.
+- [x] `KARA-367` — Add offline-friendly static shell caching.
+- [x] `KARA-368` — Add installable PWA metadata.
+- [x] `KARA-369` — Add mobile responsive tests.
+- [x] `KARA-370` — Add common iPhone viewport tests.
+- [x] `KARA-371` — Add common Android viewport tests.
+- [x] `KARA-372` — Add accessibility checks.
+- [x] `KARA-373` — Add large tap targets.
+- [x] `KARA-374` — Add shared tablet mode route.
+- [x] `KARA-375` — Add kiosk-style large controls.
 - [ ] `KARA-376` — Add kiosk idle timeout.
 - [ ] `KARA-377` — Add kiosk automatic reset.
 - [ ] `KARA-378` — Add kiosk QR fallback.

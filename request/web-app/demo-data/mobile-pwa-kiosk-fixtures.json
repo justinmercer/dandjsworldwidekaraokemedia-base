@@ -1,0 +1,63 @@
+{
+  "fixturePurpose": "Mobile PWA and kiosk shell fixtures only",
+  "registersServiceWorker": false,
+  "performsOfflineRuntimeCaching": false,
+  "installsPwa": false,
+  "callsServerApis": false,
+  "storesPersonalData": false,
+  "changesConnectionMode": false,
+  "connectionStateDisplay": [
+    "Local preview",
+    "Cloud preview",
+    "Fallback preview",
+    "Offline shell preview"
+  ],
+  "staticShellCachePlan": [
+    "/request/web-app/src/index.html",
+    "/request/web-app/src/styles.css",
+    "/request/web-app/src/app.js",
+    "/request/web-app/src/offline.html"
+  ],
+  "pwaMetadata": {
+    "name": "D & J's Karaoke Requests",
+    "shortName": "D&J Requests",
+    "display": "standalone",
+    "startUrl": "/r/demo-venue",
+    "installBehavior": "metadata only"
+  },
+  "mobileViewportFixtures": [
+    {
+      "name": "iPhone SE",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "name": "iPhone 15",
+      "width": 393,
+      "height": 852
+    },
+    {
+      "name": "Pixel 7",
+      "width": 412,
+      "height": 915
+    },
+    {
+      "name": "Galaxy S22",
+      "width": 360,
+      "height": 780
+    }
+  ],
+  "accessibilityChecks": [
+    "landmark main exists",
+    "buttons have visible text",
+    "inputs have labels",
+    "status areas have readable copy",
+    "large tap target CSS exists"
+  ],
+  "kioskControls": [
+    "Start request",
+    "Browse songs",
+    "My requests",
+    "Clear session preview"
+  ]
+}
