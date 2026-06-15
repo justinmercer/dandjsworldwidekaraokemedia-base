@@ -1,0 +1,82 @@
+{
+  "fixturePurpose": "Venue display, QR, import-export, validation, and onboarding shell fixtures only",
+  "writesVenueDatabase": false,
+  "writesRuntimeSettings": false,
+  "generatesQrFile": false,
+  "createsPrintableFile": false,
+  "writesImportExportFiles": false,
+  "changesAudioSystem": false,
+  "changesVolume": false,
+  "changesRotationPolicy": false,
+  "changesRouterConfig": false,
+  "scrollingMessageSettingsPreview": {
+    "enabled": true,
+    "message": "Tonight only: cheer for every singer!",
+    "speed": "medium",
+    "savedToRuntime": false
+  },
+  "openingScreenPreview": {
+    "headline": "Welcome to D & J Karaoke",
+    "subtitle": "Scan the QR code to request a song",
+    "savedToRuntime": false
+  },
+  "closingScreenPreview": {
+    "headline": "Thanks for singing with D & J Karaoke",
+    "subtitle": "See you next show!",
+    "savedToRuntime": false
+  },
+  "savedShowPreferencesPreview": {
+    "rememberHostLayout": true,
+    "rememberRotationView": true,
+    "writesPreferences": false
+  },
+  "defaultFillerAudioSettingsPreview": {
+    "enabled": true,
+    "sourceLabel": "Fixture filler audio placeholder",
+    "changesAudioSystem": false
+  },
+  "defaultVolumeSettingsPreview": {
+    "musicVolumePercent": 70,
+    "micVolumePercent": 80,
+    "changesVolume": false
+  },
+  "defaultRotationPolicyPreview": {
+    "policy": "fair rotation preview",
+    "changesRotationPolicy": false
+  },
+  "qrCodeGenerationPreview": {
+    "requestUrlPreview": "https://djkaraoke.example.invalid/request/fixture",
+    "generatesQrFile": false
+  },
+  "printableQrCodeSheetPreview": {
+    "layout": "letter sheet preview",
+    "createsPrintableFile": false
+  },
+  "tableTentQrLayoutPreview": {
+    "layout": "two-sided table tent preview",
+    "createsPrintableFile": false
+  },
+  "venueProfileImportExportPreview": {
+    "exportFilenamePreview": "venue-profile-fixture.json",
+    "importAcceptsPreview": ".json",
+    "writesImportExportFiles": false
+  },
+  "venueThemePreview": {
+    "themeName": "Fixture Gold Stage",
+    "savedToRuntime": false
+  },
+  "venueSettingsValidationPreview": {
+    "valid": true,
+    "warnings": [],
+    "writesValidationResult": false
+  },
+  "venueProfileTestsPreview": [
+    "fixture required files exist",
+    "fixture guardrails remain false",
+    "backlog range is checked"
+  ],
+  "venueOnboardingDocumentationPreview": {
+    "title": "Venue onboarding preview",
+    "publishedExternally": false
+  }
+}
