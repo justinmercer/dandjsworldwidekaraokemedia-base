@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke Candidate Ranking Preview</title>
+</head>
+<body>
+  <main class="youtube-ranking-preview-shell">
+    <section>
+      <p>D & J's Karaoke</p>
+      <h1>Candidate ranking preview</h1>
+      <p>Quota-friendly search behavior and preview controls shell only.</p>
+    </section>
+
+    <section aria-labelledby="quotaTitle">
+      <h2 id="quotaTitle">Quota-friendly search behavior</h2>
+      <p>Minimum search characters: 3</p>
+      <p>Debounce: 700ms preview</p>
+      <p>Cached fixture results are reused before any new search preview.</p>
+      <p>No external search calls are made.</p>
+    </section>
+
+    <section aria-labelledby="rankingTitle">
+      <h2 id="rankingTitle">Candidate ranking</h2>
+      <article>
+        <h3>Exact title matches</h3>
+        <p>Exact title match preview: Missing Fixture Song - Karaoke Version.</p>
+      </article>
+      <article>
+        <h3>Artist matches</h3>
+        <p>Artist match preview boosts verified fixture artist matches.</p>
+      </article>
+      <article>
+        <h3>Karaoke keyword matches</h3>
+        <p>Karaoke keyword match preview boosts karaoke versions.</p>
+      </article>
+      <article>
+        <h3>Instrumental keyword matches</h3>
+        <p>Instrumental keyword match preview boosts instrumental versions.</p>
+      </article>
+      <article>
+        <h3>Down-rank tutorials or reactions</h3>
+        <p>Obvious tutorial or reaction results are down-ranked in preview.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="playerTitle">
+      <h2 id="playerTitle">Embedded YouTube preview player</h2>
+      <p>Embedded player placeholder only. No external player loads.</p>
+      <button type="button">Preview play control</button>
+      <button type="button">Preview pause control</button>
+      <p>Preview play and pause controls do not play or pause media.</p>
+    </section>
+
+    <section aria-labelledby="safetyTitle">
+      <h2 id="safetyTitle">Safety boundary</h2>
+      <ul>
+        <li>No YouTube Data API calls</li>
+        <li>No external search calls</li>
+        <li>No embedded player runtime</li>
+        <li>No play or pause media action</li>
+        <li>No downloads</li>
+        <li>No runtime cache writes</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "fixturePurpose": "Quota-friendly ranking and preview-control shell fixtures only",
+  "callsYouTubeDataApi": false,
+  "performsExternalSearch": false,
+  "embedsYouTubePlayer": false,
+  "playsPreviewMedia": false,
+  "pausesPreviewMedia": false,
+  "downloadsMedia": false,
+  "writesRuntimeCache": false,
+  "writesQueueRecords": false,
+  "quotaFriendlySearchBehavior": {
+    "minSearchCharacters": 3,
+    "debounceMs": 700,
+    "reuseCachedFixtureResults": true,
+    "fixtureOnly": true
+  },
+  "candidateRankingPreview": [
+    {
+      "candidateId": "candidate-001",
+      "title": "Missing Fixture Song - Karaoke Version",
+      "artistMatch": true,
+      "exactTitleMatch": true,
+      "hasKaraokeKeyword": true,
+      "hasInstrumentalKeyword": false,
+      "downRankedAsTutorialOrReaction": false,
+      "score": 98
+    },
+    {
+      "candidateId": "candidate-002",
+      "title": "Missing Fixture Song Instrumental",
+      "artistMatch": true,
+      "exactTitleMatch": true,
+      "hasKaraokeKeyword": false,
+      "hasInstrumentalKeyword": true,
+      "downRankedAsTutorialOrReaction": false,
+      "score": 92
+    },
+    {
+      "candidateId": "candidate-003",
+      "title": "How to sing Missing Fixture Song reaction",
+      "artistMatch": false,
+      "exactTitleMatch": false,
+      "hasKaraokeKeyword": false,
+      "hasInstrumentalKeyword": false,
+      "downRankedAsTutorialOrReaction": true,
+      "score": 12
+    }
+  ],
+  "previewPlayerShell": {
+    "embeddedPlayerPreviewOnly": true,
+    "playControlPreviewOnly": true,
+    "pauseControlPreviewOnly": true,
+    "loadsExternalPlayer": false
+  }
+}
