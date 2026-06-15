@@ -598,14 +598,14 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-533` — Add average-wait metrics.
 - [x] `KARA-534` — Add venue trend metrics.
 - [x] `KARA-535` — Add library-gap metrics.
-- [ ] `KARA-536` — Add CSV analytics export.
-- [ ] `KARA-537` — Add analytics empty states.
-- [ ] `KARA-538` — Add analytics tests.
-- [ ] `KARA-539` — Add server-unavailable test scenario.
-- [ ] `KARA-540` — Add venue-internet-loss test scenario.
-- [ ] `KARA-541` — Add local-router-only request test scenario.
-- [ ] `KARA-542` — Add interrupted-sync test scenario.
-- [ ] `KARA-543` — Add checksum-mismatch test scenario.
+- [x] `KARA-536` — Add CSV analytics export.
+- [x] `KARA-537` — Add analytics empty states.
+- [x] `KARA-538` — Add analytics tests.
+- [x] `KARA-539` — Add server-unavailable test scenario.
+- [x] `KARA-540` — Add venue-internet-loss test scenario.
+- [x] `KARA-541` — Add local-router-only request test scenario.
+- [x] `KARA-542` — Add interrupted-sync test scenario.
+- [x] `KARA-543` — Add checksum-mismatch test scenario.
 - [ ] `KARA-544` — Add insufficient-storage test scenario.
 - [ ] `KARA-545` — Add host-restart recovery test scenario.
 - [ ] `KARA-546` — Add unclean-shutdown recovery test scenario.

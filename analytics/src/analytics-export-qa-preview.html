@@ -1,0 +1,73 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke Analytics QA Preview</title>
+</head>
+<body>
+  <main class="analytics-export-qa-preview-shell">
+    <section>
+      <p>D & J's Karaoke</p>
+      <h1>Analytics export and QA scenario preview shell</h1>
+      <p>Static preview only. No CSV export, analytics generation, server control, network request, router change, sync interruption, checksum calculation, or database write is performed.</p>
+    </section>
+
+    <section>
+      <h2>CSV analytics export</h2>
+      <p>CSV analytics export preview only. No CSV file is created.</p>
+    </section>
+
+    <section>
+      <h2>Analytics empty states</h2>
+      <p>Analytics empty states preview only.</p>
+    </section>
+
+    <section>
+      <h2>Analytics tests</h2>
+      <p>Analytics tests preview only. No live service is started.</p>
+    </section>
+
+    <section>
+      <h2>Server-unavailable test scenario</h2>
+      <p>Server-unavailable test scenario preview only. No server is stopped or started.</p>
+    </section>
+
+    <section>
+      <h2>Venue-internet-loss test scenario</h2>
+      <p>Venue-internet-loss test scenario preview only. No internet or router setting is changed.</p>
+    </section>
+
+    <section>
+      <h2>Local-router-only request test scenario</h2>
+      <p>Local-router-only request test scenario preview only. No request database write is performed.</p>
+    </section>
+
+    <section>
+      <h2>Interrupted-sync test scenario</h2>
+      <p>Interrupted-sync test scenario preview only. No sync process is interrupted.</p>
+    </section>
+
+    <section>
+      <h2>Checksum-mismatch test scenario</h2>
+      <p>Checksum-mismatch test scenario preview only. No real media or storage checksum is calculated.</p>
+    </section>
+
+    <section>
+      <h2>Safety boundary</h2>
+      <ul>
+        <li>No real CSV export</li>
+        <li>No analytics generation</li>
+        <li>No server start or stop</li>
+        <li>No internet or router changes</li>
+        <li>No request database writes</li>
+        <li>No sync interruption</li>
+        <li>No checksum calculation against real files</li>
+        <li>No network request</li>
+        <li>No filesystem writes beyond fixtures</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
