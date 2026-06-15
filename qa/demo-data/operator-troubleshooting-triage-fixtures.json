@@ -1,0 +1,43 @@
+{
+  "fixturePurpose": "Operator troubleshooting and triage shell fixtures only",
+  "runsTroubleshootingCommands": false,
+  "changesRouter": false,
+  "connectsToObs": false,
+  "connectsToReplay": false,
+  "performsRecoveryAction": false,
+  "submitsFeedback": false,
+  "callsBugTrackerApi": false,
+  "automatesReleaseGate": false,
+  "makesNetworkRequests": false,
+  "readsDatabase": false,
+  "writesDatabase": false,
+  "writesRuntimeFiles": false,
+  "hostTroubleshootingGuide": {
+    "label": "Host troubleshooting guide"
+  },
+  "venueRouterTroubleshootingGuide": {
+    "label": "Venue-router troubleshooting guide",
+    "changesRouter": false
+  },
+  "obsCompanionTroubleshootingGuide": {
+    "label": "OBS companion troubleshooting guide",
+    "connectsToObs": false,
+    "connectsToReplay": false
+  },
+  "recoveryDrillGuide": {
+    "label": "Recovery drill guide",
+    "performsRecoveryAction": false
+  },
+  "firstPilotFeedbackForm": {
+    "label": "First-pilot feedback form",
+    "submitsFeedback": false
+  },
+  "bugTriageWorkflow": {
+    "label": "Bug-triage workflow",
+    "callsBugTrackerApi": false
+  },
+  "releaseBlockerCriteria": {
+    "label": "Release-blocker criteria",
+    "automatesReleaseGate": false
+  }
+}
