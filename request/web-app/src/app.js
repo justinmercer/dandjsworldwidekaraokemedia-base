@@ -5,16 +5,23 @@ const privacyMatchPreviewButton = document.querySelector('#privacyMatchPreviewBu
 const singerPreviewStatus = document.querySelector('#singerPreviewStatus');
 const catalogSearchInput = document.querySelector('#catalogSearchInput');
 const searchDebounceStatus = document.querySelector('#searchDebounceStatus');
+const searchEmptyState = document.querySelector('#searchEmptyState');
 const catalogSearchResults = document.querySelector('#catalogSearchResults');
+const keyChangePreviewSelect = document.querySelector('#keyChangePreviewSelect');
+const duetPartnerInput = document.querySelector('#duetPartnerInput');
+const requestPreviewButton = document.querySelector('#requestPreviewButton');
+const requestPreviewStatus = document.querySelector('#requestPreviewStatus');
 
 const requestWebSafety = {
   submitsRequests: false,
   callsServerApis: false,
   readsSingerRecords: false,
   writesSingerRecords: false,
+  writesQueueRecords: false,
   searchesRealCatalog: false,
   storesPersonalData: false,
   moderatesRequests: false,
+  sendsNotifications: false,
   enablesPwaInstall: false,
   searchDebounceMs: 300
 };
@@ -27,6 +34,10 @@ function setSingerStatus(message) {
 
 function setSearchStatus(message) {
   searchDebounceStatus.textContent = message;
+}
+
+function setRequestStatus(message) {
+  requestPreviewStatus.textContent = message;
 }
 
 returningSingerPreviewButton.addEventListener('click', () => {
@@ -48,6 +59,13 @@ catalogSearchInput.addEventListener('input', () => {
   debounceTimer = setTimeout(() => {
     const query = catalogSearchInput.value.trim();
     setSearchStatus(query ? `Fixture search preview for "${query}". No catalog API was called.` : 'Start typing a song or artist.');
+    searchEmptyState.hidden = Boolean(query);
     catalogSearchResults.hidden = !query;
   }, requestWebSafety.searchDebounceMs);
+});
+
+requestPreviewButton.addEventListener('click', () => {
+  const keyChange = keyChangePreviewSelect.value;
+  const duetPartner = duetPartnerInput.value.trim() || 'No duet partner entered';
+  setRequestStatus(`Draft preview only. Key: ${keyChange}. Duet: ${duetPartner}. Nothing was submitted.`);
 });
