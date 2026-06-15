@@ -1,0 +1,31 @@
+{
+  "fixturePurpose": "Performance baseline preview shell fixtures only",
+  "runsPerformanceTest": false,
+  "generatesLoad": false,
+  "runsSoakLoop": false,
+  "probesCpu": false,
+  "probesMemory": false,
+  "readsCatalogDatabase": false,
+  "writesRequestDatabase": false,
+  "makesNetworkRequests": false,
+  "writesFiles": false,
+  "largeCatalogSearchPerformancePreview": {
+    "label": "Large-catalog search performance test preview",
+    "runsPerformanceTest": false,
+    "readsCatalogDatabase": false
+  },
+  "highRequestVolumePreview": {
+    "label": "High-request-volume test preview",
+    "generatesLoad": false,
+    "writesRequestDatabase": false
+  },
+  "multiHourSoakPreview": {
+    "label": "Multi-hour soak test preview",
+    "runsSoakLoop": false
+  },
+  "hostCpuMemoryBaselinePreview": {
+    "label": "Host CPU and memory baseline measurements preview",
+    "probesCpu": false,
+    "probesMemory": false
+  }
+}
