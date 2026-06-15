@@ -1,0 +1,43 @@
+{
+  "fixturePurpose": "Completed-show analytics preview shell fixtures only",
+  "generatesAnalytics": false,
+  "readsCompletedShows": false,
+  "readsSingerDatabase": false,
+  "readsRequestDatabase": false,
+  "exportsCsv": false,
+  "sendsTelemetry": false,
+  "makesNetworkRequests": false,
+  "writesFiles": false,
+  "completedShowAnalyticsModelPreview": {
+    "label": "Completed-show analytics model preview",
+    "generatesAnalytics": false
+  },
+  "singerCountMetricsPreview": {
+    "label": "Singer-count metrics preview",
+    "readsSingerDatabase": false
+  },
+  "requestVolumeMetricsPreview": {
+    "label": "Request-volume metrics preview",
+    "readsRequestDatabase": false
+  },
+  "mostRequestedSongMetricsPreview": {
+    "label": "Most-requested-song metrics preview",
+    "readsRequestDatabase": false
+  },
+  "repeatSingerMetricsPreview": {
+    "label": "Repeat-singer metrics preview",
+    "readsSingerDatabase": false
+  },
+  "averageWaitMetricsPreview": {
+    "label": "Average-wait metrics preview",
+    "generatesAnalytics": false
+  },
+  "venueTrendMetricsPreview": {
+    "label": "Venue trend metrics preview",
+    "readsCompletedShows": false
+  },
+  "libraryGapMetricsPreview": {
+    "label": "Library-gap metrics preview",
+    "readsRequestDatabase": false
+  }
+}
