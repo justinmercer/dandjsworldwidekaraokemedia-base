@@ -119,3 +119,10 @@ This wave does not write show-session records, write rotation records, change si
 Wave 5C adds call singer, singer not ready, move to next round, remove from tonight, restore singer, completed performance record preview, show notes, manual session snapshot preview, and autosave trigger preview.
 
 This wave does not change live rotation, write history, write files, write session snapshots, or persist autosave.
+
+
+## Wave 5D additions
+
+Wave 5D adds unclean-shutdown recovery prompts, restore-session preview, discard-stale-session preview, rotation-rule test markers, estimated-wait test markers, and crash-recovery test markers.
+
+This wave does not restore or discard real sessions, write files, write records, or change live show state.

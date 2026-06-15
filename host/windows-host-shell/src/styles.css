@@ -590,3 +590,9 @@ kbd {
   min-height: 5rem;
   resize: vertical;
 }
+
+
+.session-recovery-panel {
+  display: grid;
+  gap: 1rem;
+}

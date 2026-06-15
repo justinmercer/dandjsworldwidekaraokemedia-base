@@ -178,6 +178,24 @@ function noteShowNotesEdited() {
   appendRotationAudit('Show notes', 'Show notes preview changed without saving records.');
 }
 
+function appendSessionRecoveryAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  sessionRecoveryAuditPreview.prepend(item);
+}
+
+function showRestoreSessionPreview() {
+  restoreSessionDialog.showModal();
+  appendSessionRecoveryAudit('Restore', 'Restore session preview opened without restoring records.');
+  appendActivityLog('Session recovery', 'Restore preview opened without changing live state.');
+}
+
+function showDiscardSessionPreview() {
+  discardSessionDialog.showModal();
+  appendSessionRecoveryAudit('Discard', 'Discard stale session preview opened without deleting records.');
+  appendActivityLog('Session recovery', 'Discard preview opened without changing live state.');
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -254,6 +272,13 @@ const closeSessionSnapshotButton = document.querySelector('#closeSessionSnapshot
 const autosavePreviewDialog = document.querySelector('#autosavePreviewDialog');
 const closeAutosavePreviewButton = document.querySelector('#closeAutosavePreviewButton');
 const showNotesPreview = document.querySelector('#showNotesPreview');
+const restoreSessionPreviewButton = document.querySelector('#restoreSessionPreviewButton');
+const discardSessionPreviewButton = document.querySelector('#discardSessionPreviewButton');
+const restoreSessionDialog = document.querySelector('#restoreSessionDialog');
+const discardSessionDialog = document.querySelector('#discardSessionDialog');
+const closeRestoreSessionButton = document.querySelector('#closeRestoreSessionButton');
+const closeDiscardSessionButton = document.querySelector('#closeDiscardSessionButton');
+const sessionRecoveryAuditPreview = document.querySelector('#sessionRecoveryAuditPreview');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -324,6 +349,10 @@ closeRotationActionButton.addEventListener('click', () => rotationActionDialog.c
 closeSessionSnapshotButton.addEventListener('click', () => sessionSnapshotDialog.close());
 closeAutosavePreviewButton.addEventListener('click', () => autosavePreviewDialog.close());
 showNotesPreview.addEventListener('change', () => noteShowNotesEdited());
+restoreSessionPreviewButton.addEventListener('click', () => showRestoreSessionPreview());
+discardSessionPreviewButton.addEventListener('click', () => showDiscardSessionPreview());
+closeRestoreSessionButton.addEventListener('click', () => restoreSessionDialog.close());
+closeDiscardSessionButton.addEventListener('click', () => discardSessionDialog.close());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -364,6 +393,8 @@ document.addEventListener('keydown', (event) => {
     if (rotationActionDialog.open) rotationActionDialog.close();
     if (sessionSnapshotDialog.open) sessionSnapshotDialog.close();
     if (autosavePreviewDialog.open) autosavePreviewDialog.close();
+    if (restoreSessionDialog.open) restoreSessionDialog.close();
+    if (discardSessionDialog.open) discardSessionDialog.close();
     return;
   }
 
@@ -501,5 +532,15 @@ window.DJKaraokeHostShell = Object.freeze({
   completedPerformanceWritesRecords: false,
   showNotesWritesRecords: false,
   manualSessionSnapshotWritesFiles: false,
-  autosavePersistsChanges: false
+  autosavePersistsChanges: false,
+  uncleanShutdownRecoveryPromptPreviewEnabled: true,
+  restoreSessionFlowPreviewEnabled: true,
+  discardStaleSessionFlowPreviewEnabled: true,
+  rotationRuleTestsPreviewEnabled: true,
+  estimatedWaitTestsPreviewEnabled: true,
+  crashRecoveryTestsPreviewEnabled: true,
+  sessionRecoveryWritesRecords: false,
+  sessionRecoveryWritesFiles: false,
+  sessionRecoveryRestoresRealSession: false,
+  sessionRecoveryDiscardsRealSession: false
 });

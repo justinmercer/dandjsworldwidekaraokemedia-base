@@ -190,6 +190,18 @@
     "rotationActionSessionNotesFixtures": {
       "enabled": true,
       "path": "host/windows-host-shell/demo-data/rotation-actions-demo-fixtures.json"
+    },
+    "sessionRecoveryShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "writesSessionRecords": false,
+      "writesRecoveryFiles": false,
+      "restoresRealSession": false,
+      "discardsRealSession": false
+    },
+    "sessionRecoveryFixtures": {
+      "enabled": true,
+      "path": "host/windows-host-shell/demo-data/session-recovery-demo-fixtures.json"
     }
   }
 }

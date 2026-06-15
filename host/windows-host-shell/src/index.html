@@ -18,6 +18,7 @@
       <nav class="nav-list" aria-label="Primary">
         <a class="nav-item active" href="#dashboard">Show Dashboard</a>
         <a class="nav-item" href="#rotation">Rotation</a>
+        <a class="nav-item" href="#session-recovery">Session Recovery</a>
         <a class="nav-item" href="#singer-profiles">Singer Profiles</a>
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
@@ -221,6 +222,46 @@
           <ul id="rotationAuditPreview" class="activity-log-list" aria-label="Rotation audit preview">
             <li><strong>Session:</strong> Demo show session shell loaded.</li>
             <li><strong>Rotation:</strong> Fair-round preview with no live change.</li>
+          </ul>
+        </article>
+
+        <article class="panel session-recovery-panel" id="session-recovery">
+          <div class="panel-header">
+            <p class="eyebrow">Session Recovery</p>
+            <span>Preview Shell</span>
+          </div>
+
+          <section class="wizard-step">
+            <h3>Unclean shutdown recovery prompt</h3>
+            <dl class="sync-list" aria-label="Unclean shutdown recovery prompt preview">
+              <div><dt>Detected</dt><dd>Previous show did not close cleanly</dd></div>
+              <div><dt>Last session</dt><dd>Saturday Night Demo Show</dd></div>
+              <div><dt>Last singer</dt><dd>Demo Singer</dd></div>
+              <div><dt>Last song</dt><dd>Journey — Don’t Stop Believin</dd></div>
+            </dl>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Restore or discard stale session</h3>
+            <div class="state-actions">
+              <button id="restoreSessionPreviewButton" type="button">Preview restore session</button>
+              <button id="discardSessionPreviewButton" type="button">Preview discard stale session</button>
+            </div>
+            <p class="helper-text">Preview-only. No session, rotation, or singer record is restored or discarded.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Recovery test coverage</h3>
+            <ul class="import-chip-list" aria-label="Recovery test coverage preview">
+              <li>Rotation-rule tests</li>
+              <li>Estimated-wait tests</li>
+              <li>Crash-recovery tests</li>
+            </ul>
+          </section>
+
+          <ul id="sessionRecoveryAuditPreview" class="activity-log-list" aria-label="Session recovery audit preview">
+            <li><strong>Recovery:</strong> Demo unclean shutdown prompt loaded.</li>
+            <li><strong>Safety:</strong> Restore and discard are preview-only.</li>
           </ul>
         </article>
 
@@ -530,6 +571,18 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="restoreSessionDialog" class="shortcut-dialog" aria-labelledby="restoreSessionDialogTitle">
+    <h2 id="restoreSessionDialogTitle">Restore Session Preview</h2>
+    <p>This restore-session flow is preview-only. It does not restore real rotation, singer, or show-session records.</p>
+    <button id="closeRestoreSessionButton" type="button">Close restore preview</button>
+  </dialog>
+
+  <dialog id="discardSessionDialog" class="shortcut-dialog" aria-labelledby="discardSessionDialogTitle">
+    <h2 id="discardSessionDialogTitle">Discard Stale Session Preview</h2>
+    <p>This discard-stale-session flow is preview-only. It does not delete or discard real session data.</p>
+    <button id="closeDiscardSessionButton" type="button">Close discard preview</button>
+  </dialog>
 
   <dialog id="rotationActionDialog" class="shortcut-dialog" aria-labelledby="rotationActionDialogTitle">
     <h2 id="rotationActionDialogTitle">Rotation Action Preview</h2>
