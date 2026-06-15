@@ -21,6 +21,7 @@
         <a class="nav-item" href="#session-recovery">Session Recovery</a>
         <a class="nav-item" href="#playback-controls">Playback</a>
         <a class="nav-item" href="#output-controls">Output Controls</a>
+        <a class="nav-item" href="#display-shell">Audience Display</a>
         <a class="nav-item" href="#singer-profiles">Singer Profiles</a>
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
@@ -224,6 +225,78 @@
           <ul id="rotationAuditPreview" class="activity-log-list" aria-label="Rotation audit preview">
             <li><strong>Session:</strong> Demo show session shell loaded.</li>
             <li><strong>Rotation:</strong> Fair-round preview with no live change.</li>
+          </ul>
+        </article>
+
+        <article class="panel display-shell-panel" id="display-shell">
+          <div class="panel-header">
+            <p class="eyebrow">Audience Display</p>
+            <span>Preview Shell</span>
+          </div>
+
+          <section class="wizard-step">
+            <h3>Filler-audio volume preview</h3>
+            <label>
+              Filler volume placeholder
+              <input id="fillerVolumePreviewInput" type="range" min="0" max="100" value="25" />
+            </label>
+            <p class="helper-text">No filler audio is loaded, played, or scheduled.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Preview-window plumbing</h3>
+            <button id="previewWindowPreviewButton" type="button">Open preview placeholder</button>
+            <p class="helper-text">No real preview window is opened in this wave.</p>
+          </section>
+
+          <section class="wizard-step">
+            <h3>External display shell</h3>
+            <label>
+              Display selection placeholder
+              <select id="displaySelectionPreviewSelect">
+                <option>Display 1 placeholder</option>
+                <option>Display 2 placeholder</option>
+                <option>Projector placeholder</option>
+              </select>
+            </label>
+            <div class="state-actions">
+              <button id="externalDisplayPreviewButton" type="button">External display placeholder</button>
+              <button id="fullscreenPreviewButton" type="button">Full-screen placeholder</button>
+              <button id="cloneDisplayPreviewButton" type="button">Clone placeholder</button>
+            </div>
+            <p class="helper-text">No monitor enumeration, display routing, cloned display, or full-screen mode is enabled.</p>
+          </section>
+
+          <section class="wizard-step audience-card-preview">
+            <h3>Now singing card</h3>
+            <div class="audience-card now-singing-card">
+              <p class="eyebrow">Now Singing</p>
+              <h2>Jamie</h2>
+              <p>Sweet Caroline — Neil Diamond</p>
+            </div>
+          </section>
+
+          <section class="wizard-step audience-card-preview">
+            <h3>Up-next card</h3>
+            <div class="audience-card up-next-card">
+              <p class="eyebrow">Up Next</p>
+              <h2>Maya</h2>
+              <p>Dancing Queen — ABBA</p>
+            </div>
+          </section>
+
+          <section class="wizard-step audience-card-preview">
+            <h3>Welcome screen and announcements</h3>
+            <div class="audience-card welcome-card">
+              <h2>Welcome to D & J Karaoke</h2>
+              <p id="announcementPreviewText">Scan the QR code to request your next song.</p>
+            </div>
+            <button id="announcementPreviewButton" type="button">Preview announcement scroll</button>
+          </section>
+
+          <ul id="displayShellAuditPreview" class="activity-log-list" aria-label="Display shell audit preview">
+            <li><strong>Audience display:</strong> Preview shell loaded without opening windows or displays.</li>
+            <li><strong>Safety:</strong> Full-screen, monitor selection, cloned display, camera, and file loading remain disabled.</li>
           </ul>
         </article>
 
@@ -687,6 +760,12 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="displayShellDialog" class="shortcut-dialog" aria-labelledby="displayShellDialogTitle">
+    <h2 id="displayShellDialogTitle">Audience Display Preview</h2>
+    <p id="displayShellDialogText">This display control is preview-only. It does not open windows, switch displays, enter full-screen mode, or load camera/background sources.</p>
+    <button id="closeDisplayShellButton" type="button">Close display preview</button>
+  </dialog>
 
   <dialog id="outputControlDialog" class="shortcut-dialog" aria-labelledby="outputControlDialogTitle">
     <h2 id="outputControlDialogTitle">Output Control Preview</h2>

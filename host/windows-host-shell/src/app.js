@@ -196,6 +196,19 @@ function showDiscardSessionPreview() {
   appendActivityLog('Session recovery', 'Discard preview opened without changing live state.');
 }
 
+function appendDisplayShellAudit(kind, message) {
+  const item = document.createElement('li');
+  item.innerHTML = `<strong>${kind}:</strong> ${message}`;
+  displayShellAuditPreview.prepend(item);
+}
+
+function showDisplayShellPreview(kind, message) {
+  displayShellDialogText.textContent = message;
+  displayShellDialog.showModal();
+  appendDisplayShellAudit(kind, `${message} No real window, display, full-screen, camera, background, or state action occurred.`);
+  appendActivityLog('Audience display', `${kind} preview opened without display access.`);
+}
+
 function appendOutputControlsAudit(kind, message) {
   const item = document.createElement('li');
   item.innerHTML = `<strong>${kind}:</strong> ${message}`;
@@ -321,6 +334,18 @@ const fillerEnabledPreviewToggle = document.querySelector('#fillerEnabledPreview
 const outputControlDialog = document.querySelector('#outputControlDialog');
 const outputControlDialogText = document.querySelector('#outputControlDialogText');
 const closeOutputControlButton = document.querySelector('#closeOutputControlButton');
+const displayShellAuditPreview = document.querySelector('#displayShellAuditPreview');
+const fillerVolumePreviewInput = document.querySelector('#fillerVolumePreviewInput');
+const previewWindowPreviewButton = document.querySelector('#previewWindowPreviewButton');
+const displaySelectionPreviewSelect = document.querySelector('#displaySelectionPreviewSelect');
+const externalDisplayPreviewButton = document.querySelector('#externalDisplayPreviewButton');
+const fullscreenPreviewButton = document.querySelector('#fullscreenPreviewButton');
+const cloneDisplayPreviewButton = document.querySelector('#cloneDisplayPreviewButton');
+const announcementPreviewButton = document.querySelector('#announcementPreviewButton');
+const announcementPreviewText = document.querySelector('#announcementPreviewText');
+const displayShellDialog = document.querySelector('#displayShellDialog');
+const displayShellDialogText = document.querySelector('#displayShellDialogText');
+const closeDisplayShellButton = document.querySelector('#closeDisplayShellButton');
 const playPreviewButton = document.querySelector('#playPreviewButton');
 const pausePreviewButton = document.querySelector('#pausePreviewButton');
 const stopPreviewButton = document.querySelector('#stopPreviewButton');
@@ -406,6 +431,18 @@ restoreSessionPreviewButton.addEventListener('click', () => showRestoreSessionPr
 discardSessionPreviewButton.addEventListener('click', () => showDiscardSessionPreview());
 closeRestoreSessionButton.addEventListener('click', () => restoreSessionDialog.close());
 closeDiscardSessionButton.addEventListener('click', () => discardSessionDialog.close());
+fillerVolumePreviewInput.addEventListener('change', () => showDisplayShellPreview('Filler volume', `Filler volume preview changed to ${fillerVolumePreviewInput.value}%.`));
+previewWindowPreviewButton.addEventListener('click', () => showDisplayShellPreview('Preview window', 'Preview-window plumbing placeholder displayed.'));
+displaySelectionPreviewSelect.addEventListener('change', () => showDisplayShellPreview('Display selection', 'Display selection placeholder changed.'));
+externalDisplayPreviewButton.addEventListener('click', () => showDisplayShellPreview('External display', 'External display placeholder displayed.'));
+fullscreenPreviewButton.addEventListener('click', () => showDisplayShellPreview('Full-screen', 'Full-screen placeholder displayed.'));
+cloneDisplayPreviewButton.addEventListener('click', () => showDisplayShellPreview('Clone display', 'Clone display placeholder displayed.'));
+announcementPreviewButton.addEventListener('click', () => {
+  announcementPreviewText.textContent = 'Preview announcement: thank you for singing with D & J Karaoke.';
+  showDisplayShellPreview('Announcement', 'Scrolling announcement placeholder displayed.');
+});
+closeDisplayShellButton.addEventListener('click', () => displayShellDialog.close());
+
 outputDevicePreviewSelect.addEventListener('change', () => showOutputControlPreview('Output device', 'Output-device selection preview changed.'));
 micArmPreviewButton.addEventListener('click', () => showOutputControlPreview('Mic arm', 'Microphone arm placeholder displayed.'));
 micRecordPreviewButton.addEventListener('click', () => showOutputControlPreview('Recording', 'Recording placeholder displayed.'));
@@ -472,6 +509,7 @@ document.addEventListener('keydown', (event) => {
     if (discardSessionDialog.open) discardSessionDialog.close();
     if (playbackControlDialog.open) playbackControlDialog.close();
     if (outputControlDialog.open) outputControlDialog.close();
+    if (displayShellDialog.open) displayShellDialog.close();
     return;
   }
 
@@ -650,5 +688,24 @@ window.DJKaraokeHostShell = Object.freeze({
   outputControlsStartRecording: false,
   outputControlsPlayAudio: false,
   outputControlsReadMediaFiles: false,
-  outputControlsWriteState: false
+  outputControlsWriteState: false,
+  fillerAudioVolumePreviewEnabled: true,
+  previewWindowPlumbingPreviewEnabled: true,
+  externalDisplayWindowPreviewEnabled: true,
+  fullscreenExternalDisplayPreviewEnabled: true,
+  displaySelectionPreviewEnabled: true,
+  clonedDisplaySupportPreviewEnabled: true,
+  nowSingingCardPreviewEnabled: true,
+  upNextCardPreviewEnabled: true,
+  welcomeScreenPreviewEnabled: true,
+  scrollingAnnouncementPreviewEnabled: true,
+  displayShellOpensRealPreviewWindow: false,
+  displayShellOpensRealExternalWindow: false,
+  displayShellEntersFullscreen: false,
+  displayShellEnumeratesDisplays: false,
+  displayShellSelectsDisplay: false,
+  displayShellClonesDisplay: false,
+  displayShellLoadsBackgroundFiles: false,
+  displayShellUsesCamera: false,
+  displayShellWritesState: false
 });
