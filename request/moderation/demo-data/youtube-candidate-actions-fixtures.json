@@ -1,0 +1,67 @@
+{
+  "fixturePurpose": "YouTube candidate action and boundary shell fixtures only",
+  "callsYouTubeDataApi": false,
+  "opensYouTube": false,
+  "importsApprovedCopy": false,
+  "copiesFiles": false,
+  "movesFiles": false,
+  "downloadsMedia": false,
+  "writesRuntimeCache": false,
+  "writesAnalytics": false,
+  "writesQueueRecords": false,
+  "writesSingerRecords": false,
+  "writesDatabaseRecords": false,
+  "channelDisplayPreview": {
+    "channelName": "Fixture Karaoke Channel",
+    "channelDisplayOnly": true
+  },
+  "preferredCandidatePreview": {
+    "candidateId": "candidate-001",
+    "title": "Missing Fixture Song - Karaoke Version",
+    "markedPreferredPreviewOnly": true,
+    "writesPreference": false
+  },
+  "openInYouTubePreview": {
+    "label": "Open in YouTube action preview",
+    "urlPreview": "https://youtube.example.invalid/watch?v=fixture-only",
+    "opensExternalSite": false
+  },
+  "approvedLocalCopyStillNeededState": {
+    "state": "Approved local copy still needed preview",
+    "meansOperatorMustProvideAuthorizedFile": true,
+    "importsFile": false
+  },
+  "authorizedCopyImportActionPreview": {
+    "label": "Approved-copy import action preview",
+    "requiresOperatorAuthorizedFile": true,
+    "copiesFiles": false,
+    "movesFiles": false,
+    "downloadsMedia": false
+  },
+  "sourceNoteCapturePreview": {
+    "sourceNote": "Fixture note about where the authorized local copy came from",
+    "storesPersonalData": false,
+    "writesSourceNote": false
+  },
+  "searchResultCacheExpiryPreview": {
+    "ttlMinutes": 60,
+    "expiresAtPreview": "fixture-clock-plus-60-minutes",
+    "writesRuntimeCache": false
+  },
+  "missingSongAnalyticsPreview": {
+    "missingSongCountPreview": 2,
+    "preferredCandidateCountPreview": 1,
+    "writesAnalytics": false
+  },
+  "workflowTestCoveragePreview": [
+    "missing-song state preview",
+    "preferred candidate preview",
+    "approved local copy still needed preview",
+    "YouTube-disabled fallback preview"
+  ],
+  "youtubeDisabledFallbackPreview": {
+    "youtubeSearchEnabled": false,
+    "fallbackMessage": "YouTube search is disabled. Use authorized catalog or local copy workflow.",
+    "callsExternalSearch": false
+  }
+}
