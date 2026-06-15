@@ -614,10 +614,10 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-549` — Add external-monitor disconnect test scenario.
 - [x] `KARA-550` — Add empty-library startup test scenario.
 - [x] `KARA-551` — Add empty-show startup test scenario.
-- [ ] `KARA-552` — Add large-catalog search performance test.
-- [ ] `KARA-553` — Add high-request-volume test.
-- [ ] `KARA-554` — Add multi-hour soak test.
-- [ ] `KARA-555` — Add host CPU and memory baseline measurements.
+- [x] `KARA-552` — Add large-catalog search performance test.
+- [x] `KARA-553` — Add high-request-volume test.
+- [x] `KARA-554` — Add multi-hour soak test.
+- [x] `KARA-555` — Add host CPU and memory baseline measurements.
 - [ ] `KARA-556` — Add HQ API load-test script.
 - [ ] `KARA-557` — Add request-web load-test script.
 - [ ] `KARA-558` — Add repeatable readiness-report generation.
