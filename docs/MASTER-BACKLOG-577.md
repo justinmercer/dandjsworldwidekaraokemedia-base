@@ -563,14 +563,14 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-501` — Add show-session snapshot export.
 - [x] `KARA-502` — Add host settings backup.
 - [x] `KARA-503` — Add restore preview.
-- [ ] `KARA-504` — Add restore confirmation.
-- [ ] `KARA-505` — Add restore validation.
-- [ ] `KARA-506` — Add rollback after failed restore.
-- [ ] `KARA-507` — Add backup scheduling documentation.
-- [ ] `KARA-508` — Add backup-status dashboard.
-- [ ] `KARA-509` — Add backup failure alert placeholders.
-- [ ] `KARA-510` — Add diagnostics export.
-- [ ] `KARA-511` — Include logs in diagnostics export.
+- [x] `KARA-504` — Add restore confirmation.
+- [x] `KARA-505` — Add restore validation.
+- [x] `KARA-506` — Add rollback after failed restore.
+- [x] `KARA-507` — Add backup scheduling documentation.
+- [x] `KARA-508` — Add backup-status dashboard.
+- [x] `KARA-509` — Add backup failure alert placeholders.
+- [x] `KARA-510` — Add diagnostics export.
+- [x] `KARA-511` — Include logs in diagnostics export.
 - [ ] `KARA-512` — Include app version in diagnostics export.
 - [ ] `KARA-513` — Include sync status in diagnostics export.
 - [ ] `KARA-514` — Exclude secrets from diagnostics export.
