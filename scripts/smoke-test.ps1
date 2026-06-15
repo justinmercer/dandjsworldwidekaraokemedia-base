@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent $PSScriptRoot
 
@@ -175,6 +175,8 @@ $requiredFiles = @(
   'scripts/load-readiness-operator-smoke-test.ps1',
   'scripts/operator-troubleshooting-triage-smoke-test.ps1',
   'scripts/phase2-future-notes-smoke-test.ps1',
+  'scripts/generate-readiness-report-smoke-test.ps1',
+  'scripts/generate-readiness-report.ps1',
   'scripts/hq-api-load-test-preview.ps1',
   'scripts/request-web-load-test-preview.ps1',
   'host/windows-host-shell/demo-data/output-controls-demo-fixtures.json',
@@ -272,6 +274,7 @@ $requiredFiles = @(
   'docs/development/load-readiness-operator-shell.md',
   'docs/development/operator-troubleshooting-triage-shell.md',
   'docs/development/phase2-future-notes-shell.md',
+  'docs/development/runtime-readiness-report-generator.md',
   'docs/operations/pilot-show-go-no-go-checklist.md',
   'docs/operations/pre-show-checklist.md',
   'docs/operations/post-show-checklist.md',
