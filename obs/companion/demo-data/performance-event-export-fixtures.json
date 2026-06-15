@@ -1,0 +1,59 @@
+{
+  "fixturePurpose": "OBS companion performance event export shell fixtures only",
+  "connectsToObs": false,
+  "opensWebSocket": false,
+  "sendsNetworkRequests": false,
+  "callsReplay": false,
+  "controlsPlayback": false,
+  "writesQueue": false,
+  "writesPerformanceEvents": false,
+  "writesAuditHistory": false,
+  "storesSecrets": false,
+  "performanceStartEventPayloadPreview": {
+    "eventType": "performance.start",
+    "singerName": "Fixture Singer",
+    "songTitle": "Fixture Song",
+    "artistName": "Fixture Artist",
+    "venueName": "D & J Fixture Venue",
+    "showId": "show-fixture-001",
+    "performanceId": "performance-fixture-001",
+    "startedAt": "2026-01-01T20:00:00.000Z",
+    "timestamp": "2026-01-01T20:00:00.000Z",
+    "writesPerformanceEvents": false
+  },
+  "performanceEndEventPayloadPreview": {
+    "eventType": "performance.end",
+    "singerName": "Fixture Singer",
+    "songTitle": "Fixture Song",
+    "artistName": "Fixture Artist",
+    "venueName": "D & J Fixture Venue",
+    "showId": "show-fixture-001",
+    "performanceId": "performance-fixture-001",
+    "endedAt": "2026-01-01T20:04:00.000Z",
+    "timestamp": "2026-01-01T20:04:00.000Z",
+    "writesPerformanceEvents": false
+  },
+  "companionEndpointSettingsPreview": {
+    "endpointLabel": "OBS companion endpoint preview",
+    "host": "127.0.0.1",
+    "port": 4455,
+    "path": "/fixture-only",
+    "savedToRuntime": false,
+    "storesSecrets": false
+  },
+  "optionalObsEventExportModulePreview": {
+    "moduleName": "obs-event-export-shell",
+    "enabled": false,
+    "sendsNetworkRequests": false
+  },
+  "eventExportSwitchPreview": {
+    "exportEnabled": false,
+    "enableDisableSwitchPreviewOnly": true,
+    "savedToRuntime": false
+  },
+  "exportConnectionStatusPreview": {
+    "status": "Not connected - preview only",
+    "checkedWithoutNetwork": true,
+    "connectsToObs": false
+  }
+}

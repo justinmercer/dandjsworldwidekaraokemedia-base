@@ -501,13 +501,13 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 12. OBS companion, Replay boundary, and performance events
 
-- [ ] `KARA-448` — Define performance-start event payload.
-- [ ] `KARA-449` — Define performance-end event payload.
-- [ ] `KARA-450` — Include singer name, song, artist, venue, show ID, and timestamps.
-- [ ] `KARA-451` — Add configurable companion endpoint settings.
-- [ ] `KARA-452` — Add optional OBS event export module.
-- [ ] `KARA-453` — Add event-export enable and disable switch.
-- [ ] `KARA-454` — Add export connection status.
+- [x] `KARA-448` — Define performance-start event payload.
+- [x] `KARA-449` — Define performance-end event payload.
+- [x] `KARA-450` — Include singer name, song, artist, venue, show ID, and timestamps.
+- [x] `KARA-451` — Add configurable companion endpoint settings.
+- [x] `KARA-452` — Add optional OBS event export module.
+- [x] `KARA-453` — Add event-export enable and disable switch.
+- [x] `KARA-454` — Add export connection status.
 - [ ] `KARA-455` — Add retry-safe event queue.
 - [ ] `KARA-456` — Add backoff for companion outages.
 - [ ] `KARA-457` — Add a mock companion receiver.

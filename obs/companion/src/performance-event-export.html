@@ -1,0 +1,89 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D & J's Karaoke OBS Companion Event Export</title>
+</head>
+<body>
+  <main class="obs-companion-event-export-shell">
+    <section>
+      <p>D & J's Karaoke</p>
+      <h1>OBS companion performance event export</h1>
+      <p>Static preview only. No OBS connection or network request is made.</p>
+    </section>
+
+    <section aria-labelledby="startPayloadTitle">
+      <h2 id="startPayloadTitle">Performance-start event payload</h2>
+      <pre>{
+  "eventType": "performance.start",
+  "singerName": "Fixture Singer",
+  "songTitle": "Fixture Song",
+  "artistName": "Fixture Artist",
+  "venueName": "D & J Fixture Venue",
+  "showId": "show-fixture-001",
+  "startedAt": "2026-01-01T20:00:00.000Z"
+}</pre>
+    </section>
+
+    <section aria-labelledby="endPayloadTitle">
+      <h2 id="endPayloadTitle">Performance-end event payload</h2>
+      <pre>{
+  "eventType": "performance.end",
+  "singerName": "Fixture Singer",
+  "songTitle": "Fixture Song",
+  "artistName": "Fixture Artist",
+  "venueName": "D & J Fixture Venue",
+  "showId": "show-fixture-001",
+  "endedAt": "2026-01-01T20:04:00.000Z"
+}</pre>
+    </section>
+
+    <section aria-labelledby="fieldsTitle">
+      <h2 id="fieldsTitle">Singer, song, artist, venue, show ID, and timestamps</h2>
+      <p>Required metadata fields are shown in the event payload previews.</p>
+    </section>
+
+    <section aria-labelledby="endpointTitle">
+      <h2 id="endpointTitle">Configurable companion endpoint settings</h2>
+      <p>Host preview: 127.0.0.1. Port preview: 4455. Path preview: /fixture-only.</p>
+      <p>No endpoint setting is saved.</p>
+    </section>
+
+    <section aria-labelledby="moduleTitle">
+      <h2 id="moduleTitle">Optional OBS event export module</h2>
+      <p>OBS event export module shell only.</p>
+      <p>No WebSocket or OBS call happens.</p>
+    </section>
+
+    <section aria-labelledby="switchTitle">
+      <h2 id="switchTitle">Event-export enable and disable switch</h2>
+      <button type="button">Enable export preview</button>
+      <button type="button">Disable export preview</button>
+      <p>No runtime setting is saved.</p>
+    </section>
+
+    <section aria-labelledby="statusTitle">
+      <h2 id="statusTitle">Export connection status</h2>
+      <p>Status: Not connected - preview only.</p>
+      <p>No connection check is made.</p>
+    </section>
+
+    <section aria-labelledby="safetyTitle">
+      <h2 id="safetyTitle">Safety boundary</h2>
+      <ul>
+        <li>No OBS connection</li>
+        <li>No WebSocket calls</li>
+        <li>No network requests</li>
+        <li>No Replay calls</li>
+        <li>No playback control</li>
+        <li>No queue writes</li>
+        <li>No performance-event writes</li>
+        <li>No audit writes</li>
+        <li>No secrets</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
