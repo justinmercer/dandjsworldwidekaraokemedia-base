@@ -618,14 +618,14 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-553` — Add high-request-volume test.
 - [x] `KARA-554` — Add multi-hour soak test.
 - [x] `KARA-555` — Add host CPU and memory baseline measurements.
-- [ ] `KARA-556` — Add HQ API load-test script.
-- [ ] `KARA-557` — Add request-web load-test script.
-- [ ] `KARA-558` — Add repeatable readiness-report generation.
-- [ ] `KARA-559` — Create pilot-show go/no-go checklist.
-- [ ] `KARA-560` — Create pre-show checklist.
-- [ ] `KARA-561` — Create post-show checklist.
-- [ ] `KARA-562` — Create known-limitations document.
-- [ ] `KARA-563` — Create operator quick-start guide.
+- [x] `KARA-556` — Add HQ API load-test script.
+- [x] `KARA-557` — Add request-web load-test script.
+- [x] `KARA-558` — Add repeatable readiness-report generation.
+- [x] `KARA-559` — Create pilot-show go/no-go checklist.
+- [x] `KARA-560` — Create pre-show checklist.
+- [x] `KARA-561` — Create post-show checklist.
+- [x] `KARA-562` — Create known-limitations document.
+- [x] `KARA-563` — Create operator quick-start guide.
 - [ ] `KARA-564` — Create host troubleshooting guide.
 - [ ] `KARA-565` — Create venue-router troubleshooting guide.
 - [ ] `KARA-566` — Create OBS companion troubleshooting guide.

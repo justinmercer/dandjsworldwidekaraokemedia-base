@@ -1,0 +1,42 @@
+{
+  "fixturePurpose": "Load, readiness, and operator guide shell fixtures only",
+  "runsLoadTests": false,
+  "callsHqApi": false,
+  "callsRequestWeb": false,
+  "generatesReadinessReportFile": false,
+  "probesServer": false,
+  "changesRouter": false,
+  "readsDatabase": false,
+  "writesDatabase": false,
+  "makesNetworkRequests": false,
+  "writesRuntimeFiles": false,
+  "hqApiLoadTestScriptPreview": {
+    "label": "HQ API load-test script preview",
+    "callsHqApi": false,
+    "runsLoadTests": false
+  },
+  "requestWebLoadTestScriptPreview": {
+    "label": "Request-web load-test script preview",
+    "callsRequestWeb": false,
+    "runsLoadTests": false
+  },
+  "readinessReportPreview": {
+    "label": "Repeatable readiness-report generation preview",
+    "generatesReadinessReportFile": false
+  },
+  "pilotShowGoNoGoChecklist": {
+    "label": "Pilot-show go/no-go checklist"
+  },
+  "preShowChecklist": {
+    "label": "Pre-show checklist"
+  },
+  "postShowChecklist": {
+    "label": "Post-show checklist"
+  },
+  "knownLimitationsDocument": {
+    "label": "Known-limitations document"
+  },
+  "operatorQuickStartGuide": {
+    "label": "Operator quick-start guide"
+  }
+}
