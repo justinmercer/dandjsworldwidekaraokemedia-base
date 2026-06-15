@@ -571,14 +571,14 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-509` — Add backup failure alert placeholders.
 - [x] `KARA-510` — Add diagnostics export.
 - [x] `KARA-511` — Include logs in diagnostics export.
-- [ ] `KARA-512` — Include app version in diagnostics export.
-- [ ] `KARA-513` — Include sync status in diagnostics export.
-- [ ] `KARA-514` — Exclude secrets from diagnostics export.
-- [ ] `KARA-515` — Create Windows installer project.
-- [ ] `KARA-516` — Add installer versioning.
-- [ ] `KARA-517` — Add installer release notes.
-- [ ] `KARA-518` — Add update-check placeholder.
-- [ ] `KARA-519` — Add postpone-update-during-show behavior.
+- [x] `KARA-512` — Include app version in diagnostics export.
+- [x] `KARA-513` — Include sync status in diagnostics export.
+- [x] `KARA-514` — Exclude secrets from diagnostics export.
+- [x] `KARA-515` — Create Windows installer project.
+- [x] `KARA-516` — Add installer versioning.
+- [x] `KARA-517` — Add installer release notes.
+- [x] `KARA-518` — Add update-check placeholder.
+- [x] `KARA-519` — Add postpone-update-during-show behavior.
 - [ ] `KARA-520` — Add backup-before-update behavior.
 - [ ] `KARA-521` — Add rollback-safe update behavior.
 - [ ] `KARA-522` — Add update-failure messaging.

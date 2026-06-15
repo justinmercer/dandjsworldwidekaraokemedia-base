@@ -1,0 +1,47 @@
+{
+  "fixturePurpose": "Device diagnostics and installer preview shell fixtures only",
+  "probesAudioDevices": false,
+  "probesVideoOutputs": false,
+  "scansMachineInfo": false,
+  "runsRestartCommand": false,
+  "buildsInstaller": false,
+  "runsUpdateCheck": false,
+  "makesNetworkRequests": false,
+  "writesFiles": false,
+  "audioDeviceHealthCheckPreview": {
+    "label": "Audio device health check preview",
+    "probesAudioDevices": false
+  },
+  "videoOutputHealthCheckPreview": {
+    "label": "Video output health check preview",
+    "probesVideoOutputs": false
+  },
+  "hostMachineInfoPreview": {
+    "label": "Host machine info preview",
+    "scansMachineInfo": false
+  },
+  "diagnosticsSafeRestartNote": {
+    "label": "Diagnostics safe restart note",
+    "runsRestartCommand": false
+  },
+  "installerPackagePlaceholder": {
+    "label": "Installer package placeholder",
+    "buildsInstaller": false
+  },
+  "windowsInstallerInstructionsPreview": {
+    "label": "Windows installer instructions preview"
+  },
+  "firstRunSetupChecklistPreview": {
+    "label": "First-run setup checklist preview",
+    "checklist": [
+      "confirm venue name preview",
+      "confirm request URL preview",
+      "confirm host display preview"
+    ]
+  },
+  "updateCheckPlaceholder": {
+    "label": "Update-check placeholder",
+    "runsUpdateCheck": false,
+    "makesNetworkRequests": false
+  }
+}
