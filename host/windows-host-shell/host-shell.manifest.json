@@ -261,6 +261,21 @@
     "themeShellFixtures": {
       "enabled": true,
       "path": "host/windows-host-shell/demo-data/theme-shell-demo-fixtures.json"
+    },
+    "hostChecksShell": {
+      "enabled": true,
+      "placeholderOnly": true,
+      "runsRealPlayback": false,
+      "controlsLiveShow": false,
+      "changesDisplayState": false,
+      "reconnectsMonitors": false,
+      "registersKeyboardHooks": false,
+      "readsMediaFiles": false,
+      "writesRuntimeState": false
+    },
+    "hostChecksFixtures": {
+      "enabled": true,
+      "path": "host/windows-host-shell/demo-data/host-checks-demo-fixtures.json"
     }
   }
 }

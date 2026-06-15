@@ -686,3 +686,18 @@ kbd {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
+
+.host-checks-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.checklist-preview {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.checklist-preview li + li {
+  margin-top: 0.35rem;
+}

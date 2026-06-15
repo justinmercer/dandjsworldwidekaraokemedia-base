@@ -372,11 +372,11 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-328` — Add external-display fallback when a monitor disconnects.
 - [x] `KARA-329` — Add playback failure isolation.
 - [x] `KARA-330` — Add demo playback fixtures only.
-- [ ] `KARA-331` — Add playback-control tests.
-- [ ] `KARA-332` — Add external-display state tests.
-- [ ] `KARA-333` — Add monitor reconnect tests.
-- [ ] `KARA-334` — Add keyboard shortcut tests.
-- [ ] `KARA-335` — Document live-show playback troubleshooting.
+- [x] `KARA-331` — Add playback-control tests.
+- [x] `KARA-332` — Add external-display state tests.
+- [x] `KARA-333` — Add monitor reconnect tests.
+- [x] `KARA-334` — Add keyboard shortcut tests.
+- [x] `KARA-335` — Document live-show playback troubleshooting.
 
 ## 09. Mobile request web app and shared tablet mode
 

@@ -154,3 +154,10 @@ This wave does not open real preview windows, open real external display windows
 Wave 6D adds venue logo overlay preview, custom background preview, camera placeholder, theme selection, private-party/wedding/bar-night theme previews, disconnected-monitor fallback preview, failure-isolation preview, and demo fixtures only.
 
 This wave does not load logo files, load background files, use cameras, change monitor state, control the live show, read media files, or write theme state.
+
+
+## Wave 6E additions
+
+Wave 6E adds preview-only host checks for playback controls, external-display state, monitor reconnects, keyboard shortcuts, and live-show troubleshooting documentation.
+
+This wave does not run real playback, change external-display state, reconnect monitors, register global keyboard hooks, read media files, control the live show, or write runtime state.
