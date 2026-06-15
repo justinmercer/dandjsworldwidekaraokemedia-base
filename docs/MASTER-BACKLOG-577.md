@@ -323,12 +323,12 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-282` — Add a show notes field.
 - [x] `KARA-283` — Add manual session snapshots.
 - [x] `KARA-284` — Add autosave after every meaningful rotation change.
-- [ ] `KARA-285` — Add recovery prompts after an unclean shutdown.
-- [ ] `KARA-286` — Add restore-session flow.
-- [ ] `KARA-287` — Add discard-stale-session flow.
-- [ ] `KARA-288` — Add rotation-rule tests.
-- [ ] `KARA-289` — Add estimated-wait tests.
-- [ ] `KARA-290` — Add crash-recovery tests.
+- [x] `KARA-285` — Add recovery prompts after an unclean shutdown.
+- [x] `KARA-286` — Add restore-session flow.
+- [x] `KARA-287` — Add discard-stale-session flow.
+- [x] `KARA-288` — Add rotation-rule tests.
+- [x] `KARA-289` — Add estimated-wait tests.
+- [x] `KARA-290` — Add crash-recovery tests.
 
 ## 08. Playback, audio, preview, and external displays
 

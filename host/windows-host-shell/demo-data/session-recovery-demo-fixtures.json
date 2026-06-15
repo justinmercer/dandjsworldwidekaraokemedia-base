@@ -1,0 +1,29 @@
+{
+  "fixturePurpose": "Unclean shutdown recovery preview tests only",
+  "writesSessionRecords": false,
+  "writesRecoveryFiles": false,
+  "restoresRealSession": false,
+  "discardsRealSession": false,
+  "recoveryPrompt": {
+    "detectedUncleanShutdown": true,
+    "lastSessionName": "Saturday Night Demo Show",
+    "lastKnownSinger": "Demo Singer",
+    "lastKnownSong": "Journey - Don’t Stop Believin",
+    "snapshotAgeMinutes": 3
+  },
+  "restoreFlowPreview": {
+    "action": "restore-session",
+    "changesLiveRotation": false,
+    "writesDatabase": false
+  },
+  "discardFlowPreview": {
+    "action": "discard-stale-session",
+    "changesLiveRotation": false,
+    "writesDatabase": false
+  },
+  "testCoveragePreview": [
+    "rotation-rule tests",
+    "estimated-wait tests",
+    "crash-recovery tests"
+  ]
+}
