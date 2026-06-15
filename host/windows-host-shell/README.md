@@ -105,3 +105,10 @@ This wave does not read Siglos files, write records, move files, or change local
 Wave 5A adds the singer profile model shell, privacy-safe optional contact preview, staff-only notes preview, favourites and history preview, remembered key-change preview, duet/group support, alias merge warning preview, and repeat singer warning preview.
 
 This wave does not write singer records, merge records, expose contact details publicly, or change rotation.
+
+
+## Wave 5B additions
+
+Wave 5B adds the show-session model shell, timestamp and venue previews, active rotation state, queued songs per singer, current/up-next state, temporary disable and skip states, priority insert, drag ordering placeholder, fair-round rules, configurable policies, estimated wait calculations, and rotation preview.
+
+This wave does not write show-session records, write rotation records, change singer state, or change live rotation order.

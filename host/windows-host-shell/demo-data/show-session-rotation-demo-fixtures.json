@@ -1,0 +1,55 @@
+{
+  "fixturePurpose": "Show session and rotation preview tests only",
+  "writesShowSessionRecords": false,
+  "writesRotationRecords": false,
+  "showSession": {
+    "id": "demo-session-tonight",
+    "venueName": "D & J's Demo Venue",
+    "startedAt": "2026-06-14T20:00:00-04:00",
+    "endedAt": null,
+    "activeRotationState": "preview-active",
+    "policies": {
+      "ordering": "fair-round",
+      "allowPriorityInsert": true,
+      "waitEstimateMode": "placeholder"
+    }
+  },
+  "rotation": [
+    {
+      "singer": "Demo Singer",
+      "queuedSongs": [
+        "Journey - Don’t Stop Believin"
+      ],
+      "state": "current singer",
+      "estimatedWaitMinutes": 0
+    },
+    {
+      "singer": "Guest Duet",
+      "queuedSongs": [
+        "Queen - Bohemian Rhapsody"
+      ],
+      "state": "up next",
+      "estimatedWaitMinutes": 5
+    },
+    {
+      "singer": "Walk-in Singer",
+      "queuedSongs": [
+        "Pending request"
+      ],
+      "state": "enabled",
+      "estimatedWaitMinutes": 11
+    },
+    {
+      "singer": "Break Slot",
+      "queuedSongs": [],
+      "state": "temporarily disabled",
+      "estimatedWaitMinutes": null
+    }
+  ],
+  "previewOnlyStates": [
+    "temporary disable",
+    "skip",
+    "priority insert",
+    "drag-and-drop ordering"
+  ]
+}

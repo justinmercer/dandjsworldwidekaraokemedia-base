@@ -131,6 +131,9 @@ $requiredFiles = @(
   'scripts/host-singer-profile-smoke-test.ps1',
   'host/windows-host-shell/demo-data/singer-profile-demo-fixtures.json',
   'docs/development/windows-host-singer-profiles.md',
+  'scripts/host-show-session-rotation-smoke-test.ps1',
+  'host/windows-host-shell/demo-data/show-session-rotation-demo-fixtures.json',
+  'docs/development/windows-host-show-session-rotation.md',
   'scripts/host-settings-migration-smoke-test.ps1',
   'scripts/host-shell-clean-shutdown-smoke-test.ps1',
   'scripts/host-shell-startup-smoke-test.ps1',
@@ -162,17 +165,17 @@ foreach ($path in $requiredFiles) {
 
 $backlogPath = Join-Path $root 'docs/MASTER-BACKLOG-577.md'
 $backlog = Get-Content -LiteralPath $backlogPath -Raw
-foreach ($taskNumber in 1..260) {
+foreach ($taskNumber in 1..275) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -notmatch "- \[x\] ``$taskId``") {
     throw "Backlog task $taskId is not marked complete."
   }
 }
 
-foreach ($taskNumber in 261..577) {
+foreach ($taskNumber in 276..577) {
   $taskId = 'KARA-{0:D3}' -f $taskNumber
   if ($backlog -match "- \[x\] ``$taskId``") {
-    throw "Backlog task $taskId should remain unchecked after Wave 5A."
+    throw "Backlog task $taskId should remain unchecked after Wave 5B."
   }
 }
 
@@ -183,4 +186,4 @@ foreach ($taskNumber in 261..577) {
 & (Join-Path $PSScriptRoot 'check-env-secrets.ps1')
 & (Join-Path $PSScriptRoot 'check-secrets.ps1')
 
-Write-Host "Wave 5A smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..260 checked, KARA-261..577 unchecked, and safety guardrails passed."
+Write-Host "Wave 5B smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..275 checked, KARA-276..577 unchecked, and safety guardrails passed."

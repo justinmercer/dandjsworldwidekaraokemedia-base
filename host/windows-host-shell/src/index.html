@@ -125,17 +125,69 @@
           </ul>
         </article>
 
-        <article class="panel" id="rotation">
+        <article class="panel rotation-session-panel" id="rotation">
           <div class="panel-header">
             <p class="eyebrow">Rotation</p>
-            <span>Placeholder</span>
+            <span>Show Session Shell</span>
           </div>
-          <h3>Singer queue</h3>
-          <ol class="rotation-list">
-            <li><span>1</span>Demo Singer — Demo Opening Song</li>
-            <li><span>2</span>Guest Singer — Waiting for request</li>
-            <li><span>3</span>Walk-in Singer — Not assigned</li>
-          </ol>
+
+          <section class="wizard-step">
+            <h3>Show session model</h3>
+            <dl id="showSessionPreview" class="sync-list" aria-label="Show session model preview">
+              <div><dt>Session</dt><dd>Demo session tonight</dd></div>
+              <div><dt>Start</dt><dd>8:00 PM placeholder</dd></div>
+              <div><dt>End</dt><dd>Not ended</dd></div>
+              <div><dt>Venue</dt><dd>D & J's Demo Venue</dd></div>
+              <div><dt>Rotation state</dt><dd>Preview active</dd></div>
+            </dl>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Current and up next</h3>
+            <dl class="sync-list" aria-label="Current singer and up-next preview">
+              <div><dt>Current singer</dt><dd>Demo Singer</dd></div>
+              <div><dt>Queued song</dt><dd>Journey — Don’t Stop Believin</dd></div>
+              <div><dt>Up next</dt><dd>Guest Duet</dd></div>
+              <div><dt>Wait estimate</dt><dd>5 minutes placeholder</dd></div>
+            </dl>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Rotation queue preview</h3>
+            <ol id="rotationPreviewList" class="rotation-list" aria-label="Rotation preview list">
+              <li><span>1</span>Demo Singer — current singer — 0 min</li>
+              <li><span>2</span>Guest Duet — up next — 5 min</li>
+              <li><span>3</span>Walk-in Singer — enabled — 11 min</li>
+              <li><span>4</span>Break Slot — temporarily disabled</li>
+            </ol>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Rotation states and ordering</h3>
+            <ul class="import-chip-list" aria-label="Rotation state preview">
+              <li>Temporary disable state</li>
+              <li>Skip state</li>
+              <li>Priority insert placeholder</li>
+              <li>Drag-and-drop ordering placeholder</li>
+              <li>Fair-round ordering rules</li>
+              <li>Configurable rotation policies</li>
+              <li>Estimated wait calculations</li>
+            </ul>
+          </section>
+
+          <section class="wizard-step">
+            <h3>Preview actions</h3>
+            <div class="state-actions">
+              <button id="rotationPreviewButton" type="button">Preview rotation calculation</button>
+              <button id="rotationPolicyButton" type="button">Preview rotation policy</button>
+            </div>
+            <p class="helper-text">Preview-only. These actions do not change the live rotation.</p>
+          </section>
+
+          <ul id="rotationAuditPreview" class="activity-log-list" aria-label="Rotation audit preview">
+            <li><strong>Session:</strong> Demo show session shell loaded.</li>
+            <li><strong>Rotation:</strong> Fair-round preview with no live change.</li>
+          </ul>
         </article>
 
         <article class="panel now-playing" id="now-playing">
@@ -444,6 +496,18 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="rotationPreviewDialog" class="shortcut-dialog" aria-labelledby="rotationPreviewDialogTitle">
+    <h2 id="rotationPreviewDialogTitle">Rotation Preview</h2>
+    <p>This preview estimates queue order and wait time only. It does not change the live rotation, singer state, or show session.</p>
+    <button id="closeRotationPreviewButton" type="button">Close rotation preview</button>
+  </dialog>
+
+  <dialog id="rotationPolicyDialog" class="shortcut-dialog" aria-labelledby="rotationPolicyDialogTitle">
+    <h2 id="rotationPolicyDialogTitle">Rotation Policy Preview</h2>
+    <p>Fair-round ordering, temporary disable, skip, priority insert, and drag ordering are placeholder rules only in Wave 5B.</p>
+    <button id="closeRotationPolicyButton" type="button">Close policy preview</button>
+  </dialog>
 
   <dialog id="singerAliasDialog" class="shortcut-dialog" aria-labelledby="singerAliasDialogTitle">
     <h2 id="singerAliasDialogTitle">Singer Alias Merge Preview</h2>
