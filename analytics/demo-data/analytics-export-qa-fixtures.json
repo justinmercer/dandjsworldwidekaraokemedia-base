@@ -1,0 +1,48 @@
+{
+  "fixturePurpose": "Analytics export and QA scenario preview shell fixtures only",
+  "exportsCsv": false,
+  "generatesAnalytics": false,
+  "startsServer": false,
+  "stopsServer": false,
+  "changesInternet": false,
+  "changesRouter": false,
+  "writesRequestDatabase": false,
+  "interruptsSync": false,
+  "calculatesRealChecksums": false,
+  "makesNetworkRequests": false,
+  "writesFiles": false,
+  "csvAnalyticsExportPreview": {
+    "label": "CSV analytics export preview",
+    "exportsCsv": false
+  },
+  "analyticsEmptyStatesPreview": {
+    "label": "Analytics empty states preview",
+    "generatesAnalytics": false
+  },
+  "analyticsTestsPreview": {
+    "label": "Analytics tests preview",
+    "startsServer": false
+  },
+  "serverUnavailableScenarioPreview": {
+    "label": "Server-unavailable test scenario preview",
+    "startsServer": false,
+    "stopsServer": false
+  },
+  "venueInternetLossScenarioPreview": {
+    "label": "Venue-internet-loss test scenario preview",
+    "changesInternet": false
+  },
+  "localRouterOnlyRequestScenarioPreview": {
+    "label": "Local-router-only request test scenario preview",
+    "changesRouter": false,
+    "writesRequestDatabase": false
+  },
+  "interruptedSyncScenarioPreview": {
+    "label": "Interrupted-sync test scenario preview",
+    "interruptsSync": false
+  },
+  "checksumMismatchScenarioPreview": {
+    "label": "Checksum-mismatch test scenario preview",
+    "calculatesRealChecksums": false
+  }
+}
