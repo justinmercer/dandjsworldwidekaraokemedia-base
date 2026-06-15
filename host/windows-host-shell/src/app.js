@@ -157,6 +157,27 @@ function showRotationPolicyPreview() {
   appendRotationAudit('Policy', 'Fair-round and priority rules previewed without changing live state.');
 }
 
+function showRotationActionPreview(actionName, message) {
+  rotationActionDialogText.textContent = message;
+  rotationActionDialog.showModal();
+  appendRotationAudit(actionName, `${message} No live state was changed.`);
+  appendActivityLog('Rotation action', `${actionName} preview opened without changing live rotation.`);
+}
+
+function showSessionSnapshotPreview() {
+  sessionSnapshotDialog.showModal();
+  appendRotationAudit('Snapshot', 'Manual session snapshot preview opened without writing files or records.');
+}
+
+function showAutosavePreview() {
+  autosavePreviewDialog.showModal();
+  appendRotationAudit('Autosave', 'Autosave trigger preview opened without persisting rotation changes.');
+}
+
+function noteShowNotesEdited() {
+  appendRotationAudit('Show notes', 'Show notes preview changed without saving records.');
+}
+
 const navItems = Array.from(document.querySelectorAll('.nav-item'));
 const shortcutHelpButton = document.querySelector('#shortcutHelpButton');
 const shortcutDialog = document.querySelector('#shortcutDialog');
@@ -218,6 +239,21 @@ const rotationPolicyDialog = document.querySelector('#rotationPolicyDialog');
 const closeRotationPreviewButton = document.querySelector('#closeRotationPreviewButton');
 const closeRotationPolicyButton = document.querySelector('#closeRotationPolicyButton');
 const rotationAuditPreview = document.querySelector('#rotationAuditPreview');
+const callSingerPreviewButton = document.querySelector('#callSingerPreviewButton');
+const singerNotReadyPreviewButton = document.querySelector('#singerNotReadyPreviewButton');
+const moveNextRoundPreviewButton = document.querySelector('#moveNextRoundPreviewButton');
+const removeTonightPreviewButton = document.querySelector('#removeTonightPreviewButton');
+const restoreSingerPreviewButton = document.querySelector('#restoreSingerPreviewButton');
+const sessionSnapshotPreviewButton = document.querySelector('#sessionSnapshotPreviewButton');
+const autosavePreviewButton = document.querySelector('#autosavePreviewButton');
+const rotationActionDialog = document.querySelector('#rotationActionDialog');
+const rotationActionDialogText = document.querySelector('#rotationActionDialogText');
+const closeRotationActionButton = document.querySelector('#closeRotationActionButton');
+const sessionSnapshotDialog = document.querySelector('#sessionSnapshotDialog');
+const closeSessionSnapshotButton = document.querySelector('#closeSessionSnapshotButton');
+const autosavePreviewDialog = document.querySelector('#autosavePreviewDialog');
+const closeAutosavePreviewButton = document.querySelector('#closeAutosavePreviewButton');
+const showNotesPreview = document.querySelector('#showNotesPreview');
 
 function applySettings(settings) {
   venueSelector.value = settings.venue;
@@ -277,6 +313,17 @@ rotationPreviewButton.addEventListener('click', () => showRotationPreview());
 rotationPolicyButton.addEventListener('click', () => showRotationPolicyPreview());
 closeRotationPreviewButton.addEventListener('click', () => rotationPreviewDialog.close());
 closeRotationPolicyButton.addEventListener('click', () => rotationPolicyDialog.close());
+callSingerPreviewButton.addEventListener('click', () => showRotationActionPreview('Call singer', 'Call singer preview displayed.'));
+singerNotReadyPreviewButton.addEventListener('click', () => showRotationActionPreview('Singer not ready', 'Singer not ready preview displayed.'));
+moveNextRoundPreviewButton.addEventListener('click', () => showRotationActionPreview('Move to next round', 'Move to next round preview displayed.'));
+removeTonightPreviewButton.addEventListener('click', () => showRotationActionPreview('Remove from tonight', 'Remove from tonight preview displayed.'));
+restoreSingerPreviewButton.addEventListener('click', () => showRotationActionPreview('Restore singer', 'Restore singer preview displayed.'));
+sessionSnapshotPreviewButton.addEventListener('click', () => showSessionSnapshotPreview());
+autosavePreviewButton.addEventListener('click', () => showAutosavePreview());
+closeRotationActionButton.addEventListener('click', () => rotationActionDialog.close());
+closeSessionSnapshotButton.addEventListener('click', () => sessionSnapshotDialog.close());
+closeAutosavePreviewButton.addEventListener('click', () => autosavePreviewDialog.close());
+showNotesPreview.addEventListener('change', () => noteShowNotesEdited());
 
 settingsForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -314,6 +361,9 @@ document.addEventListener('keydown', (event) => {
     if (repeatSingerDialog.open) repeatSingerDialog.close();
     if (rotationPreviewDialog.open) rotationPreviewDialog.close();
     if (rotationPolicyDialog.open) rotationPolicyDialog.close();
+    if (rotationActionDialog.open) rotationActionDialog.close();
+    if (sessionSnapshotDialog.open) sessionSnapshotDialog.close();
+    if (autosavePreviewDialog.open) autosavePreviewDialog.close();
     return;
   }
 
@@ -437,5 +487,19 @@ window.DJKaraokeHostShell = Object.freeze({
   rotationPreviewEnabled: true,
   showSessionWritesRecords: false,
   rotationWritesRecords: false,
-  rotationChangesLiveState: false
+  rotationChangesLiveState: false,
+  callSingerActionPreviewEnabled: true,
+  singerNotReadyActionPreviewEnabled: true,
+  moveToNextRoundActionPreviewEnabled: true,
+  removeFromTonightActionPreviewEnabled: true,
+  restoreSingerActionPreviewEnabled: true,
+  completedPerformanceRecordPreviewEnabled: true,
+  showNotesFieldPreviewEnabled: true,
+  manualSessionSnapshotPreviewEnabled: true,
+  autosaveTriggerPreviewEnabled: true,
+  rotationActionChangesLiveState: false,
+  completedPerformanceWritesRecords: false,
+  showNotesWritesRecords: false,
+  manualSessionSnapshotWritesFiles: false,
+  autosavePersistsChanges: false
 });

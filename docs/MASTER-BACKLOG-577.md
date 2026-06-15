@@ -314,15 +314,15 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-273` — Add configurable rotation policies.
 - [x] `KARA-274` — Add estimated wait calculations.
 - [x] `KARA-275` — Add a rotation preview.
-- [ ] `KARA-276` — Add a `call singer` action.
-- [ ] `KARA-277` — Add a `singer not ready` action.
-- [ ] `KARA-278` — Add a `move to next round` action.
-- [ ] `KARA-279` — Add a `remove from tonight` action.
-- [ ] `KARA-280` — Add a `restore singer` action.
-- [ ] `KARA-281` — Add a completed-performance record.
-- [ ] `KARA-282` — Add a show notes field.
-- [ ] `KARA-283` — Add manual session snapshots.
-- [ ] `KARA-284` — Add autosave after every meaningful rotation change.
+- [x] `KARA-276` — Add a `call singer` action.
+- [x] `KARA-277` — Add a `singer not ready` action.
+- [x] `KARA-278` — Add a `move to next round` action.
+- [x] `KARA-279` — Add a `remove from tonight` action.
+- [x] `KARA-280` — Add a `restore singer` action.
+- [x] `KARA-281` — Add a completed-performance record.
+- [x] `KARA-282` — Add a show notes field.
+- [x] `KARA-283` — Add manual session snapshots.
+- [x] `KARA-284` — Add autosave after every meaningful rotation change.
 - [ ] `KARA-285` — Add recovery prompts after an unclean shutdown.
 - [ ] `KARA-286` — Add restore-session flow.
 - [ ] `KARA-287` — Add discard-stale-session flow.

@@ -112,3 +112,10 @@ This wave does not write singer records, merge records, expose contact details p
 Wave 5B adds the show-session model shell, timestamp and venue previews, active rotation state, queued songs per singer, current/up-next state, temporary disable and skip states, priority insert, drag ordering placeholder, fair-round rules, configurable policies, estimated wait calculations, and rotation preview.
 
 This wave does not write show-session records, write rotation records, change singer state, or change live rotation order.
+
+
+## Wave 5C additions
+
+Wave 5C adds call singer, singer not ready, move to next round, remove from tonight, restore singer, completed performance record preview, show notes, manual session snapshot preview, and autosave trigger preview.
+
+This wave does not change live rotation, write history, write files, write session snapshots, or persist autosave.
