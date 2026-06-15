@@ -1,0 +1,58 @@
+{
+  "fixturePurpose": "Diagnostics and restore preview shell fixtures only",
+  "performsRestore": false,
+  "verifiesBackupFiles": false,
+  "collectsDiagnosticLogs": false,
+  "runsNetworkTests": false,
+  "probesStorage": false,
+  "connectsDatabase": false,
+  "writesDatabase": false,
+  "writesFiles": false,
+  "restoreConfirmationStepPreview": {
+    "label": "Restore confirmation step preview",
+    "requiresTypedConfirmation": true,
+    "performsRestore": false
+  },
+  "restoreCompatibilityChecksPreview": {
+    "label": "Restore compatibility checks preview",
+    "checksAppVersion": true,
+    "checksSchemaVersion": true,
+    "connectsDatabase": false
+  },
+  "backupVerificationChecklistPreview": {
+    "label": "Backup verification checklist preview",
+    "checklist": [
+      "backup file present preview",
+      "backup manifest present preview",
+      "backup date shown preview"
+    ],
+    "verifiesBackupFiles": false
+  },
+  "diagnosticsDashboardPreview": {
+    "label": "Diagnostics dashboard preview",
+    "statusCards": [
+      "app",
+      "storage",
+      "database",
+      "internet"
+    ],
+    "collectsDiagnosticLogs": false
+  },
+  "diagnosticsLogBundlePlaceholder": {
+    "label": "Diagnostics log bundle placeholder",
+    "collectsDiagnosticLogs": false,
+    "writesFiles": false
+  },
+  "internetConnectivityCheckPreview": {
+    "label": "Internet connectivity check preview",
+    "runsNetworkTests": false
+  },
+  "storageHealthCheckPreview": {
+    "label": "Storage health check preview",
+    "probesStorage": false
+  },
+  "databaseHealthCheckPreview": {
+    "label": "Database health check preview",
+    "connectsDatabase": false
+  }
+}
