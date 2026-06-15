@@ -557,3 +557,15 @@ kbd {
   display: grid;
   gap: 1rem;
 }
+
+
+.singer-profile-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.singer-profile-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}

@@ -1,0 +1,61 @@
+{
+  "fixturePurpose": "Singer profile model preview tests only",
+  "containsRealSingerData": false,
+  "privacyDefaults": {
+    "optionalContactFieldsHiddenByDefault": true,
+    "staffNotesVisibleToPublic": false,
+    "historyStoredLocallyOnly": true
+  },
+  "singers": [
+    {
+      "id": "demo-singer-1",
+      "displayName": "Demo Singer",
+      "optionalContact": {
+        "email": "",
+        "phone": "",
+        "visibleToStaffOnly": true
+      },
+      "staffOnlyNotes": "Demo note visible only to staff.",
+      "favourites": [
+        "Journey - Don’t Stop Believin"
+      ],
+      "songHistory": [
+        {
+          "artist": "Journey",
+          "title": "Don’t Stop Believin",
+          "keyChange": "+1",
+          "performanceType": "solo"
+        }
+      ],
+      "aliases": [
+        "Demo S."
+      ],
+      "repeatSingerWarning": false
+    },
+    {
+      "id": "demo-singer-2",
+      "displayName": "Guest Duet",
+      "optionalContact": {
+        "email": "",
+        "phone": "",
+        "visibleToStaffOnly": true
+      },
+      "staffOnlyNotes": "Prefers duet placement later in rotation.",
+      "favourites": [
+        "Queen - Bohemian Rhapsody"
+      ],
+      "songHistory": [
+        {
+          "artist": "Queen",
+          "title": "Bohemian Rhapsody",
+          "keyChange": "0",
+          "performanceType": "duet"
+        }
+      ],
+      "aliases": [
+        "Guest Group"
+      ],
+      "repeatSingerWarning": true
+    }
+  ]
+}

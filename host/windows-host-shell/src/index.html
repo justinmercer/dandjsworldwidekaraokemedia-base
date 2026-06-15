@@ -18,6 +18,7 @@
       <nav class="nav-list" aria-label="Primary">
         <a class="nav-item active" href="#dashboard">Show Dashboard</a>
         <a class="nav-item" href="#rotation">Rotation</a>
+        <a class="nav-item" href="#singer-profiles">Singer Profiles</a>
         <a class="nav-item" href="#requests">Requests</a>
         <a class="nav-item" href="#songs">Song Search</a>
         <a class="nav-item" href="#catalog-import">Catalog Import</a>
@@ -74,6 +75,56 @@
       </section>
 
       <section class="dashboard-grid" aria-label="Show dashboard panels">
+        <article class="panel singer-profile-panel" id="singer-profiles">
+          <div class="panel-header">
+            <p class="eyebrow">Singer Profiles</p>
+            <span>Model Shell</span>
+          </div>
+
+          <div class="singer-profile-grid" aria-label="Singer profile model preview">
+            <section class="wizard-step">
+              <h3>Profile model</h3>
+              <dl class="sync-list">
+                <div><dt>Display name</dt><dd>Demo Singer</dd></div>
+                <div><dt>Optional contact</dt><dd>Hidden by default</dd></div>
+                <div><dt>Staff notes</dt><dd>Staff-only preview</dd></div>
+                <div><dt>Privacy</dt><dd>No public contact exposure</dd></div>
+              </dl>
+            </section>
+
+            <section class="wizard-step">
+              <h3>Favourites and history</h3>
+              <ul class="activity-log-list">
+                <li><strong>Favourite:</strong> Journey — Don’t Stop Believin</li>
+                <li><strong>History:</strong> Queen — Bohemian Rhapsody</li>
+                <li><strong>Remembered key:</strong> +1 for Demo Singer</li>
+              </ul>
+            </section>
+
+            <section class="wizard-step">
+              <h3>Duet and group support</h3>
+              <p class="helper-text">Duet and group performance tags are visible as safe local placeholders.</p>
+              <ul class="import-chip-list">
+                <li>Solo</li>
+                <li>Duet</li>
+                <li>Group</li>
+              </ul>
+            </section>
+
+            <section class="wizard-step">
+              <h3>Aliases and repeat warnings</h3>
+              <p class="helper-text">Alias merge and repeat singer detection are preview-only.</p>
+              <button id="aliasMergePreviewButton" type="button">Preview alias merge warning</button>
+              <button id="repeatSingerPreviewButton" type="button">Preview repeat singer warning</button>
+            </section>
+          </div>
+
+          <ul id="singerProfileAuditPreview" class="activity-log-list" aria-label="Singer profile audit preview">
+            <li><strong>Profile:</strong> Demo singer model loaded with privacy-safe defaults.</li>
+            <li><strong>Privacy:</strong> Optional contact fields hidden by default.</li>
+          </ul>
+        </article>
+
         <article class="panel" id="rotation">
           <div class="panel-header">
             <p class="eyebrow">Rotation</p>
@@ -393,6 +444,18 @@
   </main>
 
   <section id="toastRegion" class="toast-region" aria-label="Host notifications" aria-live="polite"></section>
+
+  <dialog id="singerAliasDialog" class="shortcut-dialog" aria-labelledby="singerAliasDialogTitle">
+    <h2 id="singerAliasDialogTitle">Singer Alias Merge Preview</h2>
+    <p>This alias merge warning is a placeholder only. No singer records are merged and no contact details are exposed.</p>
+    <button id="closeSingerAliasButton" type="button">Close alias preview</button>
+  </dialog>
+
+  <dialog id="repeatSingerDialog" class="shortcut-dialog" aria-labelledby="repeatSingerDialogTitle">
+    <h2 id="repeatSingerDialogTitle">Repeat Singer Warning Preview</h2>
+    <p>This repeat warning is a local UI preview only. It does not change rotation or singer history.</p>
+    <button id="closeRepeatSingerButton" type="button">Close repeat warning</button>
+  </dialog>
 
   <dialog id="siglosMigrationDialog" class="shortcut-dialog" aria-labelledby="siglosMigrationDialogTitle">
     <h2 id="siglosMigrationDialogTitle">Siglos Migration Preview</h2>
