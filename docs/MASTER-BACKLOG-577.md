@@ -633,13 +633,13 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 - [x] `KARA-568` — Create first-pilot feedback form.
 - [x] `KARA-569` — Create bug-triage workflow.
 - [x] `KARA-570` — Create release-blocker criteria.
-- [ ] `KARA-571` — Create Phase 2 backlog document.
-- [ ] `KARA-572` — Create future licensing model placeholder.
-- [ ] `KARA-573` — Create future multi-tenant architecture notes.
-- [ ] `KARA-574` — Create future branded-reseller notes.
-- [ ] `KARA-575` — Create future cloud-hosting cost notes.
-- [ ] `KARA-576` — Create future mobile-app decision record.
-- [ ] `KARA-577` — Create future face-matching privacy and consent research note.
+- [x] `KARA-571` — Create Phase 2 backlog document.
+- [x] `KARA-572` — Create future licensing model placeholder.
+- [x] `KARA-573` — Create future multi-tenant architecture notes.
+- [x] `KARA-574` — Create future branded-reseller notes.
+- [x] `KARA-575` — Create future cloud-hosting cost notes.
+- [x] `KARA-576` — Create future mobile-app decision record.
+- [x] `KARA-577` — Create future face-matching privacy and consent research note.
 
 ## Totals
 
