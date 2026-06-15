@@ -1,0 +1,9 @@
+{
+  "name": "@dandjs/request-web-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "D & J’s Karaoke request web app shell",
+  "scripts": {
+    "smoke": "powershell -NoProfile -ExecutionPolicy Bypass -File ../../scripts/request-web-shell-smoke-test.ps1"
+  }
+}

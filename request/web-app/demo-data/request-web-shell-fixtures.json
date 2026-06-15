@@ -1,0 +1,29 @@
+{
+  "fixturePurpose": "Request web app shell fixtures only",
+  "submitsRequests": false,
+  "callsServerApis": false,
+  "readsSingerRecords": false,
+  "writesSingerRecords": false,
+  "searchesRealCatalog": false,
+  "storesPersonalData": false,
+  "moderatesRequests": false,
+  "enablesPwaInstall": false,
+  "routes": [
+    "/r/:venueCode",
+    "/tablet/:venueCode"
+  ],
+  "branding": {
+    "defaultBrand": "D & J’s Karaoke",
+    "venueOverridePreview": "Friday Night Karaoke"
+  },
+  "singerEntryPreview": {
+    "guestNamePlaceholder": "Your stage name",
+    "returningSingerLookupLabel": "Returning singer lookup preview",
+    "privacySafeMatchLabel": "Privacy-safe match preview"
+  },
+  "searchPreview": {
+    "debounceMs": 300,
+    "emptyState": "Start typing a song or artist",
+    "resultsAreFixturesOnly": true
+  }
+}
