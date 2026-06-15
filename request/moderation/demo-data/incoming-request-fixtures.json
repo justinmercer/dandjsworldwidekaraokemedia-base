@@ -1,0 +1,53 @@
+{
+  "fixturePurpose": "Incoming request moderation shell fixtures only",
+  "writesQueueRecords": false,
+  "writesSingerRecords": false,
+  "approvesRealRequests": false,
+  "editsRealRequests": false,
+  "rejectsRealRequests": false,
+  "addsAllToQueue": false,
+  "callsServerApis": false,
+  "storesPersonalData": false,
+  "incomingRequestModel": {
+    "requestId": "fixture-request-001",
+    "singerDisplayName": "Fixture Singer",
+    "title": "Fixture Song",
+    "artist": "Fixture Artist",
+    "status": "Pending preview",
+    "duplicateRisk": "Possible duplicate preview",
+    "requestLimitState": "Within preview limit",
+    "singerMatchSuggestion": "Possible existing singer preview"
+  },
+  "hostIncomingRequestList": [
+    {
+      "requestId": "fixture-request-001",
+      "singerDisplayName": "Fixture Singer",
+      "title": "Fixture Song",
+      "artist": "Fixture Artist",
+      "status": "Pending preview"
+    },
+    {
+      "requestId": "fixture-request-002",
+      "singerDisplayName": "Demo Guest",
+      "title": "Another Fixture Song",
+      "artist": "Demo Artist",
+      "status": "Needs review preview"
+    }
+  ],
+  "previewActions": {
+    "approve": "Approve preview only",
+    "edit": "Edit preview only",
+    "reject": "Reject preview only",
+    "addAll": "Add all preview only"
+  },
+  "requestLimitPreview": {
+    "perSingerLimit": 2,
+    "venueDefaultLimit": 2,
+    "hostOverrideAvailable": true,
+    "hostOverrideWritesData": false
+  },
+  "duplicateDetectionPreview": {
+    "detectsDuplicate": true,
+    "reason": "Same singer and song title preview"
+  }
+}

@@ -429,16 +429,16 @@ This backlog breaks the full product into implementation-sized tasks for Codex. 
 
 ## 10. Request moderation, missing songs, and safe YouTube previews
 
-- [ ] `KARA-382` — Create incoming-request models.
-- [ ] `KARA-383` — Add host-side incoming-request list.
-- [ ] `KARA-384` — Add approve action.
-- [ ] `KARA-385` — Add edit action.
-- [ ] `KARA-386` — Add reject action.
-- [ ] `KARA-387` — Add add-all action.
-- [ ] `KARA-388` — Add singer-match suggestions.
-- [ ] `KARA-389` — Add duplicate-request detection.
-- [ ] `KARA-390` — Add per-singer request limits.
-- [ ] `KARA-391` — Add host override for request limits.
+- [x] `KARA-382` — Create incoming-request models.
+- [x] `KARA-383` — Add host-side incoming-request list.
+- [x] `KARA-384` — Add approve action.
+- [x] `KARA-385` — Add edit action.
+- [x] `KARA-386` — Add reject action.
+- [x] `KARA-387` — Add add-all action.
+- [x] `KARA-388` — Add singer-match suggestions.
+- [x] `KARA-389` — Add duplicate-request detection.
+- [x] `KARA-390` — Add per-singer request limits.
+- [x] `KARA-391` — Add host override for request limits.
 - [ ] `KARA-392` — Add venue default request limits.
 - [ ] `KARA-393` — Add request-status updates back to guests.
 - [ ] `KARA-394` — Add request audit history.
