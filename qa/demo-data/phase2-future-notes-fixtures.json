@@ -1,0 +1,44 @@
+{
+  "fixturePurpose": "Phase 2 and future notes shell fixtures only",
+  "makesLicensingDecision": false,
+  "makesPricingCommitment": false,
+  "provisionsCloud": false,
+  "buildsMobileApp": false,
+  "implementsFaceRecognition": false,
+  "processesBiometrics": false,
+  "changesMultiTenantRuntime": false,
+  "automatesBrandedReseller": false,
+  "makesNetworkRequests": false,
+  "readsDatabase": false,
+  "writesDatabase": false,
+  "writesRuntimeFiles": false,
+  "phase2BacklogDocument": {
+    "label": "Phase 2 backlog document"
+  },
+  "futureLicensingModelPlaceholder": {
+    "label": "Future licensing model placeholder",
+    "makesLicensingDecision": false
+  },
+  "futureMultiTenantArchitectureNotes": {
+    "label": "Future multi-tenant architecture notes",
+    "changesMultiTenantRuntime": false
+  },
+  "futureBrandedResellerNotes": {
+    "label": "Future branded-reseller notes",
+    "automatesBrandedReseller": false
+  },
+  "futureCloudHostingCostNotes": {
+    "label": "Future cloud-hosting cost notes",
+    "provisionsCloud": false,
+    "makesPricingCommitment": false
+  },
+  "futureMobileAppDecisionRecord": {
+    "label": "Future mobile-app decision record",
+    "buildsMobileApp": false
+  },
+  "futureFaceMatchingPrivacyConsentResearchNote": {
+    "label": "Future face-matching privacy and consent research note",
+    "implementsFaceRecognition": false,
+    "processesBiometrics": false
+  }
+}
