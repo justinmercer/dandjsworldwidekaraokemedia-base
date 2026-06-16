@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/replay-clip-plan.schema.json",
+  "title": "Replay Clip Plan",
+  "description": "Manual replay clip planning record created after replay media intake and before any media splitting, title overlay rendering, tagging, upload, or publishing work begins.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": { "const": "v1" },
+    "kind": { "const": "replay-clip-plan" },
+    "clipPlanId": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "sourceIntakeId": { "type": "string", "minLength": 1 },
+    "show": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eventDate": { "type": "string", "minLength": 1 },
+        "venueName": { "type": "string", "minLength": 1 },
+        "hostName": { "type": "string", "minLength": 1 },
+        "showSessionId": { "type": "string", "minLength": 1 }
+      },
+      "required": ["eventDate", "venueName", "hostName", "showSessionId"]
+    },
+    "clips": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/manualClipCandidate" }
+    },
+    "planStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clipRangesReviewed": { "type": "string", "minLength": 1 },
+        "singerNamesReviewed": { "type": "string", "minLength": 1 },
+        "songTitlesReviewed": { "type": "string", "minLength": 1 },
+        "overlayTitlesReviewed": { "type": "string", "minLength": 1 },
+        "privacyReviewed": { "type": "string", "minLength": 1 },
+        "publishApproval": { "type": "string", "minLength": 1 }
+      },
+      "required": ["clipRangesReviewed", "singerNamesReviewed", "songTitlesReviewed", "overlayTitlesReviewed", "privacyReviewed", "publishApproval"]
+    },
+    "processingBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manualPlanOnly": { "const": true },
+        "mediaOpened": { "const": false },
+        "metadataRead": { "const": false },
+        "mediaSplitOrTranscoded": { "const": false },
+        "overlayRendered": { "const": false },
+        "uploadedOrPublished": { "const": false },
+        "songRecognitionPerformed": { "const": false },
+        "personRecognitionPerformed": { "const": false },
+        "singerProfilesReadOrWritten": { "const": false }
+      },
+      "required": ["manualPlanOnly", "mediaOpened", "metadataRead", "mediaSplitOrTranscoded", "overlayRendered", "uploadedOrPublished", "songRecognitionPerformed", "personRecognitionPerformed", "singerProfilesReadOrWritten"]
+    }
+  },
+  "required": ["contractVersion", "kind", "clipPlanId", "createdAt", "sourceIntakeId", "show", "clips", "planStatus", "processingBoundary"],
+  "$defs": {
+    "manualClipCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clipNumber": { "type": "integer", "minimum": 1 },
+        "clipId": { "type": "string", "minLength": 1 },
+        "approxStart": { "type": "string", "minLength": 1 },
+        "approxEnd": { "type": "string", "minLength": 1 },
+        "singerDisplayName": { "type": "string", "minLength": 1 },
+        "songTitle": { "type": "string", "minLength": 1 },
+        "artistName": { "type": "string", "minLength": 1 },
+        "overlayTitle": { "type": "string", "minLength": 1 },
+        "privacyStatus": { "type": "string", "minLength": 1 },
+        "publishDecision": { "type": "string", "minLength": 1 },
+        "operatorNotes": { "type": "string" }
+      },
+      "required": ["clipNumber", "clipId", "approxStart", "approxEnd", "singerDisplayName", "songTitle", "artistName", "overlayTitle", "privacyStatus", "publishDecision", "operatorNotes"]
+    }
+  }
+}
