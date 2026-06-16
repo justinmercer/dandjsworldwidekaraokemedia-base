@@ -181,6 +181,8 @@ $requiredFiles = @(
   'scripts/generate-pilot-feedback-summary.ps1',
   'scripts/generate-pilot-packet-smoke-test.ps1',
   'scripts/generate-pilot-packet.ps1',
+  'scripts/generate-show-archive-manifest-smoke-test.ps1',
+  'scripts/generate-show-archive-manifest.ps1',
   'scripts/hq-api-load-test-preview.ps1',
   'scripts/request-web-load-test-preview.ps1',
   'host/windows-host-shell/demo-data/output-controls-demo-fixtures.json',
@@ -281,6 +283,7 @@ $requiredFiles = @(
   'docs/development/runtime-readiness-report-generator.md',
   'docs/development/runtime-pilot-feedback-summary-generator.md',
   'docs/development/runtime-pilot-packet-generator.md',
+  'docs/development/runtime-show-archive-manifest-generator.md',
   'docs/operations/pilot-show-go-no-go-checklist.md',
   'docs/operations/pre-show-checklist.md',
   'docs/operations/post-show-checklist.md',
@@ -339,4 +342,5 @@ foreach ($taskNumber in 1..577) {
 }
 
 Write-Host "Final backlog smoke checks passed: $($requiredFiles.Count) required files present, KARA-001..577 checked, and safety guardrails passed."
+
 
