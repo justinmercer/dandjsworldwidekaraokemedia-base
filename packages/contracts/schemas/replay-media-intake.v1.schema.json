@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dandjs.example/foundation/v1/replay-media-intake.schema.json",
+  "title": "Replay Media Intake",
+  "description": "Manual intake record for full-show recordings before any replay clipping, tagging, upload, or publishing work begins.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": {
+      "const": "v1"
+    },
+    "kind": {
+      "const": "replay-media-intake"
+    },
+    "intakeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "show": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eventDate": { "type": "string", "minLength": 1 },
+        "venueName": { "type": "string", "minLength": 1 },
+        "hostName": { "type": "string", "minLength": 1 },
+        "showSessionId": { "type": "string", "minLength": 1 }
+      },
+      "required": ["eventDate", "venueName", "hostName", "showSessionId"]
+    },
+    "recordings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "main": { "$ref": "#/$defs/manualRecordingReference" },
+        "backup": { "$ref": "#/$defs/manualRecordingReference" }
+      },
+      "required": ["main", "backup"]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "archiveManifestStatus": { "type": "string", "minLength": 1 },
+        "clipPlanningStatus": { "type": "string", "minLength": 1 },
+        "singerSongReviewStatus": { "type": "string", "minLength": 1 },
+        "overlayTitleReviewStatus": { "type": "string", "minLength": 1 },
+        "privacyReviewStatus": { "type": "string", "minLength": 1 },
+        "publishApprovalStatus": { "type": "string", "minLength": 1 }
+      },
+      "required": [
+        "archiveManifestStatus",
+        "clipPlanningStatus",
+        "singerSongReviewStatus",
+        "overlayTitleReviewStatus",
+        "privacyReviewStatus",
+        "publishApprovalStatus"
+      ]
+    },
+    "operatorNotes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "processingBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pathsRecordedAsTextOnly": { "type": "boolean" },
+        "mediaExistenceChecked": { "const": false },
+        "mediaOpened": { "const": false },
+        "metadataRead": { "const": false },
+        "mediaMovedCopiedRenamedOrDeleted": { "const": false },
+        "mediaSplitOrTranscoded": { "const": false },
+        "uploadedOrPublished": { "const": false },
+        "songRecognitionPerformed": { "const": false },
+        "faceRecognitionOrBiometricProcessingPerformed": { "const": false },
+        "singerProfilesReadOrWritten": { "const": false }
+      },
+      "required": [
+        "pathsRecordedAsTextOnly",
+        "mediaExistenceChecked",
+        "mediaOpened",
+        "metadataRead",
+        "mediaMovedCopiedRenamedOrDeleted",
+        "mediaSplitOrTranscoded",
+        "uploadedOrPublished",
+        "songRecognitionPerformed",
+        "faceRecognitionOrBiometricProcessingPerformed",
+        "singerProfilesReadOrWritten"
+      ]
+    }
+  },
+  "required": ["contractVersion", "kind", "intakeId", "createdAt", "show", "recordings", "review", "operatorNotes", "processingBoundary"],
+  "$defs": {
+    "manualRecordingReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "operatorEnteredPath": { "type": "string", "minLength": 1 },
+        "operatorProvided": { "type": "boolean" },
+        "existenceChecked": { "const": false },
+        "mediaOpened": { "const": false },
+        "metadataRead": { "const": false }
+      },
+      "required": ["label", "operatorEnteredPath", "operatorProvided", "existenceChecked", "mediaOpened", "metadataRead"]
+    }
+  }
+}
